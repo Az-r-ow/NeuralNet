@@ -1,25 +1,30 @@
 #pragma once
 
-#include <vector>
 #include <cstdlib>
 #include <string>
-#include <Neuron.hpp>
+#include <Eigen/Core>
+#include "Functions.hpp"
 
+using Eigen::MatrixXd;
 using std::string;
+
+enum Activation
+{
+    RELU,
+    SIGMOID
+};
 
 class Layer
 {
 public:
-    Layer(int nNeurons, double bias);
+    Layer(int nNeurons, Activation activation = RELU, int bias = 0);
+    void initWeights(int numRows);
     int getNumNeurons() const;
-
-    /**
-     * Check comment in Neuron.cpp about the delete function
-     */
+    void printWeights();
     ~Layer();
 
 private:
-    std::vector<double> biases;
-    std::vector<double> weights;
-    std::vector<Neuron> neurons;
+    int numNeurons;
+    int bias;
+    MatrixXd weights;
 };
