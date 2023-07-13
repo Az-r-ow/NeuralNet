@@ -1,0 +1,4 @@
+- [ ] Update the scripts
+- [ ] Implement feed forward
+- [ ] Implement activation functions
+- [ ] Implement weight init functions
