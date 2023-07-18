@@ -6,4 +6,4 @@
 /**
  * Rand double generator that uses the Mersenne Twister algo
  */
-double mt_rand(double min, double max);
+double mtRand(double min, double max);

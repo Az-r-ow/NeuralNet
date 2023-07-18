@@ -1,1 +1,1 @@
-./build/neurons
+./build/main
