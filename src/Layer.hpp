@@ -6,23 +6,10 @@
 #include <string>
 #include <Eigen/Core>
 #include "Functions.hpp"
+#include "utils/Enums.hpp"
 
 using Eigen::MatrixXd;
 using std::string;
-
-enum Activation
-{
-    RELU,
-    SIGMOID
-};
-
-enum WeightInit
-{
-    RANDOM,
-    GLOROT,
-    HE,
-    LACUN
-};
 
 class Layer
 {
