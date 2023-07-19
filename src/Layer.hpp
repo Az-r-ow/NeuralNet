@@ -16,6 +16,7 @@ class Layer
 public:
     Layer(int nNeurons, Activation activation = RELU, WeightInit weightInit = RANDOM, int bias = 0);
     void initWeights(int numRows);
+    void setActivation(Activation activation);
     int getNumNeurons() const;
     void printWeights();
     ~Layer();
@@ -25,6 +26,7 @@ private:
     int bias;
     WeightInit weightInit;
     MatrixXd weights;
+    double (*activate)(double);
 
     /* Weight init */
     static void randomWeightInit(MatrixXd *weightsMatrix, double min = -1.0, double max = 1.0);

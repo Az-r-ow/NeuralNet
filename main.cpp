@@ -13,5 +13,7 @@ int main(int argc, char *argv[])
 
    test.printWeights();
 
+   std::cout << test.activate(-3) << std::endl;
+
    return 0;
 }

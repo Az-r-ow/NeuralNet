@@ -9,6 +9,8 @@
  */
 double mtRand(double min, double max);
 
+/* Activation Functions */
+
 double relu(double x);
 
 double sigmoid(double x);

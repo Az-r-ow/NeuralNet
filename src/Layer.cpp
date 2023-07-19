@@ -5,6 +5,7 @@ Layer::Layer(int nNeurons, Activation activation, WeightInit weightInit, int bia
     this->numNeurons = nNeurons;
     this->bias = bias;
     this->weightInit = weightInit;
+    this->setActivation(activation);
 }
 
 void Layer::initWeights(int numRows)
@@ -34,6 +35,21 @@ void Layer::initWeights(int numRows)
 
     // Init the weights
     this->weightInit == RANDOM ? randomWeightInit(&(this->weights)) : randomDistWeightInit(&(this->weights), mean, stddev);
+}
+
+void Layer::setActivation(Activation activation)
+{
+    switch (activation)
+    {
+    case RELU:
+        this->activate = relu;
+        break;
+    case SIGMOID:
+        this->activate = sigmoid;
+        break;
+    }
+
+    return;
 }
 
 int Layer::getNumNeurons() const
