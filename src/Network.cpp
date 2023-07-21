@@ -23,4 +23,19 @@ Layer Network::getLayer(int index)
     return this->layers.at(index);
 }
 
-Network::~Network() {}
+void Network::train(vector<vector<double>> inputs, vector<double> labels)
+{
+    for (vector<double> input : inputs)
+    {
+        // forwardProp(input);
+    }
+}
+
+void Network::forwardProp(vector<double> input)
+{
+    this->layers.front().setOutputs(input);
+}
+
+Network::~Network()
+{
+}

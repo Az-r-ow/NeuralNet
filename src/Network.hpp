@@ -5,6 +5,7 @@
 #include "Layer.hpp"
 
 using std::vector;
+
 class Network
 {
 public:
@@ -12,7 +13,7 @@ public:
     void addLayer(Layer layer);
     Layer getLayer(int index);
     int getNumLayer() const;
-    void fit(vector<double> inputs, vector<double> labels);
+    void train(vector<vector<double>> inputs, vector<double> labels);
     void predict(vector<double> outputs);
 
     /**
@@ -21,11 +22,10 @@ public:
     ~Network();
 
 private:
-    std::vector<Layer> layers;
+    vector<Layer> layers;
     double learningRate;
     int neuronPerLayer;
 
     /* Private Methods */
-    void forwardPropagate(string forwardFunctionName);
-    void backPropagate(string lossFunctionName);
+    void forwardProp(vector<double> inputs);
 };

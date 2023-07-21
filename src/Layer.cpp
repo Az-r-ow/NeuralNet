@@ -2,7 +2,8 @@
 
 Layer::Layer(int nNeurons, Activation activation, WeightInit weightInit, int bias)
 {
-    this->numNeurons = nNeurons;
+    VectorXd outputs(nNeurons);
+    this->outputs = outputs;
     this->bias = bias;
     this->weightInit = weightInit;
     this->setActivation(activation);
@@ -11,7 +12,7 @@ Layer::Layer(int nNeurons, Activation activation, WeightInit weightInit, int bia
 void Layer::initWeights(int numRows)
 {
     double mean = 0.0, stddev = 0.0;
-    MatrixXd weights(numRows, this->numNeurons);
+    MatrixXd weights(numRows, this->getNumNeurons());
     this->weights = weights;
 
     // calculate mean and stddev based on init algo
@@ -19,7 +20,7 @@ void Layer::initWeights(int numRows)
     {
     case GLOROT:
         // sqrt(fan_avg)
-        stddev = sqrt(static_cast<double>((numRows + this->numNeurons) / 2));
+        stddev = sqrt(static_cast<double>((numRows + this->getNumNeurons()) / 2));
         break;
     case HE:
         // sqrt(2/fan_in)
@@ -52,9 +53,14 @@ void Layer::setActivation(Activation activation)
     return;
 }
 
+void Layer::printOutputs()
+{
+    std::cout << this->outputs << std::endl;
+}
+
 int Layer::getNumNeurons() const
 {
-    return this->numNeurons;
+    return this->outputs.rows();
 }
 
 void Layer::printWeights()

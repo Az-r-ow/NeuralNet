@@ -1,2 +1,2 @@
-- [ ] Implement activation functions
 - [ ] Implement feed forward
+  - [ ] Implement computing the outputs of the hidden layers

@@ -12,8 +12,9 @@ int main(int argc, char *argv[])
    Layer test = network.getLayer(1);
 
    test.printWeights();
+   test.printOutputs();
 
-   std::cout << test.activate(-3) << std::endl;
+   std::cout << "Number of neurons : " << test.getNumNeurons() << std::endl;
 
    return 0;
 }
