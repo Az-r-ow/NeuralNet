@@ -9,10 +9,10 @@ Layer::Layer(int nNeurons, Activation activation, WeightInit weightInit, int bia
     this->setActivation(activation);
 }
 
-void Layer::initWeights(int numRows)
+void Layer::initWeights(int numCols)
 {
     double mean = 0.0, stddev = 0.0;
-    MatrixXd weights(numRows, this->getNumNeurons());
+    MatrixXd weights(this->getNumNeurons(), numCols);
     this->weights = weights;
 
     // calculate mean and stddev based on init algo
@@ -20,15 +20,15 @@ void Layer::initWeights(int numRows)
     {
     case GLOROT:
         // sqrt(fan_avg)
-        stddev = sqrt(static_cast<double>((numRows + this->getNumNeurons()) / 2));
+        stddev = sqrt(static_cast<double>((numCols + this->getNumNeurons()) / 2));
         break;
     case HE:
         // sqrt(2/fan_in)
-        stddev = sqrt(static_cast<double>(2 / numRows));
+        stddev = sqrt(static_cast<double>(2 / numCols));
         break;
     case LACUN:
         // sqrt(1/fan_in)
-        stddev = sqrt(static_cast<double>(1 / numRows));
+        stddev = sqrt(static_cast<double>(1 / numCols));
         break;
     default:
         break;
@@ -53,6 +53,20 @@ void Layer::setActivation(Activation activation)
     return;
 }
 
+void Layer::feedInputs(vector<double> inputs)
+{
+    assert(inputs.size() == this->getNumNeurons());
+    this->feedInputs(Matrix1d::Map(&inputs[0], 1, inputs.size()));
+    return;
+}
+
+void Layer::feedInputs(Matrix1d inputs)
+{
+    assert(inputs.cols() == this->getNumNeurons());
+    this->computeOutputs(inputs);
+    return;
+}
+
 void Layer::printOutputs()
 {
     std::cout << this->outputs << std::endl;
@@ -60,12 +74,35 @@ void Layer::printOutputs()
 
 int Layer::getNumNeurons() const
 {
-    return this->outputs.rows();
+    return this->outputs.cols();
 }
 
 void Layer::printWeights()
 {
     std::cout << this->weights << std::endl;
+    return;
+}
+
+/**
+ * PRIVATE METHODS
+ */
+
+void Layer::computeOutputs(Matrix1d inputs)
+{
+    // Weighted sum
+    Matrix1d wSum = inputs * this->weights;
+
+    // Activate wSums
+    for (int i = 0; i < wSum.cols(); i++)
+        wSum[i] = this->activate(wSum[i]);
+
+    this->setOutputs(Matrix1d::Map(&wSum[0], 1, wSum.cols()));
+    return;
+}
+
+void Layer::setOutputs(Matrix1d outputs)
+{
+    this->outputs = outputs;
     return;
 }
 

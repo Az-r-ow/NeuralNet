@@ -33,7 +33,7 @@ void Network::train(vector<vector<double>> inputs, vector<double> labels)
 
 void Network::forwardProp(vector<double> input)
 {
-    this->layers.front().setOutputs(input);
+    this->layers.front().feedInputs(input);
 }
 
 Network::~Network()

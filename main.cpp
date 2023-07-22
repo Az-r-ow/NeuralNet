@@ -10,7 +10,9 @@ int main(int argc, char *argv[])
    network.addLayer(layer2);
 
    Layer test = network.getLayer(1);
+   vector<double> inputs = {2, 3, 4, 2};
 
+   test.feedInputs(inputs);
    test.printWeights();
    test.printOutputs();
 

@@ -15,10 +15,6 @@ public:
     int getNumLayer() const;
     void train(vector<vector<double>> inputs, vector<double> labels);
     void predict(vector<double> outputs);
-
-    /**
-     * Check comment in Neuron.cpp about the delete function
-     */
     ~Network();
 
 private:
