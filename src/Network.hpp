@@ -24,4 +24,5 @@ private:
 
     /* Private Methods */
     void forwardProp(vector<double> inputs);
+    void backProp();
 };

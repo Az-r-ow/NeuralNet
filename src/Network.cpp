@@ -27,13 +27,35 @@ void Network::train(vector<vector<double>> inputs, vector<double> labels)
 {
     for (vector<double> input : inputs)
     {
-        // forwardProp(input);
+        forwardProp(input);
     }
 }
 
-void Network::forwardProp(vector<double> input)
+void Network::forwardProp(vector<double> inputs)
 {
-    this->layers.front().feedInputs(input);
+
+    bool first = true;
+
+    Layer firstLayer = this->layers.front();
+
+    // Passing the inputs to the first layer
+    firstLayer.initWeights(inputs.size());
+    firstLayer.feedInputs(inputs);
+    Matrix1d prevLayerOutputs = firstLayer.getOutputs();
+
+    // Feeding the rest of the layers with the results of (L - 1)
+    for (Layer &layer : this->layers)
+    {
+        // Skipping the first layer since already fed
+        if (first)
+        {
+            first = false;
+            continue;
+        }
+
+        layer.feedInputs(prevLayerOutputs);
+        prevLayerOutputs = layer.getOutputs();
+    }
 }
 
 Network::~Network()

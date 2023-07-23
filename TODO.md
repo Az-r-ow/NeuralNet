@@ -1,2 +1,5 @@
-- [ ] Implement feed forward
-  - [ ] Implement computing the outputs of the hidden layers
+- [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
+- [ ] Implement the backpropagate algo
+- [ ] Implement the loss function
+- [ ] Implement the ability of having multiple variable inputs
+- [ ] Implement mini-batch

@@ -24,6 +24,7 @@ public:
     void feedInputs(vector<double> inputs);
     void feedInputs(Matrix1d inputs);
     int getNumNeurons() const;
+    Matrix1d getOutputs() const;
     void printWeights();
     void printOutputs();
     ~Layer();

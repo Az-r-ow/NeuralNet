@@ -8,15 +8,25 @@ int main(int argc, char *argv[])
 
    network.addLayer(layer);
    network.addLayer(layer2);
+   network.addLayer(Layer(5, RELU, GLOROT));
 
    Layer test = network.getLayer(1);
-   vector<double> inputs = {2, 3, 4, 2};
+   Layer test2 = network.getLayer(2);
 
-   test.feedInputs(inputs);
-   test.printWeights();
+   vector<vector<double>> inputs = {{2, 3, 4}};
+   vector<double> labels = {2, 2, 3};
+
+   network.train(inputs, labels);
+
+   std::cout << "Layer 1 : \n"
+             << std::endl;
    test.printOutputs();
 
-   std::cout << "Number of neurons : " << test.getNumNeurons() << std::endl;
+   std::cout << test.getOutputs() << std::endl;
+
+   std::cout << "Layer 2 : \n"
+             << std::endl;
+   test2.printOutputs();
 
    return 0;
 }
