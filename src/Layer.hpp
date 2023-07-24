@@ -30,7 +30,7 @@ public:
     ~Layer();
 
 private:
-    int bias;
+    Matrix1d biases;
     WeightInit weightInit;
     Matrix1d outputs;
     MatrixXd weights;

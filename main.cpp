@@ -18,15 +18,13 @@ int main(int argc, char *argv[])
 
    network.train(inputs, labels);
 
-   std::cout << "Layer 1 : \n"
+   std::cout << "Layer 1 : "
              << std::endl;
-   test.printOutputs();
+   test.printWeights();
 
-   std::cout << test.getOutputs() << std::endl;
-
-   std::cout << "Layer 2 : \n"
+   std::cout << "Layer 2 : "
              << std::endl;
-   test2.printOutputs();
+   test2.printWeights();
 
    return 0;
 }

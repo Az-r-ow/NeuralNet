@@ -4,7 +4,7 @@ Layer::Layer(int nNeurons, Activation activation, WeightInit weightInit, int bia
 {
     VectorXd outputs(nNeurons);
     this->outputs = outputs;
-    this->bias = bias;
+    this->biases = Matrix1d::Constant(1, nNeurons, bias);
     this->weightInit = weightInit;
     this->setActivation(activation);
 }
@@ -97,6 +97,7 @@ void Layer::computeOutputs(Matrix1d inputs)
 {
     // Weighted sum
     Matrix1d wSum = inputs * this->weights;
+    wSum += this->biases;
 
     // Activate wSums
     for (int i = 0; i < wSum.cols(); i++)
@@ -108,9 +109,7 @@ void Layer::computeOutputs(Matrix1d inputs)
 
 void Layer::setOutputs(Matrix1d outputs)
 {
-    std::cout << "ouputs being set : " << outputs << std::endl;
     this->outputs = outputs;
-    std::cout << "current outputs : " << this->outputs << std::endl;
     return;
 }
 
