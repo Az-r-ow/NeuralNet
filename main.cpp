@@ -18,6 +18,10 @@ int main(int argc, char *argv[])
 
    network.train(inputs, labels);
 
+   std::cout << "Layer 1 address : " << network.getLayer(2).prevLayer->getOutputs() << std::endl;
+
+   std::cout << test2.prevLayer << std::endl;
+
    std::cout << "Layer 1 : "
              << std::endl;
    test.printWeights();

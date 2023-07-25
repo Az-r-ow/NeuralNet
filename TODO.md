@@ -1,3 +1,4 @@
+- [ ] Replace storing the layers themselves with storing a smart pointer to the layers
 - [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [ ] Implement the backpropagate algo
 - [ ] Implement the loss function

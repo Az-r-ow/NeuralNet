@@ -14,8 +14,12 @@ using Eigen::VectorXd;
 using std::string;
 using std::vector;
 
+class Network;
+
 class Layer
 {
+
+    friend class Network;
 
 public:
     Layer(int nNeurons, Activation activation = RELU, WeightInit weightInit = RANDOM, int bias = 0);
