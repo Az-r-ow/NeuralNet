@@ -60,6 +60,19 @@ void Network::forwardProp(vector<double> inputs)
     }
 }
 
+void Network::backProp()
+{
+    Matrix1d c0;
+    for (unsigned i = this->layers.size(); i-- > 0;)
+    {
+        if (i == this->layers.size())
+        {
+            c0 = this->layers[i].getOutputs() - y;
+            c0.unaryExpr(&Sqr);
+        }
+    }
+}
+
 Network::~Network()
 {
 }

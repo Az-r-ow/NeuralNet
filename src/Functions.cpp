@@ -18,3 +18,8 @@ double sigmoid(double x)
 {
   return 1 / (1 + std::exp(-x));
 }
+
+double sqr(double x)
+{
+  return x * x;
+}

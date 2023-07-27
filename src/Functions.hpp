@@ -13,3 +13,9 @@ double mtRand(double min, double max);
 double relu(double x);
 
 double sigmoid(double x);
+
+/* Mathematical functions */
+/**
+ * Returns the square of x
+ */
+double Sqr(double x);
