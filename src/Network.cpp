@@ -1,6 +1,9 @@
 #include "Network.hpp"
 
-Network::Network() {}
+Network::Network(double learnRate = 0.1)
+{
+    this->learnRate = learnRate;
+}
 
 int Network::getNumLayer() const
 {
@@ -60,17 +63,24 @@ void Network::forwardProp(vector<double> inputs)
     }
 }
 
-void Network::backProp()
+void Network::backProp(Matrix1d y)
 {
-    Matrix1d c0;
+    Layer &outputLayer = this->layers[this->layers.size() - 1];
+
+    // Get total cost
+    double cTotal = totalCost(outputLayer.outputs, y);
+
     for (unsigned i = this->layers.size(); i-- > 0;)
     {
-        if (i == this->layers.size())
-        {
-            c0 = this->layers[i].getOutputs() - y;
-            c0.unaryExpr(&Sqr);
-        }
+        // propagate backwards
     }
+}
+
+double Network::totalCost(Matrix1d &outputs, Matrix1d &y)
+{
+    Matrix cMatrix = outputs - y;
+    cMatrix.unaryExpr(&Sqr);
+    return cMatrix.sum();
 }
 
 Network::~Network()
