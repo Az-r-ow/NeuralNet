@@ -41,7 +41,6 @@ private:
     double (*activate)(double);
 
     void computeOutputs(Matrix1d inputs);
-    void setOutputs(Matrix1d outputs);
 
     /* Weight init */
     static void

@@ -2,6 +2,7 @@
 
 #include <vector>
 #include <cstdlib>
+#include <memory>
 #include "Layer.hpp"
 
 using std::vector;
@@ -10,7 +11,7 @@ class Network
 {
 public:
     Network();
-    void addLayer(Layer layer);
+    void addLayer(Layer &layer);
     Layer getLayer(int index);
     int getNumLayer() const;
     void train(vector<vector<double>> inputs, vector<double> labels);
