@@ -22,10 +22,11 @@ private:
     vector<Layer> layers;
     double learnRate;
     int neuronPerLayer;
+    double loss = 1;
 
     /* Private Methods */
     void forwardProp(vector<double> inputs);
     void backProp();
 
-    static double totalCost(Matrix1d &o, Matrix1d &y);
+    static double loss(Matrix1d &o, Matrix1d &y);
 };

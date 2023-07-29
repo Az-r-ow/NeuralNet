@@ -1,5 +1,6 @@
 - [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [ ] Implement the backpropagate algo
-- [ ] Implement the loss function
+- [ ] Implement the cost function
 - [ ] Implement the ability of having multiple variable inputs
 - [ ] Implement mini-batch
+- [ ] Implement more cost functions options

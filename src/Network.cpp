@@ -67,8 +67,8 @@ void Network::backProp(Matrix1d y)
 {
     Layer &outputLayer = this->layers[this->layers.size() - 1];
 
-    // Get total cost
-    double cTotal = totalCost(outputLayer.outputs, y);
+    // Get total loss
+    this->loss = loss(outputLayer.outputs, y);
 
     for (unsigned i = this->layers.size(); i-- > 0;)
     {
@@ -76,7 +76,14 @@ void Network::backProp(Matrix1d y)
     }
 }
 
-double Network::totalCost(Matrix1d &outputs, Matrix1d &y)
+/**
+ * Quadratic  loss
+ * todo : add more loss functions
+ * - Cross-entropy
+ * - Exponential
+ * - Hellinger distance
+ */
+double Network::loss(Matrix1d &outputs, Matrix1d &y)
 {
     Matrix cMatrix = outputs - y;
     cMatrix.unaryExpr(&Sqr);
