@@ -4,3 +4,4 @@
 - [ ] Implement the ability of having multiple variable inputs
 - [ ] Implement mini-batch
 - [ ] Implement more cost functions options
+- [ ] Replace Quadratic loss der in lossDer function with dynamic function based on loss used

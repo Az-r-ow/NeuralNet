@@ -103,7 +103,7 @@ void Layer::computeOutputs(Matrix1d inputs)
     for (int i = 0; i < wSum.cols(); i++)
         wSum[i] = this->activate(wSum[i]);
 
-    this->outputs = wSum;
+    this->outputs = wSum.transpose();
     return;
 }
 

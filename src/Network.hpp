@@ -10,7 +10,7 @@ using std::vector;
 class Network
 {
 public:
-    Network(double learnRate);
+    Network(double learnRate = 0.1);
     void addLayer(Layer &layer);
     Layer getLayer(int index);
     int getNumLayer() const;
@@ -20,13 +20,16 @@ public:
 
 private:
     vector<Layer> layers;
-    double learnRate;
+    double learningRate;
     int neuronPerLayer;
     double loss = 1;
 
     /* Private Methods */
+    Layer &getOutputLayer();
     void forwardProp(vector<double> inputs);
-    void backProp();
+    void backProp(Labels y);
 
-    static double loss(Matrix1d &o, Matrix1d &y);
+    /* private static functions */
+    static double computeLoss(MatrixXd &o, Label &y);
+    static MatrixXd computeLossDer(MatrixXd &o, Labels &y);
 };

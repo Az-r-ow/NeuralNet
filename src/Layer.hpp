@@ -36,7 +36,7 @@ public:
 private:
     Matrix1d biases;
     WeightInit weightInit;
-    Matrix1d outputs;
+    MatrixXd outputs;
     MatrixXd weights;
     double (*activate)(double);
 

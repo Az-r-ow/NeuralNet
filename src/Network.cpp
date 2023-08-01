@@ -1,6 +1,6 @@
 #include "Network.hpp"
 
-Network::Network(double learnRate = 0.1)
+Network::Network(double learnRate)
 {
     this->learnRate = learnRate;
 }
@@ -29,10 +29,19 @@ Layer Network::getLayer(int index)
 
 void Network::train(vector<vector<double>> inputs, vector<double> labels)
 {
-    for (vector<double> input : inputs)
+    int numOutputs = this->getOutputLayer().getNumNeurons();
+    for (int i = 0; i < inputs.size(); i++)
     {
-        forwardProp(input);
+        forwardProp(inputs[i]);
+        Labels y = Eigen::ArrayXd::Zero(numOutputs);
+        y(labels[i], 0) = 1;
+        backProp(y);
     }
+}
+
+Layer &Network::getOutputLayer()
+{
+    return this->layers[this->layers.size() - 1];
 }
 
 void Network::forwardProp(vector<double> inputs)
@@ -63,17 +72,13 @@ void Network::forwardProp(vector<double> inputs)
     }
 }
 
-void Network::backProp(Matrix1d y)
+void Network::backProp(Labels y)
 {
-    Layer &outputLayer = this->layers[this->layers.size() - 1];
+    // 1 - compute the lossDer
+    // 2 - compute the output layer's activation derivative
+    // 3 - compute the weight's derivative
 
-    // Get total loss
-    this->loss = loss(outputLayer.outputs, y);
-
-    for (unsigned i = this->layers.size(); i-- > 0;)
-    {
-        // propagate backwards
-    }
+    // 4 - Propagate using the activation layer's derivative
 }
 
 /**
@@ -83,11 +88,18 @@ void Network::backProp(Matrix1d y)
  * - Exponential
  * - Hellinger distance
  */
-double Network::loss(Matrix1d &outputs, Matrix1d &y)
+double Network::computeLoss(MatrixXd &outputs, Labels &y)
 {
-    Matrix cMatrix = outputs - y;
+    MatrixXd cMatrix = outputs.array() - y;
     cMatrix.unaryExpr(&Sqr);
     return cMatrix.sum();
+}
+
+MatrixXd Network::computeLossDer(MatrixXd &outputs, Labels &y)
+{
+    assert(outputs.rows() != y.rows());
+
+    return 2 * (outputs.array() - y.array());
 }
 
 Network::~Network()
