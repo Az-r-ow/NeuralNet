@@ -72,7 +72,7 @@ int Layer::getNumNeurons() const
     return this->outputs.cols();
 }
 
-Matrix1d Layer::getOutputs() const
+MatrixXd Layer::getOutputs() const
 {
     return this->outputs;
 }
@@ -93,10 +93,10 @@ void Layer::printOutputs()
  * PRIVATE METHODS
  */
 
-void Layer::computeOutputs(Matrix1d inputs)
+void Layer::computeOutputs(MatrixXd inputs)
 {
     // Weighted sum
-    Matrix1d wSum = inputs * this->weights;
+    MatrixXd wSum = inputs * this->weights;
     wSum += this->biases;
 
     // Activate wSums

@@ -13,6 +13,7 @@ public:
     Network(double learnRate = 0.1);
     void addLayer(Layer &layer);
     Layer getLayer(int index);
+    Layer &getOutputLayer();
     int getNumLayer() const;
     void train(vector<vector<double>> inputs, vector<double> labels);
     void predict(vector<double> outputs);
@@ -32,4 +33,5 @@ private:
     /* private static functions */
     static double computeLoss(MatrixXd &o, Label &y);
     static MatrixXd computeLossDer(MatrixXd &o, Labels &y);
+    static MatrixXd computeSigmoidDer(MatrixXd &a);
 };

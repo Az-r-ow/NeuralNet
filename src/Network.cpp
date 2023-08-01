@@ -27,6 +27,11 @@ Layer Network::getLayer(int index)
     return this->layers.at(index);
 }
 
+Layer &Network::getOutputLayer()
+{
+    return this->layers[this->layers.size() - 1];
+}
+
 void Network::train(vector<vector<double>> inputs, vector<double> labels)
 {
     int numOutputs = this->getOutputLayer().getNumNeurons();
@@ -75,6 +80,22 @@ void Network::forwardProp(vector<double> inputs)
 void Network::backProp(Labels y)
 {
     // 1 - compute the lossDer
+    Layer &outputLayer = this->getOutputLayer();
+
+    // Dot product of loss and activation derivatives
+    MatrixXd dotLADer = computeLossDer(outputLayer.getOutputs(), y).array() * computeSigmoidDer(outputLayer.getOutputs()).array();
+    // Next Layer activation der dL/da(l - 1)
+    MatrixXd nextLayerADer = dotLADer;
+
+    for (unsigned i = this->layers.size(); --i > 0;)
+    {
+        Layer &cLayer = this->layers[i];
+        Layer &nLayer = this->layers[i - 1];
+
+        MatrixXd weightsDer = i == (this->layers.size() - 1) ? dotLADer * nLayer.getOutputs().transpose() : (nextLayerADer.array() * computeSigmoidDer(cLayer.getOutputs()).array()).matrix() * nLayer.getOutputs().transpose();
+
+        nextLayerADer *= cLayer.weights * cLayer.computeSigmoidDer(cLayer.outputs);
+    }
     // 2 - compute the output layer's activation derivative
     // 3 - compute the weight's derivative
 
@@ -95,11 +116,16 @@ double Network::computeLoss(MatrixXd &outputs, Labels &y)
     return cMatrix.sum();
 }
 
-MatrixXd Network::computeLossDer(MatrixXd &outputs, Labels &y)
+MatrixXd Network::computeLossDer(MatrixXd &yHat, Labels &y)
 {
-    assert(outputs.rows() != y.rows());
+    assert(yHat.rows() != y.rows());
 
-    return 2 * (outputs.array() - y.array());
+    return 2 * (yHat.array() - y.array());
+}
+
+MatrixXd Network::computeSigmoidDer(MatrixXd &a)
+{
+    return a.array() * (1 - a.array());
 }
 
 Network::~Network()
