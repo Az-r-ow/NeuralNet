@@ -21,7 +21,7 @@ public:
 
 private:
     vector<Layer> layers;
-    double learningRate;
+    double alpha; // Learning rate
     int neuronPerLayer;
     double loss = 1;
 

@@ -85,21 +85,28 @@ void Network::backProp(Labels y)
     // Dot product of loss and activation derivatives
     MatrixXd dotLADer = computeLossDer(outputLayer.getOutputs(), y).array() * computeSigmoidDer(outputLayer.getOutputs()).array();
     // Next Layer activation der dL/da(l - 1)
-    MatrixXd nextLayerADer = dotLADer;
+    MatrixXd nextLayerADer = computeLossDer(outputLayer.getOutputs(), y);
 
     for (unsigned i = this->layers.size(); --i > 0;)
     {
         Layer &cLayer = this->layers[i];
         Layer &nLayer = this->layers[i - 1];
 
-        MatrixXd weightsDer = i == (this->layers.size() - 1) ? dotLADer * nLayer.getOutputs().transpose() : (nextLayerADer.array() * computeSigmoidDer(cLayer.getOutputs()).array()).matrix() * nLayer.getOutputs().transpose();
+        MatrixXd sigDer = computeSigmoidDer(cLayer.outputs);
 
-        nextLayerADer *= cLayer.weights * cLayer.computeSigmoidDer(cLayer.outputs);
+        // dL/dw
+        MatrixXd wDer = (nextLayerAder.array() * sigDer.array()).matrix() * nLayer.getOutputs().transpose();
+        // dL/db
+        MatrixXd bDer = nextLayerAder.array() * sigDer.array();
+
+        // dL/dA(l - 1)
+        nextLayerDer = (nextLayerDer.array() * sigDer.array()).matrix() * cLayer.weights;
+
+        cLayer.weights = cLayer.weights.array() - (alpha * wDer).array();
+        cLayer.biases = cLayer.biases.array() - (alpha * bDer).array();
     }
-    // 2 - compute the output layer's activation derivative
-    // 3 - compute the weight's derivative
 
-    // 4 - Propagate using the activation layer's derivative
+    return;
 }
 
 /**
