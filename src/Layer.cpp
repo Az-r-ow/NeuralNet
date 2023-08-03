@@ -4,7 +4,7 @@ Layer::Layer(int nNeurons, Activation activation, WeightInit weightInit, int bia
 {
     VectorXd outputs(nNeurons);
     this->outputs = outputs;
-    this->biases = Matrix1d::Constant(1, nNeurons, bias);
+    this->biases = MatrixXd::Constant(1, nNeurons, bias);
     this->weightInit = weightInit;
     this->setActivation(activation);
 }
@@ -12,6 +12,8 @@ Layer::Layer(int nNeurons, Activation activation, WeightInit weightInit, int bia
 void Layer::initWeights(int numRows)
 {
     double mean = 0.0, stddev = 0.0;
+    std::cout << numRows << std::endl;
+    std::cout << this->getNumNeurons() << std::endl;
     MatrixXd weights(numRows, this->getNumNeurons());
     this->weights = weights;
 
@@ -56,11 +58,11 @@ void Layer::setActivation(Activation activation)
 void Layer::feedInputs(vector<double> inputs)
 {
     assert(inputs.size() == this->weights.cols());
-    this->feedInputs(Matrix1d::Map(&inputs[0], 1, inputs.size()));
+    this->feedInputs(MatrixXd::Map(&inputs[0], 1, inputs.size()));
     return;
 }
 
-void Layer::feedInputs(Matrix1d inputs)
+void Layer::feedInputs(MatrixXd inputs)
 {
     assert(inputs.cols() == this->weights.rows());
     this->computeOutputs(inputs);
@@ -72,7 +74,7 @@ int Layer::getNumNeurons() const
     return this->outputs.cols();
 }
 
-MatrixXd Layer::getOutputs() const
+MatrixXd Layer::getOutputs()
 {
     return this->outputs;
 }
@@ -99,10 +101,7 @@ void Layer::computeOutputs(MatrixXd inputs)
     MatrixXd wSum = inputs * this->weights;
     wSum += this->biases;
 
-    // Activate wSums
-    for (int i = 0; i < wSum.cols(); i++)
-        wSum[i] = this->activate(wSum[i]);
-
+    wSum.unaryExpr(std::ref(this->activate));
     this->outputs = wSum.transpose();
     return;
 }
@@ -130,9 +129,14 @@ void Layer::randomDistWeightInit(MatrixXd *weights, double mean, double stddev)
     {
         for (int row = 0; row < weights->rows(); row++)
         {
+            std::cout << "Row : " << row << " Col : " << col << std::endl;
             weights->operator()(row, col) = distribution(generator);
         }
     }
+
+    std::cout << "WEights : " << std::endl;
+    std::cout << *weights << std::endl;
+
     return;
 }
 

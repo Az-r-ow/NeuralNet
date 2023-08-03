@@ -1,8 +1,8 @@
 #include "Network.hpp"
 
-Network::Network(double learnRate)
+Network::Network(double alpha)
 {
-    this->learnRate = learnRate;
+    this->alpha = alpha;
 }
 
 int Network::getNumLayer() const
@@ -27,7 +27,7 @@ Layer Network::getLayer(int index)
     return this->layers.at(index);
 }
 
-Layer &Network::getOutputLayer()
+Layer Network::getOutputLayer()
 {
     return this->layers[this->layers.size() - 1];
 }
@@ -39,14 +39,8 @@ void Network::train(vector<vector<double>> inputs, vector<double> labels)
     {
         forwardProp(inputs[i]);
         Labels y = Eigen::ArrayXd::Zero(numOutputs);
-        y(labels[i], 0) = 1;
         backProp(y);
     }
-}
-
-Layer &Network::getOutputLayer()
-{
-    return this->layers[this->layers.size() - 1];
 }
 
 void Network::forwardProp(vector<double> inputs)
@@ -60,7 +54,7 @@ void Network::forwardProp(vector<double> inputs)
     firstLayer.initWeights(inputs.size());
     firstLayer.feedInputs(inputs);
 
-    Matrix1d prevLayerOutputs = this->layers[0].getOutputs();
+    MatrixXd prevLayerOutputs = this->layers[0].getOutputs();
 
     // Feeding the rest of the layers with the results of (L - 1)
     for (Layer &layer : this->layers)
@@ -80,12 +74,10 @@ void Network::forwardProp(vector<double> inputs)
 void Network::backProp(Labels y)
 {
     // 1 - compute the lossDer
-    Layer &outputLayer = this->getOutputLayer();
+    MatrixXd oLayerOutputs = this->getOutputLayer().getOutputs();
 
-    // Dot product of loss and activation derivatives
-    MatrixXd dotLADer = computeLossDer(outputLayer.getOutputs(), y).array() * computeSigmoidDer(outputLayer.getOutputs()).array();
     // Next Layer activation der dL/da(l - 1)
-    MatrixXd nextLayerADer = computeLossDer(outputLayer.getOutputs(), y);
+    MatrixXd nextLayerADer = computeLossDer(oLayerOutputs, y);
 
     for (unsigned i = this->layers.size(); --i > 0;)
     {
@@ -95,13 +87,14 @@ void Network::backProp(Labels y)
         MatrixXd sigDer = computeSigmoidDer(cLayer.outputs);
 
         // dL/dw
-        MatrixXd wDer = (nextLayerAder.array() * sigDer.array()).matrix() * nLayer.getOutputs().transpose();
+        MatrixXd wDer = (nextLayerADer.array() * sigDer.array()).matrix() * nLayer.getOutputs().transpose();
         // dL/db
-        MatrixXd bDer = nextLayerAder.array() * sigDer.array();
+        MatrixXd bDer = nextLayerADer.array() * sigDer.array();
 
         // dL/dA(l - 1)
-        nextLayerDer = (nextLayerDer.array() * sigDer.array()).matrix() * cLayer.weights;
+        nextLayerADer = (nextLayerADer.array() * sigDer.array()).matrix() * cLayer.weights;
 
+        // updating weights and biases
         cLayer.weights = cLayer.weights.array() - (alpha * wDer).array();
         cLayer.biases = cLayer.biases.array() - (alpha * bDer).array();
     }
@@ -119,7 +112,7 @@ void Network::backProp(Labels y)
 double Network::computeLoss(MatrixXd &outputs, Labels &y)
 {
     MatrixXd cMatrix = outputs.array() - y;
-    cMatrix.unaryExpr(&Sqr);
+    cMatrix.unaryExpr(&sqr);
     return cMatrix.sum();
 }
 

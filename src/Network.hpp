@@ -10,10 +10,9 @@ using std::vector;
 class Network
 {
 public:
-    Network(double learnRate = 0.1);
+    Network(double alpha = 0.1);
     void addLayer(Layer &layer);
     Layer getLayer(int index);
-    Layer &getOutputLayer();
     int getNumLayer() const;
     void train(vector<vector<double>> inputs, vector<double> labels);
     void predict(vector<double> outputs);
@@ -26,12 +25,12 @@ private:
     double loss = 1;
 
     /* Private Methods */
-    Layer &getOutputLayer();
+    Layer getOutputLayer();
     void forwardProp(vector<double> inputs);
     void backProp(Labels y);
 
     /* private static functions */
-    static double computeLoss(MatrixXd &o, Label &y);
+    static double computeLoss(MatrixXd &o, Labels &y);
     static MatrixXd computeLossDer(MatrixXd &o, Labels &y);
     static MatrixXd computeSigmoidDer(MatrixXd &a);
 };

@@ -18,4 +18,4 @@ double sigmoid(double x);
 /**
  * Returns the square of x
  */
-double Sqr(double x);
+double sqr(double x);

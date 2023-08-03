@@ -26,21 +26,21 @@ public:
     void initWeights(int numCols);
     void setActivation(Activation activation);
     void feedInputs(vector<double> inputs);
-    void feedInputs(Matrix1d inputs);
+    void feedInputs(MatrixXd inputs);
     int getNumNeurons() const;
-    Matrix1d getOutputs() const;
+    MatrixXd getOutputs();
     void printWeights();
     void printOutputs();
     ~Layer();
 
 private:
-    Matrix1d biases;
+    MatrixXd biases;
     WeightInit weightInit;
     MatrixXd outputs;
     MatrixXd weights;
     double (*activate)(double);
 
-    void computeOutputs(Matrix1d inputs);
+    void computeOutputs(MatrixXd inputs);
 
     /* Weight init */
     static void
