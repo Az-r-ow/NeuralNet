@@ -2,8 +2,7 @@
 
 Layer::Layer(int nNeurons, Activation activation, WeightInit weightInit, int bias)
 {
-    VectorXd outputs(nNeurons);
-    this->outputs = outputs;
+    this->outputs = MatrixXd::Zero(nNeurons, 1);
     this->biases = MatrixXd::Constant(1, nNeurons, bias);
     this->weightInit = weightInit;
     this->setActivation(activation);
@@ -12,10 +11,7 @@ Layer::Layer(int nNeurons, Activation activation, WeightInit weightInit, int bia
 void Layer::initWeights(int numRows)
 {
     double mean = 0.0, stddev = 0.0;
-    std::cout << numRows << std::endl;
-    std::cout << this->getNumNeurons() << std::endl;
-    MatrixXd weights(numRows, this->getNumNeurons());
-    this->weights = weights;
+    this->weights = MatrixXd::Zero(numRows, this->getNumNeurons());
 
     // calculate mean and stddev based on init algo
     switch (this->weightInit)
@@ -71,7 +67,7 @@ void Layer::feedInputs(MatrixXd inputs)
 
 int Layer::getNumNeurons() const
 {
-    return this->outputs.cols();
+    return this->outputs.rows();
 }
 
 MatrixXd Layer::getOutputs()
@@ -129,13 +125,9 @@ void Layer::randomDistWeightInit(MatrixXd *weights, double mean, double stddev)
     {
         for (int row = 0; row < weights->rows(); row++)
         {
-            std::cout << "Row : " << row << " Col : " << col << std::endl;
             weights->operator()(row, col) = distribution(generator);
         }
     }
-
-    std::cout << "WEights : " << std::endl;
-    std::cout << *weights << std::endl;
 
     return;
 }
