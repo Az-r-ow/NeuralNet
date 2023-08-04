@@ -1,3 +1,7 @@
+- [ ] Test the backpropagation
+- [ ] Connect with python using pybind
+- [ ] Work on some test cases
+- [ ] Test with the MNIST database
 - [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [ ] Implement the ability of having multiple variable inputs
 - [ ] Implement mini-batch
