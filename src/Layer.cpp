@@ -53,14 +53,14 @@ void Layer::setActivation(Activation activation)
 
 void Layer::feedInputs(vector<double> inputs)
 {
-    assert(inputs.size() == this->weights.cols());
-    this->feedInputs(MatrixXd::Map(&inputs[0], 1, inputs.size()));
+    assert(inputs.size() == this->weights.rows());
+    this->feedInputs(MatrixXd::Map(&inputs[0], inputs.size(), 1));
     return;
 }
 
 void Layer::feedInputs(MatrixXd inputs)
 {
-    assert(inputs.cols() == this->weights.rows());
+    assert(inputs.rows() == this->weights.rows());
     this->computeOutputs(inputs);
     return;
 }
@@ -94,12 +94,18 @@ void Layer::printOutputs()
 void Layer::computeOutputs(MatrixXd inputs)
 {
     // Weighted sum
-    MatrixXd wSum = inputs * this->weights;
+    MatrixXd wSum = inputs.transpose() * this->weights;
     wSum += this->biases;
 
     wSum.unaryExpr(std::ref(this->activate));
     this->outputs = wSum.transpose();
     return;
+}
+
+void Layer::setOutputs(vector<double> outputs)
+{
+    assert(outputs.size() == this->getNumNeurons());
+    this->outputs = MatrixXd::Map(&outputs[0], this->getNumNeurons(), 1);
 }
 
 void Layer::randomWeightInit(MatrixXd *weights, double min, double max)

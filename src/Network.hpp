@@ -33,4 +33,5 @@ private:
     static double computeLoss(MatrixXd &o, Labels &y);
     static MatrixXd computeLossDer(MatrixXd &o, Labels &y);
     static MatrixXd computeSigmoidDer(MatrixXd &a);
+    static Labels formatLabels(int label, int rows);
 };

@@ -41,6 +41,7 @@ private:
     double (*activate)(double);
 
     void computeOutputs(MatrixXd inputs);
+    void setOutputs(vector<double> outputs); // used for input layer
 
     /* Weight init */
     static void

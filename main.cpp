@@ -3,13 +3,18 @@
 int main(int argc, char *argv[])
 {
    Network network;
-   Layer layer(3, RELU, GLOROT);
-   Layer layer2(4, RELU, GLOROT);
-   Layer layer3(5, RELU, GLOROT);
+   Layer layer1 = Layer(3, RELU, GLOROT);
+   Layer layer2 = Layer(2, RELU, GLOROT);
+   Layer layerOuput = Layer(2, RELU, GLOROT);
 
-   network.addLayer(layer);
+   network.addLayer(layer1);
    network.addLayer(layer2);
-   network.addLayer(layer3);
+   network.addLayer(layerOuput);
+
+   // training the network
+   vector<vector<double>> inputs = {{1, 0, 0}};
+   vector<double> labels = {1};
+   network.train(inputs, labels);
 
    Layer input = network.getLayer(0);
    Layer test = network.getLayer(1);
@@ -19,12 +24,12 @@ int main(int argc, char *argv[])
    input.printWeights();
    input.printOutputs();
 
-   std::cout << "Layer 1 : "
+   std::cout << "Layer 2 : "
              << std::endl;
    test.printWeights();
    test.printOutputs();
 
-   std::cout << "Layer 2 : "
+   std::cout << "Output Layer : "
              << std::endl;
    test2.printWeights();
    test2.printOutputs();

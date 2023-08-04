@@ -38,7 +38,7 @@ void Network::train(vector<vector<double>> inputs, vector<double> labels)
     for (int i = 0; i < inputs.size(); i++)
     {
         forwardProp(inputs[i]);
-        Labels y = Eigen::ArrayXd::Zero(numOutputs);
+        Labels y = this->formatLabels(labels[i], numOutputs);
         backProp(y);
     }
 }
@@ -50,9 +50,8 @@ void Network::forwardProp(vector<double> inputs)
 
     Layer &firstLayer = this->layers[0];
 
-    // Passing the inputs to the first layer
-    firstLayer.initWeights(inputs.size());
-    firstLayer.feedInputs(inputs);
+    // Passing the inputs as outputs to the input layer
+    firstLayer.setOutputs(inputs);
 
     MatrixXd prevLayerOutputs = this->layers[0].getOutputs();
 
@@ -85,18 +84,18 @@ void Network::backProp(Labels y)
         Layer &nLayer = this->layers[i - 1];
 
         MatrixXd sigDer = computeSigmoidDer(cLayer.outputs);
+        MatrixXd aDerDotSigDer = nextLayerADer.array() * sigDer.array();
 
         // dL/dw
-        MatrixXd wDer = (nextLayerADer.array() * sigDer.array()).matrix() * nLayer.getOutputs().transpose();
+        MatrixXd wDer = aDerDotSigDer * nLayer.getOutputs().transpose();
         // dL/db
-        MatrixXd bDer = nextLayerADer.array() * sigDer.array();
-
+        MatrixXd bDer = aDerDotSigDer;
         // dL/dA(l - 1)
-        nextLayerADer = (nextLayerADer.array() * sigDer.array()).matrix() * cLayer.weights;
+        nextLayerADer = cLayer.weights * aDerDotSigDer;
 
         // updating weights and biases
-        cLayer.weights = cLayer.weights.array() - (alpha * wDer).array();
-        cLayer.biases = cLayer.biases.array() - (alpha * bDer).array();
+        cLayer.weights = cLayer.weights.array() - (this->alpha * wDer.transpose()).array();
+        cLayer.biases = cLayer.biases.array() - (this->alpha * bDer.transpose()).array();
     }
 
     return;
@@ -118,14 +117,23 @@ double Network::computeLoss(MatrixXd &outputs, Labels &y)
 
 MatrixXd Network::computeLossDer(MatrixXd &yHat, Labels &y)
 {
-    assert(yHat.rows() != y.rows());
-
-    return 2 * (yHat.array() - y.array());
+    assert(yHat.rows() == y.rows());
+    return (yHat.array() - y.array()).matrix() * 2;
 }
 
 MatrixXd Network::computeSigmoidDer(MatrixXd &a)
 {
     return a.array() * (1 - a.array());
+}
+
+Labels Network::formatLabels(int label, int rows)
+{
+    assert(label <= rows && label > 0);
+    // Init 0 value Matrix (outputNeurons, 1)
+    Labels labels = MatrixXd::Zero(rows, 1);
+    labels(label - 1, 0) = 1;
+
+    return labels;
 }
 
 Network::~Network()
