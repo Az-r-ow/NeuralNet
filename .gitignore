@@ -4,5 +4,5 @@
 ### build ###
 /build
 
-### git submodules ###
-/libs
+### macos ###
+.DS_Store
