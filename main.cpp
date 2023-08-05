@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
    network.addLayer(layerOuput);
 
    // training the network
-   vector<vector<double>> inputs = {{1, 0, 0}};
+   vector<vector<double>> inputs = {{0, 0, 0}};
    vector<double> labels = {1};
    network.train(inputs, labels);
 

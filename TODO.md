@@ -1,3 +1,4 @@
+- [ ] Check the accuracy of the results in the neural network
 - [ ] Transform labels into correct format for evaluation
   - [ ] The labels could be a double or a vector<double>
   - [ ] The labels should match the number of outputs in the network

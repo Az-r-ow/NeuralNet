@@ -3,3 +3,6 @@
 
 ### build ###
 /build
+
+### git submodules ###
+/libs
