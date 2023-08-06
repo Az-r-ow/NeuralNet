@@ -5,8 +5,6 @@
 #include <memory>
 #include "Layer.hpp"
 
-using std::vector;
-
 class Network
 {
 public:

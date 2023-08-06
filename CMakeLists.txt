@@ -1,4 +1,3 @@
-
 cmake_minimum_required(VERSION 3.5)
 
 # normal cmake for executables
@@ -6,6 +5,17 @@ cmake_minimum_required(VERSION 3.5)
 project ("Neural Network")
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
+
+# tests options 
+option(UNIT_TESTS "Testing the functions" ON)
+
+
+if(UNIT_TESTS)
+  enable_testing()
+  add_subdirectory(libs/Catch2)
+  add_subdirectory(tests)
+  include(CTest)
+endif()
 
 #import eigen
 find_package(Eigen3 REQUIRED)
