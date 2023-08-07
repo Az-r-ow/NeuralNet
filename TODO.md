@@ -1,5 +1,8 @@
 ## TODOS :
 
+- [ ] Work on optimizing the way files are including one another
+  - [ ] Read about `inline`
+  - [ ] Find a way to link only the necessary files for testing with catch 2
 - [ ] Write some unit tests with the Catch2 library
 - [ ] Check the accuracy of the results in the neural network
 - [ ] Transform labels into correct format for evaluation
