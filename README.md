@@ -10,6 +10,12 @@ Arbitrary initialization can slow down and sometimes stall completely the conver
 
 [Catch 2](https://github.com/catchorg/Catch2) framework will be used for testing, after some research it seems like the most active and well maintained out of the other options.
 
+To run tests :
+
+```bash
+source /scripts/tests.sh
+```
+
 ## Build :
 
 ### Initialize submodules :
