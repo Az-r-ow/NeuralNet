@@ -1,5 +1,7 @@
 #include "Network.hpp"
 
+using namespace NeuralNet;
+
 Network::Network(double alpha)
 {
     this->alpha = alpha;

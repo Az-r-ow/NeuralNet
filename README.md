@@ -13,7 +13,7 @@ Arbitrary initialization can slow down and sometimes stall completely the conver
 To run tests :
 
 ```bash
-source /scripts/tests.sh
+/scripts/tests.sh
 ```
 
 ## Build :

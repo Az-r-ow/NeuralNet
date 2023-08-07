@@ -1,5 +1,7 @@
 #include "main.hpp"
 
+using namespace NeuralNet;
+
 int main(int argc, char *argv[])
 {
    Network network;

@@ -1,5 +1,7 @@
 #include "Layer.hpp"
 
+using namespace NeuralNet;
+
 Layer::Layer(int nNeurons, Activation activation, WeightInit weightInit, int bias)
 {
     this->outputs = MatrixXd::Zero(nNeurons, 1);
