@@ -1,7 +1,7 @@
 
 set(SRC_FILES 
-  ${SRC_DIR}/neuralNet/Network.cpp
-  ${SRC_DIR}/neuralNet/Layer.cpp
+  ${SRC_DIR}/NeuralNet/Network.cpp
+  ${SRC_DIR}/NeuralNet/Layer.cpp
 )
 
 add_library(NeuralNet ${SRC_FILES})

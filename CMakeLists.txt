@@ -9,20 +9,21 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 # tests options 
 option(UNIT_TESTS "Testing the functions" ON)
 
-# Changing the cpp standard 
-set(CMAKE_CXX_STANDARD 17)
-
-if(UNIT_TESTS)
-  enable_testing()
-  add_subdirectory(libs/Catch2)
-  add_subdirectory(tests)
-  include(CTest)
-endif()
-
 # Basic paths 
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
 set(TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs)
+
+# Changing the cpp standard 
+set(CMAKE_CXX_STANDARD 17)
+
+
+if(UNIT_TESTS)
+enable_testing()
+add_subdirectory(libs/Catch2)
+add_subdirectory(tests)
+include(CTest)
+endif()
 
 add_subdirectory(src)
 

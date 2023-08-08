@@ -1,3 +1,3 @@
-cd build 
-ctest --output-on-failure
-cd .. 
+cd build/tests
+./test-functions
+cd ../..
