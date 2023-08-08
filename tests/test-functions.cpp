@@ -27,8 +27,11 @@ TEST_CASE("Sigmoid returns the right answers", "[function]")
   CHECK(sigmoid(-10) == 0.0000454);
 }
 
-TEST_CASE("Sigmoid has the right boundaries", "[function]")
+TEST_CASE("Sqr function returns the right square", "[function]")
 {
-  REQUIRE(sigmoid(17) <= 1);
-  REQUIRE(sigmoid(-17) >= 0);
+  CHECK(sqr(0) == 0);
+  CHECK(sqr(2) == 4);
+  CHECK(sqr(10) == 100);
+  CHECK(sqr(7.8877) == 62.21581129);
+  CHECK(sqr(657666) == 432524567556);
 }

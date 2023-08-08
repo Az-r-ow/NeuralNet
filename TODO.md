@@ -4,6 +4,7 @@
   - [ ] Read about `inline`
   - [ ] Find a way to link only the necessary files for testing with catch 2
 - [ ] Write some unit tests with the Catch2 library
+  - [ ] Write a function that rounds double to the nearest X decimal place
 - [ ] Check the accuracy of the results in the neural network
 - [ ] Transform labels into correct format for evaluation
   - [ ] The labels could be a double or a vector<double>
