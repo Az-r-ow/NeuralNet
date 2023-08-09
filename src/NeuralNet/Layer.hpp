@@ -26,6 +26,7 @@ namespace NeuralNet
     public:
         Layer(int nNeurons, Activation activation = RELU, WeightInit weightInit = RANDOM, int bias = 0);
         int getNumNeurons() const;
+        MatrixXd getWeights() const;
         MatrixXd getOutputs();
         void printWeights();
         void printOutputs();

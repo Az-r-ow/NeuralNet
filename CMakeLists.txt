@@ -17,6 +17,7 @@ set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 # Changing the cpp standard 
 set(CMAKE_CXX_STANDARD 17)
 
+add_subdirectory(src)
 
 if(UNIT_TESTS)
 enable_testing()
@@ -24,8 +25,6 @@ add_subdirectory(libs/Catch2)
 add_subdirectory(tests)
 include(CTest)
 endif()
-
-add_subdirectory(src)
 
 #create normal executable
 add_executable(main main.cpp)

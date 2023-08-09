@@ -77,6 +77,11 @@ MatrixXd Layer::getOutputs()
     return this->outputs;
 }
 
+MatrixXd Layer::getWeights() const
+{
+    return this->weights;
+}
+
 void Layer::printWeights()
 {
     std::cout << this->weights << std::endl;
