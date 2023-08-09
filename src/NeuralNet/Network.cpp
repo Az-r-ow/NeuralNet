@@ -7,7 +7,7 @@ Network::Network(double alpha)
     this->alpha = alpha;
 }
 
-int Network::getNumLayer() const
+int Network::getNumLayers() const
 {
     return this->layers.size() + 1; // see if input layer included
 }
@@ -26,11 +26,13 @@ void Network::addLayer(Layer &layer)
 
 Layer Network::getLayer(int index)
 {
+    assert(index < this->layers.size() && index >= 0);
     return this->layers.at(index);
 }
 
 Layer Network::getOutputLayer()
 {
+    assert(this->layers.size() > 0);
     return this->layers[this->layers.size() - 1];
 }
 
