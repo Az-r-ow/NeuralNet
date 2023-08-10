@@ -11,6 +11,7 @@ option(UNIT_TESTS "Testing the functions" ON)
 
 # Basic paths 
 set(SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+set(NETWORK_DIR ${SRC_DIR}/NeuralNet)
 set(TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 
@@ -20,10 +21,10 @@ set(CMAKE_CXX_STANDARD 17)
 add_subdirectory(src)
 
 if(UNIT_TESTS)
-enable_testing()
-add_subdirectory(libs/Catch2)
-add_subdirectory(tests)
-include(CTest)
+  enable_testing()
+  add_subdirectory(libs/Catch2)
+  add_subdirectory(tests)
+  include(CTest)
 endif()
 
 #create normal executable

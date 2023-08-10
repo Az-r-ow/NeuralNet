@@ -2,12 +2,7 @@
 
 - [ ] Work on optimizing the way files are including one another
   - [x] Read about `inline`
-  - [ ] Find a way to link only the necessary files for testing with catch 2
-  - [ ] Find a way to dynamically link directories for test files
-  - [ ] Add a way of including either already built catch or building it in the project
-- [ ] Write some unit tests with the Catch2 library
-  - [ ] Write a function that rounds double to the nearest X decimal place
-- [ ] Check the accuracy of the results in the neural network
+  - [x] Find a way to link only the necessary files for testing with catch 2
 - [ ] Transform labels into correct format for evaluation
   - [ ] The labels could be a double or a vector<double>
   - [ ] The labels should match the number of outputs in the network
@@ -22,5 +17,7 @@
 - [ ] Add cmake option to install submodules automatically during build time
 
 ## DONE :
+
+- [x] Write some unit tests with the Catch2 library
 
 ## ARCHIVED :
