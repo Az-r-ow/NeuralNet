@@ -1,5 +1,6 @@
 #include <catch2/catch_test_macros.hpp>
-#include <src/NeuralNet/Network.hpp>
+#include <Eigen/Dense>
+#include <Network.hpp>
 
 using namespace NeuralNet;
 
@@ -53,10 +54,14 @@ SCENARIO("Layers are initialized correctly in the network")
         REQUIRE(weightsL2.rows() == layer1.getNumNeurons());
       }
 
-      // todo: Check that weight values are initialized correctly
-      // THEN("Weights initialized correctly")
-      // {
-      // }
+      THEN("Weights are not initialized to 0")
+      {
+        MatrixXd weightsL2 = layer2.getWeights();
+        MatrixXd weightsL3 = layer3.getWeights();
+
+        REQUIRE(weightsL2 != MatrixXd::Zero(weightsL2.rows(), weightsL2.cols()));
+        REQUIRE(weightsL3 != MatrixXd::Zero(weightsL3.rows(), weightsL3.cols()));
+      }
     }
   }
 }

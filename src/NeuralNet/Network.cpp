@@ -9,7 +9,7 @@ Network::Network(double alpha)
 
 int Network::getNumLayers() const
 {
-    return this->layers.size() + 1; // see if input layer included
+    return this->layers.size(); 
 }
 
 void Network::addLayer(Layer &layer)
