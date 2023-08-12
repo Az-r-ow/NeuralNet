@@ -13,8 +13,23 @@ int main(int argc, char *argv[])
    network.addLayer(layer2);
    network.addLayer(layerOuput);
 
+   std::cout << "Input Layer before training : "
+             << "\n";
+   layer1.printWeights();
+   layer1.printOutputs();
+
+   std::cout << "Layer 2 before training : "
+             << "\n";
+   layer2.printWeights();
+   layer2.printOutputs();
+
+   std::cout << "Output Layer before training : "
+             << "\n";
+   layerOuput.printWeights();
+   layerOuput.printOutputs();
+
    // training the network
-   vector<vector<double>> inputs = {{0, 0, 0}};
+   vector<vector<double>> inputs = {{1, 1, 1}};
    vector<double> labels = {1};
    network.train(inputs, labels);
 
@@ -22,17 +37,18 @@ int main(int argc, char *argv[])
    Layer test = network.getLayer(1);
    Layer test2 = network.getLayer(2);
 
-   std::cout << "Input Layer : " << std::endl;
+   std::cout << "Input Layer after training : "
+             << "\n";
    input.printWeights();
    input.printOutputs();
 
-   std::cout << "Layer 2 : "
-             << std::endl;
+   std::cout << "Layer 2 after training : "
+             << "\n";
    test.printWeights();
    test.printOutputs();
 
-   std::cout << "Output Layer : "
-             << std::endl;
+   std::cout << "Output Layer after training : "
+             << "\n";
    test2.printWeights();
    test2.printOutputs();
 

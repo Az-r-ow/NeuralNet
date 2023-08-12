@@ -9,7 +9,7 @@ Network::Network(double alpha)
 
 int Network::getNumLayers() const
 {
-    return this->layers.size(); 
+    return this->layers.size();
 }
 
 void Network::addLayer(Layer &layer)
@@ -42,7 +42,7 @@ void Network::train(vector<vector<double>> inputs, vector<double> labels)
     for (int i = 0; i < inputs.size(); i++)
     {
         forwardProp(inputs[i]);
-        Labels y = this->formatLabels(labels[i], numOutputs);
+        Labels y = formatLabels(labels[i], numOutputs);
         backProp(y);
     }
 }
@@ -128,16 +128,6 @@ MatrixXd Network::computeLossDer(MatrixXd &yHat, Labels &y)
 MatrixXd Network::computeSigmoidDer(MatrixXd &a)
 {
     return a.array() * (1 - a.array());
-}
-
-Labels Network::formatLabels(int label, int rows)
-{
-    assert(label <= rows && label > 0);
-    // Init 0 value Matrix (outputNeurons, 1)
-    Labels labels = MatrixXd::Zero(rows, 1);
-    labels(label - 1, 0) = 1;
-
-    return labels;
 }
 
 Network::~Network()
