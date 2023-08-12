@@ -1,6 +1,6 @@
 #pragma once
 
-enum Activation
+enum ActivationFunc
 {
   RELU,
   SIGMOID

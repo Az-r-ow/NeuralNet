@@ -2,7 +2,7 @@
 
 using namespace NeuralNet;
 
-Layer::Layer(int nNeurons, Activation activation, WeightInit weightInit, int bias)
+Layer::Layer(int nNeurons, ActivationFunc activation, WeightInit weightInit, int bias)
 {
     this->outputs = MatrixXd::Zero(nNeurons, 1);
     this->biases = MatrixXd::Constant(1, nNeurons, bias);
@@ -38,7 +38,7 @@ void Layer::initWeights(int numRows)
     this->weightInit == RANDOM ? randomWeightInit(&(this->weights)) : randomDistWeightInit(&(this->weights), mean, stddev);
 }
 
-void Layer::setActivation(Activation activation)
+void Layer::setActivation(ActivationFunc activation)
 {
     switch (activation)
     {

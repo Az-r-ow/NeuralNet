@@ -24,7 +24,7 @@ namespace NeuralNet
         friend class Network;
 
     public:
-        Layer(int nNeurons, Activation activation = RELU, WeightInit weightInit = RANDOM, int bias = 0);
+        Layer(int nNeurons, ActivationFunc activation = RELU, WeightInit weightInit = RANDOM, int bias = 0);
         int getNumNeurons() const;
         MatrixXd getWeights() const;
         MatrixXd getOutputs();
@@ -40,7 +40,7 @@ namespace NeuralNet
         double (*activate)(double);
 
         void initWeights(int numCols);
-        void setActivation(Activation activation);
+        void setActivation(ActivationFunc activation);
         void feedInputs(vector<double> inputs);
         void feedInputs(MatrixXd inputs);
         void computeOutputs(MatrixXd inputs);

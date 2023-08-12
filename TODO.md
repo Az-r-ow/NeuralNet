@@ -1,11 +1,11 @@
 ## TODOS :
 
+- [ ] Find a way to generically define activation functions
 - [ ] Work on optimizing the way files are including one another
+
   - [x] Read about `inline`
   - [x] Find a way to link only the necessary files for testing with catch 2
-- [ ] Transform labels into correct format for evaluation
-  - [ ] The labels could be a double or a vector<double>
-  - [ ] The labels should match the number of outputs in the network
+
 - [ ] Test the backpropagation
 - [ ] Connect with python using pybind
 - [ ] Test with the MNIST database
@@ -19,5 +19,6 @@
 ## DONE :
 
 - [x] Write some unit tests with the Catch2 library
+- [x] Transform labels into correct format for evaluation
 
 ## ARCHIVED :
