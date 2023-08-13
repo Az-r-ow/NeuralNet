@@ -4,7 +4,7 @@
 
 namespace NeuralNet
 {
-  class Relu : Activation
+  class Relu : public Activation
   {
   public:
     double activate(double z)
