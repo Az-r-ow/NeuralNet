@@ -87,7 +87,7 @@ void Network::backProp(Labels y)
         Layer &cLayer = this->layers[i];
         Layer &nLayer = this->layers[i - 1];
 
-        MatrixXd sigDer = computeSigmoidDer(cLayer.outputs);
+        MatrixXd sigDer = cLayer.diff(cLayer.outputs);
         MatrixXd aDerDotSigDer = nextLayerADer.array() * sigDer.array();
 
         // dL/dw
@@ -123,11 +123,6 @@ MatrixXd Network::computeLossDer(MatrixXd &yHat, Labels &y)
 {
     assert(yHat.rows() == y.rows());
     return (yHat.array() - y.array()).matrix() * 2;
-}
-
-MatrixXd Network::computeSigmoidDer(MatrixXd &a)
-{
-    return a.array() * (1 - a.array());
 }
 
 Network::~Network()

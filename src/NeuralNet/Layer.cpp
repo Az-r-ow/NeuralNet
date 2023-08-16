@@ -2,12 +2,12 @@
 
 using namespace NeuralNet;
 
-Layer::Layer(int nNeurons, ActivationFunc activation, WeightInit weightInit, int bias)
+Layer::Layer(int nNeurons, ActivationName activationName, WeightInit weightInit, int bias)
 {
     this->outputs = MatrixXd::Zero(nNeurons, 1);
     this->biases = MatrixXd::Constant(1, nNeurons, bias);
     this->weightInit = weightInit;
-    this->setActivation(activation);
+    this->setActivation(activationName);
 }
 
 void Layer::initWeights(int numRows)
@@ -38,16 +38,17 @@ void Layer::initWeights(int numRows)
     this->weightInit == RANDOM ? randomWeightInit(&(this->weights)) : randomDistWeightInit(&(this->weights), mean, stddev);
 }
 
-void Layer::setActivation(ActivationFunc activation)
+void Layer::setActivation(ActivationName activation)
 {
     switch (activation)
     {
-    case RELU:
-        this->activate = relu;
-        break;
     case SIGMOID:
-        this->activate = sigmoid;
+        this->activate = Sigmoid::activate;
+        this->diff = Sigmoid::diff;
         break;
+    // todo: implement relu and the rest
+    default:
+        assert(false && "Activation not defined");
     }
 
     return;

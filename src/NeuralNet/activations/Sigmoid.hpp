@@ -4,15 +4,15 @@
 
 namespace NeuralNet
 {
-  class Relu : public Activation
+  class Sigmoid : public Activation
   {
   public:
-    double activate(double z)
+    static double activate(double z)
     {
-      return z < 0 ? 0 : z;
+      return 1 / (1 + std::exp(-z));
     };
 
-    MatrixXd diff(MatrixXd &a)
+    static MatrixXd diff(MatrixXd &a)
     {
       return a.array() * (1 - a.array());
     };

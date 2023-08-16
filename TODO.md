@@ -1,6 +1,7 @@
 ## TODOS :
 
 - [ ] Find a way to generically define activation functions
+- [ ] Implement the sigmoid class
 - [ ] Work on optimizing the way files are including one another
 
   - [x] Read about `inline`

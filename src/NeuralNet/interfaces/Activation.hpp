@@ -9,10 +9,9 @@ namespace NeuralNet
   class Activation
   {
   public:
-    Activation();
     // Activates the input z
-    virtual double activate(double z) = 0;
+    static double activate(double z);
     // compute the derivative
-    virtual MatrixXd diff(MatrixXd &a) = 0;
+    static MatrixXd diff(MatrixXd &a);
   };
 }
