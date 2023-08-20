@@ -5,12 +5,22 @@
 
 using Eigen::MatrixXd;
 
+const double ERR_MARGIN = 0.001;
+
+const std::vector<double> testCases = {-200, -10, -7.66, -1, 0, 2, 10, 15.7689, 200};
+// Test results for Relu activate function
+const std::vector<double> testResultsReAct = {0, 0, 0, 0, 0, 2, 10, 15.768, 200};
+// Test results for Sigmoid activate function
+const std::vector<double> testResultsSigAct = {0, 0, 0, 0.268, 0.5, 0.88, 1, 1, 1};
+
 TEST_CASE("Relu activates correctly")
 {
-  CHECK(NeuralNet::Relu::activate(-10) == 0);
-  CHECK(NeuralNet::Relu::activate(0) == 0);
-  CHECK(NeuralNet::Relu::activate(3) == 3);
-  CHECK(NeuralNet::Relu::activate(200) == 200);
+  assert(testCases.size() == testResultsReAct.size());
+
+  for (int i = 0; i < testCases.size(); i++)
+  {
+    CHECK_THAT(NeuralNet::Relu::activate(testCases[i]), Catch::Matchers::WithinAbs(testResultsReAct[i], ERR_MARGIN));
+  }
 }
 
 TEST_CASE("Relu differentiate correctly")
@@ -30,4 +40,14 @@ TEST_CASE("Relu differentiate correctly")
   }
 
   CHECK(NeuralNet::Relu::diff(test_m1) == expected_m1);
+}
+
+TEST_CASE("Sigmoid Activates correctly")
+{
+  assert(testCases.size() == testResultsSigAct.size());
+
+  for (int i = 0; i < testCases.size(); i++)
+  {
+    CHECK_THAT(NeuralNet::Sigmoid::activate(testCases[i]), Catch::Matchers::WithinAbs(testResultsSigAct[i], ERR_MARGIN));
+  }
 }
