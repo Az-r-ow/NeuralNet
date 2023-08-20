@@ -13,7 +13,7 @@ const std::vector<double> testResultsReAct = {0, 0, 0, 0, 0, 2, 10, 15.768, 200}
 // Test results for Sigmoid activate function
 const std::vector<double> testResultsSigAct = {0, 0, 0, 0.268, 0.5, 0.88, 1, 1, 1};
 
-TEST_CASE("Relu activates correctly")
+TEST_CASE("Relu activates correctly", "[function]")
 {
   assert(testCases.size() == testResultsReAct.size());
 
@@ -23,10 +23,10 @@ TEST_CASE("Relu activates correctly")
   }
 }
 
-TEST_CASE("Relu differentiate correctly")
+TEST_CASE("Relu differentiate correctly", "[function]")
 {
-  int num_cols = 2;
-  int num_rows = 2;
+  const int num_cols = 2;
+  const int num_rows = 2;
 
   MatrixXd test_m1 = MatrixXd::Random(num_rows, num_cols);
   MatrixXd expected_m1(num_rows, num_cols);
@@ -42,7 +42,7 @@ TEST_CASE("Relu differentiate correctly")
   CHECK(NeuralNet::Relu::diff(test_m1) == expected_m1);
 }
 
-TEST_CASE("Sigmoid Activates correctly")
+TEST_CASE("Sigmoid Activates correctly", "[function]")
 {
   assert(testCases.size() == testResultsSigAct.size());
 
@@ -50,4 +50,23 @@ TEST_CASE("Sigmoid Activates correctly")
   {
     CHECK_THAT(NeuralNet::Sigmoid::activate(testCases[i]), Catch::Matchers::WithinAbs(testResultsSigAct[i], ERR_MARGIN));
   }
+}
+
+TEST_CASE("Sigmoid differentiates correctly", "[function]")
+{
+  const int num_rows = 2;
+  const int num_cols = 2;
+
+  MatrixXd test_m1 = MatrixXd::Random(num_rows, num_cols);
+  MatrixXd expected_m1(num_rows, num_cols);
+
+  for (int r = 0; r < num_rows; r++)
+  {
+    for (int c = 0; c < num_cols; c++)
+    {
+      expected_m1(r, c) = test_m1(r, c) * (1 - test_m1(r, c));
+    }
+  }
+
+  CHECK(NeuralNet::Sigmoid::diff(test_m1) == expected_m1);
 }
