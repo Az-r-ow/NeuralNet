@@ -29,7 +29,8 @@ int main(int argc, char *argv[])
    layerOuput.printOutputs();
 
    // training the network
-   vector<vector<double>> inputs = {{1, 1, 1}};
+   vector<vector<double>> inputs;
+   inputs.push_back(randDVector(layer1.getNumNeurons(), -1, 1));
    vector<double> labels = {1};
    network.train(inputs, labels);
 

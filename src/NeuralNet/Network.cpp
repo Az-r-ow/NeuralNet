@@ -87,15 +87,17 @@ void Network::backProp(Labels y)
         Layer &cLayer = this->layers[i];
         Layer &nLayer = this->layers[i - 1];
 
-        MatrixXd sigDer = cLayer.diff(cLayer.outputs);
-        MatrixXd aDerDotSigDer = nextLayerADer.array() * sigDer.array();
+        // a'(L)
+        MatrixXd aDer = cLayer.diff(cLayer.outputs);
+        // a(L - 1) . a'(L)
+        MatrixXd aDerNextDotaDer = nextLayerADer.array() * aDer.array();
 
         // dL/dw
-        MatrixXd wDer = aDerDotSigDer * nLayer.getOutputs().transpose();
+        MatrixXd wDer = aDerNextDotaDer * nLayer.getOutputs().transpose();
         // dL/db
-        MatrixXd bDer = aDerDotSigDer;
+        MatrixXd bDer = aDerNextDotaDer;
         // dL/dA(l - 1)
-        nextLayerADer = cLayer.weights * aDerDotSigDer;
+        nextLayerADer = cLayer.weights * aDerNextDotaDer;
 
         // updating weights and biases
         cLayer.weights = cLayer.weights.array() - (this->alpha * wDer.transpose()).array();
