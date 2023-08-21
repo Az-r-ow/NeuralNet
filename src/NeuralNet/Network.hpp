@@ -13,7 +13,8 @@ namespace NeuralNet
     public:
         Network(double alpha = 0.1);
         void addLayer(Layer &layer);
-        Layer getLayer(int index);
+        Layer getLayer(int index) const;
+        Layer getOutputLayer() const;
         int getNumLayers() const;
         void train(vector<vector<double>> inputs, vector<double> labels);
         void predict(vector<double> outputs);
@@ -25,7 +26,6 @@ namespace NeuralNet
         int neuronPerLayer;
         double loss = 1;
 
-        Layer getOutputLayer();
         void forwardProp(vector<double> inputs);
         void backProp(Labels y);
 

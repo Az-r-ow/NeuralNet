@@ -24,13 +24,13 @@ void Network::addLayer(Layer &layer)
     this->layers.push_back(layer);
 }
 
-Layer Network::getLayer(int index)
+Layer Network::getLayer(int index) const
 {
     assert(index < this->layers.size() && index >= 0);
     return this->layers.at(index);
 }
 
-Layer Network::getOutputLayer()
+Layer Network::getOutputLayer() const
 {
     assert(this->layers.size() > 0);
     return this->layers[this->layers.size() - 1];

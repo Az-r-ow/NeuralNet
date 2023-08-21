@@ -46,7 +46,9 @@ void Layer::setActivation(ActivationName activation)
         this->activate = Sigmoid::activate;
         this->diff = Sigmoid::diff;
         break;
-    // todo: implement relu and the rest
+    case RELU:
+        this->activate = Relu::activate;
+        this->diff = Relu::diff;
     default:
         assert(false && "Activation not defined");
     }
