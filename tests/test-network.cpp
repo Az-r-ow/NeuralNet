@@ -65,3 +65,40 @@ SCENARIO("Layers are initialized correctly in the network")
     }
   }
 }
+
+SCENARIO("The network outputs 0 for null inputs")
+{
+  Network network;
+
+  Layer inputLayer = Layer(3, RELU);
+  Layer hiddenLayer = Layer(2, RELU);
+  Layer outputLayer = Layer(1, RELU);
+
+  network.addLayer(inputLayer);
+  network.addLayer(hiddenLayer);
+  network.addLayer(outputLayer);
+
+  GIVEN("A network with 3 layers")
+  {
+    THEN("Number of layers = 3")
+    {
+      REQUIRE(network.getNumLayers() == 3);
+    }
+
+    WHEN("Null inputs are passed")
+    {
+      std::vector<std::vector<double>> nullInputs = {{0, 0, 0}};
+      std::vector<double> labels = {0};
+
+      // Training with null weights and inputs
+      network.train(nullInputs, labels);
+
+      THEN("Outputs are 0")
+      {
+        MatrixXd outputs = network.getOutputLayer().getOutputs();
+
+        REQUIRE(outputs == MatrixXd::Zero(outputs.rows(), outputs.cols()));
+      }
+    }
+  }
+}

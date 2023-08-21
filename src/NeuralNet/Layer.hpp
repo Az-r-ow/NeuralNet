@@ -9,6 +9,7 @@
 #include "utils/Enums.hpp"
 #include "utils/Typedefs.hpp"
 #include "activations/Sigmoid.hpp"
+#include "activations/Relu.hpp"
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;

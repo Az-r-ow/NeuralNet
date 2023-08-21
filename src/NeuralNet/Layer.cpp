@@ -49,6 +49,7 @@ void Layer::setActivation(ActivationName activation)
     case RELU:
         this->activate = Relu::activate;
         this->diff = Relu::diff;
+        break;
     default:
         assert(false && "Activation not defined");
     }

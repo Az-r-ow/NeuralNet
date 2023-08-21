@@ -13,7 +13,7 @@ Arbitrary initialization can slow down and sometimes stall completely the conver
 To run tests :
 
 ```bash
-/scripts/tests.sh
+source /scripts/tests.sh
 ```
 
 ## Build :
@@ -23,4 +23,10 @@ To run tests :
 ```bash
 git submodule init
 git submodule update
+```
+
+### Build the code :
+
+```bash
+./scripts/build.sh
 ```
