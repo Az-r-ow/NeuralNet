@@ -18,16 +18,17 @@ namespace NeuralNet
     return dist(rng);
   };
 
-  /* Activation Functions */
-  inline double relu(double x)
+  inline std::vector<double> randDVector(int size, double min = -10, double max = 10)
   {
-    return x < 0 ? 0 : x;
-  };
+    std::vector<double> v;
 
-  inline double sigmoid(double x)
-  {
-    return 1 / (1 + std::exp(-x));
-  };
+    for (int i = 0; i < size; i++)
+    {
+      v.push_back(mtRand(min, max));
+    }
+
+    return v;
+  }
 
   /* Mathematical functions */
   /**

@@ -1,6 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
 #include <Eigen/Dense>
 #include <Network.hpp>
+#include <utils/Functions.hpp>
 
 using namespace NeuralNet;
 
@@ -66,13 +67,13 @@ SCENARIO("Layers are initialized correctly in the network")
   }
 }
 
-SCENARIO("The network outputs 0 for null inputs")
+SCENARIO("The network back propagates")
 {
   Network network;
 
-  Layer inputLayer = Layer(3, RELU);
-  Layer hiddenLayer = Layer(2, RELU);
-  Layer outputLayer = Layer(1, RELU);
+  Layer inputLayer = Layer(3, SIGMOID);
+  Layer hiddenLayer = Layer(2, SIGMOID);
+  Layer outputLayer = Layer(1, SIGMOID);
 
   network.addLayer(inputLayer);
   network.addLayer(hiddenLayer);
@@ -90,6 +91,10 @@ SCENARIO("The network outputs 0 for null inputs")
       std::vector<std::vector<double>> nullInputs = {{0, 0, 0}};
       std::vector<double> labels = {0};
 
+      // caching the weights before training for later comparison
+      MatrixXd preTrainW1 = network.getLayer(1).getWeights();
+      MatrixXd preTrainW2 = network.getLayer(2).getWeights();
+
       // Training with null weights and inputs
       network.train(nullInputs, labels);
 
@@ -98,6 +103,32 @@ SCENARIO("The network outputs 0 for null inputs")
         MatrixXd outputs = network.getOutputLayer().getOutputs();
 
         REQUIRE(outputs == MatrixXd::Zero(outputs.rows(), outputs.cols()));
+      }
+
+      AND_THEN("The weights remain the same")
+      {
+        CHECK(network.getLayer(1).getWeights() == preTrainW1);
+        CHECK(network.getLayer(2).getWeights() == preTrainW2);
+      }
+    }
+
+    WHEN("Inputs with random values are passed")
+    {
+      std::vector<std::vector<double>> randInputs;
+      randInputs.push_back(randDVector(network.getLayer(0).getNumNeurons()));
+      std::vector<double> labels = {0};
+
+      // Caching weights before training for later comparison
+      MatrixXd preTrainW1 = network.getLayer(1).getWeights();
+      MatrixXd preTrainW2 = network.getLayer(2).getWeights();
+
+      // Training with random values
+      network.train(randInputs, labels);
+
+      AND_THEN("The weights differ")
+      {
+        CHECK(network.getLayer(1).getWeights() != preTrainW1);
+        CHECK(network.getLayer(2).getWeights() != preTrainW2);
       }
     }
   }
