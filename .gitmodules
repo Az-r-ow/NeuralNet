@@ -4,3 +4,7 @@
 [submodule "libs/eigen"]
 	path = libs/eigen
 	url = https://gitlab.com/libeigen/eigen.git
+[submodule "libs/pybind11"]
+	path = libs/pybind11
+	url = ../../pybind/pybind11
+	branch = stable

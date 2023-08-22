@@ -1,6 +1,6 @@
 ## TODOS :
 
-- [ ] Test the backpropagation
+- [ ] Replace pragma once with header guards
 - [ ] Connect with python using pybind
 - [ ] Test with the MNIST database
 - [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
@@ -11,6 +11,7 @@
 
 ## DONE :
 
+- [x] Test the backpropagation
 - [x] Implement the sigmoid class
 - [x] Write some unit tests with the Catch2 library
 - [x] Transform labels into correct format for evaluation
