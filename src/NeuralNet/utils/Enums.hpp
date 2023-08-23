@@ -1,15 +1,18 @@
 #pragma once
 
-enum ActivationName
+namespace NeuralNet
 {
-  RELU,
-  SIGMOID
-};
+  enum ActivationName
+  {
+    RELU,
+    SIGMOID
+  };
 
-enum WeightInit
-{
-  RANDOM,
-  GLOROT,
-  HE,
-  LACUN
-};
+  enum WeightInit
+  {
+    RANDOM,
+    GLOROT,
+    HE,
+    LACUN
+  };
+}
