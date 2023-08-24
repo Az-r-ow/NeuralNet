@@ -5,9 +5,9 @@ using namespace NeuralNet;
 int main(int argc, char *argv[])
 {
    Network network;
-   Layer layer1 = Layer(3, SIGMOID, GLOROT);
-   Layer layer2 = Layer(2, SIGMOID, GLOROT);
-   Layer layerOuput = Layer(2, SIGMOID, GLOROT);
+   Layer layer1 = Layer(3, ActivationName::SIGMOID, WeightInit::GLOROT);
+   Layer layer2 = Layer(2, ActivationName::SIGMOID, WeightInit::GLOROT);
+   Layer layerOuput = Layer(2, ActivationName::SIGMOID, WeightInit::GLOROT);
 
    network.addLayer(layer1);
    network.addLayer(layer2);

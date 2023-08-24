@@ -18,15 +18,15 @@ void Layer::initWeights(int numRows)
     // calculate mean and stddev based on init algo
     switch (this->weightInit)
     {
-    case GLOROT:
+    case WeightInit::GLOROT:
         // sqrt(fan_avg)
         stddev = sqrt(static_cast<double>((numRows + this->getNumNeurons()) / 2));
         break;
-    case HE:
+    case WeightInit::HE:
         // sqrt(2/fan_in)
         stddev = sqrt(static_cast<double>(2 / numRows));
         break;
-    case LACUN:
+    case WeightInit::LACUN:
         // sqrt(1/fan_in)
         stddev = sqrt(static_cast<double>(1 / numRows));
         break;
@@ -35,21 +35,24 @@ void Layer::initWeights(int numRows)
     }
 
     // Init the weights
-    this->weightInit == RANDOM ? randomWeightInit(&(this->weights)) : randomDistWeightInit(&(this->weights), mean, stddev);
+    this->weightInit == WeightInit::RANDOM ? randomWeightInit(&(this->weights)) : randomDistWeightInit(&(this->weights), mean, stddev);
 }
 
 void Layer::setActivation(ActivationName activation)
 {
     switch (activation)
     {
-    case SIGMOID:
+    case ActivationName::SIGMOID:
         this->activate = Sigmoid::activate;
         this->diff = Sigmoid::diff;
         break;
-    case RELU:
+    case ActivationName::RELU:
         this->activate = Relu::activate;
         this->diff = Relu::diff;
         break;
+    /**
+     * Add cases as I add activations
+     */
     default:
         assert(false && "Activation not defined");
     }

@@ -26,7 +26,7 @@ namespace NeuralNet
         friend class Network;
 
     public:
-        Layer(int nNeurons, ActivationName activationFunc = SIGMOID, WeightInit weightInit = RANDOM, int bias = 0);
+        Layer(int nNeurons, ActivationName activationFunc = ActivationName::SIGMOID, WeightInit weightInit = WeightInit::RANDOM, int bias = 0);
         int getNumNeurons() const;
         MatrixXd getWeights() const;
         MatrixXd getOutputs();

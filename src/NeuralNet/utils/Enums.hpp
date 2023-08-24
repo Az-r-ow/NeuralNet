@@ -2,13 +2,13 @@
 
 namespace NeuralNet
 {
-  enum ActivationName
+  enum class ActivationName
   {
     RELU,
     SIGMOID
   };
 
-  enum WeightInit
+  enum class WeightInit
   {
     RANDOM,
     GLOROT,
