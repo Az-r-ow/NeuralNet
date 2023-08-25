@@ -14,7 +14,7 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 # tests options 
 option(UNIT_TESTS "Tests" OFF)
 
-# pybind
+# python bindings
 option(PYBIND_BUILD "Create a python module" ON)
 
 # Basic paths 
@@ -26,11 +26,12 @@ set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 add_subdirectory(src)
 
 if(PYBIND_BUILD)
+  set(PY_MODULE "NeuralNetPy")
   add_subdirectory(${LIBS_DIR}/pybind11)
-  pybind11_add_module(NeuralNetPy ${SRC_DIR}/pyBindings/binding.cpp)
-  target_include_directories(NeuralNetPy PRIVATE ${LIBS_DIR}/eigen ${NETWORK_DIR})
-  target_link_directories(NeuralNetPy PRIVATE ${LIBS_DIR}/eigen ${NETWORK_DIR})
-  target_link_libraries(NeuralNetPy PRIVATE NeuralNet)
+  pybind11_add_module(${PY_MODULE} ${SRC_DIR}/pyBindings/${PY_MODULE}.cpp)
+  target_include_directories(${PY_MODULE} PRIVATE ${LIBS_DIR}/eigen ${NETWORK_DIR})
+  target_link_directories(${PY_MODULE} PRIVATE ${LIBS_DIR}/eigen ${NETWORK_DIR})
+  target_link_libraries(${PY_MODULE} PRIVATE NeuralNet)
 endif()
 
 if(UNIT_TESTS)

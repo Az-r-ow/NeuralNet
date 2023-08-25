@@ -1,7 +1,6 @@
 ## TODOS :
 
 - [ ] Replace pragma once with header guards
-- [ ] Connect with python using pybind
 - [ ] Test with the MNIST database
 - [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [ ] Replace Quadratic loss der in lossDer function with dynamic function based on loss used
@@ -15,6 +14,7 @@
 - [x] Implement the sigmoid class
 - [x] Write some unit tests with the Catch2 library
 - [x] Transform labels into correct format for evaluation
+- [x] Connect with python using pybind
 
 ## ARCHIVED :
 

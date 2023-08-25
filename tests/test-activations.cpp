@@ -7,10 +7,17 @@ using Eigen::MatrixXd;
 
 const double ERR_MARGIN = 0.001;
 
+/**
+ * The test cases represent the x values in f(x)
+ */
 const std::vector<double> testCases = {-200, -10, -7.66, -1, 0, 2, 10, 15.7689, 200};
-// Test results for Relu activate function
+
+/**
+ * Pre-calculated test results for the RELU activation function
+ * The test results represent y in f(x) = y
+ */
 const std::vector<double> testResultsReAct = {0, 0, 0, 0, 0, 2, 10, 15.768, 200};
-// Test results for Sigmoid activate function
+// Pre-calculated Test results for Sigmoid activate function
 const std::vector<double> testResultsSigAct = {0, 0, 0, 0.268, 0.5, 0.88, 1, 1, 1};
 
 TEST_CASE("Relu activates correctly", "[function]")

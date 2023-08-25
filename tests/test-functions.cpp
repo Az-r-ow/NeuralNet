@@ -2,8 +2,8 @@
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <utils/Functions.hpp>
 
-using namespace NeuralNet;
 using namespace Catch::Matchers;
+using namespace NeuralNet;
 
 const double ERR_MARGIN = 0.001;
 
