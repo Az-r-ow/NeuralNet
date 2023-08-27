@@ -1,3 +1,10 @@
+/**
+ * In this file the essential classes and methods are exposed to Python.
+ * Just enough to be able to setup and manipulate the Neural Network
+ * When the project is built with the PYBIND_BUILD option, it will create a .so file
+ * in the build folder.
+ */
+
 #include <pybind11/pybind11.h>
 #include "Network.hpp"
 #include "Network.cpp"
