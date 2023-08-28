@@ -17,7 +17,6 @@ const std::vector<double> testCases = {-200, -10, -7.66, -1, 0, 2, 10, 15.7689, 
  * The test results represent y in f(x) = y
  */
 const std::vector<double> testResultsReAct = {0, 0, 0, 0, 0, 2, 10, 15.768, 200};
-// Pre-calculated Test results for Sigmoid activate function
 const std::vector<double> testResultsSigAct = {0, 0, 0, 0.268, 0.5, 0.88, 1, 1, 1};
 
 TEST_CASE("Relu activates correctly", "[function]")

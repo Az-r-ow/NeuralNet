@@ -6,3 +6,6 @@
 
 ### macos ###
 .DS_Store
+
+### python ###
+venv

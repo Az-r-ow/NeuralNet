@@ -1,19 +1,13 @@
-import sys 
-import os 
+import sys, os 
 
-# Get the absolute path of the current script
 script_dir = os.path.dirname(os.path.abspath(__file__))
 
-# Get the path of the directory containing the .so file
-so_dir = os.path.join(script_dir, "../..", "build")
+so_dir = os.path.join(script_dir, "..", "..", "build")
 
-# Add the .so directory to sys.path temporarily
+# Adding the path to the build dir to the sys.path
 sys.path.append(so_dir)
 
 import NeuralNetPy as NNP
-
-# Remove the temporary path modification
-sys.path.remove(so_dir)
 
 network = NNP.Network()
 
@@ -27,3 +21,6 @@ print(network.getNumLayers())
 layer1 = network.getLayer(0)
 
 print(layer1.getNumNeurons())
+
+# Remove sys.path modification
+sys.path.remove(so_dir)
