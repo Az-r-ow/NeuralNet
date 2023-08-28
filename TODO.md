@@ -1,12 +1,16 @@
 ## TODOS :
 
 - [ ] Replace pragma once with header guards
-- [ ] Test with the MNIST database
 - [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [ ] Replace Quadratic loss der in lossDer function with dynamic function based on loss used
 - [ ] Implement mini-batch
 - [ ] Implement more cost functions options
 - [ ] Implement the ability of having multiple variable inputs
+
+## IN PROGRESS :
+
+- [ ] Test with the MNIST database
+  - [ ] Finding a way to feedback during data training
 
 ## DONE :
 
