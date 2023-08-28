@@ -23,8 +23,11 @@ set(NETWORK_DIR ${SRC_DIR}/NeuralNet)
 set(TESTS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tests)
 set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 
+add_subdirectory(${LIBS_DIR}/ftxui EXCLUDE_FROM_ALL)
+
 add_subdirectory(src)
 
+# Necessary for the python examples
 if(PYBIND_BUILD)
   set(PY_MODULE "NeuralNetPy")
   add_subdirectory(${LIBS_DIR}/pybind11)

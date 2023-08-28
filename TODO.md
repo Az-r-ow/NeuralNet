@@ -10,7 +10,7 @@
 ## IN PROGRESS :
 
 - [ ] Test with the MNIST database
-  - [ ] Finding a way to feedback during data training
+  - [ ] Introduce ftxui to the project for feedback while training
 
 ## DONE :
 
