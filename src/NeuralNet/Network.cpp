@@ -39,11 +39,15 @@ Layer Network::getOutputLayer() const
 void Network::train(vector<vector<double>> inputs, vector<double> labels)
 {
     int numOutputs = this->getOutputLayer().getNumNeurons();
+    int inputsSize = inputs.size();
+    TrainingGauge progBar("Training : ", inputsSize);
+
     for (int i = 0; i < inputs.size(); i++)
     {
         forwardProp(inputs[i]);
         Labels y = formatLabels(labels[i], numOutputs);
-        backProp(y);
+        double loss = backProp(y);
+        progBar.printWithError(loss)
     }
 }
 
@@ -74,7 +78,7 @@ void Network::forwardProp(vector<double> inputs)
     }
 }
 
-void Network::backProp(Labels y)
+double Network::backProp(Labels y)
 {
     // 1 - compute the lossDer
     MatrixXd oLayerOutputs = this->getOutputLayer().getOutputs();
@@ -104,7 +108,7 @@ void Network::backProp(Labels y)
         cLayer.biases = cLayer.biases.array() - (this->alpha * bDer.transpose()).array();
     }
 
-    return;
+    return computeLoss(oLayerOutputs, y);
 }
 
 /**

@@ -5,6 +5,7 @@
 #include <memory>
 #include "Layer.hpp"
 #include "utils/Formatters.hpp"
+#include "utils/Gauge.hpp"
 
 namespace NeuralNet
 {
@@ -27,7 +28,7 @@ namespace NeuralNet
         double loss = 1;
 
         void forwardProp(vector<double> inputs);
-        void backProp(Labels y);
+        double backProp(Labels y);
 
         static double computeLoss(MatrixXd &o, Labels &y);
         static MatrixXd computeLossDer(MatrixXd &o, Labels &y);
