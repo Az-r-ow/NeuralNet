@@ -12,7 +12,7 @@ namespace NeuralNet
     class Network
     {
     public:
-        Network(double alpha = 0.1);
+        Network(double alpha = 0.001);
         void addLayer(Layer &layer);
         Layer getLayer(int index) const;
         Layer getOutputLayer() const;

@@ -111,7 +111,7 @@ void Layer::computeOutputs(MatrixXd inputs)
     MatrixXd wSum = inputs.transpose() * this->weights;
     wSum += this->biases;
 
-    wSum.unaryExpr(std::ref(this->activate));
+    wSum = wSum.unaryExpr(this->activate);
     this->outputs = wSum.transpose();
     return;
 }

@@ -42,12 +42,12 @@ void Network::train(vector<vector<double>> inputs, vector<double> labels)
     int inputsSize = inputs.size();
     TrainingGauge progBar("Training : ", inputsSize);
 
-    for (int i = 0; i < inputs.size(); i++)
+    for (int i = 0; i < inputsSize; i++)
     {
         forwardProp(inputs[i]);
         Labels y = formatLabels(labels[i], numOutputs);
         double loss = backProp(y);
-        progBar.printWithError(loss)
+        progBar.printWithError(loss);
     }
 }
 
@@ -121,7 +121,8 @@ double Network::backProp(Labels y)
 double Network::computeLoss(MatrixXd &outputs, Labels &y)
 {
     MatrixXd cMatrix = outputs.array() - y;
-    cMatrix.unaryExpr(&sqr);
+    cMatrix = cMatrix.unaryExpr(&sqr);
+
     return cMatrix.sum();
 }
 
