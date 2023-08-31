@@ -6,6 +6,7 @@
  */
 
 #include <pybind11/pybind11.h>
+#include <pybind11/stl.h>
 #include "Network.hpp"
 #include "Network.cpp"
 #include "Layer.hpp"
