@@ -18,9 +18,9 @@ SCENARIO("Layers are initialized correctly in the network")
 
     WHEN("3 layers are added")
     {
-      Layer layer1 = Layer(2, RELU, GLOROT);
-      Layer layer2 = Layer(3, RELU, GLOROT);
-      Layer layer3 = Layer(1, RELU, GLOROT);
+      Layer layer1 = Layer(2, ActivationName::RELU, WeightInit::GLOROT);
+      Layer layer2 = Layer(3, ActivationName::RELU, WeightInit::GLOROT);
+      Layer layer3 = Layer(1, ActivationName::RELU, WeightInit::GLOROT);
 
       network.addLayer(layer1);
       network.addLayer(layer2);
@@ -71,9 +71,9 @@ SCENARIO("The network back propagates")
 {
   Network network;
 
-  Layer inputLayer = Layer(3, SIGMOID);
-  Layer hiddenLayer = Layer(2, SIGMOID);
-  Layer outputLayer = Layer(1, SIGMOID);
+  Layer inputLayer = Layer(3, ActivationName::SIGMOID);
+  Layer hiddenLayer = Layer(2, ActivationName::SIGMOID);
+  Layer outputLayer = Layer(1, ActivationName::SIGMOID);
 
   network.addLayer(inputLayer);
   network.addLayer(hiddenLayer);
