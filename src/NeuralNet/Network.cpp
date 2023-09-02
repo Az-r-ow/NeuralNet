@@ -36,8 +36,9 @@ Layer Network::getOutputLayer() const
     return this->layers[this->layers.size() - 1];
 }
 
-void Network::train(vector<vector<double>> inputs, vector<double> labels)
+double Network::train(vector<vector<double>> inputs, vector<double> labels)
 {
+    double loss;
     int numOutputs = this->getOutputLayer().getNumNeurons();
     int inputsSize = inputs.size();
     TrainingGauge progBar("Training : ", inputsSize);
@@ -46,12 +47,33 @@ void Network::train(vector<vector<double>> inputs, vector<double> labels)
     {
         forwardProp(inputs[i]);
         Labels y = formatLabels(labels[i], numOutputs);
-        double loss = backProp(y);
+        loss = backProp(y);
         progBar.printWithError(loss);
     }
+
+    return loss;
 }
 
-void Network::forwardProp(vector<double> inputs)
+vector<vector<double>> predict(vector<vector<double>> inputs)
+{
+    vector<vector<double>> predictions;
+
+    // Reserving space in anticipation
+    reserve2d(predictions, inputs.size(), this->getOutputLayer().getNumNeurons());
+
+    for (int i = 0; i < inputs.size(); i++)
+    {
+        vector<double> prediction = forwardProp(inputs[i]);
+        predictions[i] = prediction;
+    }
+
+    return predictions;
+}
+
+/**
+ * Forward propagation
+ */
+vector<double> Network::forwardProp(vector<double> inputs)
 {
 
     bool first = true;
@@ -76,6 +98,8 @@ void Network::forwardProp(vector<double> inputs)
         layer.feedInputs(prevLayerOutputs);
         prevLayerOutputs = layer.getOutputs();
     }
+
+    return formatOutputs(this->getOutputLayer().getOutputs());
 }
 
 double Network::backProp(Labels y)

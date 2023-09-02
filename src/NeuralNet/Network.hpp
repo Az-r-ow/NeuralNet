@@ -17,17 +17,16 @@ namespace NeuralNet
         Layer getLayer(int index) const;
         Layer getOutputLayer() const;
         int getNumLayers() const;
-        void train(vector<vector<double>> inputs, vector<double> labels);
-        void predict(vector<double> outputs);
+        double train(vector<vector<double>> inputs, vector<double> labels);
+        vector<double> predict(vector<vector<double>> inputs);
         ~Network();
 
     private:
         vector<Layer> layers;
         double alpha; // Learning rate
-        int neuronPerLayer;
         double loss = 1;
 
-        void forwardProp(vector<double> inputs);
+        vector<double> forwardProp(vector<double> inputs);
         double backProp(Labels y);
 
         static double computeLoss(MatrixXd &o, Labels &y);

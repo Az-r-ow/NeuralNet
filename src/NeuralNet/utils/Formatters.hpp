@@ -17,4 +17,22 @@ namespace NeuralNet
     assert(y.size() == size);
     return MatrixXd::Map(&y[0], size, 1);
   };
+
+  /**
+   * Converts layer's outputs to an std::vector
+   */
+  static vector<double> formatOutputs(MatrixXd outputs)
+  {
+    int i = 0;
+    vector<double> v;
+    v.reserve(outputs.rows()); // Reserving space for efficiency
+
+    while (i < outputs.size())
+    {
+      v.push_back(outputs(i, 0));
+      i++;
+    }
+
+    return v;
+  }
 }

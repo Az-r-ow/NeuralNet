@@ -38,4 +38,21 @@ namespace NeuralNet
   {
     return x * x;
   };
+
+  /**
+   * 2d vector memory allocation function
+   */
+  template <typename T>
+  inline void reserve2d(std::vector<std::vector<T>> &v, int rows, int cols)
+  {
+    // reserve space for num rows
+    v.reserve(rows);
+
+    // reserve space for each row
+    for (int i = 0; i < rows; i++)
+    {
+      v.push_back(std::vector<T>());
+      v[i].reserve(cols);
+    }
+  };
 }
