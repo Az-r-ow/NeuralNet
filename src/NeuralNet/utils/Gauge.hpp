@@ -67,7 +67,7 @@ namespace NeuralNet
     {
       ++this->currIndex;
       std::string ratioStr = std::to_string(this->currIndex) + "/" + std::to_string(this->totalIndexes);
-      std::string errorStr = "Error : " + std::to_string(static_cast<float>(e));
+      std::string errorStr = "Loss : " + std::to_string(static_cast<float>(e));
       float ratio = static_cast<float>(this->currIndex) / this->totalIndexes;
       Element document = vbox({
           hbox({
