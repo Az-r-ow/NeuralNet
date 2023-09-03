@@ -61,7 +61,7 @@ namespace NeuralNet
   class TrainingGauge : public Gauge
   {
   public:
-    TrainingGauge(std::string preText, int totalIndexes, int currIndex = 0) : Gauge(preText, totalIndexes, currIndex) {}
+    TrainingGauge(int totalIndexes, int currIndex = 0) : Gauge("Training : ", totalIndexes, currIndex) {}
 
     /**
      * Print with loss and accuracy
@@ -74,17 +74,19 @@ namespace NeuralNet
       std::string accStr = "Accuracy : " + std::to_string(static_cast<float>(a));
 
       float ratio = static_cast<float>(this->currIndex) / this->totalIndexes;
-      Element document = vbox({
+      Element document =
           hbox({
-              text(this->preText),
-              gauge(ratio) | flex,
-              text(" " + ratioStr),
-          }),
-          text(errorStr),
-          text(accStr),
-      });
+              hbox({
+                  text(this->preText),
+                  gauge(ratio),
+                  text(" " + ratioStr),
+              }) | flex |
+                  border,
+              text(errorStr) | border,
+              text(accStr) | border,
+          });
 
-      auto screen = Screen::Create(Dimension::Fixed(100), Dimension::Fit(document));
+      auto screen = Screen::Create(Dimension::Full(), Dimension::Fit(document));
       Render(screen, document);
       std::cout << this->resetPos;
       screen.Print();

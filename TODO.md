@@ -12,7 +12,7 @@
 - [ ] Test with the MNIST database
   - [x] Introduce ftxui to the project for feedback while training
   - [x] Calculate accuracy during training and output it
-  - [ ] Remove training string from TrainingGauge constructor
+  - [x] Remove training string from TrainingGauge constructor
   - [ ] Fix the test cases
 
 ## DONE :

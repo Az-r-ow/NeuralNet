@@ -41,7 +41,7 @@ double Network::train(std::vector<std::vector<double>> inputs, std::vector<doubl
     double loss;
     int numOutputs = this->getOutputLayer().getNumNeurons();
     int inputsSize = inputs.size();
-    TrainingGauge progBar("Training : ", inputsSize);
+    TrainingGauge progBar(inputsSize);
 
     for (size_t i = 0; i < inputsSize; i++)
     {
