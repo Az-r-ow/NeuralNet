@@ -10,7 +10,10 @@
 ## IN PROGRESS :
 
 - [ ] Test with the MNIST database
-  - [ ] Introduce ftxui to the project for feedback while training
+  - [x] Introduce ftxui to the project for feedback while training
+  - [x] Calculate accuracy during training and output it
+  - [ ] Remove training string from TrainingGauge constructor
+  - [ ] Fix the test cases
 
 ## DONE :
 

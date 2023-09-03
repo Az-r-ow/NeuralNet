@@ -63,11 +63,16 @@ namespace NeuralNet
   public:
     TrainingGauge(std::string preText, int totalIndexes, int currIndex = 0) : Gauge(preText, totalIndexes, currIndex) {}
 
-    void printWithError(double e)
+    /**
+     * Print with loss and accuracy
+     */
+    void printWithLAndA(double l, double a)
     {
       ++this->currIndex;
       std::string ratioStr = std::to_string(this->currIndex) + "/" + std::to_string(this->totalIndexes);
-      std::string errorStr = "Loss : " + std::to_string(static_cast<float>(e));
+      std::string errorStr = "Loss : " + std::to_string(static_cast<float>(l));
+      std::string accStr = "Accuracy : " + std::to_string(static_cast<float>(a));
+
       float ratio = static_cast<float>(this->currIndex) / this->totalIndexes;
       Element document = vbox({
           hbox({
@@ -76,6 +81,7 @@ namespace NeuralNet
               text(" " + ratioStr),
           }),
           text(errorStr),
+          text(accStr),
       });
 
       auto screen = Screen::Create(Dimension::Fixed(100), Dimension::Fit(document));

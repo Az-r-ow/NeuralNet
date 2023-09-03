@@ -17,20 +17,21 @@ namespace NeuralNet
         Layer getLayer(int index) const;
         Layer getOutputLayer() const;
         int getNumLayers() const;
-        double train(vector<vector<double>> inputs, vector<double> labels);
-        vector<double> predict(vector<vector<double>> inputs);
+        double train(std::vector<std::vector<double>> inputs, std::vector<double> labels);
+        std::vector<std::vector<double>> predict(std::vector<std::vector<double>> inputs);
         ~Network();
 
     private:
-        vector<Layer> layers;
-        double alpha; // Learning rate
+        std::vector<Layer> layers;
+        int cp = 0, tp = 0; // Correct Predictions, Total Predictions
+        double alpha;       // Learning rate
         double loss = 1;
 
-        vector<double> forwardProp(vector<double> inputs);
+        std::vector<double> forwardProp(std::vector<double> inputs);
         double backProp(Labels y);
+        double computeAccuracy(int predicted, int label);
 
-        static double computeLoss(MatrixXd &o, Labels &y);
-        static MatrixXd computeLossDer(MatrixXd &o, Labels &y);
-        static MatrixXd computeSigmoidDer(MatrixXd &a);
+        static double computeLoss(const MatrixXd &o, const Labels &y);
+        static MatrixXd computeLossDer(const MatrixXd &o, const Labels &y);
     };
 }

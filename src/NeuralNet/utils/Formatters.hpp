@@ -12,7 +12,7 @@ namespace NeuralNet
     return labels;
   };
 
-  static Labels formatLabels(vector<double> y, int size)
+  static Labels formatLabels(std::vector<double> y, int size)
   {
     assert(y.size() == size);
     return MatrixXd::Map(&y[0], size, 1);
@@ -21,10 +21,10 @@ namespace NeuralNet
   /**
    * Converts layer's outputs to an std::vector
    */
-  static vector<double> formatOutputs(MatrixXd outputs)
+  static std::vector<double> formatOutputs(MatrixXd outputs)
   {
     int i = 0;
-    vector<double> v;
+    std::vector<double> v;
     v.reserve(outputs.rows()); // Reserving space for efficiency
 
     while (i < outputs.size())

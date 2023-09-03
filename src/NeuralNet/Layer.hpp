@@ -13,8 +13,6 @@
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
-using std::string;
-using std::vector;
 
 namespace NeuralNet
 {
@@ -44,10 +42,10 @@ namespace NeuralNet
 
         void initWeights(int numCols);
         void setActivation(ActivationName activation);
-        void feedInputs(vector<double> inputs);
+        void feedInputs(std::vector<double> inputs);
         void feedInputs(MatrixXd inputs);
         void computeOutputs(MatrixXd inputs);
-        void setOutputs(vector<double> outputs); // used for input layer
+        void setOutputs(std::vector<double> outputs); // used for input layer
 
         static void
         randomWeightInit(MatrixXd *weightsMatrix, double min = -1.0, double max = 1.0);

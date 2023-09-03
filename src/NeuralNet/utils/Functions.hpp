@@ -3,6 +3,7 @@
 #include <cmath>
 #include <iostream>
 #include <random>
+#include <cstddef>
 
 namespace NeuralNet
 {
@@ -34,13 +35,13 @@ namespace NeuralNet
   /**
    * Returns the square of x
    */
-  inline double sqr(double x)
+  inline double sqr(const double x)
   {
     return x * x;
   };
 
   /**
-   * 2d vector memory allocation function
+   * 2d std::vector memory allocation function
    */
   template <typename T>
   inline void reserve2d(std::vector<std::vector<T>> &v, int rows, int cols)
@@ -55,4 +56,30 @@ namespace NeuralNet
       v[i].reserve(cols);
     }
   };
+
+  /**
+   * Returns the index of the highest number in the list
+   */
+  template <typename T>
+  inline size_t findIndexOfMax(const std::vector<T> &v)
+  {
+    if (v.empty())
+    {
+      return -1;
+    }
+
+    size_t maxIndex = 0;
+    T maxValue = v[0];
+
+    for (size_t i = 1; i < v.size(); i++)
+    {
+      if (v[i] > maxValue)
+      {
+        maxIndex = i;
+        maxValue = v[i];
+      }
+    }
+
+    return maxIndex;
+  }
 }

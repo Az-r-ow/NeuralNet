@@ -36,34 +36,35 @@ Layer Network::getOutputLayer() const
     return this->layers[this->layers.size() - 1];
 }
 
-double Network::train(vector<vector<double>> inputs, vector<double> labels)
+double Network::train(std::vector<std::vector<double>> inputs, std::vector<double> labels)
 {
     double loss;
     int numOutputs = this->getOutputLayer().getNumNeurons();
     int inputsSize = inputs.size();
     TrainingGauge progBar("Training : ", inputsSize);
 
-    for (int i = 0; i < inputsSize; i++)
+    for (size_t i = 0; i < inputsSize; i++)
     {
-        forwardProp(inputs[i]);
+        std::vector<double> pred = forwardProp(inputs[i]);
+        double accuracy = this->computeAccuracy(findIndexOfMax(pred), labels[i]);
         Labels y = formatLabels(labels[i], numOutputs);
         loss = backProp(y);
-        progBar.printWithError(loss);
+        progBar.printWithLAndA(loss, accuracy);
     }
 
     return loss;
 }
 
-vector<vector<double>> predict(vector<vector<double>> inputs)
+std::vector<std::vector<double>> Network::predict(std::vector<std::vector<double>> inputs)
 {
-    vector<vector<double>> predictions;
+    std::vector<std::vector<double>> predictions;
 
     // Reserving space in anticipation
     reserve2d(predictions, inputs.size(), this->getOutputLayer().getNumNeurons());
 
     for (int i = 0; i < inputs.size(); i++)
     {
-        vector<double> prediction = forwardProp(inputs[i]);
+        std::vector<double> prediction = forwardProp(inputs[i]);
         predictions[i] = prediction;
     }
 
@@ -73,7 +74,7 @@ vector<vector<double>> predict(vector<vector<double>> inputs)
 /**
  * Forward propagation
  */
-vector<double> Network::forwardProp(vector<double> inputs)
+std::vector<double> Network::forwardProp(std::vector<double> inputs)
 {
 
     bool first = true;
@@ -136,13 +137,29 @@ double Network::backProp(Labels y)
 }
 
 /**
+ * Updates the correct prediction and the total prediction
+ * Returns the accuracy of the model
+ */
+double Network::computeAccuracy(const int predicted, const int label)
+{
+    this->tp += 1;
+
+    if (predicted == label)
+    {
+        this->cp += 1;
+    }
+
+    return static_cast<double>(cp) / tp;
+}
+
+/**
  * Quadratic  loss
  * todo : add more loss functions
  * - Cross-entropy
  * - Exponential
  * - Hellinger distance
  */
-double Network::computeLoss(MatrixXd &outputs, Labels &y)
+double Network::computeLoss(const MatrixXd &outputs, const Labels &y)
 {
     MatrixXd cMatrix = outputs.array() - y;
     cMatrix = cMatrix.unaryExpr(&sqr);
@@ -150,7 +167,7 @@ double Network::computeLoss(MatrixXd &outputs, Labels &y)
     return cMatrix.sum();
 }
 
-MatrixXd Network::computeLossDer(MatrixXd &yHat, Labels &y)
+MatrixXd Network::computeLossDer(const MatrixXd &yHat, const Labels &y)
 {
     assert(yHat.rows() == y.rows());
     return (yHat.array() - y.array()).matrix() * 2;

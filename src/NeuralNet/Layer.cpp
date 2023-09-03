@@ -60,7 +60,7 @@ void Layer::setActivation(ActivationName activation)
     return;
 }
 
-void Layer::feedInputs(vector<double> inputs)
+void Layer::feedInputs(std::vector<double> inputs)
 {
     assert(inputs.size() == this->weights.rows());
     this->feedInputs(MatrixXd::Map(&inputs[0], inputs.size(), 1));
@@ -116,7 +116,7 @@ void Layer::computeOutputs(MatrixXd inputs)
     return;
 }
 
-void Layer::setOutputs(vector<double> outputs)
+void Layer::setOutputs(std::vector<double> outputs)
 {
     assert(outputs.size() == this->getNumNeurons());
     this->outputs = MatrixXd::Map(&outputs[0], this->getNumNeurons(), 1);
