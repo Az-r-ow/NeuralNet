@@ -67,13 +67,13 @@ SCENARIO("Layers are initialized correctly in the network")
   }
 }
 
-SCENARIO("The network back propagates")
+SCENARIO("The network remains the same when trained with null inputs")
 {
   Network network;
 
-  Layer inputLayer = Layer(3, ActivationName::SIGMOID);
-  Layer hiddenLayer = Layer(2, ActivationName::SIGMOID);
-  Layer outputLayer = Layer(1, ActivationName::SIGMOID);
+  Layer inputLayer = Layer(3, ActivationName::RELU);
+  Layer hiddenLayer = Layer(2, ActivationName::RELU);
+  Layer outputLayer = Layer(1, ActivationName::RELU);
 
   network.addLayer(inputLayer);
   network.addLayer(hiddenLayer);
@@ -111,25 +111,39 @@ SCENARIO("The network back propagates")
         CHECK(network.getLayer(2).getWeights() == preTrainW2);
       }
     }
+  }
+}
 
-    WHEN("Inputs with random values are passed")
+SCENARIO("The network back propagates")
+{
+  Network network;
+
+  Layer inputLayer = Layer(3, ActivationName::RELU);
+  Layer hiddenLayer = Layer(2, ActivationName::RELU);
+  Layer outputLayer = Layer(2, ActivationName::RELU);
+
+  network.addLayer(inputLayer);
+  network.addLayer(hiddenLayer);
+  network.addLayer(outputLayer);
+
+  GIVEN("Random inputs and feedback")
+  {
+    std::vector<std::vector<double>> randInputs;
+    randInputs.push_back(randDVector(network.getLayer(0).getNumNeurons()));
+
+    std::vector<double> labels = {1};
+
+    // Caching weights before training for later comparison
+    MatrixXd preTrainW1 = network.getLayer(1).getWeights();
+    MatrixXd preTrainW2 = network.getLayer(2).getWeights();
+
+    // Training with random values
+    network.train(randInputs, labels);
+
+    THEN("The weights differ")
     {
-      std::vector<std::vector<double>> randInputs;
-      randInputs.push_back(randDVector(network.getLayer(0).getNumNeurons()));
-      std::vector<double> labels = {0};
-
-      // Caching weights before training for later comparison
-      MatrixXd preTrainW1 = network.getLayer(1).getWeights();
-      MatrixXd preTrainW2 = network.getLayer(2).getWeights();
-
-      // Training with random values
-      network.train(randInputs, labels);
-
-      AND_THEN("The weights differ")
-      {
-        CHECK(network.getLayer(1).getWeights() != preTrainW1);
-        CHECK(network.getLayer(2).getWeights() != preTrainW2);
-      }
+      CHECK(network.getLayer(1).getWeights() != preTrainW1);
+      CHECK(network.getLayer(2).getWeights() != preTrainW2);
     }
   }
 }
