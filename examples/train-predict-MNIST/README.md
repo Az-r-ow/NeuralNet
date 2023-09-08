@@ -28,6 +28,12 @@ Once the virtual environment activated, install the python dependencies.
 python3 -m pip install -r requirements.txt
 ```
 
+Finally, create the dataset folder :
+
+```bash
+mkdir dataset
+```
+
 In the end to deactivate the virtual env, execute this command :
 
 ```bash
