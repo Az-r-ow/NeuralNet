@@ -12,8 +12,9 @@ namespace NeuralNet
     class Network
     {
     public:
-        Network(double alpha = 0.001);
+        Network(double alpha = 0.001, int epochs = 10);
         void addLayer(Layer &layer);
+        void setBatchSize(int batchSize);
         Layer getLayer(int index) const;
         Layer getOutputLayer() const;
         int getNumLayers() const;
@@ -26,6 +27,8 @@ namespace NeuralNet
         int cp = 0, tp = 0; // Correct Predictions, Total Predictions
         double alpha;       // Learning rate
         double loss = 1;
+        int batchSize = 500; // Default batch size
+        int epochs;
 
         std::vector<double> forwardProp(std::vector<double> inputs);
         double backProp(Labels y);

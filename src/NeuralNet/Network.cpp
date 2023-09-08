@@ -2,9 +2,10 @@
 
 using namespace NeuralNet;
 
-Network::Network(double alpha)
+Network::Network(double alpha, int epochs)
 {
     this->alpha = alpha;
+    this->epochs = epochs;
 }
 
 int Network::getNumLayers() const
@@ -24,6 +25,11 @@ void Network::addLayer(Layer &layer)
     this->layers.push_back(layer);
 }
 
+void Network::setBatchSize(int batchSize)
+{
+    this->batchSize = batchSize;
+}
+
 Layer Network::getLayer(int index) const
 {
     assert(index < this->layers.size() && index >= 0);
@@ -41,15 +47,18 @@ double Network::train(std::vector<std::vector<double>> inputs, std::vector<doubl
     double loss;
     int numOutputs = this->getOutputLayer().getNumNeurons();
     int inputsSize = inputs.size();
-    TrainingGauge progBar(inputsSize);
 
-    for (size_t i = 0; i < inputsSize; i++)
+    for (int e = 0; e < this->epochs; e++)
     {
-        std::vector<double> pred = forwardProp(inputs[i]);
-        double accuracy = this->computeAccuracy(findIndexOfMax(pred), labels[i]);
-        Labels y = formatLabels(labels[i], numOutputs);
-        loss = backProp(y);
-        progBar.printWithLAndA(loss, accuracy);
+        TrainingGauge progBar(inputsSize);
+        for (size_t i = 0; i < inputsSize; i++)
+        {
+            std::vector<double> pred = forwardProp(inputs[i]);
+            double accuracy = this->computeAccuracy(findIndexOfMax(pred), labels[i]);
+            Labels y = formatLabels(labels[i], numOutputs);
+            loss = backProp(y);
+            progBar.printWithLAndA(loss, accuracy);
+        }
     }
 
     return loss;
