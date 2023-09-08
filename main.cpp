@@ -29,9 +29,9 @@ int main(int argc, char *argv[])
    layerOuput.printOutputs();
 
    // training the network
-   vector<vector<double>> inputs;
+   std::vector<std::vector<double>> inputs;
    inputs.push_back(randDVector(layer1.getNumNeurons(), -1, 1));
-   vector<double> labels = {1};
+   std::vector<double> labels = {1};
    network.train(inputs, labels);
 
    Layer input = network.getLayer(0);

@@ -61,7 +61,11 @@ namespace NeuralNet
   class TrainingGauge : public Gauge
   {
   public:
-    TrainingGauge(int totalIndexes, int currIndex = 0) : Gauge("Training : ", totalIndexes, currIndex) {}
+    TrainingGauge(int totalIndexes, int currIndex = 0, int totalEpochs = 10, int currEpoch = 0) : Gauge("Training : ", totalIndexes, currIndex)
+    {
+      this->totalEpochs = totalEpochs;
+      this->currEpoch = currEpoch;
+    }
 
     /**
      * Print with loss and accuracy
@@ -70,6 +74,7 @@ namespace NeuralNet
     {
       ++this->currIndex;
       std::string ratioStr = std::to_string(this->currIndex) + "/" + std::to_string(this->totalIndexes);
+      std::string epochStr = "Epoch : " + std::to_string(this->currEpoch) + "/" + std::to_string(this->totalEpochs);
       std::string errorStr = "Loss : " + std::to_string(static_cast<float>(l));
       std::string accStr = "Accuracy : " + std::to_string(static_cast<float>(a));
 
@@ -77,7 +82,7 @@ namespace NeuralNet
       Element document =
           hbox({
               hbox({
-                  text(this->preText),
+                  text(epochStr + " "),
                   gauge(ratio),
                   text(" " + ratioStr),
               }) | flex |
@@ -95,5 +100,7 @@ namespace NeuralNet
 
   private:
     std::string resetPos;
+    int totalEpochs;
+    int currEpoch;
   };
 }

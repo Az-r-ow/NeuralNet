@@ -38,8 +38,9 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .def("getNumNeurons", &Layer::getNumNeurons);
 
     py::class_<Network>(m, "Network")
-        .def(py::init<double>(),
-             py::arg("alpha") = 0.1)
+        .def(py::init<double, int>(),
+             py::arg("alpha") = 0.1,
+             py::arg("epochs") = 10)
         .def("addLayer", &Network::addLayer)
         .def("getLayer", &Network::getLayer, py::return_value_policy::copy)
         .def("getNumLayers", &Network::getNumLayers)

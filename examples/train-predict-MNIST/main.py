@@ -35,18 +35,16 @@ if not os.path.exists(mnist_dataset_file):
 # Otherwise load data from file
 (x_train, y_train), (x_test, y_test) = load_data(mnist_dataset_file)
 
-network = NNP.Network()
+network = NNP.Network(epochs=1)
 
-network.addLayer(NNP.Layer(3))
-network.addLayer(NNP.Layer(4))
-network.addLayer(NNP.Layer(5))
+network.addLayer(NNP.Layer(784))
+network.addLayer(NNP.Layer(128))
+network.addLayer(NNP.Layer(10))
 
+f_x_train = [x.flatten() for x in x_train]
 
-print(network.getNumLayers())
+network.train(f_x_train[:4000], y_train[:4000])
 
-layer1 = network.getLayer(0)
-
-print(layer1.getNumNeurons())
 
 # Remove sys.path modification
 sys.path.remove(so_dir)

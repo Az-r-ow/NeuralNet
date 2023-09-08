@@ -44,20 +44,29 @@ Layer Network::getOutputLayer() const
 
 double Network::train(std::vector<std::vector<double>> inputs, std::vector<double> labels)
 {
+    int batchCount = 0;
     double loss;
     int numOutputs = this->getOutputLayer().getNumNeurons();
     int inputsSize = inputs.size();
+    MatrixXd grad;
 
     for (int e = 0; e < this->epochs; e++)
     {
-        TrainingGauge progBar(inputsSize);
+        TrainingGauge progBar(inputsSize, 0, this->epochs, (e + 1));
         for (size_t i = 0; i < inputsSize; i++)
         {
             std::vector<double> pred = forwardProp(inputs[i]);
             double accuracy = this->computeAccuracy(findIndexOfMax(pred), labels[i]);
+            MatrixXd o = this->getOutputLayer().getOutputs();
             Labels y = formatLabels(labels[i], numOutputs);
-            loss = backProp(y);
+            double loss = computeLoss(o, y);
+            grad = grad.rows() == 0 ? computeGradient(o, y) : (grad.array() - computeGradient(o, y).array()) / 2;
             progBar.printWithLAndA(loss, accuracy);
+
+            if (i % this->batchSize == 0)
+            {
+                backProp(grad);
+            }
         }
     }
 
@@ -112,13 +121,10 @@ std::vector<double> Network::forwardProp(std::vector<double> inputs)
     return formatOutputs(this->getOutputLayer().getOutputs());
 }
 
-double Network::backProp(Labels y)
+void Network::backProp(MatrixXd grad)
 {
-    // 1 - compute the lossDer
-    MatrixXd oLayerOutputs = this->getOutputLayer().getOutputs();
-
     // Next Layer activation der dL/da(l - 1)
-    MatrixXd nextLayerADer = computeLossDer(oLayerOutputs, y);
+    MatrixXd nextLayerADer = grad;
 
     for (unsigned i = this->layers.size(); --i > 0;)
     {
@@ -141,8 +147,6 @@ double Network::backProp(Labels y)
         cLayer.weights = cLayer.weights.array() - (this->alpha * wDer.transpose()).array();
         cLayer.biases = cLayer.biases.array() - (this->alpha * bDer.transpose()).array();
     }
-
-    return computeLoss(oLayerOutputs, y);
 }
 
 /**
@@ -176,7 +180,7 @@ double Network::computeLoss(const MatrixXd &outputs, const Labels &y)
     return cMatrix.sum();
 }
 
-MatrixXd Network::computeLossDer(const MatrixXd &yHat, const Labels &y)
+MatrixXd Network::computeGradient(const MatrixXd &yHat, const Labels &y)
 {
     assert(yHat.rows() == y.rows());
     return (yHat.array() - y.array()).matrix() * 2;
