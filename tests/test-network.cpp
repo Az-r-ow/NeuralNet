@@ -9,7 +9,8 @@ SCENARIO("Layers are initialized correctly in the network")
 {
   GIVEN("An empty network")
   {
-    Network network;
+    // Limiting the network to 1 epoch
+    Network network(0.1, 1);
 
     THEN("Number layer == 0")
     {
@@ -69,7 +70,13 @@ SCENARIO("Layers are initialized correctly in the network")
 
 SCENARIO("The network remains the same when trained with null inputs")
 {
-  Network network;
+  // Limiting the network with 1 epoch
+  Network network(0.1, 1);
+
+  /**
+   * Setting the batch size to 1 so that the network backpropagates on the first training sample
+   */
+  network.setBatchSize(1);
 
   Layer inputLayer = Layer(3, ActivationName::RELU);
   Layer hiddenLayer = Layer(2, ActivationName::RELU);
@@ -116,11 +123,17 @@ SCENARIO("The network remains the same when trained with null inputs")
 
 SCENARIO("The network back propagates")
 {
-  Network network;
+  // Limiting the network to 1 epoch
+  Network network(0.1, 1);
 
-  Layer inputLayer = Layer(3, ActivationName::RELU);
-  Layer hiddenLayer = Layer(2, ActivationName::RELU);
-  Layer outputLayer = Layer(2, ActivationName::RELU);
+  /**
+   * Setting the batch size to 1 so that the network backpropagates on the first training sample
+   */
+  network.setBatchSize(1);
+
+  Layer inputLayer = Layer(3);
+  Layer hiddenLayer = Layer(2);
+  Layer outputLayer = Layer(2);
 
   network.addLayer(inputLayer);
   network.addLayer(hiddenLayer);
