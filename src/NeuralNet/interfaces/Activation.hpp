@@ -10,7 +10,7 @@ namespace NeuralNet
   {
   public:
     // Activates the input z
-    static double activate(double z);
+    static double activate(MatrixXd &z);
     // compute the derivative
     static MatrixXd diff(MatrixXd &a);
   };

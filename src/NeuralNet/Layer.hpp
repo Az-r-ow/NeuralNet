@@ -37,7 +37,7 @@ namespace NeuralNet
         WeightInit weightInit;
         MatrixXd outputs;
         MatrixXd weights;
-        double (*activate)(double);
+        MatrixXd (*activate)(MatrixXd &);
         MatrixXd (*diff)(MatrixXd &);
 
         void initWeights(int numCols);

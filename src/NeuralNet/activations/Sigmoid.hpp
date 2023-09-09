@@ -7,9 +7,10 @@ namespace NeuralNet
   class Sigmoid : public Activation
   {
   public:
-    static double activate(double z)
+    static MatrixXd activate(MatrixXd &z)
     {
-      return 1 / (1 + std::exp(-z));
+      MatrixXd negZ = -z;
+      return 1 / (1 + negZ.array().exp());
     };
 
     static MatrixXd diff(MatrixXd &a)

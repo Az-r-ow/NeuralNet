@@ -110,9 +110,9 @@ void Layer::computeOutputs(MatrixXd inputs)
     // Weighted sum
     MatrixXd wSum = inputs.transpose() * this->weights;
     wSum += this->biases;
+    wSum = wSum.transpose();
 
-    wSum = wSum.unaryExpr(this->activate);
-    this->outputs = wSum.transpose();
+    this->outputs = this->activate(wSum);
     return;
 }
 

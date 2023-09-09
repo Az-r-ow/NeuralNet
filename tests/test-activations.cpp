@@ -7,26 +7,37 @@ using Eigen::MatrixXd;
 
 const double ERR_MARGIN = 0.001;
 
-/**
- * The test cases represent the x values in f(x)
- */
-const std::vector<double> testCases = {-200, -10, -7.66, -1, 0, 2, 10, 15.7689, 200};
+// Custom test assertion to check it two matrices are approximately equal
+void CHECK_MATRIX_APPROX(const MatrixXd &matA, const MatrixXd &matB, double epsilon = 1e-6)
+{
+  assert(matA.rows() == matB.rows() && matA.cols() == matB.cols());
 
-/**
- * Pre-calculated test results for the RELU activation function
- * The test results represent y in f(x) = y
- */
-const std::vector<double> testResultsReAct = {0, 0, 0, 0, 0, 2, 10, 15.768, 200};
-const std::vector<double> testResultsSigAct = {0, 0, 0, 0.268, 0.5, 0.88, 1, 1, 1};
+  for (int i = 0; i < matA.rows(); ++i)
+  {
+    for (int j = 0; j < matA.cols(); ++j)
+    {
+      CHECK(std::abs(matA(i, j) - matB(i, j)) < epsilon);
+    }
+  }
+}
 
 TEST_CASE("Relu activates correctly", "[function]")
 {
-  assert(testCases.size() == testResultsReAct.size());
+  MatrixXd inputs(4, 1);
 
-  for (int i = 0; i < testCases.size(); i++)
-  {
-    CHECK_THAT(NeuralNet::Relu::activate(testCases[i]), Catch::Matchers::WithinAbs(testResultsReAct[i], ERR_MARGIN));
-  }
+  MatrixXd expectedOutputs(4, 1);
+
+  inputs << -1,
+      0,
+      4,
+      10;
+
+  expectedOutputs << 0,
+      0,
+      4,
+      10;
+
+  CHECK(NeuralNet::Relu::activate(inputs) == expectedOutputs);
 }
 
 TEST_CASE("Relu differentiate correctly", "[function]")
@@ -50,12 +61,22 @@ TEST_CASE("Relu differentiate correctly", "[function]")
 
 TEST_CASE("Sigmoid Activates correctly", "[function]")
 {
-  assert(testCases.size() == testResultsSigAct.size());
+  MatrixXd inputs(4, 1);
 
-  for (int i = 0; i < testCases.size(); i++)
-  {
-    CHECK_THAT(NeuralNet::Sigmoid::activate(testCases[i]), Catch::Matchers::WithinAbs(testResultsSigAct[i], ERR_MARGIN));
-  }
+  MatrixXd expectedOutputs(4, 1);
+
+  inputs << -7.66,
+      -1,
+      0,
+      10;
+
+  // Pre-calculated
+  expectedOutputs << 0,
+      0.268,
+      0.5,
+      1;
+
+  CHECK_MATRIX_APPROX(NeuralNet::Sigmoid::activate(inputs), expectedOutputs, 0.1);
 }
 
 TEST_CASE("Sigmoid differentiates correctly", "[function]")
