@@ -2,10 +2,11 @@
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <activations/Relu.hpp>
 #include <activations/Sigmoid.hpp>
+#include <activations/Softmax.hpp>
 
 using Eigen::MatrixXd;
 
-const double ERR_MARGIN = 0.001;
+const double EPSILON = 0.001;
 
 // Custom test assertion to check it two matrices are approximately equal
 void CHECK_MATRIX_APPROX(const MatrixXd &matA, const MatrixXd &matB, double epsilon = 1e-6)
@@ -76,7 +77,7 @@ TEST_CASE("Sigmoid Activates correctly", "[function]")
       0.5,
       1;
 
-  CHECK_MATRIX_APPROX(NeuralNet::Sigmoid::activate(inputs), expectedOutputs, 0.1);
+  CHECK_MATRIX_APPROX(NeuralNet::Sigmoid::activate(inputs), expectedOutputs, EPSILON);
 }
 
 TEST_CASE("Sigmoid differentiates correctly", "[function]")
@@ -96,4 +97,32 @@ TEST_CASE("Sigmoid differentiates correctly", "[function]")
   }
 
   CHECK(NeuralNet::Sigmoid::diff(test_m1) == expected_m1);
+}
+
+TEST_CASE("Softmax activates correctly", "[function]")
+{
+  MatrixXd inputs(4, 1);
+
+  MatrixXd expectedOutputs(4, 1);
+
+  inputs << -2, 0, 1, 2;
+
+  expectedOutputs << 0.012, 0.0889, 0.241, 0.657;
+
+  CHECK_MATRIX_APPROX(NeuralNet::Softmax::activate(inputs), expectedOutputs, EPSILON);
+}
+
+TEST_CASE("Softmax differentiates correctly", "[function]")
+{
+  MatrixXd inputs(4, 1);
+
+  MatrixXd expectedOutputs(4, 1);
+
+  inputs << 1, 2, 3, 4;
+
+  expectedOutputs << 0.031, 0.0795, 0.18, 0.2292;
+
+  MatrixXd activatedInputs = NeuralNet::Softmax::activate(inputs);
+
+  CHECK_MATRIX_APPROX(NeuralNet::Softmax::diff(activatedInputs), expectedOutputs, EPSILON);
 }

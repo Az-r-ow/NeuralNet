@@ -10,6 +10,7 @@
 #include "utils/Typedefs.hpp"
 #include "activations/Sigmoid.hpp"
 #include "activations/Relu.hpp"
+#include "activations/Softmax.hpp"
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
@@ -37,8 +38,8 @@ namespace NeuralNet
         WeightInit weightInit;
         MatrixXd outputs;
         MatrixXd weights;
-        MatrixXd (*activate)(MatrixXd &);
-        MatrixXd (*diff)(MatrixXd &);
+        MatrixXd (*activate)(const MatrixXd &);
+        MatrixXd (*diff)(const MatrixXd &);
 
         void initWeights(int numCols);
         void setActivation(ActivationName activation);

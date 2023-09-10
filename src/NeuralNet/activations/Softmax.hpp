@@ -4,13 +4,15 @@
 
 namespace NeuralNet
 {
-  class Sigmoid : public Activation
+  class Softmax : public Activation
   {
   public:
     static MatrixXd activate(const MatrixXd &z)
     {
-      MatrixXd negZ = -z;
-      return 1 / (1 + negZ.array().exp());
+      MatrixXd exp = z.array().exp();
+      double sum = exp.sum();
+
+      return exp.array() / sum;
     };
 
     static MatrixXd diff(const MatrixXd &a)
