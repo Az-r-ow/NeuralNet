@@ -1,15 +1,15 @@
 ## TODOS :
 
-- [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [ ] Replace Quadratic loss der in lossDer function with dynamic function based on loss used
-- [ ] Implement mini-batch
-- [ ] Implement more cost functions options
+  - [ ] Implement more cost functions options
+- [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [ ] Implement the ability of having multiple variable inputs
 
 ## IN PROGRESS :
 
 ## DONE :
 
+- [x] Implement mini-batch
 - [x] Test with the MNIST database
 - [x] Test the backpropagation
 - [x] Implement the sigmoid class

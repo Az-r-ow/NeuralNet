@@ -50,6 +50,10 @@ void Layer::setActivation(ActivationName activation)
         this->activate = Relu::activate;
         this->diff = Relu::diff;
         break;
+    case ActivationName::SOFTMAX:
+        this->activate = Softmax::activate;
+        this->diff = Softmax::diff;
+        break;
     /**
      * Add cases as I add activations
      */

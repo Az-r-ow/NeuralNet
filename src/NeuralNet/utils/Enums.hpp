@@ -5,7 +5,8 @@ namespace NeuralNet
   enum class ActivationName
   {
     RELU,
-    SIGMOID
+    SIGMOID,
+    SOFTMAX,
   };
 
   enum class WeightInit

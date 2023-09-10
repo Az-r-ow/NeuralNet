@@ -21,7 +21,8 @@ PYBIND11_MODULE(NeuralNetPy, m)
 {
     py::enum_<ActivationName>(m, "ActivationName")
         .value("RELU", ActivationName::RELU)
-        .value("SIGMOID", ActivationName::SIGMOID);
+        .value("SIGMOID", ActivationName::SIGMOID)
+        .value("SOFTMAX", ActivationName::SOFTMAX);
 
     py::enum_<WeightInit>(m, "WeightInit")
         .value("RANDOM", WeightInit::RANDOM)

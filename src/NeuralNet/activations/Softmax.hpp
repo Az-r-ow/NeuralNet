@@ -9,10 +9,12 @@ namespace NeuralNet
   public:
     static MatrixXd activate(const MatrixXd &z)
     {
-      MatrixXd exp = z.array().exp();
-      double sum = exp.sum();
+      // Approach to mitigate errors resulting from exponentiating large values
+      double maxValue = z.maxCoeff(); // Getting the highest value
+      MatrixXd shiftedInputs = z.array() - maxValue;
+      MatrixXd exp = shiftedInputs.array().exp();
 
-      return exp.array() / sum;
+      return exp.array() / exp.sum();
     };
 
     static MatrixXd diff(const MatrixXd &a)
