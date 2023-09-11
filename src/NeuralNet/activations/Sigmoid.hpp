@@ -7,13 +7,13 @@ namespace NeuralNet
   class Sigmoid : public Activation
   {
   public:
-    static MatrixXd activate(const MatrixXd &z)
+    static Eigen::MatrixXd activate(const Eigen::MatrixXd &z)
     {
-      MatrixXd negZ = -z;
+      Eigen::MatrixXd negZ = -z;
       return 1 / (1 + negZ.array().exp());
     };
 
-    static MatrixXd diff(const MatrixXd &a)
+    static Eigen::MatrixXd diff(const Eigen::MatrixXd &a)
     {
       return a.array() * (1 - a.array());
     };

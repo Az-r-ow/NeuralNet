@@ -1,11 +1,14 @@
 ## TODOS :
 
-- [ ] Replace Quadratic loss der in lossDer function with dynamic function based on loss used
-  - [ ] Implement more cost functions options
+- [ ] Change the enums names to all capital (ex: ACTIVATION, LOSS, WEIGHT_INIT)
 - [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
+- [ ] Implement a dropout to avoid over-fitting the model
 - [ ] Implement the ability of having multiple variable inputs
 
 ## IN PROGRESS :
+
+- [ ] Replace Quadratic loss der in lossDer function with dynamic function based on loss used
+  - [ ] Implement more cost functions options
 
 ## DONE :
 

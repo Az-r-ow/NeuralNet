@@ -7,12 +7,12 @@ namespace NeuralNet
   class Relu : public Activation
   {
   public:
-    static MatrixXd activate(const MatrixXd &z)
+    static Eigen::MatrixXd activate(const Eigen::MatrixXd &z)
     {
       return z.unaryExpr(&Relu::activateValue);
     }
 
-    static MatrixXd diff(const MatrixXd &a)
+    static Eigen::MatrixXd diff(const Eigen::MatrixXd &a)
     {
       return a.unaryExpr(&Relu::diffValue);
     }

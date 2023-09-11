@@ -16,4 +16,10 @@ namespace NeuralNet
     HE,
     LACUN
   };
+
+  enum class Loss
+  {
+    MCE, // Multi-class Cross Entropy
+    QUADRATIC
+  };
 }
