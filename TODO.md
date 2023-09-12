@@ -1,6 +1,6 @@
 ## TODOS :
 
-- [ ] Replace Quadratic loss der in lossDer function with dynamic function based on loss used
+- [ ] Backpropagation not working with the latest activations
 - [ ] Update README to include more information about the project
 - [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [ ] Implement a dropout to avoid over-fitting the model
@@ -10,6 +10,7 @@
 
 ## DONE :
 
+- [x] Replace Quadratic loss der in lossDer function with dynamic function based on loss used
 - [x] Change the enums names to all capital (ex: ACTIVATION, LOSS, WEIGHT_INIT)
 - [x] Implement mini-batch
 - [x] Test with the MNIST database

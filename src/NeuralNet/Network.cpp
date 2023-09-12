@@ -137,7 +137,7 @@ std::vector<double> Network::forwardProp(std::vector<double> inputs)
         prevLayerOutputs = layer.getOutputs();
     }
 
-    return formatOutputs(this->getOutputLayer().getOutputs());
+    return formatOutputs(prevLayerOutputs);
 }
 
 void Network::backProp(MatrixXd grad)
