@@ -8,9 +8,7 @@
 #include "utils/Functions.hpp"
 #include "utils/Enums.hpp"
 #include "utils/Typedefs.hpp"
-#include "activations/Sigmoid.hpp"
-#include "activations/Relu.hpp"
-#include "activations/Softmax.hpp"
+#include "activations/activations.hpp"
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;

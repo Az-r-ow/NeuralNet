@@ -6,15 +6,17 @@
 #include "Layer.hpp"
 #include "utils/Formatters.hpp"
 #include "utils/Gauge.hpp"
+#include "losses/losses.hpp"
 
 namespace NeuralNet
 {
     class Network
     {
     public:
-        Network(double alpha = 0.001, int epochs = 10);
+        Network(double alpha = 0.001, int epochs = 10, LOSS loss = LOSS::QUADRATIC);
         void addLayer(Layer &layer);
         void setBatchSize(int batchSize);
+        void setLoss(LOSS loss);
         Layer getLayer(int index) const;
         Layer getOutputLayer() const;
         int getNumLayers() const;
@@ -29,6 +31,8 @@ namespace NeuralNet
         double loss = 1;
         int batchSize = 50; // Default batch size
         int epochs;
+        double (*cmpLoss)(const MatrixXd &, const Labels &);
+        MatrixXd (*cmpGradient)(const MatrixXd &, const Labels &);
 
         std::vector<double> forwardProp(std::vector<double> inputs);
         void backProp(MatrixXd grad);

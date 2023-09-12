@@ -13,14 +13,15 @@ Layer::Layer(int nNeurons, ACTIVATION activationName, WEIGHT_INIT weightInit, in
 void Layer::initWeights(int numRows)
 {
     double mean = 0.0, stddev = 0.0;
-    this->weights = MatrixXd::Zero(numRows, this->getNumNeurons());
+    int numCols = this->getNumNeurons();
+    this->weights = MatrixXd::Zero(numRows, numCols);
 
     // calculate mean and stddev based on init algo
     switch (this->weightInit)
     {
     case WEIGHT_INIT::GLOROT:
         // sqrt(fan_avg)
-        stddev = sqrt(static_cast<double>((numRows + this->getNumNeurons()) / 2));
+        stddev = sqrt(static_cast<double>((numRows + numCols) / 2));
         break;
     case WEIGHT_INIT::HE:
         // sqrt(2/fan_in)
@@ -35,7 +36,7 @@ void Layer::initWeights(int numRows)
     }
 
     // Init the weights
-    this->weightInit == WEIGHT_INIT::RANDOM ? randomWeightInit(&(this->weights)) : randomDistWeightInit(&(this->weights), mean, stddev);
+    this->weightInit == WEIGHT_INIT::RANDOM ? randomWeightInit(&(this->weights), -1, 1) : randomDistWeightInit(&(this->weights), mean, stddev);
 }
 
 void Layer::setActivation(ACTIVATION activation)

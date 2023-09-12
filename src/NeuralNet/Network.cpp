@@ -2,10 +2,11 @@
 
 using namespace NeuralNet;
 
-Network::Network(double alpha, int epochs)
+Network::Network(double alpha, int epochs, LOSS loss)
 {
     this->alpha = alpha;
     this->epochs = epochs;
+    this->setLoss(loss);
 }
 
 int Network::getNumLayers() const
@@ -28,6 +29,24 @@ void Network::addLayer(Layer &layer)
 void Network::setBatchSize(int batchSize)
 {
     this->batchSize = batchSize;
+}
+
+void Network::setLoss(LOSS loss)
+{
+    switch (loss)
+    {
+    case LOSS::QUADRATIC:
+        this->cmpLoss = Quadratic::cmpLoss;
+        this->cmpGradient = Quadratic::cmpGradient;
+        break;
+    case LOSS::MCE:
+        this->cmpLoss = MCE::cmpLoss;
+        this->cmpGradient = MCE::cmpGradient;
+        break;
+    default:
+        assert(false && "Loss not defined");
+        break;
+    }
 }
 
 Layer Network::getLayer(int index) const
@@ -59,8 +78,8 @@ double Network::train(std::vector<std::vector<double>> inputs, std::vector<doubl
             double accuracy = this->computeAccuracy(findIndexOfMax(pred), labels[i]);
             MatrixXd o = this->getOutputLayer().getOutputs();
             Labels y = formatLabels(labels[i], numOutputs);
-            double loss = computeLoss(o, y);
-            grad = grad.rows() == 0 ? computeGradient(o, y) : (grad.array() - computeGradient(o, y).array()) / 2;
+            double loss = this->cmpLoss(o, y);
+            grad = grad.rows() == 0 ? this->cmpGradient(o, y) : (grad.array() - this->cmpGradient(o, y).array()) / 2;
             progBar.printWithLAndA(loss, accuracy);
 
             if (i % this->batchSize == 0)
