@@ -30,6 +30,10 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .value("HE", WEIGHT_INIT::HE)
         .value("LACUN", WEIGHT_INIT::LACUN);
 
+    py::enum_<LOSS>(m, "LOSS")
+        .value("QUADRATIC", LOSS::QUADRATIC)
+        .value("MCE", LOSS::MCE);
+
     py::class_<Layer>(m, "Layer")
         .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(),
              py::arg("nNeurons"),
@@ -39,9 +43,10 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .def("getNumNeurons", &Layer::getNumNeurons);
 
     py::class_<Network>(m, "Network")
-        .def(py::init<double, int>(),
+        .def(py::init<double, int, LOSS>(),
              py::arg("alpha") = 0.1,
-             py::arg("epochs") = 10)
+             py::arg("epochs") = 10,
+             py::arg("loss") = LOSS::QUADRATIC)
         .def("addLayer", &Network::addLayer)
         .def("getLayer", &Network::getLayer, py::return_value_policy::copy)
         .def("getNumLayers", &Network::getNumLayers)
