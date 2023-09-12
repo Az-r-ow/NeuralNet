@@ -12,7 +12,7 @@ namespace NeuralNet
     class Network
     {
     public:
-        Network(double alpha = 0.001, int epochs = 10, Loss loss = Loss::QUADRATIC);
+        Network(double alpha = 0.001, int epochs = 10);
         void addLayer(Layer &layer);
         void setBatchSize(int batchSize);
         Layer getLayer(int index) const;

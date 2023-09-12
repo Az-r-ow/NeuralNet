@@ -2,14 +2,14 @@
 
 namespace NeuralNet
 {
-  enum class ActivationName
+  enum class ACTIVATION
   {
     RELU,
     SIGMOID,
     SOFTMAX,
   };
 
-  enum class WeightInit
+  enum class WEIGHT_INIT
   {
     RANDOM,
     GLOROT,
@@ -17,7 +17,7 @@ namespace NeuralNet
     LACUN
   };
 
-  enum class Loss
+  enum class LOSS
   {
     MCE, // Multi-class Cross Entropy
     QUADRATIC

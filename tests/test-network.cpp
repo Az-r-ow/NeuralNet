@@ -19,9 +19,9 @@ SCENARIO("Layers are initialized correctly in the network")
 
     WHEN("3 layers are added")
     {
-      Layer layer1 = Layer(2, ActivationName::RELU, WeightInit::GLOROT);
-      Layer layer2 = Layer(3, ActivationName::RELU, WeightInit::GLOROT);
-      Layer layer3 = Layer(1, ActivationName::RELU, WeightInit::GLOROT);
+      Layer layer1 = Layer(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+      Layer layer2 = Layer(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+      Layer layer3 = Layer(1, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
 
       network.addLayer(layer1);
       network.addLayer(layer2);
@@ -78,9 +78,9 @@ SCENARIO("The network remains the same when trained with null inputs")
    */
   network.setBatchSize(1);
 
-  Layer inputLayer = Layer(3, ActivationName::RELU);
-  Layer hiddenLayer = Layer(2, ActivationName::RELU);
-  Layer outputLayer = Layer(1, ActivationName::RELU);
+  Layer inputLayer = Layer(3, ACTIVATION::RELU);
+  Layer hiddenLayer = Layer(2, ACTIVATION::RELU);
+  Layer outputLayer = Layer(1, ACTIVATION::RELU);
 
   network.addLayer(inputLayer);
   network.addLayer(hiddenLayer);

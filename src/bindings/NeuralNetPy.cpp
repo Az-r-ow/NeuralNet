@@ -19,22 +19,22 @@ using namespace NeuralNet;
 
 PYBIND11_MODULE(NeuralNetPy, m)
 {
-    py::enum_<ActivationName>(m, "ActivationName")
-        .value("RELU", ActivationName::RELU)
-        .value("SIGMOID", ActivationName::SIGMOID)
-        .value("SOFTMAX", ActivationName::SOFTMAX);
+    py::enum_<ACTIVATION>(m, "ACTIVATION")
+        .value("RELU", ACTIVATION::RELU)
+        .value("SIGMOID", ACTIVATION::SIGMOID)
+        .value("SOFTMAX", ACTIVATION::SOFTMAX);
 
-    py::enum_<WeightInit>(m, "WeightInit")
-        .value("RANDOM", WeightInit::RANDOM)
-        .value("GLOROT", WeightInit::GLOROT)
-        .value("HE", WeightInit::HE)
-        .value("LACUN", WeightInit::LACUN);
+    py::enum_<WEIGHT_INIT>(m, "WEIGHT_INIT")
+        .value("RANDOM", WEIGHT_INIT::RANDOM)
+        .value("GLOROT", WEIGHT_INIT::GLOROT)
+        .value("HE", WEIGHT_INIT::HE)
+        .value("LACUN", WEIGHT_INIT::LACUN);
 
     py::class_<Layer>(m, "Layer")
-        .def(py::init<int, ActivationName, WeightInit, int>(),
+        .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(),
              py::arg("nNeurons"),
-             py::arg("activationFunc") = ActivationName::SIGMOID,
-             py::arg("weightInit") = WeightInit::RANDOM,
+             py::arg("activationFunc") = ACTIVATION::SIGMOID,
+             py::arg("weightInit") = WEIGHT_INIT::RANDOM,
              py::arg("bias") = 0)
         .def("getNumNeurons", &Layer::getNumNeurons);
 

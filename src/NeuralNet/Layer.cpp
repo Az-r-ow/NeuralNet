@@ -2,7 +2,7 @@
 
 using namespace NeuralNet;
 
-Layer::Layer(int nNeurons, ActivationName activationName, WeightInit weightInit, int bias)
+Layer::Layer(int nNeurons, ACTIVATION activationName, WEIGHT_INIT weightInit, int bias)
 {
     this->outputs = MatrixXd::Zero(nNeurons, 1);
     this->biases = MatrixXd::Constant(1, nNeurons, bias);
@@ -18,15 +18,15 @@ void Layer::initWeights(int numRows)
     // calculate mean and stddev based on init algo
     switch (this->weightInit)
     {
-    case WeightInit::GLOROT:
+    case WEIGHT_INIT::GLOROT:
         // sqrt(fan_avg)
         stddev = sqrt(static_cast<double>((numRows + this->getNumNeurons()) / 2));
         break;
-    case WeightInit::HE:
+    case WEIGHT_INIT::HE:
         // sqrt(2/fan_in)
         stddev = sqrt(static_cast<double>(2 / numRows));
         break;
-    case WeightInit::LACUN:
+    case WEIGHT_INIT::LACUN:
         // sqrt(1/fan_in)
         stddev = sqrt(static_cast<double>(1 / numRows));
         break;
@@ -35,22 +35,22 @@ void Layer::initWeights(int numRows)
     }
 
     // Init the weights
-    this->weightInit == WeightInit::RANDOM ? randomWeightInit(&(this->weights)) : randomDistWeightInit(&(this->weights), mean, stddev);
+    this->weightInit == WEIGHT_INIT::RANDOM ? randomWeightInit(&(this->weights)) : randomDistWeightInit(&(this->weights), mean, stddev);
 }
 
-void Layer::setActivation(ActivationName activation)
+void Layer::setActivation(ACTIVATION activation)
 {
     switch (activation)
     {
-    case ActivationName::SIGMOID:
+    case ACTIVATION::SIGMOID:
         this->activate = Sigmoid::activate;
         this->diff = Sigmoid::diff;
         break;
-    case ActivationName::RELU:
+    case ACTIVATION::RELU:
         this->activate = Relu::activate;
         this->diff = Relu::diff;
         break;
-    case ActivationName::SOFTMAX:
+    case ACTIVATION::SOFTMAX:
         this->activate = Softmax::activate;
         this->diff = Softmax::diff;
         break;

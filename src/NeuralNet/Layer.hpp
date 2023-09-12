@@ -25,7 +25,7 @@ namespace NeuralNet
         friend class Network;
 
     public:
-        Layer(int nNeurons, ActivationName activationFunc = ActivationName::SIGMOID, WeightInit weightInit = WeightInit::RANDOM, int bias = 0);
+        Layer(int nNeurons, ACTIVATION activationFunc = ACTIVATION::SIGMOID, WEIGHT_INIT weightInit = WEIGHT_INIT::RANDOM, int bias = 0);
         int getNumNeurons() const;
         MatrixXd getWeights() const;
         MatrixXd getOutputs();
@@ -35,14 +35,14 @@ namespace NeuralNet
 
     private:
         MatrixXd biases;
-        WeightInit weightInit;
+        WEIGHT_INIT weightInit;
         MatrixXd outputs;
         MatrixXd weights;
         MatrixXd (*activate)(const MatrixXd &);
         MatrixXd (*diff)(const MatrixXd &);
 
         void initWeights(int numCols);
-        void setActivation(ActivationName activation);
+        void setActivation(ACTIVATION activation);
         void feedInputs(std::vector<double> inputs);
         void feedInputs(MatrixXd inputs);
         void computeOutputs(MatrixXd inputs);
