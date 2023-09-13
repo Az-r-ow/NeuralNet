@@ -10,7 +10,7 @@ namespace NeuralNet
     static Eigen::MatrixXd activate(const Eigen::MatrixXd &z)
     {
       // Approach to mitigate errors resulting from exponentiating large values
-      Eigen::MatrixXd scaled = scaleDown(z, 1 / z.maxCoeff());
+      Eigen::MatrixXd scaled = scale(z, 1 / z.maxCoeff());
       Eigen::MatrixXd exp = scaled.array().exp();
 
       return exp / exp.sum();

@@ -1,4 +1,4 @@
-import sys, os , requests
+import sys, os , requests, random
 import numpy as np
 from utils import *
 from halo import Halo
@@ -37,13 +37,25 @@ if not os.path.exists(mnist_dataset_file):
 
 network = NNP.Network(epochs=1, alpha=0.001, loss=NNP.LOSS.MCE)
 
+network.setBatchSize(126)
+
 network.addLayer(NNP.Layer(784))
 network.addLayer(NNP.Layer(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.GLOROT))
 network.addLayer(NNP.Layer(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.GLOROT))
 
+# combining the data with the labels for later shuffling 
+combined = list(zip(x_train, y_train))
+
+
+# shuffling the combined list 
+random.shuffle(combined)
+
+# separating them 
+x_train, y_train = zip(*combined)
+
 f_x_train = [x.flatten() for x in x_train]
 
-network.train(f_x_train[:5000], y_train[:5000])
+network.train(f_x_train[:60000], y_train[:60000])
 
 
 # Remove sys.path modification
