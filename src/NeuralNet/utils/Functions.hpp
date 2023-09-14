@@ -4,6 +4,7 @@
 #include <iostream>
 #include <random>
 #include <cstddef>
+#include <Eigen/Dense>
 
 namespace NeuralNet
 {
@@ -58,28 +59,23 @@ namespace NeuralNet
   };
 
   /**
-   * Returns the index of the highest number in the list
+   * Find the row index of the Max element in an array
    */
-  template <typename T>
-  inline size_t findIndexOfMax(const std::vector<T> &v)
+  inline int findRowIndexOfMaxEl(const Eigen::MatrixXd &m)
   {
-    if (v.empty())
-    {
-      return -1;
-    }
+    // Find the maximum value in the matrix
+    double maxVal = m.maxCoeff();
 
-    size_t maxIndex = 0;
-    T maxValue = v[0];
-
-    for (size_t i = 1; i < v.size(); i++)
+    // Find the row index by iterating through rows
+    for (int i = 0; i < m.rows(); ++i)
     {
-      if (v[i] > maxValue)
+      if ((m.row(i).array() == maxVal).any())
       {
-        maxIndex = i;
-        maxValue = v[i];
+        return i;
       }
     }
 
-    return maxIndex;
-  }
+    // Return -1 if not found (this can be handled based on your use case)
+    return -1;
+  };
 }

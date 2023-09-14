@@ -34,9 +34,10 @@ namespace NeuralNet
         double (*cmpLoss)(const MatrixXd &, const Labels &);
         MatrixXd (*cmpGradient)(const MatrixXd &, const Labels &);
 
-        std::vector<double> forwardProp(std::vector<double> inputs);
+        MatrixXd forwardProp(std::vector<double> inputs);
         void backProp(MatrixXd grad);
         double computeAccuracy(int predicted, int label);
+        MatrixXd nullifyGradient();
 
         static double computeLoss(const MatrixXd &o, const Labels &y);
         static MatrixXd computeGradient(const MatrixXd &o, const Labels &y);
