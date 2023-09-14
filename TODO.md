@@ -1,6 +1,5 @@
 ## TODOS :
 
-- [ ] Backpropagation not working with the latest activations
 - [ ] Update README to include more information about the project
 - [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [ ] Implement a dropout to avoid over-fitting the model
@@ -8,8 +7,12 @@
 
 ## IN PROGRESS :
 
+- [ ] Backpropagation not working with the latest activations
+  - [ ] Investigate the derivative calculations
+
 ## DONE :
 
+- [x] added License
 - [x] Replace Quadratic loss der in lossDer function with dynamic function based on loss used
 - [x] Change the enums names to all capital (ex: ACTIVATION, LOSS, WEIGHT_INIT)
 - [x] Implement mini-batch
