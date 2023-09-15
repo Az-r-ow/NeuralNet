@@ -142,7 +142,7 @@ void Network::backProp(MatrixXd grad)
     // Next Layer activation der dL/da(l - 1)
     MatrixXd nextLayerADer = grad;
 
-    for (unsigned i = this->layers.size(); --i > 0;)
+    for (size_t i = this->layers.size(); --i > 0;)
     {
         Layer &cLayer = this->layers[i];
         Layer &nLayer = this->layers[i - 1];

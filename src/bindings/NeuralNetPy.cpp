@@ -28,7 +28,7 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .value("RANDOM", WEIGHT_INIT::RANDOM)
         .value("GLOROT", WEIGHT_INIT::GLOROT)
         .value("HE", WEIGHT_INIT::HE)
-        .value("LACUN", WEIGHT_INIT::LACUN);
+        .value("LECUN", WEIGHT_INIT::LECUN);
 
     py::enum_<LOSS>(m, "LOSS")
         .value("QUADRATIC", LOSS::QUADRATIC)

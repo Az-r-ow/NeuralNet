@@ -7,11 +7,11 @@
 
 ## IN PROGRESS :
 
-- [ ] Backpropagation not working with the latest activations
-  - [ ] Investigate the derivative calculations
+- [ ] Change the way I handle mini-batch
 
 ## DONE :
 
+- [x] Fix the he weight initialisation
 - [x] added License
 - [x] Replace Quadratic loss der in lossDer function with dynamic function based on loss used
 - [x] Change the enums names to all capital (ex: ACTIVATION, LOSS, WEIGHT_INIT)

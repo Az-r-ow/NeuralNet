@@ -14,7 +14,7 @@ namespace NeuralNet
     RANDOM,
     GLOROT,
     HE,
-    LACUN
+    LECUN
   };
 
   enum class LOSS
