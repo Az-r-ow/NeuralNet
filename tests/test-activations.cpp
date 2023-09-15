@@ -101,6 +101,9 @@ TEST_CASE("Sigmoid differentiates correctly", "[function]")
 
 TEST_CASE("Softmax activates correctly", "[function]")
 {
+  /**
+   * Expected outputs should be updated because Softmax now scales the inputs
+   */
   MatrixXd inputs(4, 1);
 
   MatrixXd expectedOutputs(4, 1);

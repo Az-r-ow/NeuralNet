@@ -35,8 +35,6 @@ void Layer::initWeights(int numRows)
         break;
     }
 
-    std::cout << "Stddev : " << stddev << "\n";
-
     // Init the weights
     this->weightInit == WEIGHT_INIT::RANDOM ? randomWeightInit(&(this->weights), -1, 1) : randomDistWeightInit(&(this->weights), mean, stddev);
 }

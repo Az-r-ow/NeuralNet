@@ -1,13 +1,13 @@
 ## TODOS :
 
-- [ ] Update README to include more information about the project
+- [ ] Update the tests for the activations
 - [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [ ] Implement a dropout to avoid over-fitting the model
 - [ ] Implement the ability of having multiple variable inputs
 
 ## IN PROGRESS :
 
-- [ ] Change the way I handle mini-batch
+- [ ] Update README to include more information about the project
 
 ## DONE :
 
