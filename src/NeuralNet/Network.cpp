@@ -85,7 +85,7 @@ double Network::train(std::vector<std::vector<double>> inputs, std::vector<doubl
             // Printing progress and results
             progBar.printWithLAndA(loss, accuracy);
 
-            if (i % this->batchSize == 0)
+            if (i % this->batchSize == 0 && i != 0)
             {
                 grad = grad.array() / this->batchSize;
                 backProp(grad);

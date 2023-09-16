@@ -1,6 +1,7 @@
 #pragma once
 
 #include "interfaces/Activation.hpp"
+#include <cmath>
 
 namespace NeuralNet
 {
@@ -9,9 +10,7 @@ namespace NeuralNet
   public:
     static Eigen::MatrixXd activate(const Eigen::MatrixXd &z)
     {
-      // Scaling to mitigate errors resulting from exponentiating large values
-      Eigen::MatrixXd scaled = scale(z, 1 / z.cwiseAbs().maxCoeff());
-      Eigen::MatrixXd exp = scaled.array().exp();
+      Eigen::MatrixXd exp = z.array().exp();
 
       return exp / exp.sum();
     };
