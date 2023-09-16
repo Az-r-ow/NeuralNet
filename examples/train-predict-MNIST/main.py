@@ -35,9 +35,9 @@ if not os.path.exists(mnist_dataset_file):
 # Otherwise load data from file
 (x_train, y_train), (x_test, y_test) = load_data(mnist_dataset_file)
 
-network = NNP.Network(epochs=10, alpha=0.01, loss=NNP.LOSS.MCE)
+network = NNP.Network(epochs=1, alpha=0.25, loss=NNP.LOSS.MCE)
 
-network.setBatchSize(100)
+network.setBatchSize(126)
 
 network.addLayer(NNP.Layer(784))
 network.addLayer(NNP.Layer(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
@@ -53,10 +53,9 @@ random.shuffle(combined)
 # separating them 
 x_train, y_train = zip(*combined)
 
-f_x_train = [x.flatten() for x in x_train]
+f_x_train = [normalize_img(x.flatten()) for x in x_train]
 
-network.train(f_x_train[:20000], y_train[:20000])
-
+network.train(f_x_train[:128], y_train[:128])
 
 # Remove sys.path modification
 sys.path.remove(so_dir)
