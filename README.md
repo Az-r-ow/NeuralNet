@@ -42,9 +42,7 @@ The Rectified Linear Unit (ReLU) computes the output as follows: If the input is
 The softmax function is a versatile activation used mainly in the output layer of neural networks for multi-class classification tasks. It takes a vector of real numbers as input and transforms them into a probability distribution over multiple classes, ensuring that the output values sum up to 1. It's known for its smooth, differentiable properties and is particularly useful for scenarios where you need to model class probabilities. For example, in a 3-class problem, softmax converts input scores into probabilities like [0.2, 0.7, 0.1], indicating a 70% chance of belonging to class 2.
 I also used for the output layer of my MNIST example.
 
-$$
-\sigma \left(z\right)_{i} = \frac{e^{z_{i}}}{\sum_{j=1}^{k} e^{z_{j}}}
-$$
+![SOFTMAX FUNCTION](https://latex.codecogs.com/png.image?%5Clarge%20%5Cdpi%7B120%7D%5Cbg%7Bblack%7D%5Csigma%5Cleft(z%5Cright)_%7Bi%7D=%5Cfrac%7Be%5E%7Bz_%7Bi%7D%7D%7D%7B%5Csum_%7Bj=1%7D%5E%7Bk%7De%5E%7Bz_%7Bj%7D%7D%7D)
 
 ## Tests :
 
