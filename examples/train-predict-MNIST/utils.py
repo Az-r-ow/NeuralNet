@@ -15,3 +15,9 @@ def normalize_img(img):
     
     return normalized_img
 
+def get_accuracy(predictions, labels):
+    correct = 0
+    n = len(predictions)
+    for i in range(n):
+        correct += 1 if predictions[i] == labels[i]  else 0
+    return (correct / n, n, correct)
