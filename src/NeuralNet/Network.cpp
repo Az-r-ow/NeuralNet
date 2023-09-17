@@ -65,7 +65,7 @@ double Network::train(std::vector<std::vector<double>> inputs, std::vector<doubl
 {
     double loss;
     const int numOutputs = this->getOutputLayer().getNumNeurons();
-    int inputsSize = inputs.size();
+    const int inputsSize = inputs.size();
     MatrixXd grad = this->nullifyGradient();
 
     for (int e = 0; e < this->epochs; e++)
@@ -99,17 +99,14 @@ double Network::train(std::vector<std::vector<double>> inputs, std::vector<doubl
     return loss;
 }
 
-std::vector<std::vector<double>> Network::predict(std::vector<std::vector<double>> inputs)
+std::vector<double> Network::predict(std::vector<std::vector<double>> inputs)
 {
-    std::vector<std::vector<double>> predictions;
-
-    // Reserving space in anticipation
-    reserve2d(predictions, inputs.size(), this->getOutputLayer().getNumNeurons());
+    std::vector<double> predictions(inputs.size());
 
     for (int i = 0; i < inputs.size(); i++)
     {
         MatrixXd prediction = forwardProp(inputs[i]);
-        predictions[i] = formatOutputs(prediction);
+        predictions[i] = findRowIndexOfMaxEl(prediction);
     }
 
     return predictions;
@@ -186,27 +183,6 @@ double Network::computeAccuracy(const int predicted, const int label)
     }
 
     return static_cast<double>(cp) / tp;
-}
-
-/**
- * Quadratic  loss
- * todo : add more loss functions
- * - Cross-entropy
- * - Exponential
- * - Hellinger distance
- */
-double Network::computeLoss(const MatrixXd &outputs, const Labels &y)
-{
-    MatrixXd cMatrix = outputs.array() - y;
-    cMatrix = cMatrix.unaryExpr(&sqr);
-
-    return cMatrix.sum();
-}
-
-MatrixXd Network::computeGradient(const MatrixXd &yHat, const Labels &y)
-{
-    assert(yHat.rows() == y.rows());
-    return (yHat.array() - y.array()).matrix() * 2;
 }
 
 Network::~Network()

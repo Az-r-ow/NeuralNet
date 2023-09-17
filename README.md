@@ -16,6 +16,7 @@ Arbitrary initialization can slow down and sometimes stall completely the conver
 | LECUN       | $\frac{1}{n_{in}}$           | Softmax          |
 
 $n_{in}$ number of inputs
+
 $n_{out}$ number of outputs
 
 ## Activation functions and Scaling :
@@ -25,7 +26,7 @@ $n_{out}$ number of outputs
 The sigmoid function, denoted as σ(z), transforms a real number 'z' into a value between 0 and 1. It's characterized by an S-shaped curve and is commonly used in binary classification tasks, where it models probabilities. For example, σ(z) = 0.7 indicates a 70% probability of belonging to one class.
 
 $$
-\sigma(x) = \frac{1}{1 + e^{-x}}
+\sigma \left(x \right) = \frac{1}{1 + e^{-x}}
 $$
 
 ![Sigmoid Curve](https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Logistic-curve.svg/320px-Logistic-curve.svg.png)
@@ -42,7 +43,7 @@ The softmax function is a versatile activation used mainly in the output layer o
 I also used for the output layer of my MNIST example.
 
 $$
-\sigma(z)_{i} = \frac{e^{z_{i}}}{\sum_{j=1}^{k} e^{z_{j}}}
+\sigma \left(z\right)_{i} = \frac{e^{z_{i}}}{\sum_{j=1}^{k} e^{z_{j}}}
 $$
 
 ## Tests :
