@@ -1,9 +1,7 @@
 ## TODOS :
 
-- [ ] Update the tests for the activations
-- [ ] Read : https://arxiv.org/pdf/1812.03372.pdf
+- [ ] Adams optimizer
 - [ ] Implement a dropout to avoid over-fitting the model
-- [ ] Implement the ability of having multiple variable inputs
 
 ## IN PROGRESS :
 
@@ -11,6 +9,7 @@
 
 ## DONE :
 
+- [x] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [x] Fix the he weight initialisation
 - [x] added License
 - [x] Replace Quadratic loss der in lossDer function with dynamic function based on loss used

@@ -21,7 +21,6 @@ namespace NeuralNet
         Layer getOutputLayer() const;
         int getNumLayers() const;
         double train(std::vector<std::vector<double>> inputs, std::vector<double> labels);
-        vector<vector<double>> train_debug(std::vector<std::vector<double>> inputs, std::vector<double> labels);
         std::vector<double> predict(std::vector<std::vector<double>> inputs);
         ~Network();
 

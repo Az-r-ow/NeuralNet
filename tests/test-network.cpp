@@ -131,9 +131,9 @@ SCENARIO("The network back propagates")
    */
   network.setBatchSize(1);
 
-  Layer inputLayer = Layer(3);
-  Layer hiddenLayer = Layer(2);
-  Layer outputLayer = Layer(2);
+  Layer inputLayer = Layer(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+  Layer hiddenLayer = Layer(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+  Layer outputLayer = Layer(2, ACTIVATION::SIGMOID, WEIGHT_INIT::HE);
 
   network.addLayer(inputLayer);
   network.addLayer(hiddenLayer);
