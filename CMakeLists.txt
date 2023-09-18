@@ -25,6 +25,15 @@ set(LIBS_DIR ${CMAKE_CURRENT_SOURCE_DIR}/libs)
 
 add_subdirectory(${LIBS_DIR}/ftxui EXCLUDE_FROM_ALL)
 
+# Set -fPIC for ftxui library targets.
+set_target_properties(screen PROPERTIES
+    COMPILE_OPTIONS -fPIC
+)
+
+set_target_properties(dom PROPERTIES
+    COMPILE_OPTIONS -fPIC
+)
+
 add_subdirectory(src)
 
 # Necessary for the python examples
