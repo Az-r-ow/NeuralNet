@@ -1,10 +1,13 @@
 ## TODOS :
 
-- [ ] Adams optimizer
 - [ ] Implement a dropout to avoid over-fitting the model
 
 ## IN PROGRESS :
 
+- [ ] Adams optimizer
+  - [ ] Add a function that sets up the network with some custom parameters (optimizer, loss...)
+  - [ ] Link the Optimizers to python
+  - [ ] Implement Adams optimizer
 - [ ] Update README to include more information about the project
 
 ## DONE :
