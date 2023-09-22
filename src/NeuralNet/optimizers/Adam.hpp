@@ -36,7 +36,7 @@ namespace NeuralNet
     Eigen::VectorXf mBiases;  // First-moment vector for biases
     Eigen::VectorXf vBiases;  // Second-moment vector for biases
 
-    template <typename Derived1, typename Derived2, typename Derived3, typename Derived4>
+    template <typename Derived1, typename Derived2>
     void update(Eigen::MatrixBase<Derived1> &param, const Eigen::MatrixBase<Derived2> &gradients, Eigen::MatrixBase<Derived1> &m, Eigen::MatrixBase<Derived1> &v)
     {
       assert(param.rows() != gradients.rows() || param.cols() != gradients.cols());
