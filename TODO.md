@@ -1,6 +1,8 @@
 ## TODOS :
 
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
+- [ ] Change the elements that should be Vectors to Vectors
+- [ ] Comment the code further
 - [ ] Implement a dropout to avoid over-fitting the model
 
 ## IN PROGRESS :

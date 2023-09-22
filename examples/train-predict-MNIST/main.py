@@ -43,7 +43,7 @@ network = NNP.Network()
 
 
 # Setting up the networks parameters
-network.setup(optimizer=NNP.SGD(0.01), epochs=3, loss=NNP.LOSS.MCE)
+network.setup(optimizer=NNP.Adam(0.01), epochs=3, loss=NNP.LOSS.MCE)
 
 network.addLayer(NNP.Layer(784))
 network.addLayer(NNP.Layer(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
