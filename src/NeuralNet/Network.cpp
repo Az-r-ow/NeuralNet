@@ -2,16 +2,18 @@
 
 using namespace NeuralNet;
 
-Network::Network(double alpha, int epochs, LOSS loss)
-{
-    this->alpha = alpha;
-    this->epochs = epochs;
-    this->setLoss(loss);
-}
+Network::Network(double alpha) : alpha(alpha){};
 
 int Network::getNumLayers() const
 {
     return this->layers.size();
+}
+
+void Network::setup(const Optimizer &optimizer, int epochs, LOSS loss)
+{
+    this->optimizer = optimizer;
+    this->epochs = epochs;
+    this->setLoss(loss);
 }
 
 void Network::addLayer(Layer &layer)
@@ -157,8 +159,8 @@ void Network::backProp(MatrixXd grad)
         nextLayerADer = cLayer.weights * aDerNextDotaDer;
 
         // updating weights and biases
-        cLayer.weights = cLayer.weights.array() - (this->alpha * wDer.transpose()).array();
-        cLayer.biases = cLayer.biases.array() - (this->alpha * bDer.transpose()).array();
+        this->optimizer.updateWeights(cLayer.weights, wDer);
+        this->optimizer.updateBiases(cLayer.biases, bDer);
     }
 }
 

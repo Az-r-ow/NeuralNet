@@ -11,6 +11,8 @@
 #include "Network.cpp"
 #include "Layer.hpp"
 #include "Layer.cpp"
+#include "interfaces/Optimizer.hpp"
+#include "optimizers/optimizers.hpp"
 #include "utils/Enums.hpp"
 
 namespace py = pybind11;
@@ -34,6 +36,11 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .value("QUADRATIC", LOSS::QUADRATIC)
         .value("MCE", LOSS::MCE);
 
+    py::class_<Optimizer>(m, "Optimizer");
+
+    py::class_<SGD, Optimizer>(m, "SGD")
+        .def(py::init<double>());
+
     py::class_<Layer>(m, "Layer")
         .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(),
              py::arg("nNeurons"),
@@ -43,10 +50,9 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .def("getNumNeurons", &Layer::getNumNeurons);
 
     py::class_<Network>(m, "Network")
-        .def(py::init<double, int, LOSS>(),
-             py::arg("alpha") = 0.1,
-             py::arg("epochs") = 10,
-             py::arg("loss") = LOSS::QUADRATIC)
+        .def(py::init<double>(),
+             py::arg("alpha") = 0.1)
+        .def("setup", &Network::setup)
         .def("addLayer", &Network::addLayer)
         .def("setBatchSize", &Network::setBatchSize)
         .def("getLayer", &Network::getLayer, py::return_value_policy::copy)
