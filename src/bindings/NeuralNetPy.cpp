@@ -41,6 +41,13 @@ PYBIND11_MODULE(NeuralNetPy, m)
     py::class_<SGD, Optimizer>(m, "SGD")
         .def(py::init<double>());
 
+    py::class_<Adam, Optimizer>(m, "Adam")
+        .def(py::init<double, double, double, double>(),
+             py::arg("alpha") = 0.001,
+             py::arg("beta1") = 0.9,
+             py::arg("beta2") = 0.999,
+             py::arg("epsilon") = 10E-8);
+
     py::class_<Layer>(m, "Layer")
         .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(),
              py::arg("nNeurons"),

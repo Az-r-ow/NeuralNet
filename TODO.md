@@ -1,17 +1,15 @@
 ## TODOS :
 
+- [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
 - [ ] Implement a dropout to avoid over-fitting the model
 
 ## IN PROGRESS :
 
-- [ ] Adams optimizer
-  - [ ] Add a function that sets up the network with some custom parameters (optimizer, loss...)
-  - [ ] Link the Optimizers to python
-  - [ ] Implement Adams optimizer
 - [ ] Update README to include more information about the project
 
 ## DONE :
 
+- [x] Adams optimizer
 - [x] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [x] Fix the he weight initialisation
 - [x] added License
