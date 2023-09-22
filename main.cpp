@@ -5,6 +5,8 @@ using namespace NeuralNet;
 int main(int argc, char *argv[])
 {
    Network network;
+   SGD optimizer(2);
+
    Layer layer1 = Layer(3, ACTIVATION::SIGMOID, WEIGHT_INIT::GLOROT);
    Layer layer2 = Layer(2, ACTIVATION::SIGMOID, WEIGHT_INIT::HE);
    Layer layerOuput = Layer(2, ACTIVATION::SIGMOID, WEIGHT_INIT::GLOROT);
@@ -12,6 +14,8 @@ int main(int argc, char *argv[])
    network.addLayer(layer1);
    network.addLayer(layer2);
    network.addLayer(layerOuput);
+   network.setup(optimizer);
+   network.setBatchSize(1);
 
    std::cout << "Input Layer before training : "
              << "\n";

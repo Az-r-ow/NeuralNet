@@ -52,7 +52,10 @@ PYBIND11_MODULE(NeuralNetPy, m)
     py::class_<Network>(m, "Network")
         .def(py::init<double>(),
              py::arg("alpha") = 0.1)
-        .def("setup", &Network::setup)
+        .def("setup", &Network::setup,
+             py::arg("optimizer"),
+             py::arg("epochs") = 10,
+             py::arg("loss") = LOSS::QUADRATIC)
         .def("addLayer", &Network::addLayer)
         .def("setBatchSize", &Network::setBatchSize)
         .def("getLayer", &Network::getLayer, py::return_value_policy::copy)

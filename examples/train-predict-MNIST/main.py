@@ -39,13 +39,18 @@ if not os.path.exists(mnist_dataset_file):
 # Otherwise load data from file
 (x_train, y_train), (x_test, y_test) = load_data(mnist_dataset_file)
 
-network = NNP.Network(epochs=2, alpha=0.01, loss=NNP.LOSS.MCE)
+network = NNP.Network()
 
-network.setBatchSize(1)
+
+# Setting up the networks parameters
+network.setup(optimizer=NNP.SGD(0.01), epochs=3, loss=NNP.LOSS.MCE)
 
 network.addLayer(NNP.Layer(784))
 network.addLayer(NNP.Layer(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
 network.addLayer(NNP.Layer(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
+
+# online learning
+network.setBatchSize(1)
 
 # combining the data with the labels for later shuffling 
 combined = list(zip(x_train, y_train))

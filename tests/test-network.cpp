@@ -9,8 +9,10 @@ SCENARIO("Layers are initialized correctly in the network")
 {
   GIVEN("An empty network")
   {
-    // Limiting the network to 1 epoch
-    Network network(0.1, 1);
+    Network network;
+    SGD optimizer(1);
+    // Setting up the parameters
+    network.setup(optimizer, 1, LOSS::QUADRATIC);
 
     THEN("Number layer == 0")
     {
@@ -71,8 +73,10 @@ SCENARIO("Layers are initialized correctly in the network")
 SCENARIO("The network remains the same when trained with null inputs")
 {
   // Limiting the network with 1 epoch
-  Network network(0.1, 1);
-
+  Network network;
+  SGD optimizer(1);
+  // Setting up the parameters
+  network.setup(optimizer, 1, LOSS::QUADRATIC);
   /**
    * Setting the batch size to 1 so that the network backpropagates on the first training sample
    */
@@ -123,8 +127,10 @@ SCENARIO("The network remains the same when trained with null inputs")
 
 SCENARIO("The network back propagates")
 {
-  // Limiting the network to 1 epoch
-  Network network(0.1, 1);
+  Network network;
+  SGD optimizer(1);
+  // Setting up the parameters
+  network.setup(optimizer, 1, LOSS::QUADRATIC);
 
   /**
    * Setting the batch size to 1 so that the network backpropagates on the first training sample
