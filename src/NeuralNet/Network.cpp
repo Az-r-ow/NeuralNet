@@ -164,6 +164,9 @@ void Network::backProp(MatrixXd grad)
     }
 }
 
+/**
+ * Reset the gradient to 0
+ */
 MatrixXd Network::nullifyGradient()
 {
     int rows = this->getOutputLayer().getNumNeurons();

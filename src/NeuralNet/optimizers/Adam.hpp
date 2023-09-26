@@ -4,6 +4,9 @@
 
 namespace NeuralNet
 {
+  /**
+   * Adam optimizer
+   */
   class Adam : public Optimizer
   {
   public:
