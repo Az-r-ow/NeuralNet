@@ -4,6 +4,9 @@
 
 namespace NeuralNet
 {
+  /**
+   * Stochastic Gradient Descent optimizer
+   */
   class SGD : public Optimizer
   {
   public:
