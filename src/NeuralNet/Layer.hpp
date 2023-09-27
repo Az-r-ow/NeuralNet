@@ -24,10 +24,36 @@ namespace NeuralNet
 
     public:
         Layer(int nNeurons, ACTIVATION activationFunc = ACTIVATION::SIGMOID, WEIGHT_INIT weightInit = WEIGHT_INIT::RANDOM, int bias = 0);
+
+        /**
+         * @brief This method get the number of neurons actually in the layer
+         *
+         * @return The number of neurons in the layer
+         */
         int getNumNeurons() const;
+
+        /**
+         * @brief This method method gets the layer's weights
+         *
+         * @return an Eigen::MatrixXd representing the weights
+         */
         MatrixXd getWeights() const;
+
+        /**
+         * @brief This method get the layer's outputs
+         *
+         * @return an Eigen::MatrixXd representing the layer's outputs
+         */
         MatrixXd getOutputs();
+
+        /**
+         * @brief Method to print layer's weights
+         */
         void printWeights();
+
+        /**
+         * @brief Method to print layer's outputs
+         */
         void printOutputs();
         ~Layer();
 
