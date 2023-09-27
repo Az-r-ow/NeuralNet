@@ -11,3 +11,6 @@
 [submodule "libs/ftxui"]
 	path = libs/ftxui
 	url = https://github.com/ArthurSonzogni/ftxui.git
+[submodule "libs/cereal"]
+	path = libs/cereal
+	url = https://github.com/USCiLab/cereal.git
