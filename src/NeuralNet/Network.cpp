@@ -30,6 +30,7 @@ void Network::addLayer(Layer &layer)
 
 void Network::setBatchSize(int batchSize)
 {
+    assert(batchSize > 0);
     this->batchSize = batchSize;
 }
 
