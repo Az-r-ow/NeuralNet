@@ -13,6 +13,7 @@ void Network::setup(const Optimizer &optimizer, int epochs, LOSS loss)
 {
     this->optimizer = optimizer;
     this->epochs = epochs;
+    this->lossFunc = loss;
     this->setLoss(loss);
 }
 

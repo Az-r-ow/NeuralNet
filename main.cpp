@@ -16,9 +16,24 @@ int main(int argc, char *argv[])
    network.addLayer(layerOuput);
    network.setup(optimizer);
    network.setBatchSize(1);
+   {
 
-   std::cout << "Input Layer before training : "
-             << "\n";
+      std::ofstream file("network.bin", std::ios::binary);
+      cereal::BinaryOutputArchive archive(file);
+      archive(layer1);
+   }
+
+   Layer retLayer;
+
+   std::ifstream file2("network.bin", std::ios::binary);
+   cereal::BinaryInputArchive archive(file2);
+   archive(retLayer);
+
+   // retLayer.printWeights();
+
+   std::cout
+       << "Input Layer before training : "
+       << "\n";
    layer1.printWeights();
    layer1.printOutputs();
 

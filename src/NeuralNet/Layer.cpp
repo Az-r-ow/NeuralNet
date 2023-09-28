@@ -2,14 +2,45 @@
 
 using namespace NeuralNet;
 
-Layer::Layer(int nNeurons, ACTIVATION activationName, WEIGHT_INIT weightInit, int bias)
+Layer::Layer(int nNeurons, ACTIVATION activation, WEIGHT_INIT weightInit, int bias)
 {
     this->outputs = MatrixXd::Zero(nNeurons, 1);
     this->biases = MatrixXd::Constant(1, nNeurons, bias);
     this->weightInit = weightInit;
-    this->setActivation(activationName);
+    this->activation = activation;
+    this->setActivation(activation);
 }
 
+int Layer::getNumNeurons() const
+{
+    return this->outputs.rows();
+}
+
+MatrixXd Layer::getOutputs() const
+{
+    return this->outputs;
+}
+
+MatrixXd Layer::getWeights() const
+{
+    return this->weights;
+}
+
+void Layer::printWeights()
+{
+    std::cout << this->weights << "\n";
+    return;
+}
+
+void Layer::printOutputs()
+{
+    std::cout << this->outputs << "\n";
+    return;
+}
+
+/**
+ * PRIVATE METHODS
+ */
 void Layer::initWeights(int numRows)
 {
     double mean = 0, stddev = 0;
@@ -78,37 +109,6 @@ void Layer::feedInputs(MatrixXd inputs)
     this->computeOutputs(inputs);
     return;
 }
-
-int Layer::getNumNeurons() const
-{
-    return this->outputs.rows();
-}
-
-MatrixXd Layer::getOutputs()
-{
-    return this->outputs;
-}
-
-MatrixXd Layer::getWeights() const
-{
-    return this->weights;
-}
-
-void Layer::printWeights()
-{
-    std::cout << this->weights << std::endl;
-    return;
-}
-
-void Layer::printOutputs()
-{
-    std::cout << this->outputs << std::endl;
-    return;
-}
-
-/**
- * PRIVATE METHODS
- */
 
 void Layer::computeOutputs(MatrixXd inputs)
 {
