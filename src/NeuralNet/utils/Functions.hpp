@@ -4,10 +4,15 @@
 #include <iostream>
 #include <random>
 #include <cstddef>
+#include <fstream>
+#include <filesystem>
 #include <Eigen/Dense>
+
+namespace fs = std::filesystem;
 
 namespace NeuralNet
 {
+
   /**
    * @brief Rand double generator that uses the Mersenne Twister algo
    *
@@ -45,6 +50,27 @@ namespace NeuralNet
     }
 
     return v;
+  }
+
+  /**
+   * @brief This function checks if a file exists and has a specific extension
+   *
+   * @param filePath The path of the file
+   * @param extension The extension that's checked
+   *
+   * @return Returns true if the file exists and has the specified extension otherwise returns false
+   */
+  inline bool fileExistsWithExtension(const std::string &filePath, const std::string &extension)
+  {
+    // Check if the file exist
+    if (fs::exists(filePath))
+    {
+      // Check if the file has specified extension
+      fs::path file(filePath);
+      return file.has_extension() && file.extension() == extension;
+    }
+
+    return false;
   }
 
   /* Mathematical functions */
@@ -108,4 +134,4 @@ namespace NeuralNet
     // Return -1 if not found (this can be handled based on your use case)
     return -1;
   };
-}
+} // namespace NeuralNet

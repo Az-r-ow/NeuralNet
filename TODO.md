@@ -1,5 +1,6 @@
 ## TODOS :
 
+- [ ] Check what's wrong with loaded model not training
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
 - [ ] Comment the code further
 - [ ] Implement a dropout to avoid over-fitting the model

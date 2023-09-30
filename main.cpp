@@ -16,20 +16,13 @@ int main(int argc, char *argv[])
    network.addLayer(layerOuput);
    network.setup(optimizer);
    network.setBatchSize(1);
-   {
 
-      std::ofstream file("network.bin", std::ios::binary);
-      cereal::BinaryOutputArchive archive(file);
-      archive(layer1);
-   }
+   Network networkCopy;
 
-   Layer retLayer;
+   Model::save_to_file("network.bin", network);
+   Model::load_from_file("network.bin", networkCopy);
 
-   std::ifstream file2("network.bin", std::ios::binary);
-   cereal::BinaryInputArchive archive(file2);
-   archive(retLayer);
-
-   // retLayer.printWeights();
+   std::cout << "num of layers : " << networkCopy.getNumLayers() << "\n";
 
    std::cout
        << "Input Layer before training : "
