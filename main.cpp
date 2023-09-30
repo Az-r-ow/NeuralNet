@@ -22,6 +22,9 @@ int main(int argc, char *argv[])
    Model::save_to_file("network.bin", network);
    Model::load_from_file("network.bin", networkCopy);
 
+   networkCopy.setup(optimizer, 1, LOSS::QUADRATIC);
+   networkCopy.setBatchSize(1);
+
    std::cout << "num of layers : " << networkCopy.getNumLayers() << "\n";
 
    std::cout
@@ -44,11 +47,11 @@ int main(int argc, char *argv[])
    std::vector<std::vector<double>> inputs;
    inputs.push_back(randDVector(layer1.getNumNeurons(), -1, 1));
    std::vector<double> labels = {1};
-   network.train(inputs, labels);
+   networkCopy.train(inputs, labels);
 
-   Layer input = network.getLayer(0);
-   Layer test = network.getLayer(1);
-   Layer test2 = network.getLayer(2);
+   Layer input = networkCopy.getLayer(0);
+   Layer test = networkCopy.getLayer(1);
+   Layer test2 = networkCopy.getLayer(2);
 
    std::cout << "Input Layer after training : "
              << "\n";

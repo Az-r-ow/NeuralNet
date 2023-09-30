@@ -8,6 +8,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include "Network.hpp"
+#include "Model.hpp"
 #include "Network.cpp"
 #include "Layer.hpp"
 #include "Layer.cpp"
@@ -56,7 +57,18 @@ PYBIND11_MODULE(NeuralNetPy, m)
              py::arg("bias") = 0)
         .def("getNumNeurons", &Layer::getNumNeurons);
 
-    py::class_<Network>(m, "Network")
+    /**
+     * > You can only bind explicitly instantiated versions of your function
+     *
+     * https://github.com/pybind/pybind11/issues/199#issuecomment-220302516
+     *
+     * This is why I had to specify the type "Network", I'll have to do so for every type added
+     */
+    py::class_<Model>(m, "Model")
+        .def_static("save_to_file", &Model::save_to_file<Network>)
+        .def_static("load_from_file", &Model::load_from_file<Network>);
+
+    py::class_<Network, Model>(m, "Network")
         .def(py::init<double>(),
              py::arg("alpha") = 0.1)
         .def("setup", &Network::setup,
