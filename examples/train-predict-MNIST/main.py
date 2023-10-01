@@ -1,46 +1,34 @@
+"""
+  In this file, we :
+  - Download the mnist database if not downloaded already
+  - Train the neural network 
+  - Test with some predictions
+  - Save the model in a binary file
+"""
+
 import sys, os , requests, random
 import numpy as np
-import matplotlib.pyplot as plt
 from utils import *
 from halo import Halo
 
 NUM_TESTS = 5000
 NUM_PREDICTIONS = 100
+MNIST_DATASET_FILE = "./dataset/mnist.npz"
 
-"""
-  In the first few lines we add the build folder to the sys.paths 
-  to be able to import the NeuralNet module from the generated .so file
-"""
-
-# Getting the path to the .so file 
-script_dir = os.path.dirname(os.path.abspath(__file__))
-
-so_dir = os.path.join(script_dir, "..", "..", "build")
-
-# Adding the path to the build dir to the sys.path
-sys.path.append(so_dir)
+# Adding the module path to the sys path 
+so_dir = add_module_path_to_sys_path(__file__)
 
 import NeuralNetPy as NNP
 
-mnist_dataset_file = "./dataset/mnist.npz"
-mnist_dataset_url = "https://storage.googleapis.com/tensorflow/tf-keras-datasets/mnist.npz"
-
-spinner = Halo(text="Downloading the dataset", spinner="dots")
-
 # If file doesn't exists create and download the data
-if not os.path.exists(mnist_dataset_file):
-  print(f"{mnist_dataset_file} not found")
-  spinner.start()
-  response = requests.get(mnist_dataset_url)
-  spinner.stop()
-  with open(mnist_dataset_file, 'wb') as f:
-    f.write(response.content)
+if not file_exists(MNIST_DATASET_FILE):
+  print("Mnist dataset not found")
+  get_MNIST_dataset(MNIST_DATASET_FILE)
 
 # Otherwise load data from file
-(x_train, y_train), (x_test, y_test) = load_data(mnist_dataset_file)
+(x_train, y_train), (x_test, y_test) = load_data(MNIST_DATASET_FILE)
 
 network = NNP.Network()
-
 
 # Setting up the networks parameters
 network.setup(optimizer=NNP.Adam(0.01), epochs=3, loss=NNP.LOSS.MCE)
@@ -75,6 +63,9 @@ predictions = network.predict(f_x_test[:NUM_PREDICTIONS])
 
 # Getting the prediction's accuracy 
 print(f"Num correct predictions : {correct}/{n} - accuracy {accuracy}")
+
+# save trained model to file 
+NNP.Model.save_to_file("model.bin",  network)
 
 # Remove sys.path modification
 sys.path.remove(so_dir)
