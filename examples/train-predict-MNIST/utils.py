@@ -1,6 +1,6 @@
 import numpy as np
 from halo import Halo
-import os, sys
+import os, sys, cv2
 
 def load_data(path):
     """
@@ -24,7 +24,7 @@ def load_data(path):
     
 def normalize_img(img):
     """
-    Normale the image 
+    Normalize  the image 
     
     Args:
         img (list): The image whose values are gonna be normalized
@@ -97,3 +97,23 @@ def get_MNIST_dataset(file_name):
     spinner.stop()
     with open(file_name, 'wb') as f:
         f.write(response.content)
+        
+
+def format_image_greyscale(img, size):
+    """
+    Resizes the image and returns its resized grayscale value
+    
+    Args: 
+        img (npArray): the image 
+        size (tuple):
+            height (integer): the desired height
+            width (integer): the desired width
+    
+    Returns:
+        npArray: The resized image's grayscale values
+    """
+    resized_image = cv2.resize(img, size)
+    gray_image = cv2.cvtColor(resized_image, cv2.COLOR_BGR2GRAY)
+    # Invert grayscale image (for white pixels = 0)
+    inverted_gray_image = cv2.bitwise_not(gray_image)
+    return inverted_gray_image
