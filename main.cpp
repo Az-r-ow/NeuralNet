@@ -5,7 +5,7 @@ using namespace NeuralNet;
 int main(int argc, char *argv[])
 {
    Network network;
-   SGD optimizer(2);
+   std::shared_ptr<Optimizer> AdamOptimizer = std::make_shared<Adam>(2);
 
    Layer layer1 = Layer(3, ACTIVATION::SIGMOID, WEIGHT_INIT::GLOROT);
    Layer layer2 = Layer(2, ACTIVATION::SIGMOID, WEIGHT_INIT::HE);
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
    network.addLayer(layer1);
    network.addLayer(layer2);
    network.addLayer(layerOuput);
-   network.setup(optimizer);
+   network.setup(AdamOptimizer);
    network.setBatchSize(1);
 
    Network networkCopy;
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
    Model::save_to_file("network.bin", network);
    Model::load_from_file("network.bin", networkCopy);
 
-   networkCopy.setup(optimizer, 1, LOSS::QUADRATIC);
+   networkCopy.setup(AdamOptimizer, 1, LOSS::QUADRATIC);
    networkCopy.setBatchSize(1);
 
    std::cout << "num of layers : " << networkCopy.getNumLayers() << "\n";

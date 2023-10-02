@@ -11,8 +11,8 @@ import numpy as np
 from utils import *
 from halo import Halo
 
-NUM_TESTS = 5000
-NUM_PREDICTIONS = 100
+NUM_TESTS = 10000
+NUM_PREDICTIONS = 1000
 MNIST_DATASET_FILE = "./dataset/mnist.npz"
 
 # Adding the module path to the sys path 
@@ -31,14 +31,14 @@ if not file_exists(MNIST_DATASET_FILE):
 network = NNP.Network()
 
 # Setting up the networks parameters
-network.setup(optimizer=NNP.Adam(0.01), epochs=3, loss=NNP.LOSS.MCE)
+network.setup(optimizer=NNP.Adam(0.1), epochs=5, loss=NNP.LOSS.MCE)
 
 network.addLayer(NNP.Layer(784))
 network.addLayer(NNP.Layer(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
 network.addLayer(NNP.Layer(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
-# online learning
-network.setBatchSize(1)
+# mini-mini batch learning
+network.setBatchSize(10)
 
 # combining the data with the labels for later shuffling 
 combined = list(zip(x_train, y_train))

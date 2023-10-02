@@ -25,7 +25,7 @@ namespace NeuralNet
          * @param epochs The number of epochs
          * @param loss The loss function
          */
-        void setup(const Optimizer &optimizer, int epochs = 10, LOSS loss = LOSS::QUADRATIC);
+        void setup(const std::shared_ptr<Optimizer> &optimizer, int epochs = 10, LOSS loss = LOSS::QUADRATIC);
 
         /**
          * @brief Method to add a layer to the network
@@ -117,8 +117,7 @@ namespace NeuralNet
         int epochs;
         double (*cmpLoss)(const MatrixXd &, const Labels &);
         MatrixXd (*cmpGradient)(const MatrixXd &, const Labels &);
-        SGD defaultOptimizer = SGD(alpha);
-        Optimizer &optimizer = defaultOptimizer;
+        std::shared_ptr<Optimizer> optimizer;
 
         MatrixXd forwardProp(std::vector<double> inputs);
         void backProp(MatrixXd grad);

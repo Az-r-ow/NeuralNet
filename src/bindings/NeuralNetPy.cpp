@@ -37,12 +37,12 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .value("QUADRATIC", LOSS::QUADRATIC)
         .value("MCE", LOSS::MCE);
 
-    py::class_<Optimizer>(m, "Optimizer");
+    py::class_<Optimizer, std::shared_ptr<Optimizer>>(m, "Optimizer");
 
-    py::class_<SGD, Optimizer>(m, "SGD")
+    py::class_<SGD, Optimizer, std::shared_ptr<SGD>>(m, "SGD")
         .def(py::init<double>());
 
-    py::class_<Adam, Optimizer>(m, "Adam")
+    py::class_<Adam, Optimizer, std::shared_ptr<Adam>>(m, "Adam")
         .def(py::init<double, double, double, double>(),
              py::arg("alpha") = 0.001,
              py::arg("beta1") = 0.9,
