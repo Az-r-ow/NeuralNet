@@ -1,6 +1,6 @@
 #pragma once
 
-#include "optimizers/optimizers.hpp"
+#include "interfaces/Optimizer.hpp"
 
 namespace NeuralNet
 {

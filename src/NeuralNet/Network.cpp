@@ -9,10 +9,11 @@ int Network::getNumLayers() const
     return this->layers.size();
 }
 
-void Network::setup(const Optimizer &optimizer, int epochs, LOSS loss)
+void Network::setup(const std::shared_ptr<Optimizer> &optimizer, int epochs, LOSS loss)
 {
     this->optimizer = optimizer;
     this->epochs = epochs;
+    this->lossFunc = loss;
     this->setLoss(loss);
 }
 
@@ -158,10 +159,9 @@ void Network::backProp(MatrixXd grad)
         MatrixXd bDer = aDerNextDotaDer;
         // dL/dA(l - 1)
         nextLayerADer = cLayer.weights * aDerNextDotaDer;
-
         // updating weights and biases
-        this->optimizer.updateWeights(cLayer.weights, wDer);
-        this->optimizer.updateBiases(cLayer.biases, bDer);
+        this->optimizer->updateWeights(cLayer.weights, wDer);
+        this->optimizer->updateBiases(cLayer.biases, bDer);
     }
 }
 

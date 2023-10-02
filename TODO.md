@@ -1,5 +1,8 @@
 ## TODOS :
 
+- [ ] Document the example in python
+- [ ] Find out why the predictions are not accurate on my_samples
+- [ ] Find out if adam optimization is working
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
 - [ ] Comment the code further
 - [ ] Implement a dropout to avoid over-fitting the model

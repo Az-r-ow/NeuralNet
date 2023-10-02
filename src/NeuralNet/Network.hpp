@@ -3,6 +3,7 @@
 #include <vector>
 #include <cstdlib>
 #include <memory>
+#include "Model.hpp"
 #include "Layer.hpp"
 #include "utils/Formatters.hpp"
 #include "utils/Gauge.hpp"
@@ -12,7 +13,7 @@
 
 namespace NeuralNet
 {
-    class Network
+    class Network : public Model
     {
     public:
         Network(double alpha = 0.001);
@@ -24,7 +25,7 @@ namespace NeuralNet
          * @param epochs The number of epochs
          * @param loss The loss function
          */
-        void setup(const Optimizer &optimizer, int epochs = 10, LOSS loss = LOSS::QUADRATIC);
+        void setup(const std::shared_ptr<Optimizer> &optimizer, int epochs = 10, LOSS loss = LOSS::QUADRATIC);
 
         /**
          * @brief Method to add a layer to the network
@@ -91,7 +92,24 @@ namespace NeuralNet
         ~Network();
 
     private:
+        // non-public serialization
+        friend class cereal::access;
+
+        template <class Archive>
+        void save(Archive &archive) const
+        {
+            archive(layers, lossFunc);
+        };
+
+        template <class Archive>
+        void load(Archive &archive)
+        {
+            archive(layers, lossFunc);
+            setLoss(lossFunc);
+        }
+
         std::vector<Layer> layers;
+        LOSS lossFunc;      // Storing the loss function for serialization
         int cp = 0, tp = 0; // Correct Predictions, Total Predictions
         double alpha;       // Learning rate
         double loss = 1;    // Loss
@@ -99,8 +117,7 @@ namespace NeuralNet
         int epochs;
         double (*cmpLoss)(const MatrixXd &, const Labels &);
         MatrixXd (*cmpGradient)(const MatrixXd &, const Labels &);
-        SGD defaultOptimizer = SGD(alpha);
-        Optimizer &optimizer = defaultOptimizer;
+        std::shared_ptr<Optimizer> optimizer;
 
         MatrixXd forwardProp(std::vector<double> inputs);
         void backProp(MatrixXd grad);

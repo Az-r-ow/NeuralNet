@@ -57,3 +57,4 @@ endif()
 add_executable(main main.cpp)
 
 target_link_libraries(main NeuralNet)
+target_link_directories(main PUBLIC ${LIBS_DIR}/cereal)

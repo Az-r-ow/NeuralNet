@@ -10,7 +10,7 @@ SCENARIO("Layers are initialized correctly in the network")
   GIVEN("An empty network")
   {
     Network network;
-    SGD optimizer(1);
+    std::shared_ptr<Optimizer> optimizer = std::make_shared<SGD>(1);
     // Setting up the parameters
     network.setup(optimizer, 1, LOSS::QUADRATIC);
 
@@ -74,7 +74,7 @@ SCENARIO("The network remains the same when trained with null inputs")
 {
   // Limiting the network with 1 epoch
   Network network;
-  SGD optimizer(1);
+  std::shared_ptr<Optimizer> optimizer = std::make_shared<SGD>(1);
   // Setting up the parameters
   network.setup(optimizer, 1, LOSS::QUADRATIC);
   /**
@@ -128,7 +128,7 @@ SCENARIO("The network remains the same when trained with null inputs")
 SCENARIO("The network back propagates")
 {
   Network network;
-  SGD optimizer(1);
+  std::shared_ptr<Optimizer> optimizer = std::make_shared<SGD>(1);
   // Setting up the parameters
   network.setup(optimizer, 1, LOSS::QUADRATIC);
 
