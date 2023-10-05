@@ -67,9 +67,9 @@ namespace NeuralNet
         /**
          * @brief This method will get you the number of layers currently in the Network
          *
-         * @return An integer representing the number of layers in the Network
+         * @return A size_t representing the number of layers in the Network
          */
-        int getNumLayers() const;
+        size_t getNumLayers() const;
 
         /**
          * @brief This method will Train the model with the given inputs and labels
@@ -123,5 +123,6 @@ namespace NeuralNet
         void backProp(MatrixXd grad);
         double computeAccuracy(int predicted, int label);
         MatrixXd nullifyGradient();
+        void updateOptimizerSetup(size_t numLayers);
     };
 }

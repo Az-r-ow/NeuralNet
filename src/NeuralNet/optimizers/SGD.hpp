@@ -12,16 +12,19 @@ namespace NeuralNet
   public:
     SGD(double alpha) : Optimizer(alpha){};
 
-    void updateWeights(Eigen::MatrixXd &weights, const Eigen::MatrixXd &weightsGrad) const override
+    ~SGD() override = default;
+
+  private:
+    void updateWeights(Eigen::MatrixXd &weights, const Eigen::MatrixXd &weightsGrad) override
     {
       weights = weights.array() - (this->alpha * weightsGrad.transpose()).array();
     };
 
-    void updateBiases(Eigen::MatrixXd &biases, const Eigen::MatrixXd &biasesGrad) const override
+    void updateBiases(Eigen::MatrixXd &biases, const Eigen::MatrixXd &biasesGrad) override
     {
       biases = biases.array() - (this->alpha * biasesGrad.transpose()).array();
     };
 
-    ~SGD() override = default;
+    void insiderInit(size_t size) override{};
   };
 }

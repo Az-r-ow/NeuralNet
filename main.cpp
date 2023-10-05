@@ -5,7 +5,7 @@ using namespace NeuralNet;
 int main(int argc, char *argv[])
 {
    Network network;
-   std::shared_ptr<Optimizer> AdamOptimizer = std::make_shared<Adam>(2);
+   std::shared_ptr<Optimizer> AdamOptimizer = std::make_shared<Adam>(1);
 
    Layer layer1 = Layer(3, ACTIVATION::SIGMOID, WEIGHT_INIT::GLOROT);
    Layer layer2 = Layer(2, ACTIVATION::SIGMOID, WEIGHT_INIT::HE);

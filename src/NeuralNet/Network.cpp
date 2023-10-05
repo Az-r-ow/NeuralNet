@@ -4,7 +4,7 @@ using namespace NeuralNet;
 
 Network::Network(double alpha) : alpha(alpha){};
 
-int Network::getNumLayers() const
+size_t Network::getNumLayers() const
 {
     return this->layers.size();
 }
@@ -15,12 +15,14 @@ void Network::setup(const std::shared_ptr<Optimizer> &optimizer, int epochs, LOS
     this->epochs = epochs;
     this->lossFunc = loss;
     this->setLoss(loss);
+    this->updateOptimizerSetup(this->layers.size());
 }
 
 void Network::addLayer(Layer &layer)
 {
+    size_t numLayers = this->layers.size();
     // Init layer with right amount of weights
-    if (this->layers.size() > 0)
+    if (numLayers > 0)
     {
         int prevLayerNN = this->layers[this->layers.size() - 1].getNumNeurons();
         layer.initWeights(prevLayerNN);
@@ -140,6 +142,7 @@ MatrixXd Network::forwardProp(std::vector<double> inputs)
 
 void Network::backProp(MatrixXd grad)
 {
+
     // Next Layer activation der dL/da(l - 1)
     MatrixXd nextLayerADer = grad;
 
@@ -163,6 +166,17 @@ void Network::backProp(MatrixXd grad)
         this->optimizer->updateWeights(cLayer.weights, wDer);
         this->optimizer->updateBiases(cLayer.biases, bDer);
     }
+}
+
+void Network::updateOptimizerSetup(size_t numLayers)
+{
+    /**
+     * This is a way to let adams know about the number of layers
+     * With that it can setup the `l` variable and the std::vectors
+     *
+     * I'm not very proud of this method but so far it seems like the most convenient way
+     */
+    this->optimizer->insiderInit(numLayers);
 }
 
 /**

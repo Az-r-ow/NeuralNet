@@ -11,7 +11,7 @@ import numpy as np
 from utils import *
 from halo import Halo
 
-NUM_TESTS = 10000
+NUM_TESTS = 5000
 NUM_PREDICTIONS = 1000
 MNIST_DATASET_FILE = "./dataset/mnist.npz"
 
@@ -30,12 +30,12 @@ if not file_exists(MNIST_DATASET_FILE):
 
 network = NNP.Network()
 
-# Setting up the networks parameters
-network.setup(optimizer=NNP.Adam(0.1), epochs=5, loss=NNP.LOSS.MCE)
-
 network.addLayer(NNP.Layer(784))
 network.addLayer(NNP.Layer(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
 network.addLayer(NNP.Layer(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
+
+# Setting up the networks parameters
+network.setup(optimizer=NNP.SGD(0.1), epochs=3, loss=NNP.LOSS.MCE)
 
 # mini-mini batch learning
 network.setBatchSize(10)
