@@ -115,14 +115,14 @@ namespace NeuralNet
         double loss = 1;    // Loss
         int batchSize = 50; // Default batch size
         int epochs;
-        double (*cmpLoss)(const MatrixXd &, const Labels &);
-        MatrixXd (*cmpGradient)(const MatrixXd &, const Labels &);
+        double (*cmpLoss)(const Eigen::MatrixXd &, const Labels &);
+        Eigen::MatrixXd (*cmpGradient)(const Eigen::MatrixXd &, const Labels &);
         std::shared_ptr<Optimizer> optimizer;
 
-        MatrixXd forwardProp(std::vector<double> inputs);
-        void backProp(MatrixXd grad);
+        Eigen::MatrixXd forwardProp(std::vector<double> inputs);
+        void backProp(Eigen::MatrixXd grad);
         double computeAccuracy(int predicted, int label);
-        MatrixXd nullifyGradient();
+        Eigen::MatrixXd nullifyGradient();
         void updateOptimizerSetup(size_t numLayers);
     };
 }

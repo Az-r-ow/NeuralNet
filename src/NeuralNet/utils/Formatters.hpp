@@ -16,7 +16,7 @@ namespace NeuralNet
   static Labels formatLabels(int y, int size)
   {
     assert(y >= 0 && y < size);
-    Labels labels = MatrixXd::Zero(size, 1);
+    Labels labels = Eigen::MatrixXd::Zero(size, 1);
     labels(y) = 1;
     return labels;
   };
@@ -32,17 +32,17 @@ namespace NeuralNet
   static Labels formatLabels(std::vector<double> y, int size)
   {
     assert(y.size() == size);
-    return MatrixXd::Map(&y[0], size, 1);
+    return Eigen::MatrixXd::Map(&y[0], size, 1);
   };
 
   /**
-   * @brief Converts layer's outputs from Eigen::MatrixXd to an std::vector
+   * @brief Converts layer's outputs from Eigen::Eigen::MatrixXd to an std::vector
    *
    * @param outputs the model's outputs
    *
    * @return outputs as an std::vector
    */
-  static std::vector<double> formatOutputs(MatrixXd outputs)
+  static std::vector<double> formatOutputs(Eigen::MatrixXd outputs)
   {
     int i = 0;
     std::vector<double> v;

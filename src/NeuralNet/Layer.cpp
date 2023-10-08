@@ -4,8 +4,8 @@ using namespace NeuralNet;
 
 Layer::Layer(int nNeurons, ACTIVATION activation, WEIGHT_INIT weightInit, int bias)
 {
-    this->outputs = MatrixXd::Zero(nNeurons, 1);
-    this->biases = MatrixXd::Constant(1, nNeurons, bias);
+    this->outputs = Eigen::MatrixXd ::Zero(nNeurons, 1);
+    this->biases = Eigen::MatrixXd ::Constant(1, nNeurons, bias);
     this->weightInit = weightInit;
     this->activation = activation;
     this->setActivation(activation);
@@ -16,12 +16,12 @@ int Layer::getNumNeurons() const
     return this->outputs.rows();
 }
 
-MatrixXd Layer::getOutputs() const
+Eigen::MatrixXd Layer::getOutputs() const
 {
     return this->outputs;
 }
 
-MatrixXd Layer::getWeights() const
+Eigen::MatrixXd Layer::getWeights() const
 {
     return this->weights;
 }
@@ -45,7 +45,7 @@ void Layer::initWeights(int numRows)
 {
     double mean = 0, stddev = 0;
     int numCols = this->getNumNeurons();
-    this->weights = MatrixXd::Zero(numRows, numCols);
+    this->weights = Eigen::MatrixXd ::Zero(numRows, numCols);
 
     // calculate mean and stddev based on init algo
     switch (this->weightInit)
@@ -99,21 +99,21 @@ void Layer::setActivation(ACTIVATION activation)
 void Layer::feedInputs(std::vector<double> inputs)
 {
     assert(inputs.size() == this->weights.rows());
-    this->feedInputs(MatrixXd::Map(&inputs[0], inputs.size(), 1));
+    this->feedInputs(Eigen::MatrixXd ::Map(&inputs[0], inputs.size(), 1));
     return;
 }
 
-void Layer::feedInputs(MatrixXd inputs)
+void Layer::feedInputs(Eigen::MatrixXd inputs)
 {
     assert(inputs.rows() == this->weights.rows());
     this->computeOutputs(inputs);
     return;
 }
 
-void Layer::computeOutputs(MatrixXd inputs)
+void Layer::computeOutputs(Eigen::MatrixXd inputs)
 {
     // Weighted sum
-    MatrixXd wSum = inputs.transpose() * this->weights;
+    Eigen::MatrixXd wSum = inputs.transpose() * this->weights;
     wSum += this->biases;
     wSum = wSum.transpose();
 
@@ -124,10 +124,15 @@ void Layer::computeOutputs(MatrixXd inputs)
 void Layer::setOutputs(std::vector<double> outputs)
 {
     assert(outputs.size() == this->getNumNeurons());
-    this->outputs = MatrixXd::Map(&outputs[0], this->getNumNeurons(), 1);
+    this->outputs = Eigen::MatrixXd ::Map(&outputs[0], this->getNumNeurons(), 1);
 }
 
-void Layer::randomWeightInit(MatrixXd *weights, double min, double max)
+void Layer::setOutputs(Eigen::MatrixXd outputs)
+{
+    this->outputs = outputs;
+}
+
+void Layer::randomWeightInit(Eigen::MatrixXd *weights, double min, double max)
 {
     for (int col = 0; col < weights->cols(); col++)
     {
@@ -140,7 +145,7 @@ void Layer::randomWeightInit(MatrixXd *weights, double min, double max)
     return;
 }
 
-void Layer::randomDistWeightInit(MatrixXd *weights, double mean, double stddev)
+void Layer::randomDistWeightInit(Eigen::MatrixXd *weights, double mean, double stddev)
 {
     std::random_device rseed;
     std::default_random_engine generator(rseed());

@@ -1,5 +1,6 @@
 ## TODOS :
 
+- [ ] Re-implement the whole mini-batch algorithm
 - [ ] Document the example in python
 - [ ] Find out why the predictions are not accurate on my_samples
 - [ ] Find out if adam optimization is working
@@ -19,7 +20,6 @@
 - [x] added License
 - [x] Replace Quadratic loss der in lossDer function with dynamic function based on loss used
 - [x] Change the enums names to all capital (ex: ACTIVATION, LOSS, WEIGHT_INIT)
-- [x] Implement mini-batch
 - [x] Test with the MNIST database
 - [x] Test the backpropagation
 - [x] Implement the sigmoid class

@@ -14,9 +14,6 @@
 #include "activations/activations.hpp"
 #include "utils/Serialize.hpp"
 
-using Eigen::MatrixXd;
-using Eigen::VectorXd;
-
 namespace NeuralNet
 {
     class Network;
@@ -39,16 +36,16 @@ namespace NeuralNet
         /**
          * @brief This method method gets the layer's weights
          *
-         * @return an Eigen::MatrixXd representing the weights
+         * @return an Eigen::Eigen::MatrixXd  representing the weights
          */
-        MatrixXd getWeights() const;
+        Eigen::MatrixXd getWeights() const;
 
         /**
          * @brief This method get the layer's outputs
          *
-         * @return an Eigen::MatrixXd representing the layer's outputs
+         * @return an Eigen::Eigen::MatrixXd  representing the layer's outputs
          */
-        MatrixXd getOutputs() const;
+        Eigen::MatrixXd getOutputs() const;
 
         /**
          * @brief Method to print layer's weights
@@ -65,20 +62,19 @@ namespace NeuralNet
         // non-public serialization
         friend class cereal::access;
 
-        MatrixXd biases;
+        Eigen::MatrixXd biases;
         WEIGHT_INIT weightInit;
-        MatrixXd outputs;
-        MatrixXd weights;
+        Eigen::MatrixXd outputs;
+        Eigen::MatrixXd weights;
         ACTIVATION activation;
-        MatrixXd (*activate)(const MatrixXd &);
-        MatrixXd (*diff)(const MatrixXd &);
+        Eigen::MatrixXd (*activate)(const Eigen::MatrixXd &);
+        Eigen::MatrixXd (*diff)(const Eigen::MatrixXd &);
 
         void initWeights(int numCols);
         void feedInputs(std::vector<double> inputs);
-        void feedInputs(MatrixXd inputs);
-        void computeOutputs(MatrixXd inputs);
+        void feedInputs(Eigen::MatrixXd inputs);
+        void computeOutputs(Eigen::MatrixXd inputs);
         void setActivation(ACTIVATION activation);
-        void setOutputs(std::vector<double> outputs); // used for input layer
 
         // Necessary function for serializing Layer
         template <class Archive>
@@ -95,7 +91,11 @@ namespace NeuralNet
         }
 
         static void
-        randomWeightInit(MatrixXd *weightsMatrix, double min = -1.0, double max = 1.0);
-        static void randomDistWeightInit(MatrixXd *weightsMatrix, double mean, double stddev);
+        randomWeightInit(Eigen::MatrixXd *weightsMatrix, double min = -1.0, double max = 1.0);
+        static void randomDistWeightInit(Eigen::MatrixXd *weightsMatrix, double mean, double stddev);
+
+    protected:
+        void setOutputs(std::vector<double> outputs); // used for input layer
+        void setOutputs(Eigen::MatrixXd outputs);     // used for the Flatten Layer
     };
 }

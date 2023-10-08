@@ -72,14 +72,14 @@ double Network::train(std::vector<std::vector<double>> inputs, std::vector<doubl
     double loss;
     const int numOutputs = this->getOutputLayer().getNumNeurons();
     const int inputsSize = inputs.size();
-    MatrixXd grad = this->nullifyGradient();
+    Eigen::MatrixXd grad = this->nullifyGradient();
 
     for (int e = 0; e < this->epochs; e++)
     {
         TrainingGauge progBar(inputsSize, 0, this->epochs, (e + 1));
         for (size_t i = 0; i < inputsSize; i++)
         {
-            MatrixXd o = forwardProp(inputs[i]);
+            Eigen::MatrixXd o = forwardProp(inputs[i]);
 
             double accuracy = this->computeAccuracy(findRowIndexOfMaxEl(o), labels[i]);
             Labels y = formatLabels(labels[i], numOutputs);
@@ -111,7 +111,7 @@ std::vector<double> Network::predict(std::vector<std::vector<double>> inputs)
 
     for (int i = 0; i < inputs.size(); i++)
     {
-        MatrixXd prediction = forwardProp(inputs[i]);
+        Eigen::MatrixXd prediction = forwardProp(inputs[i]);
         predictions[i] = findRowIndexOfMaxEl(prediction);
     }
 
@@ -121,14 +121,14 @@ std::vector<double> Network::predict(std::vector<std::vector<double>> inputs)
 /**
  * Forward propagation
  */
-MatrixXd Network::forwardProp(std::vector<double> inputs)
+Eigen::MatrixXd Network::forwardProp(std::vector<double> inputs)
 {
     Layer &firstLayer = this->layers[0];
 
     // Passing the inputs as outputs to the input layer
     firstLayer.setOutputs(inputs);
 
-    MatrixXd prevLayerOutputs = this->layers[0].getOutputs();
+    Eigen::MatrixXd prevLayerOutputs = this->layers[0].getOutputs();
 
     // Feeding the rest of the layers with the results of (L - 1)
     for (size_t l = 1; l < this->layers.size(); l++)
@@ -140,11 +140,11 @@ MatrixXd Network::forwardProp(std::vector<double> inputs)
     return prevLayerOutputs;
 }
 
-void Network::backProp(MatrixXd grad)
+void Network::backProp(Eigen::MatrixXd grad)
 {
 
     // Next Layer activation der dL/da(l - 1)
-    MatrixXd nextLayerADer = grad;
+    Eigen::MatrixXd nextLayerADer = grad;
 
     for (size_t i = this->layers.size(); --i > 0;)
     {
@@ -152,14 +152,14 @@ void Network::backProp(MatrixXd grad)
         Layer &nLayer = this->layers[i - 1];
 
         // a'(L)
-        MatrixXd aDer = cLayer.diff(cLayer.outputs);
+        Eigen::MatrixXd aDer = cLayer.diff(cLayer.outputs);
         // a(L - 1) . a'(L)
-        MatrixXd aDerNextDotaDer = nextLayerADer.array() * aDer.array();
+        Eigen::MatrixXd aDerNextDotaDer = nextLayerADer.array() * aDer.array();
 
         // dL/dw
-        MatrixXd wDer = aDerNextDotaDer * nLayer.getOutputs().transpose();
+        Eigen::MatrixXd wDer = aDerNextDotaDer * nLayer.getOutputs().transpose();
         // dL/db
-        MatrixXd bDer = aDerNextDotaDer;
+        Eigen::MatrixXd bDer = aDerNextDotaDer;
         // dL/dA(l - 1)
         nextLayerADer = cLayer.weights * aDerNextDotaDer;
         // updating weights and biases
@@ -182,11 +182,11 @@ void Network::updateOptimizerSetup(size_t numLayers)
 /**
  * Reset the gradient to 0
  */
-MatrixXd Network::nullifyGradient()
+Eigen::MatrixXd Network::nullifyGradient()
 {
     int rows = this->getOutputLayer().getNumNeurons();
 
-    return MatrixXd::Zero(rows, 1);
+    return Eigen::MatrixXd::Zero(rows, 1);
 }
 
 /**
