@@ -2,7 +2,7 @@
 
 using namespace NeuralNet;
 
-Flatten::Flatten(std::tuple<int, int> inputShape, ACTIVATION activation = ACTIVATION::SIGMOID, WEIGHT_INIT weightInit = WEIGHT_INIT::RANDOM, int bias) : Layer(std::get<0>(inputShape) * std::get<1>(inputShape), activation, weightInit, bias)
+Flatten::Flatten(std::tuple<int, int> inputShape, ACTIVATION activation, WEIGHT_INIT weightInit, int bias) : Layer(std::get<0>(inputShape) * std::get<1>(inputShape), activation, weightInit, bias)
 {
   this->inputShape = inputShape;
 }

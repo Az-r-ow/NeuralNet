@@ -162,7 +162,7 @@ namespace NeuralNet
     // Flatten the 2D vector
     for (const std::vector<T> &row : input)
     {
-      result.insert(result.end(), row.being(), row.end());
+      result.insert(result.end(), row.begin(), row.end());
     }
 
     return result;

@@ -1,5 +1,6 @@
 
 set(SRC_FILES 
+  ${NETWORK_DIR}/Flatten.cpp
   ${NETWORK_DIR}/Network.cpp
   ${NETWORK_DIR}/Layer.cpp
 )

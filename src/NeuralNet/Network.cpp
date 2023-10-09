@@ -25,7 +25,7 @@ void Network::addLayer(Layer &layer)
     if (numLayers > 0)
     {
         int prevLayerNN = this->layers[this->layers.size() - 1].getNumNeurons();
-        layer.initWeights(prevLayerNN);
+        layer.init(prevLayerNN);
     }
 
     this->layers.push_back(layer);
@@ -69,6 +69,21 @@ Layer Network::getOutputLayer() const
 
 double Network::train(std::vector<std::vector<double>> inputs, std::vector<double> labels)
 {
+    return trainingProcess(inputs, labels);
+}
+
+double Network::train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels)
+{
+    return trainingProcess(inputs, labels);
+}
+
+template <typename D1, typename D2>
+double Network::trainingProcess(std::vector<D1> inputs, std::vector<D2> labels)
+{
+    // todo: Format the labels into a matrix
+    // todo: change the nullifyGradient function to accept a shape that'll define the gradient's shape
+    // todo: Remove the inner for loop as the inputs will be trained in one forward prop
+    // todo: Think of a way to handle oneline training
     double loss;
     const int numOutputs = this->getOutputLayer().getNumNeurons();
     const int inputsSize = inputs.size();
@@ -126,7 +141,7 @@ Eigen::MatrixXd Network::forwardProp(std::vector<double> inputs)
     Layer &firstLayer = this->layers[0];
 
     // Passing the inputs as outputs to the input layer
-    firstLayer.setOutputs(inputs);
+    firstLayer.feedInputs(inputs);
 
     Eigen::MatrixXd prevLayerOutputs = this->layers[0].getOutputs();
 
@@ -138,6 +153,20 @@ Eigen::MatrixXd Network::forwardProp(std::vector<double> inputs)
     }
 
     return prevLayerOutputs;
+}
+
+Eigen::MatrixXd Network::forwardProp(Eigen::MatrixXd inputs)
+{
+    // Previous layer outputs
+    Eigen::MatrixXd prevLayerO = inputs;
+
+    for (Layer &layer : layers)
+    {
+        layer.feedInputs(prevLayerO);
+        prevLayerO = layer.getOutputs();
+    }
+
+    return prevLayerO;
 }
 
 void Network::backProp(Eigen::MatrixXd grad)

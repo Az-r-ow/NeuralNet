@@ -4,8 +4,8 @@ using namespace NeuralNet;
 
 Layer::Layer(int nNeurons, ACTIVATION activation, WEIGHT_INIT weightInit, int bias)
 {
-    this->outputs = Eigen::MatrixXd ::Zero(nNeurons, 1);
-    this->biases = Eigen::MatrixXd ::Constant(1, nNeurons, bias);
+    this->bias = bias;
+    this->nNeurons = nNeurons;
     this->weightInit = weightInit;
     this->activation = activation;
     this->setActivation(activation);
@@ -13,17 +13,17 @@ Layer::Layer(int nNeurons, ACTIVATION activation, WEIGHT_INIT weightInit, int bi
 
 int Layer::getNumNeurons() const
 {
-    return this->outputs.rows();
+    return nNeurons;
 }
 
 Eigen::MatrixXd Layer::getOutputs() const
 {
-    return this->outputs;
+    return outputs;
 }
 
 Eigen::MatrixXd Layer::getWeights() const
 {
-    return this->weights;
+    return weights;
 }
 
 void Layer::printWeights()
@@ -41,18 +41,22 @@ void Layer::printOutputs()
 /**
  * PRIVATE METHODS
  */
-void Layer::initWeights(int numRows)
+/**
+ * This function will be used to properly initialize the Layer
+ * It's being done like this because of the number of neurons of the previous layer that's unkown prior
+ */
+void Layer::init(int numRows)
 {
+    // First and foremost init the biases and the outputs
     double mean = 0, stddev = 0;
-    int numCols = this->getNumNeurons();
-    this->weights = Eigen::MatrixXd ::Zero(numRows, numCols);
+    this->weights = Eigen::MatrixXd ::Zero(numRows, nNeurons);
 
     // calculate mean and stddev based on init algo
     switch (this->weightInit)
     {
     case WEIGHT_INIT::GLOROT:
         // sqrt(fan_avg)
-        stddev = sqrt(static_cast<double>(2) / (numRows + numCols));
+        stddev = sqrt(static_cast<double>(2) / (numRows + nNeurons));
         break;
     case WEIGHT_INIT::HE:
         // sqrt(2/fan_in)
@@ -98,32 +102,48 @@ void Layer::setActivation(ACTIVATION activation)
 
 void Layer::feedInputs(std::vector<double> inputs)
 {
-    assert(inputs.size() == this->weights.rows());
-    this->feedInputs(Eigen::MatrixXd ::Map(&inputs[0], inputs.size(), 1));
+    this->feedInputs(Eigen::MatrixXd::Map(&inputs[0], inputs.size(), 1));
     return;
 }
 
 void Layer::feedInputs(Eigen::MatrixXd inputs)
 {
-    assert(inputs.rows() == this->weights.rows());
+    // If the layer is an "input" layer
+    if (weights.rows() == 0)
+    {
+        this->setOutputs(inputs);
+        return;
+    }
+    inputs = inputs.cols() == weights.rows() ? inputs : inputs.transpose();
+    std::cout << "inputs : \n"
+              << inputs << "\n";
+    std::cout << "weights : \n"
+              << weights << "\n";
+    assert(inputs.cols() == weights.rows());
     this->computeOutputs(inputs);
     return;
 }
 
 void Layer::computeOutputs(Eigen::MatrixXd inputs)
 {
-    // Weighted sum
-    Eigen::MatrixXd wSum = inputs.transpose() * this->weights;
-    wSum += this->biases;
-    wSum = wSum.transpose();
+    // Initialize the biases based on the input's size
+    if (biases.rows() == 0 && biases.cols() == 0)
+    {
+        biases = Eigen::MatrixXd::Constant(inputs.rows(), nNeurons, bias);
+    }
 
-    this->outputs = this->activate(wSum);
+    // Weighted sum
+    Eigen::MatrixXd wSum = inputs * weights;
+
+    wSum = wSum.array() + biases.array();
+
+    outputs = activate(wSum);
     return;
 }
 
 void Layer::setOutputs(std::vector<double> outputs)
 {
-    assert(outputs.size() == this->getNumNeurons());
+    assert(outputs.size() == nNeurons);
     this->outputs = Eigen::MatrixXd ::Map(&outputs[0], this->getNumNeurons(), 1);
 }
 

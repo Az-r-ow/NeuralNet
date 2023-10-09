@@ -82,6 +82,16 @@ namespace NeuralNet
         double train(std::vector<std::vector<double>> inputs, std::vector<double> labels);
 
         /**
+         * @brief This method will Train the model with the given inputs and labels
+         *
+         * @param inputs The inputs that will be passed to the model
+         * @param labels The labels that represent the expected outputs of the model
+         *
+         * @return The last training's loss
+         */
+        double Network::train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels);
+
+        /**
          * @brief This model will try to make predictions based off the inputs passed
          *
          * @param inputs The inputs that will be passed through the network
@@ -119,7 +129,11 @@ namespace NeuralNet
         Eigen::MatrixXd (*cmpGradient)(const Eigen::MatrixXd &, const Labels &);
         std::shared_ptr<Optimizer> optimizer;
 
+        // The template are called D for dimensions eg : 2d 3d
+        template <typename D1, typename D2>
+        double trainingProcess(std::vector<D1> inputs, std::vector<D2> labels);
         Eigen::MatrixXd forwardProp(std::vector<double> inputs);
+        Eigen::MatrixXd forwardProp(Eigen::MatrixXd inputs);
         void backProp(Eigen::MatrixXd grad);
         double computeAccuracy(int predicted, int label);
         Eigen::MatrixXd nullifyGradient();

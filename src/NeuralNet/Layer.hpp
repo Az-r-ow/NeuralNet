@@ -62,6 +62,8 @@ namespace NeuralNet
         // non-public serialization
         friend class cereal::access;
 
+        double bias;
+        int nNeurons; // Number of neurons
         Eigen::MatrixXd biases;
         WEIGHT_INIT weightInit;
         Eigen::MatrixXd outputs;
@@ -70,7 +72,7 @@ namespace NeuralNet
         Eigen::MatrixXd (*activate)(const Eigen::MatrixXd &);
         Eigen::MatrixXd (*diff)(const Eigen::MatrixXd &);
 
-        void initWeights(int numCols);
+        void init(int numCols);
         void feedInputs(std::vector<double> inputs);
         void feedInputs(Eigen::MatrixXd inputs);
         void computeOutputs(Eigen::MatrixXd inputs);
@@ -80,13 +82,13 @@ namespace NeuralNet
         template <class Archive>
         void save(Archive &archive) const
         {
-            archive(weights, outputs, biases, activation);
+            archive(nNeurons, weights, outputs, biases, activation);
         };
 
         template <class Archive>
         void load(Archive &archive)
         {
-            archive(weights, outputs, biases, activation);
+            archive(nNeurons, weights, outputs, biases, activation);
             setActivation(activation);
         }
 
