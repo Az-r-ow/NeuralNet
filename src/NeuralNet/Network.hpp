@@ -6,6 +6,7 @@
 #include "Model.hpp"
 #include "Layer.hpp"
 #include "utils/Formatters.hpp"
+#include "utils/Functions.hpp"
 #include "utils/Gauge.hpp"
 #include "interfaces/Optimizer.hpp"
 #include "optimizers/optimizers.hpp"
@@ -32,7 +33,7 @@ namespace NeuralNet
          *
          * @param layer the layer to add to the model it should be of type Layer
          */
-        void addLayer(Layer &layer);
+        void addLayer(std::shared_ptr<Layer> &layer);
 
         /**
          * @brief This method will set the batch size of the network during training
@@ -55,14 +56,14 @@ namespace NeuralNet
          *
          * @return Layer at specified index
          */
-        Layer getLayer(int index) const;
+        std::shared_ptr<Layer> getLayer(int index) const;
 
         /**
          * @brief This method will return the output layer (the last layer of the network)
          *
          * @return The output Layer
          */
-        Layer getOutputLayer() const;
+        std::shared_ptr<Layer> getOutputLayer() const;
 
         /**
          * @brief This method will get you the number of layers currently in the Network
@@ -89,7 +90,7 @@ namespace NeuralNet
          *
          * @return The last training's loss
          */
-        double Network::train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels);
+        double train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels);
 
         /**
          * @brief This model will try to make predictions based off the inputs passed
@@ -118,25 +119,25 @@ namespace NeuralNet
             setLoss(lossFunc);
         }
 
-        std::vector<Layer> layers;
+        std::vector<std::shared_ptr<Layer>> layers;
         LOSS lossFunc;      // Storing the loss function for serialization
         int cp = 0, tp = 0; // Correct Predictions, Total Predictions
         double alpha;       // Learning rate
         double loss = 1;    // Loss
         int batchSize = 50; // Default batch size
         int epochs;
-        double (*cmpLoss)(const Eigen::MatrixXd &, const Labels &);
-        Eigen::MatrixXd (*cmpGradient)(const Eigen::MatrixXd &, const Labels &);
+        double (*cmpLoss)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
+        Eigen::MatrixXd (*cmpGradient)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
         std::shared_ptr<Optimizer> optimizer;
 
         // The template are called D for dimensions eg : 2d 3d
         template <typename D1, typename D2>
         double trainingProcess(std::vector<D1> inputs, std::vector<D2> labels);
-        Eigen::MatrixXd forwardProp(std::vector<double> inputs);
+        Eigen::MatrixXd forwardProp(std::vector<std::vector<std::vector<double>>> inputs);
+        Eigen::MatrixXd forwardProp(std::vector<std::vector<double>> inputs);
         Eigen::MatrixXd forwardProp(Eigen::MatrixXd inputs);
         void backProp(Eigen::MatrixXd grad);
         double computeAccuracy(int predicted, int label);
-        Eigen::MatrixXd nullifyGradient();
         void updateOptimizerSetup(size_t numLayers);
     };
 }

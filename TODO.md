@@ -1,6 +1,5 @@
 ## TODOS :
 
-- [ ] Re-implement the whole mini-batch algorithm
 - [ ] Document the example in python
 - [ ] Find out why the predictions are not accurate on my_samples
 - [ ] Find out if adam optimization is working
@@ -10,6 +9,9 @@
 
 ## IN PROGRESS :
 
+- [ ] Re-implement the whole mini-batch algorithm
+  - [ ] Find a way to bind methods that have overrides
+  - [ ] Make sure the whole shared_ptr layers don't affect serialization
 - [ ] Update README to include more information about the project
 
 ## DONE :

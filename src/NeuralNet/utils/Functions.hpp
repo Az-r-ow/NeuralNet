@@ -73,7 +73,8 @@ namespace NeuralNet
     return false;
   }
 
-  /* Mathematical functions */
+  /* MATHEMATICAL FUNCTIONS */
+
   /**
    * @brief Function that calculates the square of a number
    *
@@ -85,6 +86,8 @@ namespace NeuralNet
   {
     return x * x;
   };
+
+  /* VECTOR OPERATIONS */
 
   /**
    * @brief 2d std::vector memory allocation function
@@ -166,5 +169,21 @@ namespace NeuralNet
     }
 
     return result;
+  }
+
+  /* MATRIX OPERATIONS */
+  Eigen::MatrixXd zeroMatrix(const std::tuple<int, int> size)
+  {
+    return Eigen::MatrixXd::Zero(std::get<0>(size), std::get<1>(size));
+  }
+
+  Eigen::MatrixXd vectorToMatrixXd(std::vector<std::vector<double>> &v)
+  {
+    int rows = v.size();
+    int cols = rows > 0 ? v[0].size() : 0;
+
+    Eigen::Map<Eigen::MatrixXd> m(&v[0][0], rows, cols);
+
+    return m;
   }
 } // namespace NeuralNet

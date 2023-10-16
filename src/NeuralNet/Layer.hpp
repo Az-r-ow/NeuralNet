@@ -75,6 +75,7 @@ namespace NeuralNet
         void init(int numCols);
         void feedInputs(std::vector<double> inputs);
         void feedInputs(Eigen::MatrixXd inputs);
+        virtual void feedInputs(std::vector<std::vector<std::vector<double>>> inputs);
         void computeOutputs(Eigen::MatrixXd inputs);
         void setActivation(ACTIVATION activation);
 

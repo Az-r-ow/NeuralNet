@@ -1,41 +1,12 @@
 #pragma once
 
 #include <Eigen/Core>
+#include <type_traits>
 #include "Typedefs.hpp"
 #include "Functions.hpp"
 
 namespace NeuralNet
 {
-  /**
-   * @brief This function takes an integer and the size of the outputs and generates labels from integers
-   *
-   * @param y the label
-   * @param size the size (number of labels)
-   *
-   * @return a vector of Labels
-   */
-  static Labels formatLabels(int y, int size)
-  {
-    assert(y >= 0 && y < size);
-    Labels labels = Eigen::MatrixXd::Zero(size, 1);
-    labels(y) = 1;
-    return labels;
-  };
-
-  /**
-   * @brief This function takes a std::vector as input and transforms it into an Eigen::Vector
-   *
-   * @param y std::vector
-   * @param size the size of the desired vector
-   *
-   * @return a vector of Labels
-   */
-  static Labels formatLabels(std::vector<double> y, int size)
-  {
-    assert(y.size() == size);
-    return Eigen::MatrixXd::Map(&y[0], size, 1);
-  };
-
   /**
    * @brief This function transform the labels in 2d or 1d vectors into Matrices
    *
@@ -57,12 +28,12 @@ namespace NeuralNet
 
     Eigen::MatrixXd mLabels(rows, cols);
 
-    if (std::is_same<T, std::vector<double>>)
+    if constexpr (std::is_same<T, std::vector<double>>::value)
     {
       std::vector<double> flattenedVector = flatten2DVector(labels, rows, cols);
       mLabels = Eigen::Map<Eigen::MatrixXd>(flattenedVector.data(), rows, cols);
     }
-    else if (std::is_same<T, double>)
+    else if constexpr (std::is_same<T, double>::value)
     {
       mLabels = Eigen::MatrixXd::Zero(rows, cols);
 
