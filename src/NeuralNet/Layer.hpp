@@ -25,7 +25,6 @@ namespace NeuralNet
 
     public:
         Layer(int nNeurons, ACTIVATION activation = ACTIVATION::SIGMOID, WEIGHT_INIT weightInit = WEIGHT_INIT::RANDOM, int bias = 0);
-        Layer() {}
         /**
          * @brief This method get the number of neurons actually in the layer
          *
@@ -56,9 +55,11 @@ namespace NeuralNet
          * @brief Method to print layer's outputs
          */
         void printOutputs();
+
         ~Layer();
 
     private:
+        Layer() {}
         // non-public serialization
         friend class cereal::access;
 
@@ -75,7 +76,7 @@ namespace NeuralNet
         void init(int numCols);
         void feedInputs(std::vector<double> inputs);
         void feedInputs(Eigen::MatrixXd inputs);
-        virtual void feedInputs(std::vector<std::vector<std::vector<double>>> inputs);
+        void feedInputs(std::vector<std::vector<std::vector<double>>> inputs);
         void computeOutputs(Eigen::MatrixXd inputs);
         void setActivation(ACTIVATION activation);
 

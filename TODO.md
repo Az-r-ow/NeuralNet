@@ -10,7 +10,7 @@
 ## IN PROGRESS :
 
 - [ ] Re-implement the whole mini-batch algorithm
-  - [ ] Find a way to bind methods that have overrides
+  - [x] Find a way to bind methods that have overrides
   - [ ] Make sure the whole shared_ptr layers don't affect serialization
 - [ ] Update README to include more information about the project
 

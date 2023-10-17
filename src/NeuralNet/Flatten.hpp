@@ -15,6 +15,6 @@ namespace NeuralNet
   private:
     std::tuple<int, int> inputShape;
 
-    void feedInputs(std::vector<std::vector<std::vector<double>>> inputs) override;
+    void feedInputs(std::vector<std::vector<std::vector<double>>> inputs);
   };
 }

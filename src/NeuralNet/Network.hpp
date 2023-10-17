@@ -3,6 +3,9 @@
 #include <vector>
 #include <cstdlib>
 #include <memory>
+#include <cereal/cereal.hpp> // for defer
+#include <cereal/types/memory.hpp>
+#include <cereal/types/vector.hpp>
 #include "Model.hpp"
 #include "Layer.hpp"
 #include "utils/Formatters.hpp"
@@ -110,6 +113,7 @@ namespace NeuralNet
         void save(Archive &archive) const
         {
             archive(layers, lossFunc);
+            archive.serializeDeferments();
         };
 
         template <class Archive>

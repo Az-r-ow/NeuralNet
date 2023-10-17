@@ -106,6 +106,12 @@ void Layer::feedInputs(std::vector<double> inputs)
     return;
 }
 
+void Layer::feedInputs(std::vector<std::vector<std::vector<double>>> inputs)
+{
+    assert(false && "Cannot feed 3d vectors, a Flatten layer could do it though");
+    return;
+}
+
 void Layer::feedInputs(Eigen::MatrixXd inputs)
 {
     // If the layer is an "input" layer
@@ -131,6 +137,13 @@ void Layer::computeOutputs(Eigen::MatrixXd inputs)
     {
         biases = Eigen::MatrixXd::Constant(inputs.rows(), nNeurons, bias);
     }
+
+    std::cout << "I pass here \n";
+
+    std::cout << "inputs : \n"
+              << inputs << "\n";
+    std::cout << "weights: \n"
+              << weights << "\n";
 
     // Weighted sum
     Eigen::MatrixXd wSum = inputs * weights;

@@ -150,7 +150,7 @@ namespace NeuralNet
    * @return The resulting 1D vector
    */
   template <typename T>
-  std::vector<T> flatten2DVector(const std::vector<std::vector<T>> &input, size_t rows, size_t cols)
+  inline std::vector<T> flatten2DVector(const std::vector<std::vector<T>> &input, size_t rows, size_t cols)
   {
     // Asserting that the inputs respect the declared size
     assert(input.size() == rows);
@@ -172,12 +172,12 @@ namespace NeuralNet
   }
 
   /* MATRIX OPERATIONS */
-  Eigen::MatrixXd zeroMatrix(const std::tuple<int, int> size)
+  inline Eigen::MatrixXd zeroMatrix(const std::tuple<int, int> size)
   {
     return Eigen::MatrixXd::Zero(std::get<0>(size), std::get<1>(size));
   }
 
-  Eigen::MatrixXd vectorToMatrixXd(std::vector<std::vector<double>> &v)
+  inline Eigen::MatrixXd vectorToMatrixXd(std::vector<std::vector<double>> &v)
   {
     int rows = v.size();
     int cols = rows > 0 ? v[0].size() : 0;

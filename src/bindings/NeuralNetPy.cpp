@@ -79,6 +79,7 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .def("setBatchSize", &Network::setBatchSize)
         .def("getLayer", &Network::getLayer, py::return_value_policy::copy)
         .def("getNumLayers", &Network::getNumLayers)
-        .def("train", &Network::train)
+        .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>)>(&Network::train), "Train the network")
+        .def("train", static_cast<double (Network::*)(std::vector<std::vector<std::vector<double>>>, std::vector<double>)>(&Network::train), "Train the network")
         .def("predict", &Network::predict);
 }
