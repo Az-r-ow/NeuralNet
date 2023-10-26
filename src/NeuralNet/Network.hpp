@@ -7,16 +7,18 @@
 #include <cereal/types/memory.hpp>
 #include <cereal/types/vector.hpp>
 #include "Model.hpp"
-#include "Layer.hpp"
 #include "utils/Formatters.hpp"
 #include "utils/Functions.hpp"
 #include "utils/Gauge.hpp"
 #include "interfaces/Optimizer.hpp"
+#include "interfaces/Layer.hpp"
 #include "optimizers/optimizers.hpp"
 #include "losses/losses.hpp"
 
 namespace NeuralNet
 {
+    class Layer;
+
     class Network : public Model
     {
     public:

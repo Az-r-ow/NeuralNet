@@ -12,7 +12,8 @@
 - [ ] Re-implement the whole mini-batch algorithm
   - [x] Find a way to bind methods that have overrides
   - [ ] Make sure the whole shared_ptr layers don't affect serialization
-  - [ ] Make Layer a base class and add Dense Layer to replace Layer
+  - [x] Make Layer a base class and add Dense Layer to replace Layer
+  - [ ] Check what's up with the main python script and the reason why the shapes aren't matching
 - [ ] Update README to include more information about the project
 
 ## DONE :

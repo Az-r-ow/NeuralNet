@@ -1,7 +1,7 @@
 #pragma once
 
 #include <tuple>
-#include "Layer.hpp"
+#include "interfaces/Layer.hpp"
 #include "utils/Functions.hpp"
 
 namespace NeuralNet

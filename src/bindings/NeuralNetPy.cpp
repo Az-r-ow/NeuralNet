@@ -11,10 +11,10 @@
 #include "Network.hpp"
 #include "Model.hpp"
 #include "Network.cpp"
-#include "Layer.hpp"
-#include "Layer.cpp"
+#include "interfaces/Layer.hpp"
 #include "Flatten.hpp"
 #include "Flatten.cpp"
+#include "Dense.hpp"
 #include "interfaces/Optimizer.hpp"
 #include "optimizers/optimizers.hpp"
 #include "utils/Enums.hpp"
@@ -60,6 +60,13 @@ PYBIND11_MODULE(NeuralNetPy, m)
              py::arg("bias") = 0)
         .def("getNumNeurons", &Layer::getNumNeurons);
 
+    py::class_<Dense, Layer, std::shared_ptr<Dense>>(m, "Dense")
+        .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(),
+             py::arg("nNeurons"),
+             py::arg("activationFunc") = ACTIVATION::SIGMOID,
+             py::arg("weightInit") = WEIGHT_INIT::RANDOM,
+             py::arg("bias") = 0);
+
     py::class_<Flatten, Layer, std::shared_ptr<Flatten>>(m, "Flatten")
         .def(py::init<std::tuple<int, int>, ACTIVATION, WEIGHT_INIT, int>(),
              py::arg("inputShape"),
@@ -69,6 +76,7 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
     py::bind_vector<std::vector<std::shared_ptr<Layer>>>(m, "VectorLayer");
     py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(m, "VectorFlatten");
+    py::bind_vector<std::vector<std::shared_ptr<Dense>>>(m, "VectorDense");
 
     /**
      * > You can only bind explicitly instantiated versions of your function
@@ -94,6 +102,5 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .def("getNumLayers", &Network::getNumLayers)
         .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>)>(&Network::train), "Train the network")
         .def("train", static_cast<double (Network::*)(std::vector<std::vector<std::vector<double>>>, std::vector<double>)>(&Network::train), "Train the network")
-        .def("predict", &Network::predict)
-        .def("getLayers", &Network::getLayers);
+        .def("predict", &Network::predict);
 }

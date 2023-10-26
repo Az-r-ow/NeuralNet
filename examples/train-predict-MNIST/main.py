@@ -30,9 +30,9 @@ if not file_exists(MNIST_DATASET_FILE):
 
 network = NNP.Network()
 
-network.addLayer(NNP.Layer(784))
-network.addLayer(NNP.Layer(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
-network.addLayer(NNP.Layer(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
+network.addLayer(NNP.Dense(784, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+network.addLayer(NNP.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+network.addLayer(NNP.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
 # Setting up the networks parameters
 network.setup(optimizer=NNP.Adam(0.001), epochs=3, loss=NNP.LOSS.MCE)
