@@ -12,6 +12,7 @@
 - [ ] Re-implement the whole mini-batch algorithm
   - [x] Find a way to bind methods that have overrides
   - [ ] Make sure the whole shared_ptr layers don't affect serialization
+  - [ ] Make Layer a base class and add Dense Layer to replace Layer
 - [ ] Update README to include more information about the project
 
 ## DONE :

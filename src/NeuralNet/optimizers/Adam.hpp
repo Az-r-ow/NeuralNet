@@ -35,12 +35,12 @@ namespace NeuralNet
 
     void updateWeights(Eigen::MatrixXd &weights, const Eigen::MatrixXd &weightsGrad) override
     {
-      this->update(weights, weightsGrad.transpose(), mWeights[cl], vWeights[cl]);
+      this->update(weights, weightsGrad, mWeights[cl], vWeights[cl]);
     };
 
     void updateBiases(Eigen::MatrixXd &biases, const Eigen::MatrixXd &biasesGrad) override
     {
-      this->update(biases, biasesGrad.transpose(), mBiases[cl], vBiases[cl]);
+      this->update(biases, biasesGrad, mBiases[cl], vBiases[cl]);
       this->setCurrentL();
     };
 

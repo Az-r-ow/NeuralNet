@@ -12,7 +12,7 @@ project ("Neural Network")
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}")
 
 # tests options 
-option(UNIT_TESTS "Tests" OFF)
+option(UNIT_TESTS "Tests" ON)
 
 # python bindings
 option(PYBIND_BUILD "Create a python module" ON)

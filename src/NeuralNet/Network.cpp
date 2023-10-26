@@ -80,10 +80,6 @@ double Network::train(std::vector<std::vector<std::vector<double>>> inputs, std:
 template <typename D1, typename D2>
 double Network::trainingProcess(std::vector<D1> inputs, std::vector<D2> labels)
 {
-    // todo: Format the labels into a matrix
-    // todo: change the nullifyGradient function to accept a shape that'll define the gradient's shape
-    // todo: Remove the inner for loop as the inputs will be trained in one forward prop
-    // todo: Think of a way to handle oneline training
     double loss;
     const int numOutputs = this->getOutputLayer()->getNumNeurons();
     const int inputsSize = inputs.size();
@@ -106,34 +102,6 @@ double Network::trainingProcess(std::vector<D1> inputs, std::vector<D2> labels)
     }
 
     return loss;
-
-    // for (int e = 0; e < this->epochs; e++)
-    // {
-    //     TrainingGauge progBar(inputsSize, 0, this->epochs, (e + 1));
-    //     for (size_t i = 0; i < inputsSize; i++)
-    //     {
-    //         Eigen::MatrixXd o = forwardProp(inputs[i]);
-
-    //         double accuracy = this->computeAccuracy(findRowIndexOfMaxEl(o), labels[i]);
-    //         Labels y = formatLabels(labels[i], numOutputs);
-    //         loss = this->cmpLoss(o, y);
-
-    //         // sum grads
-    //         grad = grad.array() + this->cmpGradient(o, y).array();
-
-    //         // Printing progress and results
-    //         progBar.printWithLAndA(loss, accuracy);
-
-    //         if ((i + 1) % this->batchSize == 0)
-    //         {
-    //             grad = grad.array() / this->batchSize;
-    //             backProp(grad);
-
-    //             // Reset gradient for next mini-batch
-    //             grad = this->nullifyGradient();
-    //         }
-    //     }
-    // }
 }
 
 std::vector<double> Network::predict(std::vector<std::vector<double>> inputs)
@@ -205,7 +173,7 @@ void Network::backProp(Eigen::MatrixXd grad)
 {
 
     // Next Layer activation der dL/da(l - 1)
-    Eigen::MatrixXd nextLayerADer = grad;
+    Eigen::MatrixXd nextLayerADer = grad.transpose();
 
     for (size_t i = this->layers.size(); --i > 0;)
     {
@@ -214,18 +182,22 @@ void Network::backProp(Eigen::MatrixXd grad)
 
         // a'(L)
         Eigen::MatrixXd aDer = cLayer->diff(cLayer->outputs);
+
         // a(L - 1) . a'(L)
-        Eigen::MatrixXd aDerNextDotaDer = nextLayerADer.array() * aDer.array();
+        Eigen::MatrixXd aDerNextDotaDer = nextLayerADer.array() * aDer.transpose().array();
 
         // dL/dw
-        Eigen::MatrixXd wDer = aDerNextDotaDer * nLayer->getOutputs().transpose();
+        Eigen::MatrixXd wDer = aDerNextDotaDer * nLayer->getOutputs();
+
         // dL/db
         Eigen::MatrixXd bDer = aDerNextDotaDer;
+
         // dL/dA(l - 1)
         nextLayerADer = cLayer->weights * aDerNextDotaDer;
+
         // updating weights and biases
-        this->optimizer->updateWeights(cLayer->weights, wDer);
-        this->optimizer->updateBiases(cLayer->biases, bDer);
+        this->optimizer->updateWeights(cLayer->weights, wDer.transpose());
+        this->optimizer->updateBiases(cLayer->biases, bDer.transpose());
     }
 }
 

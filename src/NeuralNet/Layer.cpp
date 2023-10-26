@@ -121,10 +121,7 @@ void Layer::feedInputs(Eigen::MatrixXd inputs)
         return;
     }
     inputs = inputs.cols() == weights.rows() ? inputs : inputs.transpose();
-    std::cout << "inputs : \n"
-              << inputs << "\n";
-    std::cout << "weights : \n"
-              << weights << "\n";
+
     assert(inputs.cols() == weights.rows());
     this->computeOutputs(inputs);
     return;
@@ -137,13 +134,6 @@ void Layer::computeOutputs(Eigen::MatrixXd inputs)
     {
         biases = Eigen::MatrixXd::Constant(inputs.rows(), nNeurons, bias);
     }
-
-    std::cout << "I pass here \n";
-
-    std::cout << "inputs : \n"
-              << inputs << "\n";
-    std::cout << "weights: \n"
-              << weights << "\n";
 
     // Weighted sum
     Eigen::MatrixXd wSum = inputs * weights;

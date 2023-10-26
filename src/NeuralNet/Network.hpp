@@ -103,6 +103,8 @@ namespace NeuralNet
          * @return This method will return a vector of all the predictions made for each input
          */
         std::vector<double> predict(std::vector<std::vector<double>> inputs);
+
+        void getLayers();
         ~Network();
 
     private:

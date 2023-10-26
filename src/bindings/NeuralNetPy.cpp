@@ -7,11 +7,14 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <pybind11/stl_bind.h>
 #include "Network.hpp"
 #include "Model.hpp"
 #include "Network.cpp"
 #include "Layer.hpp"
 #include "Layer.cpp"
+#include "Flatten.hpp"
+#include "Flatten.cpp"
 #include "interfaces/Optimizer.hpp"
 #include "optimizers/optimizers.hpp"
 #include "utils/Enums.hpp"
@@ -49,13 +52,23 @@ PYBIND11_MODULE(NeuralNetPy, m)
              py::arg("beta2") = 0.999,
              py::arg("epsilon") = 10E-8);
 
-    py::class_<Layer>(m, "Layer")
+    py::class_<Layer, std::shared_ptr<Layer>>(m, "Layer")
         .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(),
              py::arg("nNeurons"),
              py::arg("activationFunc") = ACTIVATION::SIGMOID,
              py::arg("weightInit") = WEIGHT_INIT::RANDOM,
              py::arg("bias") = 0)
         .def("getNumNeurons", &Layer::getNumNeurons);
+
+    py::class_<Flatten, Layer, std::shared_ptr<Flatten>>(m, "Flatten")
+        .def(py::init<std::tuple<int, int>, ACTIVATION, WEIGHT_INIT, int>(),
+             py::arg("inputShape"),
+             py::arg("activation") = ACTIVATION::SIGMOID,
+             py::arg("weightInit") = WEIGHT_INIT::RANDOM,
+             py::arg("bias") = 0);
+
+    py::bind_vector<std::vector<std::shared_ptr<Layer>>>(m, "VectorLayer");
+    py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(m, "VectorFlatten");
 
     /**
      * > You can only bind explicitly instantiated versions of your function
@@ -81,5 +94,6 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .def("getNumLayers", &Network::getNumLayers)
         .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>)>(&Network::train), "Train the network")
         .def("train", static_cast<double (Network::*)(std::vector<std::vector<std::vector<double>>>, std::vector<double>)>(&Network::train), "Train the network")
-        .def("predict", &Network::predict);
+        .def("predict", &Network::predict)
+        .def("getLayers", &Network::getLayers);
 }

@@ -25,3 +25,5 @@ void Flatten::feedInputs(std::vector<std::vector<std::vector<double>>> inputs)
 
   this->setOutputs(Eigen::Map<Eigen::MatrixXd>(flattenedInputs.data(), numRows, numCols));
 }
+
+Flatten::~Flatten() {}

@@ -31,7 +31,7 @@ SCENARIO("Layers are initialized correctly in the network")
 
       THEN("Number layer == 3")
       {
-        REQUIRE(network->getNumLayers() == 3);
+        REQUIRE(network.getNumLayers() == 3);
       }
 
       THEN("Right number neurons in layers")
@@ -42,8 +42,8 @@ SCENARIO("Layers are initialized correctly in the network")
 
       THEN("Weights matrices have correct sizes")
       {
-        MatrixXd weightsL2 = layer2->getWeights();
-        MatrixXd weightsL3 = layer3->getWeights();
+        Eigen::MatrixXd weightsL2 = layer2->getWeights();
+        Eigen::MatrixXd weightsL3 = layer3->getWeights();
 
         /**
          * The number of rows should be equal to
@@ -60,11 +60,11 @@ SCENARIO("Layers are initialized correctly in the network")
 
       THEN("Weights are not initialized to 0")
       {
-        MatrixXd weightsL2 = layer2->getWeights();
-        MatrixXd weightsL3 = layer3->getWeights();
+        Eigen::MatrixXd weightsL2 = layer2->getWeights();
+        Eigen::MatrixXd weightsL3 = layer3->getWeights();
 
-        REQUIRE(weightsL2 != MatrixXd::Zero(weightsL2.rows(), weightsL2.cols()));
-        REQUIRE(weightsL3 != MatrixXd::Zero(weightsL3.rows(), weightsL3.cols()));
+        REQUIRE(weightsL2 != Eigen::MatrixXd::Zero(weightsL2.rows(), weightsL2.cols()));
+        REQUIRE(weightsL3 != Eigen::MatrixXd::Zero(weightsL3.rows(), weightsL3.cols()));
       }
     }
   }
@@ -99,21 +99,21 @@ SCENARIO("The network remains the same when trained with null inputs")
 
     WHEN("Null inputs are passed")
     {
-      std::vector<std::vector<double>> nullInputs = {{0, 0, 0}};
+      std::vector<std::vector<double>> nullInputs = {{0, 0}};
       std::vector<double> labels = {0};
 
       // caching the weights before training for later comparison
-      MatrixXd preTrainW1 = network.getLayer(1)->getWeights();
-      MatrixXd preTrainW2 = network.getLayer(2)->getWeights();
+      Eigen::MatrixXd preTrainW1 = network.getLayer(1)->getWeights();
+      Eigen::MatrixXd preTrainW2 = network.getLayer(2)->getWeights();
 
       // Training with null weights and inputs
       network.train(nullInputs, labels);
 
       THEN("Outputs are 0")
       {
-        MatrixXd outputs = network.getOutputLayer().getOutputs();
+        Eigen::MatrixXd outputs = network.getOutputLayer()->getOutputs();
 
-        REQUIRE(outputs == MatrixXd::Zero(outputs.rows(), outputs.cols()));
+        REQUIRE(outputs == Eigen::MatrixXd::Zero(outputs.rows(), outputs.cols()));
       }
 
       AND_THEN("The weights remain the same")
@@ -139,7 +139,7 @@ SCENARIO("The network back propagates")
 
   std::shared_ptr<Layer> inputLayer = std::make_shared<Layer>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
   std::shared_ptr<Layer> hiddenLayer = std::make_shared<Layer>(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
-  std::shared_ptr<Layer> outputLayer = std::make_shared<Layer>(1, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+  std::shared_ptr<Layer> outputLayer = std::make_shared<Layer>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
 
   network.addLayer(inputLayer);
   network.addLayer(hiddenLayer);
@@ -153,8 +153,8 @@ SCENARIO("The network back propagates")
     std::vector<double> labels = {1};
 
     // Caching weights before training for later comparison
-    MatrixXd preTrainW1 = network.getLayer(1)->getWeights();
-    MatrixXd preTrainW2 = network.getLayer(2)->getWeights();
+    Eigen::MatrixXd preTrainW1 = network.getLayer(1)->getWeights();
+    Eigen::MatrixXd preTrainW2 = network.getLayer(2)->getWeights();
 
     // Training with random values
     network.train(randInputs, labels);
