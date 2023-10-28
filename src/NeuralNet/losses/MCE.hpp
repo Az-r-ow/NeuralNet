@@ -19,7 +19,7 @@ namespace NeuralNet
 
     static Eigen::MatrixXd cmpGradient(const Eigen::MatrixXd &yHat, const Eigen::MatrixXd &y)
     {
-      assert(yHat.rows() == y.rows());
+      assert(yHat.rows() == y.rows() && yHat.cols() == y.cols());
       return yHat.array() - y.array();
     };
   };

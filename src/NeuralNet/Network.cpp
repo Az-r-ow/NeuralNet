@@ -171,7 +171,6 @@ Eigen::MatrixXd Network::forwardProp(Eigen::MatrixXd inputs)
 
 void Network::backProp(Eigen::MatrixXd grad)
 {
-
     // Next Layer activation der dL/da(l - 1)
     Eigen::MatrixXd nextLayerADer = grad.transpose();
 
@@ -190,14 +189,14 @@ void Network::backProp(Eigen::MatrixXd grad)
         Eigen::MatrixXd wDer = aDerNextDotaDer * nLayer->getOutputs();
 
         // dL/db
-        Eigen::MatrixXd bDer = aDerNextDotaDer;
+        Eigen::MatrixXd bDer = aDerNextDotaDer.rowwise().sum().transpose();
 
         // dL/dA(l - 1)
         nextLayerADer = cLayer->weights * aDerNextDotaDer;
 
         // updating weights and biases
         this->optimizer->updateWeights(cLayer->weights, wDer.transpose());
-        this->optimizer->updateBiases(cLayer->biases, bDer.transpose());
+        this->optimizer->updateBiases(cLayer->biases, bDer);
     }
 }
 

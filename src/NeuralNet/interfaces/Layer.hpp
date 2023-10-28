@@ -134,6 +134,7 @@ namespace NeuralNet
       return;
     };
 
+    // todo: return the outputs directly
     virtual void feedInputs(Eigen::MatrixXd inputs)
     {
       // If the layer is an "input" layer
@@ -160,13 +161,15 @@ namespace NeuralNet
       // Initialize the biases based on the input's size
       if (biases.rows() == 0 && biases.cols() == 0)
       {
-        biases = Eigen::MatrixXd::Constant(inputs.rows(), nNeurons, bias);
+        biases = Eigen::MatrixXd::Constant(1, nNeurons, bias);
       }
 
       // Weighted sum
       Eigen::MatrixXd wSum = inputs * weights;
 
-      wSum = wSum.array() + biases.array();
+      std::cout << "wSum shape : " << wSum.rows() << " X " << wSum.cols() << "\n";
+      std::cout << "biases shape : " << biases.rows() << " X " << biases.cols() << "\n";
+      wSum.rowwise() += biases.row(0);
 
       outputs = activate(wSum);
       return;
