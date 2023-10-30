@@ -104,19 +104,13 @@ double Network::trainingProcess(std::vector<D1> inputs, std::vector<D2> labels)
     return loss;
 }
 
-std::vector<double> Network::predict(std::vector<std::vector<double>> inputs)
+Eigen::MatrixXd Network::predict(std::vector<std::vector<double>> inputs)
 {
     std::vector<double> predictions(inputs.size());
     Eigen::MatrixXd mInputs = vectorToMatrixXd(inputs);
 
     Eigen::MatrixXd mPredictions = forwardProp(mInputs);
-
-    for (int i = 0; i < inputs.size(); i++)
-    {
-        predictions[i] = findRowIndexOfMaxEl(mPredictions.col(i));
-    }
-
-    return predictions;
+    return mPredictions;
 }
 
 /**

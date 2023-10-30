@@ -11,7 +11,7 @@ import numpy as np
 from utils import *
 from halo import Halo
 
-NUM_TESTS = 10000
+NUM_TESTS = 100
 NUM_PREDICTIONS = 1000
 MNIST_DATASET_FILE = "./dataset/mnist.npz"
 
@@ -35,7 +35,7 @@ network.addLayer(NNP.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
 network.addLayer(NNP.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
 # Setting up the networks parameters
-network.setup(optimizer=NNP.Adam(0.001), epochs=3, loss=NNP.LOSS.MCE)
+network.setup(optimizer=NNP.Adam(0.01), epochs=3, loss=NNP.LOSS.MCE)
 
 # mini-mini batch learning
 network.setBatchSize(100)
@@ -59,7 +59,12 @@ f_x_test = [normalize_img(x.flatten()) for x in x_test]
 # preparing the testing data
 predictions = network.predict(f_x_test[:NUM_PREDICTIONS])
 
-(accuracy, n, correct) = get_accuracy(predictions, y_test)
+
+predicted_numbers = find_highest_indexes_in_matrix(predictions)
+
+predicted_numbers = [i + 1 for i in predicted_numbers]
+
+(accuracy, n, correct) = get_accuracy(predicted_numbers, y_test)
 
 # Getting the prediction's accuracy 
 print(f"Num correct predictions : {correct}/{n} - accuracy {accuracy}")

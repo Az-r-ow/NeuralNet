@@ -8,6 +8,7 @@
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/stl_bind.h>
+#include <pybind11/eigen.h>
 #include "Network.hpp"
 #include "Model.hpp"
 #include "Network.cpp"

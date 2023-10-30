@@ -102,11 +102,10 @@ namespace NeuralNet
          *
          * @param inputs The inputs that will be passed through the network
          *
-         * @return This method will return a vector of all the predictions made for each input
+         * @return This method will return the outputs of the neural network
          */
-        std::vector<double> predict(std::vector<std::vector<double>> inputs);
+        Eigen::MatrixXd predict(std::vector<std::vector<double>> inputs);
 
-        void getLayers();
         ~Network();
 
     private:

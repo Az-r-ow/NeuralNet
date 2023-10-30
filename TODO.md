@@ -13,9 +13,11 @@
   - [x] Find a way to bind methods that have overrides
   - [ ] Make sure the whole shared_ptr layers don't affect serialization
   - [x] Make Layer a base class and add Dense Layer to replace Layer
-  - [ ] Check what's up with the main python script and the reason why the shapes aren't matching
+  - [x] Check what's up with the main python script and the reason why the shapes aren't matching
     - [x] Change the biases into vectors (this is causing the unmatching shapes error)
-    - [ ] Adapt the return value of the predict function
+    - [x] Adapt the return value of the predict function
+    - [ ] Adapt Dense layer for serialization
+    - [ ] Fix the loading bar
 - [ ] Update README to include more information about the project
 
 ## DONE :

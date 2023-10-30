@@ -167,8 +167,6 @@ namespace NeuralNet
       // Weighted sum
       Eigen::MatrixXd wSum = inputs * weights;
 
-      std::cout << "wSum shape : " << wSum.rows() << " X " << wSum.cols() << "\n";
-      std::cout << "biases shape : " << biases.rows() << " X " << biases.cols() << "\n";
       wSum.rowwise() += biases.row(0);
 
       outputs = activate(wSum);
