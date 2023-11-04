@@ -106,6 +106,15 @@ namespace NeuralNet
          */
         Eigen::MatrixXd predict(std::vector<std::vector<double>> inputs);
 
+        /**
+         * @brief This model will try to make predictions based off the inputs passed
+         *
+         * @param inputs The inputs that will be passed through the network
+         *
+         * @return This method will return the outputs of the neural network
+         */
+        Eigen::MatrixXd predict(std::vector<std::vector<std::vector<double>>> inputs);
+
         ~Network();
 
     private:

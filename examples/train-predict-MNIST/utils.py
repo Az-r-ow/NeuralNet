@@ -33,10 +33,10 @@ def normalize_img(img):
         list: The normalized image
     """
     # Ensure the input array is of data type float32 to support division
-    normalized_img = img.astype(np.float32)
+    normalized_img = [ row.astype(np.float32) for row in img]
     
     # Divide all elements of the array by 255
-    normalized_img /= 255.0
+    normalized_img = [ row / 255.0 for row in img]
     
     return normalized_img
 

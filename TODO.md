@@ -1,6 +1,7 @@
 ## TODOS :
 
 - [ ] Document the example in python
+- [ ] Add types that handle Batch - Mini-batch - Oneline
 - [ ] Find out why the predictions are not accurate on my_samples
 - [ ] Find out if adam optimization is working
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
@@ -16,6 +17,7 @@
   - [x] Check what's up with the main python script and the reason why the shapes aren't matching
     - [x] Change the biases into vectors (this is causing the unmatching shapes error)
     - [x] Adapt the return value of the predict function
+    - [x] Adapt predict function for flatten layer
     - [ ] Adapt Dense layer for serialization
     - [ ] Fix the loading bar
 - [ ] Update README to include more information about the project
@@ -40,4 +42,4 @@
 - [x] Work on optimizing the way files are including one another
 - [ ] Add cmake option to install submodules automatically during build time
 - [ ] Replace pragma once with header guards
-  - Reason : Look more into it, at first glance it might not be worth switching to header guards. Pragma once is supported by most compilers and it avoids name clashes in namespace.
+  - Reason : Dig deeper into it, at first thought it might not be worth switching to header guards. Pragma once is supported by most compilers and it avoids name clashes in namespace.

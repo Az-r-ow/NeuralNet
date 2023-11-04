@@ -103,5 +103,6 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .def("getNumLayers", &Network::getNumLayers)
         .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>)>(&Network::train), "Train the network")
         .def("train", static_cast<double (Network::*)(std::vector<std::vector<std::vector<double>>>, std::vector<double>)>(&Network::train), "Train the network")
-        .def("predict", &Network::predict);
+        .def("predict", static_cast<Eigen::MatrixXd (Network::*)(std::vector<std::vector<double>>)>(&Network::predict), "Predict the outputs")
+        .def("predict", static_cast<Eigen::MatrixXd (Network::*)(std::vector<std::vector<std::vector<double>>>)>(&Network::predict), "Predict the outputs");
 }

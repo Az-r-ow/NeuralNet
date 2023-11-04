@@ -9,21 +9,21 @@ Flatten::Flatten(std::tuple<int, int> inputShape, ACTIVATION activation, WEIGHT_
 
 void Flatten::feedInputs(std::vector<std::vector<std::vector<double>>> inputs)
 {
+  int rows = std::get<0>(inputShape);
+  int cols = std::get<1>(inputShape);
+
   // Flatten the vectors
-  std::vector<std::vector<double>> inputs1d(inputs.size());
+  std::vector<double> flatInputs(inputs.size());
   for (const std::vector<std::vector<double>> &input : inputs)
   {
-    std::vector<double> flattenedInput = flatten2DVector(input, std::get<0>(inputShape), std::get<1>(inputShape));
-    inputs1d.insert(inputs1d.end(), input.begin(), input.end());
+    std::vector<double> flattenedInput = flatten2DVector(input, rows, cols);
+    flatInputs.insert(flatInputs.end(), flattenedInput.begin(), flattenedInput.end());
   }
 
   const int numRows = inputs.size();
-  const int numCols = inputs1d[0].size();
+  const int numCols = rows * cols;
 
-  // One last flatten to get all the inputs in one vector
-  std::vector<double> flattenedInputs = flatten2DVector(inputs1d, numRows, numCols);
-
-  this->setOutputs(Eigen::Map<Eigen::MatrixXd>(flattenedInputs.data(), numRows, numCols));
+  this->setOutputs(Eigen::Map<Eigen::MatrixXd>(flatInputs.data(), numRows, numCols));
 }
 
 Flatten::~Flatten() {}

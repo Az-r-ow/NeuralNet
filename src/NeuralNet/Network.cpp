@@ -113,6 +113,12 @@ Eigen::MatrixXd Network::predict(std::vector<std::vector<double>> inputs)
     return mPredictions;
 }
 
+Eigen::MatrixXd Network::predict(std::vector<std::vector<std::vector<double>>> inputs)
+{
+    Eigen::MatrixXd mPredictions = forwardProp(inputs);
+    return mPredictions;
+}
+
 /**
  * Forward propagation
  */
