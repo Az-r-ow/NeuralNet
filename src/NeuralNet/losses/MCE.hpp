@@ -1,6 +1,6 @@
 #pragma once
 
-#include "interfaces/Loss.hpp"
+#include "Loss.hpp"
 
 namespace NeuralNet
 {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "interfaces/Activation.hpp"
+#include "Activation.hpp"
 
 namespace NeuralNet
 {

@@ -1,7 +1,7 @@
 #pragma once
 
-#include "interfaces/Activation.hpp"
 #include <cmath>
+#include "Activation.hpp"
 
 namespace NeuralNet
 {

@@ -2,7 +2,7 @@
 
 #include <Eigen/Core>
 #include <cmath>
-#include "interfaces/Optimizer.hpp"
+#include "Optimizer.hpp"
 
 namespace NeuralNet
 {

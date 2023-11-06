@@ -4,9 +4,13 @@
 #include <cmath>
 #include <random>
 #include <string>
+#include <tuple>
 #include <cereal/access.hpp>
 #include <cereal/types/common.hpp>
 #include <cereal/types/base_class.hpp>
+#include <cereal/types/polymorphic.hpp>
+#include <cereal/archives/portable_binary.hpp>
+#include <cereal/archives/binary.hpp>
 #include <Eigen/Dense>
 #include "utils/Functions.hpp"
 #include "utils/Serialize.hpp"
@@ -81,12 +85,10 @@ namespace NeuralNet
     ~Layer(){};
 
   private:
-    Layer() {}
     // non-public serialization
     friend class cereal::access;
 
     double bias;
-    int nNeurons; // Number of neurons
     Eigen::MatrixXd biases;
     WEIGHT_INIT weightInit;
     Eigen::MatrixXd outputs;
@@ -245,6 +247,11 @@ namespace NeuralNet
     };
 
   protected:
+    Layer(){};
+    Layer(std::tuple<int, int> inputShape) : nNeurons(std::get<0>(inputShape) * std::get<1>(inputShape)){}; // Used in Flatten layer
+
+    int nNeurons; // Number of neurons
+
     void setOutputs(std::vector<double> outputs) // used for input layer
     {
       assert(outputs.size() == nNeurons);

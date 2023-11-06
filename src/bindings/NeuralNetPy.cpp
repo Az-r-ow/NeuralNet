@@ -12,11 +12,10 @@
 #include "Network.hpp"
 #include "Model.hpp"
 #include "Network.cpp"
-#include "interfaces/Layer.hpp"
-#include "Flatten.hpp"
-#include "Flatten.cpp"
-#include "Dense.hpp"
-#include "interfaces/Optimizer.hpp"
+#include "layers/Layer.hpp"
+#include "layers/Flatten.hpp"
+#include "layers/Dense.hpp"
+#include "optimizers/Optimizer.hpp"
 #include "optimizers/optimizers.hpp"
 #include "utils/Enums.hpp"
 
@@ -69,11 +68,7 @@ PYBIND11_MODULE(NeuralNetPy, m)
              py::arg("bias") = 0);
 
     py::class_<Flatten, Layer, std::shared_ptr<Flatten>>(m, "Flatten")
-        .def(py::init<std::tuple<int, int>, ACTIVATION, WEIGHT_INIT, int>(),
-             py::arg("inputShape"),
-             py::arg("activation") = ACTIVATION::SIGMOID,
-             py::arg("weightInit") = WEIGHT_INIT::RANDOM,
-             py::arg("bias") = 0);
+        .def(py::init<std::tuple<int, int>>());
 
     py::bind_vector<std::vector<std::shared_ptr<Layer>>>(m, "VectorLayer");
     py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(m, "VectorFlatten");

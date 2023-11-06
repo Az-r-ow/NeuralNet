@@ -10,8 +10,10 @@
 #include "utils/Formatters.hpp"
 #include "utils/Functions.hpp"
 #include "utils/Gauge.hpp"
-#include "interfaces/Optimizer.hpp"
-#include "interfaces/Layer.hpp"
+#include "optimizers/Optimizer.hpp"
+#include "layers/Layer.hpp"
+#include "layers/Flatten.hpp"
+#include "layers/Dense.hpp"
 #include "optimizers/optimizers.hpp"
 #include "losses/losses.hpp"
 
