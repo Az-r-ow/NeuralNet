@@ -2,7 +2,9 @@
 
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
+#include <cereal/types/polymorphic.hpp>
 #include <cereal/types/base_class.hpp>
+#include <cereal/access.hpp>
 #include "Layer.hpp"
 
 namespace NeuralNet
@@ -14,12 +16,13 @@ namespace NeuralNet
 
     ~Dense(){};
 
-    template <class Archive>
-    void serialize(Archive &ar)
-    {
-      ar(cereal::base_class<Layer>(this));
-    };
+  private:
+    // non-public serialization
+    friend class cereal::access;
+    Dense(){}; // Required for serialization
   };
 }
 
 CEREAL_REGISTER_TYPE(NeuralNet::Dense);
+
+CEREAL_REGISTER_POLYMORPHIC_RELATION(NeuralNet::Layer, NeuralNet::Dense);

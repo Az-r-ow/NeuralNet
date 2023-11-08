@@ -3,9 +3,13 @@
 #include <tuple>
 #include <cereal/cereal.hpp>
 #include <cereal/types/polymorphic.hpp>
+#include <cereal/archives/portable_binary.hpp>
+#include <cereal/archives/binary.hpp>
+#include <cereal/access.hpp>
 #include <cereal/types/base_class.hpp>
 #include "Layer.hpp"
 #include "utils/Functions.hpp"
+#include "utils/Serialize.hpp"
 
 namespace NeuralNet
 {
@@ -16,14 +20,19 @@ namespace NeuralNet
 
     ~Flatten(){};
 
+  private:
+    // non-public serialization
+    friend class cereal::access;
+
+    Flatten(){}; // Necessary for serialization
+
+    std::tuple<int, int> inputShape;
+
     template <class Archive>
     void serialize(Archive &ar)
     {
       ar(cereal::base_class<Layer>(this), inputShape);
     }
-
-  private:
-    std::tuple<int, int> inputShape;
 
     void feedInputs(std::vector<std::vector<std::vector<double>>> inputs)
     {
@@ -44,7 +53,16 @@ namespace NeuralNet
       this->setOutputs(Eigen::Map<Eigen::MatrixXd>(flatInputs.data(), numRows, numCols));
     }
   };
+}
 
+namespace cereal
+{
+  template <class Archive>
+  struct specialize<Archive, NeuralNet::Flatten, cereal::specialization::member_serialize>
+  {
+  };
 }
 
 CEREAL_REGISTER_TYPE(NeuralNet::Flatten);
+
+CEREAL_REGISTER_POLYMORPHIC_RELATION(NeuralNet::Layer, NeuralNet::Flatten);

@@ -247,7 +247,7 @@ namespace NeuralNet
     };
 
   protected:
-    Layer(){};
+    Layer(){}; // Necessary for serialization
     Layer(std::tuple<int, int> inputShape) : nNeurons(std::get<0>(inputShape) * std::get<1>(inputShape)){}; // Used in Flatten layer
 
     int nNeurons; // Number of neurons
@@ -263,3 +263,5 @@ namespace NeuralNet
     };
   };
 }
+
+CEREAL_REGISTER_TYPE(NeuralNet::Layer);
