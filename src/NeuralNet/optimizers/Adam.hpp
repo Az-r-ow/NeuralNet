@@ -2,7 +2,7 @@
 
 #include <Eigen/Core>
 #include <cmath>
-#include "interfaces/Optimizer.hpp"
+#include "Optimizer.hpp"
 
 namespace NeuralNet
 {
@@ -25,7 +25,7 @@ namespace NeuralNet
     double beta1;
     double beta2;
     double epsilon;
-    int t = 1;
+    int t = 0;
     int cl;                                // Current layer (should be initialized to the total number of layers - 0)
     int ll;                                // Last layer (should also be initialized to numLayers - 1)
     std::vector<Eigen::MatrixXd> mWeights; // First-moment vector for weights
@@ -35,12 +35,12 @@ namespace NeuralNet
 
     void updateWeights(Eigen::MatrixXd &weights, const Eigen::MatrixXd &weightsGrad) override
     {
-      this->update(weights, weightsGrad.transpose(), mWeights[cl], vWeights[cl]);
+      this->update(weights, weightsGrad, mWeights[cl], vWeights[cl]);
     };
 
     void updateBiases(Eigen::MatrixXd &biases, const Eigen::MatrixXd &biasesGrad) override
     {
-      this->update(biases, biasesGrad.transpose(), mBiases[cl], vBiases[cl]);
+      this->update(biases, biasesGrad, mBiases[cl], vBiases[cl]);
       this->setCurrentL();
     };
 
@@ -48,6 +48,9 @@ namespace NeuralNet
     void update(Eigen::MatrixBase<Derived1> &param, const Eigen::MatrixBase<Derived2> &gradients, Eigen::MatrixBase<Derived1> &m, Eigen::MatrixBase<Derived1> &v)
     {
       assert(param.rows() == gradients.rows() && param.cols() == gradients.cols());
+
+      // increment time step
+      t = t + 1;
 
       if (m.rows() == 0 || m.cols() == 0)
       {
@@ -57,10 +60,10 @@ namespace NeuralNet
       }
 
       // update biased first moment estimate
-      m = (beta1 * m).array() + (1 - beta2) * gradients.array();
+      m = (beta1 * m).array() + ((1 - beta2) * gradients.array()).array();
 
       // updated biased second raw moment estimate
-      v = (beta2 * v).array() + ((1 - beta2) * (gradients.array() * gradients.array()));
+      v = (beta2 * v).array() + ((1 - beta2) * (gradients.array() * gradients.array())).array();
 
       // compute bias-corrected first moment estimate
       double beta1_t = std::pow(beta1, t);
@@ -71,10 +74,7 @@ namespace NeuralNet
       double alpha_t = alpha * (sqrt(1 - beta2_t) / (1 - beta1_t));
 
       // update param
-      param = param.array() - alpha_t * (m.array() / (v.array().sqrt() + epsilon).array());
-
-      // increment time step
-      t++;
+      param = param.array() - alpha_t * (m.array() / (v.array().sqrt() + epsilon));
     }
 
     void insiderInit(size_t numLayers) override

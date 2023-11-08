@@ -11,7 +11,7 @@ import numpy as np
 from utils import *
 from halo import Halo
 
-NUM_TESTS = 5000
+NUM_TESTS = 100
 NUM_PREDICTIONS = 1000
 MNIST_DATASET_FILE = "./dataset/mnist.npz"
 
@@ -30,15 +30,12 @@ if not file_exists(MNIST_DATASET_FILE):
 
 network = NNP.Network()
 
-network.addLayer(NNP.Layer(784))
-network.addLayer(NNP.Layer(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
-network.addLayer(NNP.Layer(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
+network.addLayer(NNP.Flatten((28, 28)))
+network.addLayer(NNP.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+network.addLayer(NNP.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
 # Setting up the networks parameters
-network.setup(optimizer=NNP.SGD(0.1), epochs=3, loss=NNP.LOSS.MCE)
-
-# mini-mini batch learning
-network.setBatchSize(10)
+network.setup(optimizer=NNP.Adam(0.001), epochs=5, loss=NNP.LOSS.MCE)
 
 # combining the data with the labels for later shuffling 
 combined = list(zip(x_train, y_train))
@@ -50,16 +47,20 @@ random.shuffle(combined)
 x_train, y_train = zip(*combined)
 
 # preparing the training data
-f_x_train = [normalize_img(x.flatten()) for x in x_train]
+f_x_train = [normalize_img(x) for x in x_train]
 
 network.train(f_x_train[:NUM_TESTS], y_train[:NUM_TESTS])
 
-f_x_test = [normalize_img(x.flatten()) for x in x_test]
+f_x_test = [normalize_img(x) for x in x_test]
 
 # preparing the testing data
 predictions = network.predict(f_x_test[:NUM_PREDICTIONS])
 
-(accuracy, n, correct) = get_accuracy(predictions, y_test)
+predicted_numbers = find_highest_indexes_in_matrix(predictions)
+
+predicted_numbers = [i + 1 for i in predicted_numbers]
+
+(accuracy, n, correct) = get_accuracy(predicted_numbers, y_test)
 
 # Getting the prediction's accuracy 
 print(f"Num correct predictions : {correct}/{n} - accuracy {accuracy}")

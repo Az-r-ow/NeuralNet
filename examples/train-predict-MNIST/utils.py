@@ -33,10 +33,10 @@ def normalize_img(img):
         list: The normalized image
     """
     # Ensure the input array is of data type float32 to support division
-    normalized_img = img.astype(np.float32)
+    normalized_img = [ row.astype(np.float32) for row in img]
     
     # Divide all elements of the array by 255
-    normalized_img /= 255.0
+    normalized_img = [ row / 255.0 for row in img]
     
     return normalized_img
 
@@ -99,7 +99,7 @@ def get_MNIST_dataset(file_name):
         f.write(response.content)
         
 
-def format_image_greyscale(img, size):
+def format_image_grayscale(img, size):
     """
     Resizes the image and returns its resized grayscale value
     
@@ -117,3 +117,18 @@ def format_image_greyscale(img, size):
     # Invert grayscale image (for white pixels = 0)
     inverted_gray_image = cv2.bitwise_not(gray_image)
     return inverted_gray_image
+
+def find_highest_indexes_in_matrix(matrix):
+    """
+    Finds the highest indexes in each row of a numpy matrix
+    
+    Args:
+        matrix (npArray): the matrix
+    
+    Returns: 
+        list: The indexes of the highest values on each row of the matrix
+    """
+    # Use numpy.argmax to find the index of the maximum value in each row
+    highest_indexes = np.argmax(matrix, axis=1)
+
+    return highest_indexes

@@ -31,4 +31,21 @@ namespace cereal
 
     ar(binary_data(m.data(), static_cast<std::size_t>(rows * cols * sizeof(_Scalar))));
   }
+
+  template <class Archive, class T1, class T2>
+  void save(Archive &ar, const std::tuple<T1, T2> &t)
+  {
+    ar(std::get<0>(t), std::get<1>(t));
+  }
+
+  template <class Archive, class T1, class T2>
+  void load(Archive &ar, std::tuple<T1, T2> &t)
+  {
+    ar(std::get<0>(t), std::get<1>(t));
+  }
+
+  // template <class Archive, class T1, class T2>
+  // struct specialize<Archive, std::tuple<T1, T2>, cereal::specialization::non_member_load_save>
+  // {
+  // };
 }

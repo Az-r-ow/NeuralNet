@@ -73,7 +73,8 @@ namespace NeuralNet
     return false;
   }
 
-  /* Mathematical functions */
+  /* MATHEMATICAL FUNCTIONS */
+
   /**
    * @brief Function that calculates the square of a number
    *
@@ -85,6 +86,8 @@ namespace NeuralNet
   {
     return x * x;
   };
+
+  /* VECTOR OPERATIONS */
 
   /**
    * @brief 2d std::vector memory allocation function
@@ -134,4 +137,53 @@ namespace NeuralNet
     // Return -1 if not found (this can be handled based on your use case)
     return -1;
   };
+
+  /**
+   * @brief This function takes a 2d vector and flattens it into a 1d vector
+   *
+   * @param input The 2D vector
+   * @param rows The number of vectors
+   * @param cols The number of cols inside each vector
+   *
+   * Passing the number of rows and columns makes this function much more efficient
+   *
+   * @return The resulting 1D vector
+   */
+  template <typename T>
+  inline std::vector<T> flatten2DVector(const std::vector<std::vector<T>> &input, size_t rows, size_t cols)
+  {
+    // Asserting that the inputs respect the declared size
+    assert(input.size() == rows);
+    for (const std::vector<T> &row : input)
+    {
+      assert(row.size() == cols);
+    }
+
+    std::vector<T> result;
+    result.reserve(rows * cols);
+
+    // Flatten the 2D vector
+    for (const std::vector<T> &row : input)
+    {
+      result.insert(result.end(), row.begin(), row.end());
+    }
+
+    return result;
+  }
+
+  /* MATRIX OPERATIONS */
+  inline Eigen::MatrixXd zeroMatrix(const std::tuple<int, int> size)
+  {
+    return Eigen::MatrixXd::Zero(std::get<0>(size), std::get<1>(size));
+  }
+
+  inline Eigen::MatrixXd vectorToMatrixXd(std::vector<std::vector<double>> &v)
+  {
+    int rows = v.size();
+    int cols = rows > 0 ? v[0].size() : 0;
+
+    Eigen::Map<Eigen::MatrixXd> m(&v[0][0], rows, cols);
+
+    return m;
+  }
 } // namespace NeuralNet

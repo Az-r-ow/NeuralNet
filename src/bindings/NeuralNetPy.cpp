@@ -7,12 +7,15 @@
 
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
+#include <pybind11/stl_bind.h>
+#include <pybind11/eigen.h>
 #include "Network.hpp"
 #include "Model.hpp"
 #include "Network.cpp"
-#include "Layer.hpp"
-#include "Layer.cpp"
-#include "interfaces/Optimizer.hpp"
+#include "layers/Layer.hpp"
+#include "layers/Flatten.hpp"
+#include "layers/Dense.hpp"
+#include "optimizers/Optimizer.hpp"
 #include "optimizers/optimizers.hpp"
 #include "utils/Enums.hpp"
 
@@ -49,13 +52,27 @@ PYBIND11_MODULE(NeuralNetPy, m)
              py::arg("beta2") = 0.999,
              py::arg("epsilon") = 10E-8);
 
-    py::class_<Layer>(m, "Layer")
+    py::class_<Layer, std::shared_ptr<Layer>>(m, "Layer")
         .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(),
              py::arg("nNeurons"),
              py::arg("activationFunc") = ACTIVATION::SIGMOID,
              py::arg("weightInit") = WEIGHT_INIT::RANDOM,
              py::arg("bias") = 0)
         .def("getNumNeurons", &Layer::getNumNeurons);
+
+    py::class_<Dense, Layer, std::shared_ptr<Dense>>(m, "Dense")
+        .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(),
+             py::arg("nNeurons"),
+             py::arg("activationFunc") = ACTIVATION::SIGMOID,
+             py::arg("weightInit") = WEIGHT_INIT::RANDOM,
+             py::arg("bias") = 0);
+
+    py::class_<Flatten, Layer, std::shared_ptr<Flatten>>(m, "Flatten")
+        .def(py::init<std::tuple<int, int>>());
+
+    py::bind_vector<std::vector<std::shared_ptr<Layer>>>(m, "VectorLayer");
+    py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(m, "VectorFlatten");
+    py::bind_vector<std::vector<std::shared_ptr<Dense>>>(m, "VectorDense");
 
     /**
      * > You can only bind explicitly instantiated versions of your function
@@ -79,6 +96,8 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .def("setBatchSize", &Network::setBatchSize)
         .def("getLayer", &Network::getLayer, py::return_value_policy::copy)
         .def("getNumLayers", &Network::getNumLayers)
-        .def("train", &Network::train)
-        .def("predict", &Network::predict);
+        .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>)>(&Network::train), "Train the network")
+        .def("train", static_cast<double (Network::*)(std::vector<std::vector<std::vector<double>>>, std::vector<double>)>(&Network::train), "Train the network")
+        .def("predict", static_cast<Eigen::MatrixXd (Network::*)(std::vector<std::vector<double>>)>(&Network::predict), "Predict the outputs")
+        .def("predict", static_cast<Eigen::MatrixXd (Network::*)(std::vector<std::vector<std::vector<double>>>)>(&Network::predict), "Predict the outputs");
 }
