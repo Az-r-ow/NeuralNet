@@ -77,10 +77,6 @@ SCENARIO("The network remains the same when trained with null inputs")
   std::shared_ptr<Optimizer> optimizer = std::make_shared<SGD>(1);
   // Setting up the parameters
   network.setup(optimizer, 1, LOSS::QUADRATIC);
-  /**
-   * Setting the batch size to 1 so that the network backpropagates on the first training sample
-   */
-  network.setBatchSize(1);
 
   std::shared_ptr<Layer> inputLayer = std::make_shared<Layer>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
   std::shared_ptr<Layer> hiddenLayer = std::make_shared<Layer>(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
@@ -131,11 +127,6 @@ SCENARIO("The network back propagates")
   std::shared_ptr<Optimizer> optimizer = std::make_shared<SGD>(1);
   // Setting up the parameters
   network.setup(optimizer, 1, LOSS::QUADRATIC);
-
-  /**
-   * Setting the batch size to 1 so that the network backpropagates on the first training sample
-   */
-  network.setBatchSize(1);
 
   std::shared_ptr<Layer> inputLayer = std::make_shared<Layer>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
   std::shared_ptr<Layer> hiddenLayer = std::make_shared<Layer>(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);

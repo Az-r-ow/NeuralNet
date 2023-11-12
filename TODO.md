@@ -1,7 +1,6 @@
 ## TODOS :
 
 - [ ] Document the example in python
-- [ ] Add types that handle Batch - Mini-batch - Oneline
 - [ ] Find out why the predictions are not accurate on my_samples
 - [ ] Find out if adam optimization is working
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
@@ -10,15 +9,16 @@
 
 ## IN PROGRESS :
 
+- [ ] Add types that handle Batch - Mini-batch - Oneline
 - [ ] Re-implement the whole mini-batch algorithm
   - [x] Find a way to bind methods that have overrides
-  - [ ] Make sure the whole shared_ptr layers don't affect serialization
+  - [x] Make sure the whole shared_ptr layers don't affect serialization
   - [x] Make Layer a base class and add Dense Layer to replace Layer
   - [x] Check what's up with the main python script and the reason why the shapes aren't matching
     - [x] Change the biases into vectors (this is causing the unmatching shapes error)
     - [x] Adapt the return value of the predict function
     - [x] Adapt predict function for flatten layer
-    - [ ] Adapt Dense layer for serialization
+    - [x] Adapt Dense layer for serialization
     - [ ] Fix the loading bar
 - [ ] Update README to include more information about the project
 

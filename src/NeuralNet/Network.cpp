@@ -31,12 +31,6 @@ void Network::addLayer(std::shared_ptr<Layer> &layer)
     this->layers.push_back(layer);
 }
 
-void Network::setBatchSize(int batchSize)
-{
-    assert(batchSize > 0);
-    this->batchSize = batchSize;
-}
-
 void Network::setLoss(LOSS loss)
 {
     switch (loss)

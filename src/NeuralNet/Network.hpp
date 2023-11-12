@@ -43,13 +43,6 @@ namespace NeuralNet
         void addLayer(std::shared_ptr<Layer> &layer);
 
         /**
-         * @brief This method will set the batch size of the network during training
-         *
-         * @param batchSize An integer > 0 that represents the batch size
-         */
-        void setBatchSize(int batchSize);
-
-        /**
          * @brief This method will set the network's loss function
          *
          * @param loss The loss function (choose from the list of LOSS enums)

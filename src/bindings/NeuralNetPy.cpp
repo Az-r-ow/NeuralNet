@@ -93,7 +93,6 @@ PYBIND11_MODULE(NeuralNetPy, m)
              py::arg("epochs") = 10,
              py::arg("loss") = LOSS::QUADRATIC)
         .def("addLayer", &Network::addLayer)
-        .def("setBatchSize", &Network::setBatchSize)
         .def("getLayer", &Network::getLayer, py::return_value_policy::copy)
         .def("getNumLayers", &Network::getNumLayers)
         .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>)>(&Network::train), "Train the network")

@@ -18,10 +18,8 @@ int main(int argc, char *argv[])
     std::shared_ptr<Layer> l = network.getLayer(1);
     std::cout << "fetched layer from network : " << l->getNumNeurons() << "\n";
     network.setup(AdamOptimizer);
-    network.setBatchSize(1);
 
     network.setup(AdamOptimizer, 1, LOSS::QUADRATIC);
-    network.setBatchSize(1);
 
     std::cout << "num of layers : " << network.getNumLayers() << "\n";
 
