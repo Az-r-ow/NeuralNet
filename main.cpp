@@ -64,5 +64,22 @@ int main(int argc, char *argv[])
     test2->printWeights();
     test2->printOutputs();
 
+    std::vector<double> data = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+
+    Tensor t(data);
+
+    t.batch(2);
+
+    auto batches = t.getBatchedData();
+
+    for (int i = 0; i < batches.size(); i++)
+    {
+        std::cout << "i = " << i << "\n";
+        for (const auto &el : batches[i])
+        {
+            std::cout << el << "\n";
+        }
+    }
+
     return 0;
 }
