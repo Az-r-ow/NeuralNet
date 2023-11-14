@@ -26,13 +26,21 @@ namespace NeuralNet
         int startIdx = i * batchSize;
         int endIdx = std::min((i + 1) * batchSize, static_cast<int>(data.size()));
 
-        batches.emplace_back(data.begin() + startIdx, data.begin() + endIdx);
+        batches.emplace_back(std::make_move_iterator(data.begin() + startIdx), std::make_move_iterator(data.begin() + endIdx));
       }
+
+      // Remove the the mess from data
+      data.erase(data.begin(), data.end());
     };
 
     std::vector<std::vector<T>> getBatchedData() const
     {
       return batches;
+    }
+
+    std::vector<T> getData() const
+    {
+      return data;
     }
 
   private:

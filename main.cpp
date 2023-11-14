@@ -75,10 +75,20 @@ int main(int argc, char *argv[])
     for (int i = 0; i < batches.size(); i++)
     {
         std::cout << "i = " << i << "\n";
+        std::cout << "batch size : " << batches[i].size() << '\n';
         for (const auto &el : batches[i])
         {
             std::cout << el << "\n";
         }
+    }
+
+    auto s = t.getData();
+
+    std::cout << "Data size : " << s.size() << "\n";
+
+    for (const auto &el : s)
+    {
+        std::cout << "Data value : " << el << "\n";
     }
 
     return 0;
