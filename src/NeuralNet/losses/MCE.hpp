@@ -1,6 +1,6 @@
 #pragma once
 
-#include "interfaces/Loss.hpp"
+#include "Loss.hpp"
 
 namespace NeuralNet
 {
@@ -10,16 +10,16 @@ namespace NeuralNet
   class MCE : public Loss
   {
   public:
-    static double cmpLoss(const Eigen::MatrixXd &o, const Labels &y)
+    static double cmpLoss(const Eigen::MatrixXd &o, const Eigen::MatrixXd &y)
     {
       Eigen::MatrixXd cMatrix = y.array() * o.array().log();
 
       return -cMatrix.sum();
     };
 
-    static Eigen::MatrixXd cmpGradient(const Eigen::MatrixXd &yHat, const Labels &y)
+    static Eigen::MatrixXd cmpGradient(const Eigen::MatrixXd &yHat, const Eigen::MatrixXd &y)
     {
-      assert(yHat.rows() == y.rows());
+      assert(yHat.rows() == y.rows() && yHat.cols() == y.cols());
       return yHat.array() - y.array();
     };
   };

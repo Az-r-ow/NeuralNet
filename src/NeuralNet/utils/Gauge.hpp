@@ -6,10 +6,10 @@
 #include <string>                  // for allocator, char_traits, operator+, operator<<, string, to_string, basic_string
 #include <thread>                  // for sleep_for
 
+using namespace ftxui;
+
 namespace NeuralNet
 {
-  using namespace ftxui;
-
   /**
    * A general purpose simple use gauge.
    * It encompasses the few lines of code to have an operational ftxui::gauge
