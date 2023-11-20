@@ -1,5 +1,7 @@
 #include <catch2/catch_test_macros.hpp>
-#include "data/Tensor.hpp"
+#include <data/Tensor.hpp>
+
+using namespace NeuralNet;
 
 SCENARIO("Tensor batches data correctly")
 {
@@ -7,7 +9,7 @@ SCENARIO("Tensor batches data correctly")
   {
     std::vector<int> data = {1, 2, 3, 4, 5, 6, 7};
 
-    NeuralNet::Tensor t(data);
+    Tensor t(data);
 
     // Creating batches of 2 elements
     t.batch(2);

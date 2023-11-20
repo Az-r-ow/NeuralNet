@@ -16,6 +16,8 @@
 #include "layers/Dense.hpp"
 #include "optimizers/optimizers.hpp"
 #include "losses/losses.hpp"
+#include "data/Tensor.hpp"
+#include "data/TrainingData.hpp"
 
 namespace NeuralNet
 {
@@ -41,6 +43,13 @@ namespace NeuralNet
          * @param layer the layer to add to the model it should be of type Layer
          */
         void addLayer(std::shared_ptr<Layer> &layer);
+
+        /**
+         * @brief This method will set the batch size of the network during training
+         *
+         * @param batchSize An integer > 0 that represents the batch size
+         */
+        void setBatchSize(int batchSize);
 
         /**
          * @brief This method will set the network's loss function
@@ -91,6 +100,9 @@ namespace NeuralNet
          * @return The last training's loss
          */
         double train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels);
+
+        double train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData);
+        double train(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>> trainingData);
 
         /**
          * @brief This model will try to make predictions based off the inputs passed
@@ -144,6 +156,12 @@ namespace NeuralNet
         // The template are called D for dimensions eg : 2d 3d
         template <typename D1, typename D2>
         double trainingProcess(std::vector<D1> inputs, std::vector<D2> labels);
+        template <typename D1, typename D2>
+        double trainer(TrainingData<D1, D2> trainingData);
+        template <typename D1, typename D2>
+        double miniBatchTraining(TrainingData<D1, D2> trainingData);
+        template <typename D1, typename D2>
+        double batchTraining(TrainingData<D1, D2> trainingData);
         Eigen::MatrixXd forwardProp(std::vector<std::vector<std::vector<double>>> inputs);
         Eigen::MatrixXd forwardProp(std::vector<std::vector<double>> inputs);
         Eigen::MatrixXd forwardProp(Eigen::MatrixXd inputs);

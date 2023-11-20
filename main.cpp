@@ -43,7 +43,9 @@ int main(int argc, char *argv[])
     std::vector<std::vector<double>> inputs;
     inputs.push_back(randDVector(layer1->getNumNeurons(), -1, 1));
     std::vector<double> labels = {1};
-    network.train(inputs, labels);
+
+    TrainingData tr_data(inputs, labels);
+    network.train(tr_data);
 
     std::shared_ptr<Layer> input = network.getLayer(0);
     std::shared_ptr<Layer> test = network.getLayer(1);
@@ -64,32 +66,17 @@ int main(int argc, char *argv[])
     test2->printWeights();
     test2->printOutputs();
 
-    std::vector<double> data = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+    std::vector<double> data = {1, 2, 3, 4, 5, 6, 7, 8};
 
     Tensor t(data);
 
     t.batch(2);
 
-    auto batches = t.getBatchedData();
+    std::vector<std::vector<double>> batch = t.getBatchedData();
 
-    for (int i = 0; i < batches.size(); i++)
-    {
-        std::cout << "i = " << i << "\n";
-        std::cout << "batch size : " << batches[i].size() << '\n';
-        for (const auto &el : batches[i])
-        {
-            std::cout << el << "\n";
-        }
-    }
+    std::cout << "Num batches : " << batch.size() << "\n";
 
-    auto s = t.getData();
+    TrainingData td(data, data);
 
-    std::cout << "Data size : " << s.size() << "\n";
-
-    for (const auto &el : s)
-    {
-        std::cout << "Data value : " << el << "\n";
-    }
-
-    return 0;
+    td.batch(2);
 }

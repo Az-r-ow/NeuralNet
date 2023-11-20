@@ -71,6 +71,74 @@ double Network::train(std::vector<std::vector<std::vector<double>>> inputs, std:
     return trainingProcess(inputs, labels);
 }
 
+double Network::train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData)
+{
+    return this->trainer(trainingData);
+}
+
+double Network::train(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>> trainingData)
+{
+    return this->trainer(trainingData);
+}
+
+template <typename D1, typename D2>
+double Network::trainer(TrainingData<D1, D2> trainingData)
+{
+    if (trainingData.batched)
+        return this->miniBatchTraining(trainingData);
+    return this->batchTraining(trainingData);
+}
+
+template <typename D1, typename D2>
+double Network::miniBatchTraining(TrainingData<D1, D2> trainingData)
+{
+    double loss;
+
+    for (int e = 0; e < epochs; e++)
+    {
+        for (int b = 0; b < trainingData.inputs.size(); b++)
+        {
+            const int numOutputs = this->getOutputLayer()->getNumNeurons();
+            const int inputsSize = trainingData.inputs.size();
+            Eigen::MatrixXd y = formatLabels(trainingData.labels.batches[b], {inputsSize, numOutputs});
+            Eigen::MatrixXd grad = zeroMatrix({inputsSize, numOutputs});
+
+            // computing outputs from forward propagation
+            Eigen::MatrixXd o = this->forwardProp(trainingData.inputs.batches[b]);
+            loss = this->cmpLoss(o, y);
+            grad = this->cmpGradient(o, y);
+            this->backProp(grad);
+        }
+    }
+
+    return loss;
+}
+
+template <typename D1, typename D2>
+double Network::batchTraining(TrainingData<D1, D2> trainingData)
+{
+    double loss;
+    const int numOutputs = this->getOutputLayer()->getNumNeurons();
+    const int inputsSize = trainingData.inputs.data.size();
+    Eigen::MatrixXd y = formatLabels(trainingData.labels.data, {inputsSize, numOutputs});
+    Eigen::MatrixXd grad = zeroMatrix({inputsSize, numOutputs});
+
+    for (int e = 0; e < epochs; e++)
+    {
+        Eigen::MatrixXd o = this->forwardProp(trainingData.inputs.data);
+
+        loss = this->cmpLoss(o, y);
+
+        grad = this->cmpGradient(o, y);
+
+        this->backProp(grad);
+
+        grad = zeroMatrix({inputsSize, numOutputs});
+    }
+
+    return loss;
+}
+
 template <typename D1, typename D2>
 double Network::trainingProcess(std::vector<D1> inputs, std::vector<D2> labels)
 {

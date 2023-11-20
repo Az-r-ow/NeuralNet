@@ -7,11 +7,10 @@ namespace NeuralNet
   template <typename T>
   class Tensor
   {
+    friend class Network;
+
   public:
-    Tensor(std::vector<T> data)
-    {
-      this->data = data;
-    };
+    Tensor(T data) : data(data) {}
 
     void batch(int batchSize)
     {
@@ -20,6 +19,8 @@ namespace NeuralNet
       int numBatches = (data.size() + batchSize - 1) / batchSize;
 
       batches.reserve(numBatches);
+
+      batched = true;
 
       for (int i = 0; i < numBatches; ++i)
       {
@@ -33,7 +34,12 @@ namespace NeuralNet
       data.erase(data.begin(), data.end());
     };
 
-    std::vector<std::vector<T>> getBatchedData() const
+    size_t size() const
+    {
+      return batched ? data.size() : batches.size();
+    };
+
+    std::vector<T> getBatchedData() const
     {
       return batches;
     }
@@ -44,7 +50,8 @@ namespace NeuralNet
     }
 
   private:
-    std::vector<T> data;
-    std::vector<std::vector<T>> batches;
+    T data;
+    std::vector<T> batches;
+    bool batched = false;
   };
 }
