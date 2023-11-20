@@ -71,6 +71,7 @@ double Network::train(std::vector<std::vector<std::vector<double>>> inputs, std:
     return trainingProcess(inputs, labels);
 }
 
+// Specific implementation of train that takes TrainingData class as input
 double Network::train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData)
 {
     return this->trainer(trainingData);

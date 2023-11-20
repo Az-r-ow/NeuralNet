@@ -101,7 +101,22 @@ namespace NeuralNet
          */
         double train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels);
 
+        /**
+         * @brief This method will train the model with the given TrainingData
+         *
+         * @param trainingData the data passed through the TrainingData class
+         *
+         * @return The last training's loss
+         */
         double train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData);
+
+        /**
+         * @brief This method will train the model with the given TrainingData
+         *
+         * @param trainingData the data passed through the TrainingData class
+         *
+         * @return The last training's loss
+         */
         double train(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>> trainingData);
 
         /**
