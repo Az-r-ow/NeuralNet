@@ -67,6 +67,32 @@ namespace NeuralNet
       this->currEpoch = currEpoch;
     }
 
+    void printWithLoss(double l)
+    {
+      ++this->currIndex;
+      std::string ratioStr = std::to_string(this->currIndex) + "/" + std::to_string(this->totalIndexes);
+      std::string epochStr = "Epoch : " + std::to_string(this->currEpoch) + "/" + std::to_string(this->totalEpochs);
+      std::string errorStr = "Loss : " + std::to_string(static_cast<float>(l));
+
+      float ratio = static_cast<float>(this->currIndex) / this->totalIndexes;
+      Element document =
+          hbox({
+              hbox({
+                  text(epochStr + " "),
+                  gauge(ratio),
+                  text(" " + ratioStr),
+              }) | flex |
+                  border,
+              text(errorStr) | border,
+          });
+
+      auto screen = Screen::Create(Dimension::Full(), Dimension::Fit(document));
+      Render(screen, document);
+      std::cout << this->resetPos;
+      screen.Print();
+      this->resetPos = screen.ResetPosition();
+    }
+
     /**
      * Print with loss and accuracy
      */

@@ -36,7 +36,7 @@ namespace NeuralNet
 
     size_t size() const
     {
-      return batched ? data.size() : batches.size();
+      return batched ? batches.size() : data.size();
     };
 
     std::vector<T> getBatchedData() const
