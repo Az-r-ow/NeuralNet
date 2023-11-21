@@ -18,6 +18,7 @@
 #include "optimizers/Optimizer.hpp"
 #include "optimizers/optimizers.hpp"
 #include "utils/Enums.hpp"
+#include "TemplateBindings.hpp" // Template classes binding functions
 
 namespace py = pybind11;
 
@@ -74,6 +75,11 @@ PYBIND11_MODULE(NeuralNetPy, m)
     py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(m, "VectorFlatten");
     py::bind_vector<std::vector<std::shared_ptr<Dense>>>(m, "VectorDense");
 
+    // TrainingData with 2 dimensional inputs
+    bindTrainingData<std::vector<std::vector<double>>, std::vector<double>>(m, "TrainingData2dI");
+    // TrainingData with 3 dimensional inputs
+    bindTrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>>(m, "TrainingData3dI");
+
     /**
      * > You can only bind explicitly instantiated versions of your function
      *
@@ -97,6 +103,8 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .def("getNumLayers", &Network::getNumLayers)
         .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>)>(&Network::train), "Train the network")
         .def("train", static_cast<double (Network::*)(std::vector<std::vector<std::vector<double>>>, std::vector<double>)>(&Network::train), "Train the network")
+        .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<double>>, std::vector<double>>)>(&Network::train), "Train the network")
+        .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>>)>(&Network::train), "Train the network")
         .def("predict", static_cast<Eigen::MatrixXd (Network::*)(std::vector<std::vector<double>>)>(&Network::predict), "Predict the outputs")
         .def("predict", static_cast<Eigen::MatrixXd (Network::*)(std::vector<std::vector<std::vector<double>>>)>(&Network::predict), "Predict the outputs");
 }
