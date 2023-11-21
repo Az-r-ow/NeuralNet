@@ -97,18 +97,20 @@ double Network::miniBatchTraining(TrainingData<D1, D2> trainingData)
 
     for (int e = 0; e < epochs; e++)
     {
+        TrainingGauge g(trainingData.inputs.size(), 0, epochs, (e + 1));
         for (int b = 0; b < trainingData.inputs.size(); b++)
         {
             const int numOutputs = this->getOutputLayer()->getNumNeurons();
-            const int inputsSize = trainingData.inputs.size();
+            const int inputsSize = trainingData.inputs.batches[b].size();
             Eigen::MatrixXd y = formatLabels(trainingData.labels.batches[b], {inputsSize, numOutputs});
             Eigen::MatrixXd grad = zeroMatrix({inputsSize, numOutputs});
 
             // computing outputs from forward propagation
             Eigen::MatrixXd o = this->forwardProp(trainingData.inputs.batches[b]);
-            loss = this->cmpLoss(o, y);
+            loss = this->cmpLoss(o, y) / inputsSize;
             grad = this->cmpGradient(o, y);
             this->backProp(grad);
+            g.printWithLoss(loss);
         }
     }
 
