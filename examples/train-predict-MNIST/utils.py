@@ -36,7 +36,7 @@ def normalize_img(img):
     normalized_img = [ row.astype(np.float32) for row in img]
     
     # Divide all elements of the array by 255
-    normalized_img = [ row / 255.0 for row in img]
+    normalized_img = [ row / 255.0 for row in normalized_img]
     
     return normalized_img
 

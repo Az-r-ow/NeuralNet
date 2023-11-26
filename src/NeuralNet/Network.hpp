@@ -165,7 +165,7 @@ namespace NeuralNet
         int batchSize = 50; // Default batch size
         int epochs;
         double (*cmpLoss)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
-        Eigen::MatrixXd (*cmpGradient)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
+        Eigen::MatrixXd (*cmpLossGrad)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
         std::shared_ptr<Optimizer> optimizer;
 
         // The template are called D for dimensions eg : 2d 3d
@@ -180,7 +180,7 @@ namespace NeuralNet
         Eigen::MatrixXd forwardProp(std::vector<std::vector<std::vector<double>>> inputs);
         Eigen::MatrixXd forwardProp(std::vector<std::vector<double>> inputs);
         Eigen::MatrixXd forwardProp(Eigen::MatrixXd inputs);
-        void backProp(Eigen::MatrixXd grad);
+        void backProp(Eigen::MatrixXd lossGrad);
         double computeAccuracy(int predicted, int label);
         void updateOptimizerSetup(size_t numLayers);
     };

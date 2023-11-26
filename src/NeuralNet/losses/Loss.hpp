@@ -19,13 +19,13 @@ namespace NeuralNet
     static double cmpLoss(const Eigen::MatrixXd &o, const Labels &y);
 
     /**
-     * @brief This function computes the gradient w.r.t to the selected loss function
+     * @brief This function computes the loss gradient w.r.t the outputs
      *
      * @param o The outputs from the output layer
      * @param y The labels (expected vals)
      *
      * @return The current iteration's gradient
      */
-    static Eigen::MatrixXd cmpGradient(const Eigen::MatrixXd &o, const Labels &y);
+    static Eigen::MatrixXd cmpLossGrad(const Eigen::MatrixXd &o, const Labels &y);
   };
 }

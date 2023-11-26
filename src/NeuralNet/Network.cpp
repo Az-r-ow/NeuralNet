@@ -37,11 +37,11 @@ void Network::setLoss(LOSS loss)
     {
     case LOSS::QUADRATIC:
         this->cmpLoss = Quadratic::cmpLoss;
-        this->cmpGradient = Quadratic::cmpGradient;
+        this->cmpLossGrad = Quadratic::cmpLossGrad;
         break;
     case LOSS::MCE:
         this->cmpLoss = MCE::cmpLoss;
-        this->cmpGradient = MCE::cmpGradient;
+        this->cmpLossGrad = MCE::cmpLossGrad;
         break;
     default:
         assert(false && "Loss not defined");
@@ -103,13 +103,13 @@ double Network::miniBatchTraining(TrainingData<D1, D2> trainingData)
             const int numOutputs = this->getOutputLayer()->getNumNeurons();
             const int inputsSize = trainingData.inputs.batches[b].size();
             Eigen::MatrixXd y = formatLabels(trainingData.labels.batches[b], {inputsSize, numOutputs});
-            Eigen::MatrixXd grad = zeroMatrix({inputsSize, numOutputs});
+            Eigen::MatrixXd lossGrad = zeroMatrix({inputsSize, numOutputs});
 
             // computing outputs from forward propagation
             Eigen::MatrixXd o = this->forwardProp(trainingData.inputs.batches[b]);
             loss = this->cmpLoss(o, y) / inputsSize;
-            grad = this->cmpGradient(o, y);
-            this->backProp(grad);
+            lossGrad = this->cmpLossGrad(o, y);
+            this->backProp(lossGrad);
             g.printWithLoss(loss);
         }
     }
@@ -124,7 +124,7 @@ double Network::batchTraining(TrainingData<D1, D2> trainingData)
     const int numOutputs = this->getOutputLayer()->getNumNeurons();
     const int inputsSize = trainingData.inputs.data.size();
     Eigen::MatrixXd y = formatLabels(trainingData.labels.data, {inputsSize, numOutputs});
-    Eigen::MatrixXd grad = zeroMatrix({inputsSize, numOutputs});
+    Eigen::MatrixXd lossGrad = zeroMatrix({inputsSize, numOutputs});
 
     for (int e = 0; e < epochs; e++)
     {
@@ -132,11 +132,11 @@ double Network::batchTraining(TrainingData<D1, D2> trainingData)
 
         loss = this->cmpLoss(o, y);
 
-        grad = this->cmpGradient(o, y);
+        lossGrad = this->cmpLossGrad(o, y);
 
-        this->backProp(grad);
+        this->backProp(lossGrad);
 
-        grad = zeroMatrix({inputsSize, numOutputs});
+        lossGrad = zeroMatrix({inputsSize, numOutputs});
     }
 
     return loss;
@@ -149,7 +149,7 @@ double Network::trainingProcess(std::vector<D1> inputs, std::vector<D2> labels)
     const int numOutputs = this->getOutputLayer()->getNumNeurons();
     const int inputsSize = inputs.size();
     Eigen::MatrixXd y = formatLabels(labels, {inputsSize, numOutputs});
-    Eigen::MatrixXd grad = zeroMatrix({inputsSize, numOutputs});
+    Eigen::MatrixXd lossGrad = zeroMatrix({inputsSize, numOutputs});
 
     for (int e = 0; e < epochs; e++)
     {
@@ -159,11 +159,11 @@ double Network::trainingProcess(std::vector<D1> inputs, std::vector<D2> labels)
 
         loss = this->cmpLoss(o, y);
 
-        grad = this->cmpGradient(o, y);
+        lossGrad = this->cmpLossGrad(o, y);
 
-        this->backProp(grad);
+        this->backProp(lossGrad);
 
-        grad = zeroMatrix({inputsSize, numOutputs});
+        lossGrad = zeroMatrix({inputsSize, numOutputs});
     }
 
     return loss;
@@ -234,10 +234,13 @@ Eigen::MatrixXd Network::forwardProp(Eigen::MatrixXd inputs)
     return prevLayerO;
 }
 
-void Network::backProp(Eigen::MatrixXd grad)
+void Network::backProp(Eigen::MatrixXd lossGrad)
 {
     // Next Layer activation der dL/da(l - 1)
-    Eigen::MatrixXd nextLayerADer = grad.transpose();
+    Eigen::MatrixXd nextLayerADer = lossGrad;
+    int batchSize = lossGrad.rows();
+
+    std::cout << "loss gradient : " << lossGrad << "\n";
 
     for (size_t i = this->layers.size(); --i > 0;)
     {
@@ -247,21 +250,48 @@ void Network::backProp(Eigen::MatrixXd grad)
         // a'(L)
         Eigen::MatrixXd aDer = cLayer->diff(cLayer->outputs);
 
+        std::cout << "Outputs : \n"
+                  << cLayer->outputs << '\n';
+
+        std::cout << "weights : \n"
+                  << cLayer->weights << "\n";
+
+        std::cout << "aDer : \n"
+                  << aDer << "\n\n";
+
+        std::cout << "next layer A der : \n"
+                  << nextLayerADer << "\n\n";
+
         // a(L - 1) . a'(L)
-        Eigen::MatrixXd aDerNextDotaDer = nextLayerADer.array() * aDer.transpose().array();
+        Eigen::MatrixXd aDerNextDotaDer = nextLayerADer.array() * aDer.array();
 
-        // dL/dw
-        Eigen::MatrixXd wDer = aDerNextDotaDer * nLayer->getOutputs();
+        std::cout << "aDerNextDotaDer : \n"
+                  << aDerNextDotaDer << "\n\n";
 
-        // dL/db
-        Eigen::MatrixXd bDer = aDerNextDotaDer.rowwise().sum().transpose();
+        Eigen::MatrixXd wDer(cLayer->weights.rows(), cLayer->weights.cols());
 
+        Eigen::MatrixXd bDer(cLayer->biases.rows(), cLayer->biases.cols());
+        // Calculating and summing the gradient of each input of the batch
+        for (int b = 0; b < batchSize; ++b)
+        {
+            // dL/dw
+            std::cout << "aDerNextDotaDer : " << aDerNextDotaDer.row(i) << "\n\n";
+            std::cout << "nextLayer outputs : " << nLayer->getOutputs().row(b) << "\n\n";
+            wDer += nLayer->getOutputs().row(b).transpose() * aDerNextDotaDer.row(b);
+
+            std::cout << "a(l - 1) * aDerNextDotaDer" << nLayer->getOutputs().row(b).transpose() * aDerNextDotaDer.row(b) << "\n\n";
+            // dL/db
+            bDer += aDerNextDotaDer.row(b);
+        }
+
+        std::cout << "wDer : " << wDer.array() << "\n\n";
         // dL/dA(l - 1)
-        nextLayerADer = cLayer->weights * aDerNextDotaDer;
+
+        nextLayerADer = aDerNextDotaDer * cLayer->weights.transpose();
 
         // updating weights and biases
-        this->optimizer->updateWeights(cLayer->weights, wDer.transpose());
-        this->optimizer->updateBiases(cLayer->biases, bDer);
+        this->optimizer->updateWeights(cLayer->weights, wDer / batchSize);
+        this->optimizer->updateBiases(cLayer->biases, bDer / batchSize);
     }
 }
 
