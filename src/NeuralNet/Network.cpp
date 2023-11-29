@@ -240,8 +240,6 @@ void Network::backProp(Eigen::MatrixXd lossGrad)
     Eigen::MatrixXd nextLayerADer = lossGrad;
     int batchSize = lossGrad.rows();
 
-    std::cout << "loss gradient : " << lossGrad << "\n";
-
     for (size_t i = this->layers.size(); --i > 0;)
     {
         std::shared_ptr<Layer> cLayer = this->layers[i];
@@ -250,48 +248,35 @@ void Network::backProp(Eigen::MatrixXd lossGrad)
         // a'(L)
         Eigen::MatrixXd aDer = cLayer->diff(cLayer->outputs);
 
-        std::cout << "Outputs : \n"
-                  << cLayer->outputs << '\n';
-
-        std::cout << "weights : \n"
-                  << cLayer->weights << "\n";
-
-        std::cout << "aDer : \n"
-                  << aDer << "\n\n";
-
-        std::cout << "next layer A der : \n"
-                  << nextLayerADer << "\n\n";
-
         // a(L - 1) . a'(L)
         Eigen::MatrixXd aDerNextDotaDer = nextLayerADer.array() * aDer.array();
 
-        std::cout << "aDerNextDotaDer : \n"
-                  << aDerNextDotaDer << "\n\n";
+        Eigen::MatrixXd wDerSum(cLayer->weights.rows(), cLayer->weights.cols());
 
-        Eigen::MatrixXd wDer(cLayer->weights.rows(), cLayer->weights.cols());
+        wDerSum.setZero();
 
-        Eigen::MatrixXd bDer(cLayer->biases.rows(), cLayer->biases.cols());
+        Eigen::MatrixXd bDerSum(cLayer->biases.rows(), cLayer->biases.cols());
+
+        bDerSum.setZero();
+
         // Calculating and summing the gradient of each input of the batch
         for (int b = 0; b < batchSize; ++b)
         {
             // dL/dw
-            std::cout << "aDerNextDotaDer : " << aDerNextDotaDer.row(i) << "\n\n";
-            std::cout << "nextLayer outputs : " << nLayer->getOutputs().row(b) << "\n\n";
-            wDer += nLayer->getOutputs().row(b).transpose() * aDerNextDotaDer.row(b);
+            // Eigen::MatrixXd wDer = nLayer->outputs.row(b).transpose() * aDerNextDotaDer.row(b);
 
-            std::cout << "a(l - 1) * aDerNextDotaDer" << nLayer->getOutputs().row(b).transpose() * aDerNextDotaDer.row(b) << "\n\n";
+            wDerSum += nLayer->outputs.row(b).transpose() * aDerNextDotaDer.row(b);
+
             // dL/db
-            bDer += aDerNextDotaDer.row(b);
+            bDerSum += aDerNextDotaDer.row(b);
         }
 
-        std::cout << "wDer : " << wDer.array() << "\n\n";
         // dL/dA(l - 1)
-
         nextLayerADer = aDerNextDotaDer * cLayer->weights.transpose();
 
         // updating weights and biases
-        this->optimizer->updateWeights(cLayer->weights, wDer / batchSize);
-        this->optimizer->updateBiases(cLayer->biases, bDer / batchSize);
+        this->optimizer->updateWeights(cLayer->weights, (wDerSum / batchSize));
+        this->optimizer->updateBiases(cLayer->biases, (bDerSum / batchSize));
     }
 }
 
