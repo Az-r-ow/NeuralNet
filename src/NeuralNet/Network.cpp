@@ -271,12 +271,18 @@ void Network::backProp(Eigen::MatrixXd lossGrad)
             bDerSum += aDerNextDotaDer.row(b);
         }
 
+        // Averaging the weights gradients
+        wDerSum /= batchSize;
+
+        // Averaging the bias gradients
+        bDerSum /= batchSize;
+
         // dL/dA(l - 1)
         nextLayerADer = aDerNextDotaDer * cLayer->weights.transpose();
 
         // updating weights and biases
-        this->optimizer->updateWeights(cLayer->weights, (wDerSum / batchSize));
-        this->optimizer->updateBiases(cLayer->biases, (bDerSum / batchSize));
+        this->optimizer->updateWeights(cLayer->weights, wDerSum);
+        this->optimizer->updateBiases(cLayer->biases, bDerSum);
     }
 }
 
