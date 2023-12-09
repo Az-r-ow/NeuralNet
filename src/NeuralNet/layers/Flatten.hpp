@@ -16,7 +16,10 @@ namespace NeuralNet
   class Flatten : public Layer
   {
   public:
-    Flatten(std::tuple<int, int> inputShape) : Layer(inputShape), inputShape(inputShape){};
+    Flatten(std::tuple<int, int> inputShape) : Layer(inputShape), inputShape(inputShape)
+    {
+      type = LayerType::FLATTEN;
+    };
 
     ~Flatten(){};
 

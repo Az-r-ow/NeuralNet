@@ -20,6 +20,14 @@
 
 namespace NeuralNet
 {
+  // Should be updated when a new layer type is added
+  enum class LayerType
+  {
+    DEFAULT,
+    DENSE,
+    FLATTEN
+  };
+
   class Layer
   {
     friend class Network;
@@ -177,6 +185,13 @@ namespace NeuralNet
 
     void setActivation(ACTIVATION activation)
     {
+      if (type == LayerType::FLATTEN)
+      {
+        this->activate = Activation::activate;
+        this->diff = Activation::diff;
+        return;
+      }
+
       switch (activation)
       {
       case ACTIVATION::SIGMOID:
@@ -205,13 +220,13 @@ namespace NeuralNet
     template <class Archive>
     void save(Archive &archive) const
     {
-      archive(nNeurons, weights, outputs, biases, activation);
+      archive(nNeurons, weights, outputs, biases, activation, type);
     };
 
     template <class Archive>
     void load(Archive &archive)
     {
-      archive(nNeurons, weights, outputs, biases, activation);
+      archive(nNeurons, weights, outputs, biases, activation, type);
       setActivation(activation);
     }
 
@@ -251,6 +266,7 @@ namespace NeuralNet
     Layer(std::tuple<int, int> inputShape) : nNeurons(std::get<0>(inputShape) * std::get<1>(inputShape)){}; // Used in Flatten layer
 
     int nNeurons; // Number of neurons
+    LayerType type = LayerType::DEFAULT;
 
     void setOutputs(std::vector<double> outputs) // used for input layer
     {
