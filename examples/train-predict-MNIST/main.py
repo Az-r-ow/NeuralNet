@@ -35,16 +35,16 @@ network.addLayer(NNP.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
 network.addLayer(NNP.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
 # Setting up the networks parameters
-network.setup(optimizer=NNP.Adam(0.001), epochs=2, loss=NNP.LOSS.MCE)
+network.setup(optimizer=NNP.SGD(1), epochs=1, loss=NNP.LOSS.MCE)
 
-# combining the data with the labels for later shuffling 
-combined = list(zip(x_train, y_train))
+# # combining the data with the labels for later shuffling 
+# combined = list(zip(x_train, y_train))
 
-# shuffling the combined list 
-random.shuffle(combined)
+# # shuffling the combined list 
+# random.shuffle(combined)
 
-# separating them 
-x_train, y_train = zip(*combined)
+# # separating them 
+# x_train, y_train = zip(*combined)
 
 # preparing the training data
 f_x_train = [normalize_img(x) for x in x_train]
@@ -62,15 +62,10 @@ predictions = network.predict(f_x_test[:NUM_PREDICTIONS])
 
 predicted_numbers = find_highest_indexes_in_matrix(predictions)
 
-predicted_numbers = [i + 1 for i in predicted_numbers]
-
 (accuracy, n, correct) = get_accuracy(predicted_numbers, y_test)
 
 # Getting the prediction's accuracy 
 print(f"Num correct predictions : {correct}/{n} - accuracy {accuracy}")
-
-# save trained model to file 
-NNP.Model.save_to_file("model.bin",  network)
 
 # Remove sys.path modification
 sys.path.remove(so_dir)

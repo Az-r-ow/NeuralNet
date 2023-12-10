@@ -187,7 +187,7 @@ Eigen::MatrixXd Network::predict(std::vector<std::vector<std::vector<double>>> i
 /**
  * Forward propagation
  */
-Eigen::MatrixXd Network::forwardProp(std::vector<std::vector<std::vector<double>>> inputs)
+Eigen::MatrixXd Network::forwardProp(std::vector<std::vector<std::vector<double>>> &inputs)
 {
     std::shared_ptr<Layer> firstLayer = this->layers[0];
 
@@ -206,7 +206,7 @@ Eigen::MatrixXd Network::forwardProp(std::vector<std::vector<std::vector<double>
     return prevLayerOutputs;
 }
 
-Eigen::MatrixXd Network::forwardProp(std::vector<std::vector<double>> inputs)
+Eigen::MatrixXd Network::forwardProp(std::vector<std::vector<double>> &inputs)
 {
     // Previous layer outputs
     Eigen::MatrixXd prevLayerO = vectorToMatrixXd(inputs);
@@ -220,7 +220,7 @@ Eigen::MatrixXd Network::forwardProp(std::vector<std::vector<double>> inputs)
     return prevLayerO;
 }
 
-Eigen::MatrixXd Network::forwardProp(Eigen::MatrixXd inputs)
+Eigen::MatrixXd Network::forwardProp(Eigen::MatrixXd &inputs)
 {
     // Previous layer outputs
     Eigen::MatrixXd prevLayerO = inputs;
@@ -251,38 +251,25 @@ void Network::backProp(Eigen::MatrixXd lossGrad)
         // a(L - 1) . a'(L)
         Eigen::MatrixXd aDerNextDotaDer = nextLayerADer.array() * aDer.array();
 
-        Eigen::MatrixXd wDerSum(cLayer->weights.rows(), cLayer->weights.cols());
-
-        wDerSum.setZero();
-
-        Eigen::MatrixXd bDerSum(cLayer->biases.rows(), cLayer->biases.cols());
-
-        bDerSum.setZero();
-
         // Calculating and summing the gradient of each input of the batch
-        for (int b = 0; b < batchSize; ++b)
-        {
-            // dL/dw
-            // Eigen::MatrixXd wDer = nLayer->outputs.row(b).transpose() * aDerNextDotaDer.row(b);
+        // gradW
+        Eigen::MatrixXd gradW = nLayer->outputs.transpose() * aDerNextDotaDer;
 
-            wDerSum += nLayer->outputs.row(b).transpose() * aDerNextDotaDer.row(b);
-
-            // dL/db
-            bDerSum += aDerNextDotaDer.row(b);
-        }
+        // gradB
+        Eigen::MatrixXd gradB = aDerNextDotaDer.colwise().sum();
 
         // Averaging the weights gradients
-        wDerSum /= batchSize;
+        gradW /= batchSize;
 
         // Averaging the bias gradients
-        bDerSum /= batchSize;
+        gradB /= batchSize;
 
         // dL/dA(l - 1)
         nextLayerADer = aDerNextDotaDer * cLayer->weights.transpose();
 
         // updating weights and biases
-        this->optimizer->updateWeights(cLayer->weights, wDerSum);
-        this->optimizer->updateBiases(cLayer->biases, bDerSum);
+        this->optimizer->updateWeights(cLayer->weights, gradW);
+        this->optimizer->updateBiases(cLayer->biases, gradB);
     }
 }
 

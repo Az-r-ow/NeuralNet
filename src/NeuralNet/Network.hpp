@@ -177,9 +177,9 @@ namespace NeuralNet
         double miniBatchTraining(TrainingData<D1, D2> trainingData);
         template <typename D1, typename D2>
         double batchTraining(TrainingData<D1, D2> trainingData);
-        Eigen::MatrixXd forwardProp(std::vector<std::vector<std::vector<double>>> inputs);
-        Eigen::MatrixXd forwardProp(std::vector<std::vector<double>> inputs);
-        Eigen::MatrixXd forwardProp(Eigen::MatrixXd inputs);
+        Eigen::MatrixXd forwardProp(std::vector<std::vector<std::vector<double>>> &inputs);
+        Eigen::MatrixXd forwardProp(std::vector<std::vector<double>> &inputs);
+        Eigen::MatrixXd forwardProp(Eigen::MatrixXd &inputs);
         void backProp(Eigen::MatrixXd lossGrad);
         double computeAccuracy(int predicted, int label);
         void updateOptimizerSetup(size_t numLayers);
