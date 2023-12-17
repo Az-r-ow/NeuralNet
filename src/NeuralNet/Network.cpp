@@ -244,28 +244,24 @@ void Network::backProp(Eigen::MatrixXd lossGrad)
     {
         std::shared_ptr<Layer> cLayer = this->layers[i];
         std::shared_ptr<Layer> nLayer = this->layers[i - 1];
-
         // a'(L)
         Eigen::MatrixXd aDer = cLayer->diff(cLayer->outputs);
 
         // a(L - 1) . a'(L)
-        Eigen::MatrixXd aDerNextDotaDer = nextLayerADer.array() * aDer.array();
+        Eigen::MatrixXd delta = nextLayerADer.array() * aDer.array();
 
         // Calculating and summing the gradient of each input of the batch
         // gradW
-        Eigen::MatrixXd gradW = nLayer->outputs.transpose() * aDerNextDotaDer;
+        Eigen::MatrixXd gradW = nLayer->outputs.transpose() * delta;
 
         // gradB
-        Eigen::MatrixXd gradB = aDerNextDotaDer.colwise().sum();
-
-        // Averaging the weights gradients
-        gradW /= batchSize;
+        Eigen::MatrixXd gradB = delta.colwise().sum();
 
         // Averaging the bias gradients
         gradB /= batchSize;
 
         // dL/dA(l - 1)
-        nextLayerADer = aDerNextDotaDer * cLayer->weights.transpose();
+        nextLayerADer = delta * cLayer->weights.transpose();
 
         // updating weights and biases
         this->optimizer->updateWeights(cLayer->weights, gradW);
