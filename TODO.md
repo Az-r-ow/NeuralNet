@@ -2,6 +2,7 @@
 
 - [ ] Document the example in python
 - [ ] Find out why the predictions are not accurate on my_samples
+- [ ] Implement batch norm
 - [ ] Find out if adam optimization is working
 - [ ] Multithreading operations
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf

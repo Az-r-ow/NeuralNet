@@ -237,8 +237,8 @@ Eigen::MatrixXd Network::forwardProp(Eigen::MatrixXd &inputs)
 void Network::backProp(Eigen::MatrixXd lossGrad)
 {
     // Next Layer activation der dL/da(l - 1)
-    Eigen::MatrixXd nextLayerADer = lossGrad;
-    int batchSize = lossGrad.rows();
+    Eigen::MatrixXd beta = lossGrad;
+    int m = lossGrad.rows();
 
     for (size_t i = this->layers.size(); --i > 0;)
     {
@@ -248,20 +248,17 @@ void Network::backProp(Eigen::MatrixXd lossGrad)
         Eigen::MatrixXd aDer = cLayer->diff(cLayer->outputs);
 
         // a(L - 1) . a'(L)
-        Eigen::MatrixXd delta = nextLayerADer.array() * aDer.array();
+        Eigen::MatrixXd delta = beta.array() * aDer.array();
 
         // Calculating and summing the gradient of each input of the batch
         // gradW
-        Eigen::MatrixXd gradW = nLayer->outputs.transpose() * delta;
+        Eigen::MatrixXd gradW = (1.0 / m) * nLayer->outputs.transpose() * delta;
 
         // gradB
-        Eigen::MatrixXd gradB = delta.colwise().sum();
-
-        // Averaging the bias gradients
-        gradB /= batchSize;
+        Eigen::MatrixXd gradB = (1.0 / m) * delta.colwise().sum();
 
         // dL/dA(l - 1)
-        nextLayerADer = delta * cLayer->weights.transpose();
+        beta = delta * cLayer->weights.transpose();
 
         // updating weights and biases
         this->optimizer->updateWeights(cLayer->weights, gradW);
