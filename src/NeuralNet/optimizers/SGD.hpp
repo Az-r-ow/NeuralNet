@@ -14,7 +14,6 @@ namespace NeuralNet
 
     ~SGD() override = default;
 
-  private:
     void updateWeights(Eigen::MatrixXd &weights, const Eigen::MatrixXd &weightsGrad) override
     {
       weights = weights.array() - (this->alpha * weightsGrad).array();
@@ -25,6 +24,7 @@ namespace NeuralNet
       biases = biases.array() - (this->alpha * biasesGrad).array();
     };
 
+  private:
     void insiderInit(size_t size) override{};
   };
 }

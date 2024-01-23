@@ -13,9 +13,6 @@ namespace NeuralNet
 
     virtual ~Optimizer() = default; // Virtual destructor
 
-  protected:
-    double alpha;
-
     /**
      * @brief This function updates the weights passed based on the selected Optimizer and the weights gradients
      *
@@ -35,6 +32,9 @@ namespace NeuralNet
      * The function will return void, since it only performs an update on the biases passed
      */
     virtual void updateBiases(Eigen::MatrixXd &biases, const Eigen::MatrixXd &biasesGrad) = 0;
+
+  protected:
+    double alpha;
 
     /**
      * @brief This function's purpose is to provide an interface to perform updates for the Optimizers from within the network
