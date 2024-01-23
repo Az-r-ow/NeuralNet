@@ -179,11 +179,20 @@ namespace NeuralNet
 
   inline Eigen::MatrixXd vectorToMatrixXd(std::vector<std::vector<double>> &v)
   {
+    if (v.empty() || v[0].empty())
+      return Eigen::MatrixXd(0, 0);
+
     int rows = v.size();
-    int cols = rows > 0 ? v[0].size() : 0;
+    int cols = v[0].size();
 
-    Eigen::Map<Eigen::MatrixXd> m(&v[0][0], rows, cols);
+    // Flatten the vector of vectors into a single vector
+    std::vector<double> flat;
+    flat.reserve(rows * cols);
+    for (const auto &row : v)
+    {
+      flat.insert(flat.end(), row.begin(), row.end());
+    }
 
-    return m;
+    return Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>>(flat.data(), rows, cols);
   }
 } // namespace NeuralNet

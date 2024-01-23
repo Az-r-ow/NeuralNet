@@ -5,6 +5,35 @@
 
 using namespace NeuralNet;
 
+SCENARIO("Basic small network functions")
+{
+  GIVEN("A small neural network")
+  {
+    Network sn; // sn - small network
+    std::shared_ptr<Optimizer> optimizer = std::make_shared<SGD>(1);
+
+    sn.setup(optimizer, 1, LOSS::QUADRATIC);
+
+    std::shared_ptr<Layer> layer1 = std::make_shared<Dense>(2, ACTIVATION::RELU, WEIGHT_INIT::HE);
+    std::shared_ptr<Layer> layer2 = std::make_shared<Dense>(2, ACTIVATION::SIGMOID, WEIGHT_INIT::GLOROT);
+
+    sn.addLayer(layer1);
+    sn.addLayer(layer2);
+
+    WHEN("Network trained")
+    {
+      std::vector<std::vector<double>> trainingInputs = {{1.0, 1.0}};
+      std::vector<double> label = {1};
+
+      Eigen::MatrixXd preTrainWeights = sn.getLayer(1)->getWeights();
+
+      sn.train(trainingInputs, label);
+
+      CHECK(sn.getLayer(1)->getWeights() != preTrainWeights);
+    }
+  }
+}
+
 SCENARIO("Layers are initialized correctly in the network")
 {
   GIVEN("An empty network")
@@ -79,7 +108,7 @@ SCENARIO("The network remains the same when trained with null inputs")
   network.setup(optimizer, 1, LOSS::QUADRATIC);
 
   std::shared_ptr<Layer> inputLayer = std::make_shared<Layer>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
-  std::shared_ptr<Layer> hiddenLayer = std::make_shared<Layer>(3, ACTIVATION::SIGMOID, WEIGHT_INIT::GLOROT);
+  std::shared_ptr<Layer> hiddenLayer = std::make_shared<Layer>(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
   std::shared_ptr<Layer> outputLayer = std::make_shared<Layer>(1, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
 
   network.addLayer(inputLayer);
