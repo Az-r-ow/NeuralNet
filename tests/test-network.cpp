@@ -14,7 +14,7 @@ SCENARIO("Layers are initialized correctly in the network")
     // Setting up the parameters
     network.setup(optimizer, 1, LOSS::QUADRATIC);
 
-    THEN("Number layer == 0")
+    THEN("Number layers == 0")
     {
       REQUIRE(network.getNumLayers() == 0);
     }
@@ -79,7 +79,7 @@ SCENARIO("The network remains the same when trained with null inputs")
   network.setup(optimizer, 1, LOSS::QUADRATIC);
 
   std::shared_ptr<Layer> inputLayer = std::make_shared<Layer>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
-  std::shared_ptr<Layer> hiddenLayer = std::make_shared<Layer>(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+  std::shared_ptr<Layer> hiddenLayer = std::make_shared<Layer>(3, ACTIVATION::SIGMOID, WEIGHT_INIT::GLOROT);
   std::shared_ptr<Layer> outputLayer = std::make_shared<Layer>(1, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
 
   network.addLayer(inputLayer);
