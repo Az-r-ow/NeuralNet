@@ -147,12 +147,13 @@ namespace NeuralNet
     // todo: return the outputs directly
     virtual void feedInputs(Eigen::MatrixXd inputs)
     {
-      // If the layer is an "input" layer
+      // Layer is "input" layer
       if (weights.rows() == 0)
       {
         this->setOutputs(inputs);
         return;
       }
+
       inputs = inputs.cols() == weights.rows() ? inputs : inputs.transpose();
 
       assert(inputs.cols() == weights.rows());

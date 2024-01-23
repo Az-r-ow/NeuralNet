@@ -21,6 +21,24 @@ namespace NeuralNet
       type = LayerType::FLATTEN;
     };
 
+    Eigen::MatrixXd flatten(std::vector<std::vector<std::vector<double>>> inputs)
+    {
+      int rows = std::get<0>(inputShape);
+      int cols = std::get<1>(inputShape);
+
+      // Flatten the vectors
+      std::vector<double> flatInputs;
+      for (const std::vector<std::vector<double>> &input : inputs)
+      {
+        std::vector<double> flattenedInput = flatten2DVector(input, rows, cols);
+        flatInputs.insert(flatInputs.end(), flattenedInput.begin(), flattenedInput.end());
+      }
+
+      const int numRows = inputs.size();
+      const int numCols = rows * cols;
+      return Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>>(flatInputs.data(), numRows, numCols);
+    };
+
     ~Flatten(){};
 
   private:
@@ -39,21 +57,8 @@ namespace NeuralNet
 
     void feedInputs(std::vector<std::vector<std::vector<double>>> inputs)
     {
-      int rows = std::get<0>(inputShape);
-      int cols = std::get<1>(inputShape);
-
-      // Flatten the vectors
-      std::vector<double> flatInputs(inputs.size());
-      for (const std::vector<std::vector<double>> &input : inputs)
-      {
-        std::vector<double> flattenedInput = flatten2DVector(input, rows, cols);
-        flatInputs.insert(flatInputs.end(), flattenedInput.begin(), flattenedInput.end());
-      }
-
-      const int numRows = inputs.size();
-      const int numCols = rows * cols;
-
-      this->setOutputs(Eigen::Map<Eigen::MatrixXd>(flatInputs.data(), numRows, numCols));
+      Eigen::MatrixXd flattenedInputs = this->flatten(inputs);
+      this->setOutputs(flattenedInputs);
     }
   };
 }
