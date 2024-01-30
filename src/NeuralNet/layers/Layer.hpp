@@ -113,7 +113,7 @@ namespace NeuralNet
     {
       // First and foremost init the biases and the outputs
       double mean = 0, stddev = 0;
-      this->weights = Eigen::MatrixXd ::Zero(numRows, nNeurons);
+      this->weights = Eigen::MatrixXd::Zero(numRows, nNeurons);
 
       // calculate mean and stddev based on init algo
       switch (this->weightInit)
@@ -124,18 +124,18 @@ namespace NeuralNet
         break;
       case WEIGHT_INIT::HE:
         // sqrt(2/fan_in)
-        stddev = sqrt(static_cast<double>(2) / numRows);
+        stddev = sqrt(2.0 / numRows);
         break;
       case WEIGHT_INIT::LECUN:
         // sqrt(1/fan_in)
-        stddev = sqrt(static_cast<double>(1) / numRows);
+        stddev = sqrt(1.0 / numRows);
         break;
       default:
         break;
       }
 
       // Init the weights
-      this->weightInit == WEIGHT_INIT::RANDOM ? randomWeightInit(&(this->weights), -1, 1) : randomDistWeightInit(&(this->weights), mean, stddev);
+      this->weightInit == WEIGHT_INIT::RANDOM ? randomWeightInit(&(this->weights), -1, 1) : randomDistMatrixInit(&(this->weights), mean, stddev);
     }
 
     virtual void feedInputs(std::vector<double> inputs)
@@ -230,37 +230,6 @@ namespace NeuralNet
       archive(nNeurons, weights, outputs, biases, activation, type);
       setActivation(activation);
     }
-
-    static void
-    randomWeightInit(Eigen::MatrixXd *weightsMatrix, double min = -1.0, double max = 1.0)
-    {
-      for (int col = 0; col < weightsMatrix->cols(); col++)
-      {
-        for (int row = 0; row < weightsMatrix->rows(); row++)
-        {
-          weightsMatrix->operator()(row, col) = mtRand(min, max);
-        }
-      }
-
-      return;
-    };
-
-    static void randomDistWeightInit(Eigen::MatrixXd *weightsMatrix, double mean, double stddev)
-    {
-      std::random_device rseed;
-      std::default_random_engine generator(rseed());
-      std::normal_distribution<double> distribution(mean, stddev);
-
-      for (int col = 0; col < weightsMatrix->cols(); col++)
-      {
-        for (int row = 0; row < weightsMatrix->rows(); row++)
-        {
-          weightsMatrix->operator()(row, col) = distribution(generator);
-        }
-      }
-
-      return;
-    };
 
   protected:
     Layer(){};                                                                                              // Necessary for serialization

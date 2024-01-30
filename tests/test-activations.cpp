@@ -3,24 +3,11 @@
 #include <activations/Relu.hpp>
 #include <activations/Sigmoid.hpp>
 #include <activations/Softmax.hpp>
+#include "helper-functions.hpp"
 
 using Eigen::MatrixXd;
 
 const double EPSILON = 0.001;
-
-// Custom test assertion to check it two matrices are approximately equal
-void CHECK_MATRIX_APPROX(const MatrixXd &matA, const MatrixXd &matB, double epsilon = 1e-6)
-{
-  assert(matA.rows() == matB.rows() && matA.cols() == matB.cols());
-
-  for (int i = 0; i < matA.rows(); ++i)
-  {
-    for (int j = 0; j < matA.cols(); ++j)
-    {
-      CHECK(std::abs(matA(i, j) - matB(i, j)) < epsilon);
-    }
-  }
-}
 
 TEST_CASE("Relu activates correctly", "[function]")
 {

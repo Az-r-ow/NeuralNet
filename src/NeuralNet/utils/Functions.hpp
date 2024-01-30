@@ -194,5 +194,53 @@ namespace NeuralNet
     }
 
     return Eigen::Map<Eigen::Matrix<double, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor>>(flat.data(), rows, cols);
-  }
+  };
+
+  /**
+   * @brief initialises a matrix with random values that ranges between the defined boundaries
+   *
+   * @param weightsMatrix a pointer to the weights matrix or any Eigen::MatrixXd
+   * @param min The min value in the range (default: -1)
+   * @param max The max value in the range (default: 1)
+   *
+   * @return void
+   */
+  static void randomWeightInit(Eigen::MatrixXd *weightsMatrix, double min = -1.0, double max = 1.0)
+  {
+    for (int col = 0; col < weightsMatrix->cols(); col++)
+    {
+      for (int row = 0; row < weightsMatrix->rows(); row++)
+      {
+        weightsMatrix->operator()(row, col) = mtRand(min, max);
+      }
+    }
+
+    return;
+  };
+
+  /**
+   * @brief Method that sets the value of a matrix to follow a certain random Dist
+   *
+   * @param weightsMatrix A pointer to a weight matrix or any Eigen::MatrixXd
+   * @param mean The mean for the std dist
+   * @param stddev The standard deviation
+   *
+   * @return void
+   */
+  static void randomDistMatrixInit(Eigen::MatrixXd *weightsMatrix, double mean, double stddev)
+  {
+    std::random_device rseed;
+    std::default_random_engine generator(rseed());
+    std::normal_distribution<double> distribution(mean, stddev);
+
+    for (int col = 0; col < weightsMatrix->cols(); col++)
+    {
+      for (int row = 0; row < weightsMatrix->rows(); row++)
+      {
+        weightsMatrix->operator()(row, col) = distribution(generator);
+      }
+    }
+
+    return;
+  };
 } // namespace NeuralNet

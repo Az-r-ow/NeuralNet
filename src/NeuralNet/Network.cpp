@@ -166,17 +166,13 @@ double Network::trainingProcess(std::vector<D1> inputs, std::vector<D2> labels)
 
 Eigen::MatrixXd Network::predict(std::vector<std::vector<double>> inputs)
 {
-  std::vector<double> predictions(inputs.size());
   Eigen::MatrixXd mInputs = vectorToMatrixXd(inputs);
-
-  Eigen::MatrixXd mPredictions = forwardProp(mInputs);
-  return mPredictions;
+  return forwardProp(mInputs);
 }
 
 Eigen::MatrixXd Network::predict(std::vector<std::vector<std::vector<double>>> inputs)
 {
-  Eigen::MatrixXd mPredictions = forwardProp(inputs);
-  return mPredictions;
+  return forwardProp(inputs);
 }
 
 /**

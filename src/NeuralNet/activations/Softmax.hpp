@@ -17,7 +17,7 @@ namespace NeuralNet
 
     static Eigen::MatrixXd diff(const Eigen::MatrixXd &a)
     {
-      return a.array() * (1 - a.array());
+      return a.array() * (1.0 - a.array());
     };
 
   private:
