@@ -17,6 +17,8 @@ SCENARIO("Tensor batches data correctly")
     auto batches = t.getBatchedData();
 
     CHECK(batches.size() == 4);
+    CHECK(batches[0] == std::vector<int>{1, 2});
+    CHECK(batches[1] == std::vector<int>{3, 4});
   };
 
   GIVEN("A vector of vectors of ints")
@@ -30,10 +32,12 @@ SCENARIO("Tensor batches data correctly")
     NeuralNet::Tensor t(data);
 
     // Creating batches of 3
-    t.batch(3);
+    t.batch(2);
 
     auto batches = t.getBatchedData();
 
     CHECK(batches.size() == 2);
+    CHECK(batches[0] == std::vector<std::vector<int>>{{1, 2, 3}, {1, 3, 4}});
+    CHECK(batches[1] == std::vector<std::vector<int>>{{1, 3, 5}, {1, 3, 4}});
   }
 }
