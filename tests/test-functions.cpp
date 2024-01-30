@@ -47,8 +47,10 @@ TEST_CASE("randomWeightInit initializes value properly", "[weight_initialization
 TEST_CASE("randomDistMatrixInit initializes values properly", "[weight_initialization]")
 {
   Eigen::MatrixXd weights = Eigen::MatrixXd::Zero(5, 5);
+  double mean = -1.0;
+  double stddev = 0;
 
-  randomDistMatrixInit(&weights, -1.0, 3.2);
+  randomDistMatrixInit(&weights, mean, stddev);
 
-  // todo: test if random distribution init works
+  REQUIRE_THAT(weights.mean(), WithinAbs(mean, 0.1));
 }
