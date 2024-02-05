@@ -115,6 +115,13 @@ namespace NeuralNet
       double mean = 0, stddev = 0;
       this->weights = Eigen::MatrixXd::Zero(numRows, nNeurons);
 
+      // This is going to be used for testing
+      if (this->weightInit == WEIGHT_INIT::CONSTANT)
+      {
+        this->weights = Eigen::MatrixXd::Constant(numRows, nNeurons, 1);
+        return;
+      }
+
       // calculate mean and stddev based on init algo
       switch (this->weightInit)
       {

@@ -2,6 +2,7 @@
 #include <Eigen/Dense>
 #include <Network.hpp>
 #include <utils/Functions.hpp>
+#include "test-macros.hpp"
 
 using namespace NeuralNet;
 
@@ -185,4 +186,45 @@ SCENARIO("The network back propagates")
       CHECK(network.getLayer(2)->getWeights() != preTrainW2);
     }
   }
+}
+
+SCENARIO("The network's loss minimizes on mini-batches")
+{
+  Network network;
+  std::shared_ptr<Optimizer> sgdOptimizer = std::make_shared<SGD>(1.5);
+
+  network.setup(sgdOptimizer, 1, LOSS::QUADRATIC);
+
+  std::shared_ptr<Layer> inputLayer = std::make_shared<Layer>(3, ACTIVATION::RELU);
+  std::shared_ptr<Layer> outputLayer = std::make_shared<Layer>(2, ACTIVATION::SIGMOID, WEIGHT_INIT::CONSTANT);
+
+  network.addLayer(inputLayer);
+  network.addLayer(outputLayer);
+
+  std::vector<std::vector<double>> inputs = {
+      {0.7, 0.3, 0.1},
+      {0.5, 0.3, 0.1},
+      {1.0, 0.2, 0.4},
+      {-0.5, 0.3, -1}};
+
+  std::vector<double> labels = {1, 1, 0, 1};
+
+  WHEN("Predicting without training")
+  {
+    Eigen::MatrixXd predictions = network.predict(inputs);
+    Eigen::MatrixXd expectedPredictions(4, 2);
+
+    expectedPredictions << 0.75026, 0.75026,
+        0.71095, 0.71095,
+        0.832018, 0.832018,
+        0.231475, 0.231475;
+
+    CHECK_MATRIX_APPROX(predictions, expectedPredictions, EPSILON);
+  }
+
+  TrainingData trainData(inputs, labels);
+
+  trainData.batch(2);
+
+  network.train(trainData);
 }

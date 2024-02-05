@@ -3,11 +3,9 @@
 #include <activations/Relu.hpp>
 #include <activations/Sigmoid.hpp>
 #include <activations/Softmax.hpp>
-#include "helper-functions.hpp"
+#include "test-macros.hpp"
 
 using Eigen::MatrixXd;
-
-const double EPSILON = 0.001;
 
 TEST_CASE("Relu activates correctly", "[function]")
 {

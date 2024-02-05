@@ -6,6 +6,8 @@
 #include <iostream>
 #include <Eigen/Dense>
 
+#define EPSILON 1e-3
+
 void REQUIRE_MATRIX_VALUES_UNIQUE(Eigen::MatrixXd &matrix)
 {
   std::set<int> seenValues;

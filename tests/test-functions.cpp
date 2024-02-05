@@ -2,7 +2,7 @@
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
 #include <vector>
 #include <utils/Functions.hpp>
-#include "helper-functions.hpp"
+#include "test-macros.hpp"
 
 using namespace Catch::Matchers;
 using namespace NeuralNet;
