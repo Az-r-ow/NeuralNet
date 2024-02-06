@@ -53,14 +53,24 @@ namespace NeuralNet
     };
 
     /**
-     * @brief This method method gets the layer's weights
+     * @brief This method gets the layer's weights
      *
-     * @return an Eigen::Eigen::MatrixXd  representing the weights
+     * @return an Eigen::MatrixXd  representing the weights
      */
     Eigen::MatrixXd getWeights() const
     {
       return weights;
     }
+
+    /**
+     * @brief Return the biases of the layer
+     * 
+     * @return an Eigen::Matrix representing the biases
+    */
+   Eigen::MatrixXd getBiases() const 
+   {
+    return biases;
+   }
 
     /**
      * @brief This method get the layer's outputs
