@@ -151,44 +151,7 @@ SCENARIO("The network remains the same when trained with null inputs")
   }
 }
 
-SCENARIO("The network back propagates")
-{
-  Network network;
-  std::shared_ptr<Optimizer> optimizer = std::make_shared<SGD>(1);
-  // Setting up the parameters
-  network.setup(optimizer, 1, LOSS::QUADRATIC);
-
-  std::shared_ptr<Layer> inputLayer = std::make_shared<Layer>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
-  std::shared_ptr<Layer> hiddenLayer = std::make_shared<Layer>(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
-  std::shared_ptr<Layer> outputLayer = std::make_shared<Layer>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
-
-  network.addLayer(inputLayer);
-  network.addLayer(hiddenLayer);
-  network.addLayer(outputLayer);
-
-  GIVEN("Random inputs and feedback")
-  {
-    std::vector<std::vector<double>> randInputs;
-    randInputs.push_back(randDVector(network.getLayer(0)->getNumNeurons()));
-
-    std::vector<double> labels = {1};
-
-    // Caching weights before training for later comparison
-    Eigen::MatrixXd preTrainW1 = network.getLayer(1)->getWeights();
-    Eigen::MatrixXd preTrainW2 = network.getLayer(2)->getWeights();
-
-    // Training with random values
-    network.train(randInputs, labels);
-
-    THEN("The weights differ")
-    {
-      CHECK(network.getLayer(1)->getWeights() != preTrainW1);
-      CHECK(network.getLayer(2)->getWeights() != preTrainW2);
-    }
-  }
-}
-
-SCENARIO("The network's loss minimizes on mini-batches")
+SCENARIO("The network updates the weights and biases as pre-calculated")
 {
   Network network;
   std::shared_ptr<Optimizer> sgdOptimizer = std::make_shared<SGD>(1.5);
@@ -227,4 +190,19 @@ SCENARIO("The network's loss minimizes on mini-batches")
   trainData.batch(2);
 
   network.train(trainData);
+
+  std::shared_ptr<Layer> oLayer = network.getLayer(1);
+
+  Eigen::MatrixXd expectedWeights(3, 2);
+
+  expectedWeights << 0.855486, 0.837484,
+      0.877136, 1.08112,
+      1.03485, 0.744304;
+
+  Eigen::MatrixXd expectedBiases(1, 2);
+
+  expectedBiases << -0.378823, 0.220239;
+
+  CHECK_MATRIX_APPROX(oLayer->getWeights(), expectedWeights, EPSILON);
+  CHECK_MATRIX_APPROX(oLayer->getBiases(), expectedBiases, EPSILON);
 }
