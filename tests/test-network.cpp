@@ -159,9 +159,11 @@ SCENARIO("The network updates the weights and biases as pre-calculated")
   network.setup(sgdOptimizer, 1, LOSS::QUADRATIC);
 
   std::shared_ptr<Layer> inputLayer = std::make_shared<Layer>(3, ACTIVATION::RELU);
+  std::shared_ptr<Layer> hiddenLayer = std::make_shared<Layer>(3, ACTIVATION::RELU, WEIGHT_INIT::CONSTANT);
   std::shared_ptr<Layer> outputLayer = std::make_shared<Layer>(2, ACTIVATION::SIGMOID, WEIGHT_INIT::CONSTANT);
 
   network.addLayer(inputLayer);
+  network.addLayer(hiddenLayer);
   network.addLayer(outputLayer);
 
   std::vector<std::vector<double>> inputs = {
@@ -177,10 +179,10 @@ SCENARIO("The network updates the weights and biases as pre-calculated")
     Eigen::MatrixXd predictions = network.predict(inputs);
     Eigen::MatrixXd expectedPredictions(4, 2);
 
-    expectedPredictions << 0.75026, 0.75026,
-        0.71095, 0.71095,
-        0.832018, 0.832018,
-        0.231475, 0.231475;
+    expectedPredictions << 0.96442881, 0.96442881,
+        0.93702664, 0.93702664,
+        0.99183743, 0.99183743,
+        0.5, 0.5;
 
     CHECK_MATRIX_APPROX(predictions, expectedPredictions, EPSILON);
   }
