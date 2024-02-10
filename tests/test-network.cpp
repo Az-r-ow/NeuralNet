@@ -193,18 +193,48 @@ SCENARIO("The network updates the weights and biases as pre-calculated")
 
   network.train(trainData);
 
-  std::shared_ptr<Layer> oLayer = network.getLayer(1);
+  std::shared_ptr<Layer> oLayer = network.getLayer(2);
+  std::shared_ptr<Layer> hLayer = network.getLayer(1);
 
-  Eigen::MatrixXd expectedWeights(3, 2);
+  // Expected Weights Hidden Layer
+  Eigen::MatrixXd EWHL(3, 3);
 
-  expectedWeights << 0.855486, 0.837484,
-      0.877136, 1.08112,
-      1.03485, 0.744304;
+  EWHL << 0.90743867, 0.90743867, 0.90743867,
+      0.9583673, 0.9583673, 0.9583673,
+      0.97931547, 0.97931547, 0.97931547;
 
-  Eigen::MatrixXd expectedBiases(1, 2);
+  // Expected Biases Hidden Layer
+  Eigen::MatrixXd EBHL(1, 3);
 
-  expectedBiases << -0.378823, 0.220239;
+  EBHL << -0.14558262, -0.14558262, -0.14558262;
 
-  CHECK_MATRIX_APPROX(oLayer->getWeights(), expectedWeights, EPSILON);
-  CHECK_MATRIX_APPROX(oLayer->getBiases(), expectedBiases, EPSILON);
+  // Expected Weights Output Layer
+  Eigen::MatrixXd EWOL(3, 2);
+
+  EWOL << 0.87250736, 0.97733271,
+      0.87250736, 0.97733271,
+      0.87250736, 0.97733271;
+
+  // Expected Biases Output Layer
+  Eigen::MatrixXd EBOL(1, 2);
+
+  EBOL << -0.30563573, 0.17284546;
+
+  CHECK_MATRIX_APPROX(hLayer->getWeights(), EWHL, EPSILON);
+  CHECK_MATRIX_APPROX(hLayer->getBiases(), EBHL, EPSILON);
+  CHECK_MATRIX_APPROX(oLayer->getWeights(), EWOL, EPSILON);
+  CHECK_MATRIX_APPROX(oLayer->getBiases(), EBOL, EPSILON);
+
+  WHEN("Predicting after training")
+  {
+    Eigen::MatrixXd predictions = network.predict(inputs);
+    Eigen::MatrixXd expectedPredictions(4, 2);
+
+    expectedPredictions << 0.87919928, 0.93926274,
+        0.8190347, 0.90082421,
+        0.96141716, 0.98396999,
+        0.42418036, 0.54310411;
+
+    CHECK_MATRIX_APPROX(predictions, expectedPredictions, EPSILON);
+  }
 }
