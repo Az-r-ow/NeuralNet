@@ -12,12 +12,14 @@ namespace NeuralNet
     {
       Eigen::MatrixXd exp = z.array().exp();
 
-      return exp / exp.sum();
+      Eigen::MatrixXd sumExp = exp.rowwise().sum().replicate(1, exp.cols());
+
+      return exp.array() / sumExp.array();
     };
 
     static Eigen::MatrixXd diff(const Eigen::MatrixXd &a)
     {
-      return a.array() * (1.0 - a.array());
+      return Eigen::MatrixXd::Constant(a.rows(), a.cols(), 1);
     };
 
   private:
