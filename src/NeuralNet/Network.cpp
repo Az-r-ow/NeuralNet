@@ -24,8 +24,9 @@ void Network::addLayer(std::shared_ptr<Layer> &layer)
   // Init layer with right amount of weights
   if (numLayers > 0)
   {
-    int prevLayerNN = this->layers[this->layers.size() - 1]->getNumNeurons();
-    layer->init(prevLayerNN);
+    std::shared_ptr<Layer> prevLayer = this->layers[this->layers.size() - 1];
+    assert(prevLayer->activation != ACTIVATION::SOFTMAX && "Softmax layer can't be a hidden layer");
+    layer->init(prevLayer->getNumNeurons());
   }
 
   this->layers.push_back(layer);
@@ -239,9 +240,8 @@ void Network::backProp(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y)
     // a(L - 1) . a'(L)
     Eigen::MatrixXd delta = beta.array() * aDer.array();
 
-    // Calculating and summing the gradient of each input of the batch
     // gradW
-    Eigen::MatrixXd gradW = (1.0 / m) * nLayer->outputs.transpose() * delta;
+    Eigen::MatrixXd gradW = (1.0 / m) * (nLayer->outputs.transpose() * delta);
 
     // gradB
     Eigen::MatrixXd gradB = (1.0 / m) * delta.colwise().sum();
