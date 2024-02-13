@@ -9,5 +9,7 @@ endfunction()
 
 neural_net_add_test(test-activations.cpp)
 neural_net_add_test(test-functions.cpp)
+neural_net_add_test(test-layer.cpp)
 neural_net_add_test(test-network.cpp)
 neural_net_add_test(test-tensor.cpp)
+neural_net_add_test(test-optimizers.cpp)

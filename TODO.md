@@ -2,14 +2,15 @@
 
 - [ ] Document the example in python
 - [ ] Find out why the predictions are not accurate on my_samples
-- [ ] Find out if adam optimization is working
+- [ ] Implement batch norm
+- [ ] Multithreading operations
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
 - [ ] Comment the code further
 - [ ] Implement a dropout to avoid over-fitting the model
 
 ## IN PROGRESS :
 
-- [ ] Add types that handle Batch - Mini-batch - Oneline
+- [ ] Add gradient clipping
 - [ ] Re-implement the whole mini-batch algorithm
   - [x] Find a way to bind methods that have overrides
   - [x] Make sure the whole shared_ptr layers don't affect serialization
@@ -20,10 +21,15 @@
     - [x] Adapt predict function for flatten layer
     - [x] Adapt Dense layer for serialization
     - [ ] Fix the loading bar
+      - [x] Fix the loading bar for mini-batch training
+      - [ ] Fix the loading bar for online training
+    - [x] Find out what's wrong with batch/mini-batch training
 - [ ] Update README to include more information about the project
 
 ## DONE :
 
+- [x] Find out if adam optimization is working
+- [x] Add type for data handling
 - [x] Adams optimizer
 - [x] Read : https://arxiv.org/pdf/1812.03372.pdf
 - [x] Fix the he weight initialisation

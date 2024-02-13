@@ -14,7 +14,10 @@ namespace NeuralNet
      *
      * @return The activated outputs
      */
-    static Eigen::MatrixXd activate(const Eigen::MatrixXd &z);
+    static Eigen::MatrixXd activate(const Eigen::MatrixXd &z)
+    {
+      return z;
+    };
 
     /**
      * @brief Compute the derivative of the activation function
@@ -23,6 +26,9 @@ namespace NeuralNet
      *
      * @return The activated outputs derivatives
      */
-    static Eigen::MatrixXd diff(const Eigen::MatrixXd &a);
+    static Eigen::MatrixXd diff(const Eigen::MatrixXd &a)
+    {
+      return a;
+    };
   };
 }

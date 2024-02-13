@@ -2,8 +2,38 @@
 #include <Eigen/Dense>
 #include <Network.hpp>
 #include <utils/Functions.hpp>
+#include "test-macros.hpp"
 
 using namespace NeuralNet;
+
+SCENARIO("Basic small network functions")
+{
+  GIVEN("A small neural network")
+  {
+    Network sn; // sn - small network
+    std::shared_ptr<Optimizer> optimizer = std::make_shared<SGD>(1);
+
+    sn.setup(optimizer, 1, LOSS::QUADRATIC);
+
+    std::shared_ptr<Layer> layer1 = std::make_shared<Dense>(2, ACTIVATION::RELU, WEIGHT_INIT::HE);
+    std::shared_ptr<Layer> layer2 = std::make_shared<Dense>(2, ACTIVATION::SIGMOID, WEIGHT_INIT::GLOROT);
+
+    sn.addLayer(layer1);
+    sn.addLayer(layer2);
+
+    WHEN("Network trained")
+    {
+      std::vector<std::vector<double>> trainingInputs = {{1.0, 1.0}};
+      std::vector<double> label = {1};
+
+      Eigen::MatrixXd preTrainWeights = sn.getLayer(1)->getWeights();
+
+      sn.train(trainingInputs, label);
+
+      CHECK(sn.getLayer(1)->getWeights() != preTrainWeights);
+    }
+  }
+}
 
 SCENARIO("Layers are initialized correctly in the network")
 {
@@ -14,7 +44,7 @@ SCENARIO("Layers are initialized correctly in the network")
     // Setting up the parameters
     network.setup(optimizer, 1, LOSS::QUADRATIC);
 
-    THEN("Number layer == 0")
+    THEN("Number layers == 0")
     {
       REQUIRE(network.getNumLayers() == 0);
     }
@@ -121,39 +151,90 @@ SCENARIO("The network remains the same when trained with null inputs")
   }
 }
 
-SCENARIO("The network back propagates")
+SCENARIO("The network updates the weights and biases as pre-calculated")
 {
   Network network;
-  std::shared_ptr<Optimizer> optimizer = std::make_shared<SGD>(1);
-  // Setting up the parameters
-  network.setup(optimizer, 1, LOSS::QUADRATIC);
+  std::shared_ptr<Optimizer> sgdOptimizer = std::make_shared<SGD>(1.5);
 
-  std::shared_ptr<Layer> inputLayer = std::make_shared<Layer>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
-  std::shared_ptr<Layer> hiddenLayer = std::make_shared<Layer>(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
-  std::shared_ptr<Layer> outputLayer = std::make_shared<Layer>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+  network.setup(sgdOptimizer, 1, LOSS::QUADRATIC);
+
+  std::shared_ptr<Layer> inputLayer = std::make_shared<Layer>(3, ACTIVATION::RELU);
+  std::shared_ptr<Layer> hiddenLayer = std::make_shared<Layer>(3, ACTIVATION::RELU, WEIGHT_INIT::CONSTANT);
+  std::shared_ptr<Layer> outputLayer = std::make_shared<Layer>(2, ACTIVATION::SIGMOID, WEIGHT_INIT::CONSTANT);
 
   network.addLayer(inputLayer);
   network.addLayer(hiddenLayer);
   network.addLayer(outputLayer);
 
-  GIVEN("Random inputs and feedback")
+  std::vector<std::vector<double>> inputs = {
+      {0.7, 0.3, 0.1},
+      {0.5, 0.3, 0.1},
+      {1.0, 0.2, 0.4},
+      {-0.5, 0.3, -1}};
+
+  std::vector<double> labels = {1, 1, 0, 1};
+
+  WHEN("Predicting without training")
   {
-    std::vector<std::vector<double>> randInputs;
-    randInputs.push_back(randDVector(network.getLayer(0)->getNumNeurons()));
+    Eigen::MatrixXd predictions = network.predict(inputs);
+    Eigen::MatrixXd expectedPredictions(4, 2);
 
-    std::vector<double> labels = {1};
+    expectedPredictions << 0.96442881, 0.96442881,
+        0.93702664, 0.93702664,
+        0.99183743, 0.99183743,
+        0.5, 0.5;
 
-    // Caching weights before training for later comparison
-    Eigen::MatrixXd preTrainW1 = network.getLayer(1)->getWeights();
-    Eigen::MatrixXd preTrainW2 = network.getLayer(2)->getWeights();
+    CHECK_MATRIX_APPROX(predictions, expectedPredictions, EPSILON);
+  }
 
-    // Training with random values
-    network.train(randInputs, labels);
+  TrainingData trainData(inputs, labels);
 
-    THEN("The weights differ")
-    {
-      CHECK(network.getLayer(1)->getWeights() != preTrainW1);
-      CHECK(network.getLayer(2)->getWeights() != preTrainW2);
-    }
+  trainData.batch(2);
+
+  network.train(trainData);
+
+  std::shared_ptr<Layer> oLayer = network.getLayer(2);
+  std::shared_ptr<Layer> hLayer = network.getLayer(1);
+
+  // Expected Weights Hidden Layer
+  Eigen::MatrixXd EWHL(3, 3);
+
+  EWHL << 0.90743867, 0.90743867, 0.90743867,
+      0.9583673, 0.9583673, 0.9583673,
+      0.97931547, 0.97931547, 0.97931547;
+
+  // Expected Biases Hidden Layer
+  Eigen::MatrixXd EBHL(1, 3);
+
+  EBHL << -0.14558262, -0.14558262, -0.14558262;
+
+  // Expected Weights Output Layer
+  Eigen::MatrixXd EWOL(3, 2);
+
+  EWOL << 0.87250736, 0.97733271,
+      0.87250736, 0.97733271,
+      0.87250736, 0.97733271;
+
+  // Expected Biases Output Layer
+  Eigen::MatrixXd EBOL(1, 2);
+
+  EBOL << -0.30563573, 0.17284546;
+
+  CHECK_MATRIX_APPROX(hLayer->getWeights(), EWHL, EPSILON);
+  CHECK_MATRIX_APPROX(hLayer->getBiases(), EBHL, EPSILON);
+  CHECK_MATRIX_APPROX(oLayer->getWeights(), EWOL, EPSILON);
+  CHECK_MATRIX_APPROX(oLayer->getBiases(), EBOL, EPSILON);
+
+  WHEN("Predicting after training")
+  {
+    Eigen::MatrixXd predictions = network.predict(inputs);
+    Eigen::MatrixXd expectedPredictions(4, 2);
+
+    expectedPredictions << 0.87919928, 0.93926274,
+        0.8190347, 0.90082421,
+        0.96141716, 0.98396999,
+        0.42418036, 0.54310411;
+
+    CHECK_MATRIX_APPROX(predictions, expectedPredictions, EPSILON);
   }
 }

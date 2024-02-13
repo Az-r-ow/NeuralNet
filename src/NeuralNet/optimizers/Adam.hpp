@@ -21,18 +21,6 @@ namespace NeuralNet
 
     ~Adam() override = default;
 
-  private:
-    double beta1;
-    double beta2;
-    double epsilon;
-    int t = 0;
-    int cl;                                // Current layer (should be initialized to the total number of layers - 0)
-    int ll;                                // Last layer (should also be initialized to numLayers - 1)
-    std::vector<Eigen::MatrixXd> mWeights; // First-moment vector for weights
-    std::vector<Eigen::MatrixXd> vWeights; // Second-moment vector for weights
-    std::vector<Eigen::MatrixXd> mBiases;  // First-moment vector for biases
-    std::vector<Eigen::MatrixXd> vBiases;  // Second-moment vector for biases
-
     void updateWeights(Eigen::MatrixXd &weights, const Eigen::MatrixXd &weightsGrad) override
     {
       this->update(weights, weightsGrad, mWeights[cl], vWeights[cl]);
@@ -76,6 +64,18 @@ namespace NeuralNet
       // update param
       param = param.array() - alpha_t * (m.array() / (v.array().sqrt() + epsilon));
     }
+
+  private:
+    double beta1;
+    double beta2;
+    double epsilon;
+    int t = 0;
+    int cl;                                // Current layer (should be initialized to the total number of layers - 0)
+    int ll;                                // Last layer (should also be initialized to numLayers - 1)
+    std::vector<Eigen::MatrixXd> mWeights; // First-moment vector for weights
+    std::vector<Eigen::MatrixXd> vWeights; // Second-moment vector for weights
+    std::vector<Eigen::MatrixXd> mBiases;  // First-moment vector for biases
+    std::vector<Eigen::MatrixXd> vBiases;  // Second-moment vector for biases
 
     void insiderInit(size_t numLayers) override
     {

@@ -11,7 +11,7 @@ import numpy as np
 from utils import *
 from halo import Halo
 
-NUM_TESTS = 100
+NUM_TRAININGS = 10000
 NUM_PREDICTIONS = 1000
 MNIST_DATASET_FILE = "./dataset/mnist.npz"
 
@@ -35,21 +35,25 @@ network.addLayer(NNP.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
 network.addLayer(NNP.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
 # Setting up the networks parameters
-network.setup(optimizer=NNP.Adam(0.001), epochs=5, loss=NNP.LOSS.MCE)
+network.setup(optimizer=NNP.Adam(0.02), epochs=3, loss=NNP.LOSS.MCE)
 
-# combining the data with the labels for later shuffling 
-combined = list(zip(x_train, y_train))
+# # combining the data with the labels for later shuffling 
+# combined = list(zip(x_train, y_train))
 
-# shuffling the combined list 
-random.shuffle(combined)
+# # shuffling the combined list 
+# random.shuffle(combined)
 
-# separating them 
-x_train, y_train = zip(*combined)
+# # separating them 
+# x_train, y_train = zip(*combined)
 
 # preparing the training data
 f_x_train = [normalize_img(x) for x in x_train]
 
-network.train(f_x_train[:NUM_TESTS], y_train[:NUM_TESTS])
+trainingData = NNP.TrainingData3dI(f_x_train[:NUM_TRAININGS], y_train[:NUM_TRAININGS])
+
+trainingData.batch(128)
+
+network.train(trainingData)
 
 f_x_test = [normalize_img(x) for x in x_test]
 
@@ -58,15 +62,27 @@ predictions = network.predict(f_x_test[:NUM_PREDICTIONS])
 
 predicted_numbers = find_highest_indexes_in_matrix(predictions)
 
-predicted_numbers = [i + 1 for i in predicted_numbers]
-
 (accuracy, n, correct) = get_accuracy(predicted_numbers, y_test)
 
 # Getting the prediction's accuracy 
 print(f"Num correct predictions : {correct}/{n} - accuracy {accuracy}")
 
-# save trained model to file 
-NNP.Model.save_to_file("model.bin",  network)
+# Saving the trained model in a bin file
+NNP.Model.save_to_file('./model.bin', network)
+
+saved_model = NNP.Network()
+
+NNP.Model.load_from_file('./model.bin', saved_model)
+
+# preparing the testing data
+predictions = saved_model.predict(f_x_test[:NUM_PREDICTIONS])
+
+predicted_numbers = find_highest_indexes_in_matrix(predictions)
+
+(accuracy, n, correct) = get_accuracy(predicted_numbers, y_test)
+
+# Getting the prediction's accuracy 
+print(f"Num correct predictions : {correct}/{n} - accuracy {accuracy}")
 
 # Remove sys.path modification
 sys.path.remove(so_dir)

@@ -7,10 +7,12 @@ namespace NeuralNet
   template <typename T>
   class Tensor
   {
-    friend class Network;
-
   public:
     Tensor(T data) : data(data) {}
+
+    T data;
+    std::vector<T> batches;
+    bool batched = false;
 
     void batch(int batchSize)
     {
@@ -48,10 +50,5 @@ namespace NeuralNet
     {
       return data;
     }
-
-  private:
-    T data;
-    std::vector<T> batches;
-    bool batched = false;
   };
 }

@@ -20,6 +20,14 @@
 
 namespace NeuralNet
 {
+  // Should be updated when a new layer type is added
+  enum class LayerType
+  {
+    DEFAULT,
+    DENSE,
+    FLATTEN
+  };
+
   class Layer
   {
     friend class Network;
@@ -45,13 +53,23 @@ namespace NeuralNet
     };
 
     /**
-     * @brief This method method gets the layer's weights
+     * @brief This method gets the layer's weights
      *
-     * @return an Eigen::Eigen::MatrixXd  representing the weights
+     * @return an Eigen::MatrixXd  representing the weights
      */
     Eigen::MatrixXd getWeights() const
     {
       return weights;
+    }
+
+    /**
+     * @brief Return the biases of the layer
+     *
+     * @return an Eigen::Matrix representing the biases
+     */
+    Eigen::MatrixXd getBiases() const
+    {
+      return biases;
     }
 
     /**
@@ -105,7 +123,14 @@ namespace NeuralNet
     {
       // First and foremost init the biases and the outputs
       double mean = 0, stddev = 0;
-      this->weights = Eigen::MatrixXd ::Zero(numRows, nNeurons);
+      this->weights = Eigen::MatrixXd::Zero(numRows, nNeurons);
+
+      // This is going to be used for testing
+      if (this->weightInit == WEIGHT_INIT::CONSTANT)
+      {
+        this->weights = Eigen::MatrixXd::Constant(numRows, nNeurons, 1);
+        return;
+      }
 
       // calculate mean and stddev based on init algo
       switch (this->weightInit)
@@ -116,40 +141,38 @@ namespace NeuralNet
         break;
       case WEIGHT_INIT::HE:
         // sqrt(2/fan_in)
-        stddev = sqrt(static_cast<double>(2) / numRows);
+        stddev = sqrt(2.0 / numRows);
         break;
       case WEIGHT_INIT::LECUN:
         // sqrt(1/fan_in)
-        stddev = sqrt(static_cast<double>(1) / numRows);
+        stddev = sqrt(1.0 / numRows);
         break;
       default:
         break;
       }
 
       // Init the weights
-      this->weightInit == WEIGHT_INIT::RANDOM ? randomWeightInit(&(this->weights), -1, 1) : randomDistWeightInit(&(this->weights), mean, stddev);
+      this->weightInit == WEIGHT_INIT::RANDOM ? randomWeightInit(&(this->weights), -1, 1) : randomDistMatrixInit(&(this->weights), mean, stddev);
     }
 
-    virtual void feedInputs(std::vector<double> inputs)
+    virtual Eigen::MatrixXd feedInputs(std::vector<double> inputs)
     {
-      this->feedInputs(Eigen::MatrixXd::Map(&inputs[0], inputs.size(), 1));
-      return;
+      return this->feedInputs(Eigen::MatrixXd::Map(&inputs[0], inputs.size(), 1));
     };
 
-    // todo: return the outputs directly
-    virtual void feedInputs(Eigen::MatrixXd inputs)
+    virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs)
     {
-      // If the layer is an "input" layer
+      // Layer is "input" layer
       if (weights.rows() == 0)
       {
         this->setOutputs(inputs);
-        return;
+        return inputs;
       }
+
       inputs = inputs.cols() == weights.rows() ? inputs : inputs.transpose();
 
       assert(inputs.cols() == weights.rows());
-      this->computeOutputs(inputs);
-      return;
+      return this->computeOutputs(inputs);
     };
 
     virtual void feedInputs(std::vector<std::vector<std::vector<double>>> inputs)
@@ -158,7 +181,7 @@ namespace NeuralNet
       return;
     };
 
-    void computeOutputs(Eigen::MatrixXd inputs)
+    Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs)
     {
       // Initialize the biases based on the input's size
       if (biases.rows() == 0 && biases.cols() == 0)
@@ -172,11 +195,18 @@ namespace NeuralNet
       wSum.rowwise() += biases.row(0);
 
       outputs = activate(wSum);
-      return;
+      return outputs;
     };
 
     void setActivation(ACTIVATION activation)
     {
+      if (type == LayerType::FLATTEN)
+      {
+        this->activate = Activation::activate;
+        this->diff = Activation::diff;
+        return;
+      }
+
       switch (activation)
       {
       case ACTIVATION::SIGMOID:
@@ -205,52 +235,22 @@ namespace NeuralNet
     template <class Archive>
     void save(Archive &archive) const
     {
-      archive(nNeurons, weights, outputs, biases, activation);
+      archive(nNeurons, weights, outputs, biases, activation, type);
     };
 
     template <class Archive>
     void load(Archive &archive)
     {
-      archive(nNeurons, weights, outputs, biases, activation);
+      archive(nNeurons, weights, outputs, biases, activation, type);
       setActivation(activation);
     }
 
-    static void
-    randomWeightInit(Eigen::MatrixXd *weightsMatrix, double min = -1.0, double max = 1.0)
-    {
-      for (int col = 0; col < weightsMatrix->cols(); col++)
-      {
-        for (int row = 0; row < weightsMatrix->rows(); row++)
-        {
-          weightsMatrix->operator()(row, col) = mtRand(min, max);
-        }
-      }
-
-      return;
-    };
-
-    static void randomDistWeightInit(Eigen::MatrixXd *weightsMatrix, double mean, double stddev)
-    {
-      std::random_device rseed;
-      std::default_random_engine generator(rseed());
-      std::normal_distribution<double> distribution(mean, stddev);
-
-      for (int col = 0; col < weightsMatrix->cols(); col++)
-      {
-        for (int row = 0; row < weightsMatrix->rows(); row++)
-        {
-          weightsMatrix->operator()(row, col) = distribution(generator);
-        }
-      }
-
-      return;
-    };
-
   protected:
-    Layer(){}; // Necessary for serialization
+    Layer(){};                                                                                              // Necessary for serialization
     Layer(std::tuple<int, int> inputShape) : nNeurons(std::get<0>(inputShape) * std::get<1>(inputShape)){}; // Used in Flatten layer
 
     int nNeurons; // Number of neurons
+    LayerType type = LayerType::DEFAULT;
 
     void setOutputs(std::vector<double> outputs) // used for input layer
     {

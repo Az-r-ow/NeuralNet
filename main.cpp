@@ -42,9 +42,12 @@ int main(int argc, char *argv[])
     // training the network
     std::vector<std::vector<double>> inputs;
     inputs.push_back(randDVector(layer1->getNumNeurons(), -1, 1));
-    std::vector<double> labels = {1};
+    inputs.push_back(randDVector(layer1->getNumNeurons(), -1, 1));
+    std::vector<double> labels = {1, 1};
 
     TrainingData tr_data(inputs, labels);
+    tr_data.batch(1);
+
     network.train(tr_data);
 
     std::shared_ptr<Layer> input = network.getLayer(0);

@@ -17,7 +17,7 @@ namespace NeuralNet
       return -cMatrix.sum();
     };
 
-    static Eigen::MatrixXd cmpGradient(const Eigen::MatrixXd &yHat, const Eigen::MatrixXd &y)
+    static Eigen::MatrixXd cmpLossGrad(const Eigen::MatrixXd &yHat, const Eigen::MatrixXd &y)
     {
       assert(yHat.rows() == y.rows() && yHat.cols() == y.cols());
       return yHat.array() - y.array();
