@@ -171,7 +171,7 @@ namespace NeuralNet
 
     // The template are called D for dimensions eg : 2d 3d
     template <typename D1, typename D2>
-    double trainingProcess(std::vector<D1> inputs, std::vector<D2> labels);
+    double onelineTraining(std::vector<D1> inputs, std::vector<D2> labels);
     template <typename D1, typename D2>
     double trainer(TrainingData<D1, D2> trainingData);
     template <typename D1, typename D2>
@@ -181,6 +181,7 @@ namespace NeuralNet
     Eigen::MatrixXd forwardProp(std::vector<std::vector<std::vector<double>>> &inputs);
     Eigen::MatrixXd forwardProp(std::vector<std::vector<double>> &inputs);
     Eigen::MatrixXd forwardProp(Eigen::MatrixXd &inputs);
+    Eigen::MatrixXd feedForward(Eigen::MatrixXd inputs, int startIdx = 0);
     void backProp(Eigen::MatrixXd &lossGrad, Eigen::MatrixXd &y);
     double computeAccuracy(int predicted, int label);
     void updateOptimizerSetup(size_t numLayers);

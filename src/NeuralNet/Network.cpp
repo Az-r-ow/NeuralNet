@@ -25,7 +25,6 @@ void Network::addLayer(std::shared_ptr<Layer> &layer)
   if (numLayers > 0)
   {
     std::shared_ptr<Layer> prevLayer = this->layers[this->layers.size() - 1];
-    assert(prevLayer->activation != ACTIVATION::SOFTMAX && "Softmax layer can't be a hidden layer");
     layer->init(prevLayer->getNumNeurons());
   }
 
@@ -64,12 +63,12 @@ std::shared_ptr<Layer> Network::getOutputLayer() const
 
 double Network::train(std::vector<std::vector<double>> inputs, std::vector<double> labels)
 {
-  return trainingProcess(inputs, labels);
+  return onelineTraining(inputs, labels);
 }
 
 double Network::train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels)
 {
-  return trainingProcess(inputs, labels);
+  return onelineTraining(inputs, labels);
 }
 
 // Specific implementation of train that takes TrainingData class as input
@@ -124,8 +123,8 @@ double Network::batchTraining(TrainingData<D1, D2> trainingData)
   const int numOutputs = this->getOutputLayer()->getNumNeurons();
   const int inputsSize = trainingData.inputs.data.size();
   Eigen::MatrixXd y = formatLabels(trainingData.labels.data, {inputsSize, numOutputs});
-  Eigen::MatrixXd lossGrad = zeroMatrix({inputsSize, numOutputs});
 
+  TrainingGauge g(1, 0, epochs, (e + 1));
   for (int e = 0; e < epochs; e++)
   {
     Eigen::MatrixXd o = this->forwardProp(trainingData.inputs.data);
@@ -133,33 +132,27 @@ double Network::batchTraining(TrainingData<D1, D2> trainingData)
     loss = this->cmpLoss(o, y);
 
     this->backProp(o, y);
-
-    lossGrad = zeroMatrix({inputsSize, numOutputs});
+    g.printWithLoss(loss);
   }
 
   return loss;
 }
 
 template <typename D1, typename D2>
-double Network::trainingProcess(std::vector<D1> inputs, std::vector<D2> labels)
+double Network::onelineTraining(std::vector<D1> inputs, std::vector<D2> labels)
 {
   double loss;
   const int numOutputs = this->getOutputLayer()->getNumNeurons();
   const int inputsSize = inputs.size();
   Eigen::MatrixXd y = formatLabels(labels, {inputsSize, numOutputs});
-  Eigen::MatrixXd lossGrad = zeroMatrix({inputsSize, numOutputs});
 
   for (int e = 0; e < epochs; e++)
   {
-    TrainingGauge progBar(inputsSize, 0, epochs, (e + 1));
-
     Eigen::MatrixXd o = this->forwardProp(inputs);
 
     loss = this->cmpLoss(o, y);
 
     this->backProp(o, y);
-
-    lossGrad = zeroMatrix({inputsSize, numOutputs});
   }
 
   return loss;
@@ -179,6 +172,19 @@ Eigen::MatrixXd Network::predict(std::vector<std::vector<std::vector<double>>> i
 /**
  * Forward propagation
  */
+Eigen::MatrixXd Network::feedForward(Eigen::MatrixXd inputs, int startIdx)
+{
+  assert(startIdx < this->layers.size());
+  Eigen::MatrixXd prevLayerOutputs = inputs;
+
+  for (int l = startIdx; l < this->layers.size(); l++)
+  {
+    prevLayerOutputs = this->layers[l]->feedInputs(prevLayerOutputs);
+  }
+
+  return prevLayerOutputs;
+}
+
 Eigen::MatrixXd Network::forwardProp(std::vector<std::vector<std::vector<double>>> &inputs)
 {
   // Passing the inputs as outputs to the input layer
@@ -186,14 +192,7 @@ Eigen::MatrixXd Network::forwardProp(std::vector<std::vector<std::vector<double>
 
   Eigen::MatrixXd prevLayerOutputs = this->layers[0]->getOutputs();
 
-  // Feeding the rest of the layers with the results of (L - 1)
-  for (size_t l = 1; l < this->layers.size(); l++)
-  {
-    this->layers[l]->feedInputs(prevLayerOutputs);
-    prevLayerOutputs = this->layers[l]->getOutputs();
-  }
-
-  return prevLayerOutputs;
+  return feedForward(prevLayerOutputs, 1);
 }
 
 Eigen::MatrixXd Network::forwardProp(std::vector<std::vector<double>> &inputs)
@@ -201,13 +200,7 @@ Eigen::MatrixXd Network::forwardProp(std::vector<std::vector<double>> &inputs)
   // Previous layer outputs
   Eigen::MatrixXd prevLayerO = vectorToMatrixXd(inputs);
 
-  for (std::shared_ptr<Layer> &layer : layers)
-  {
-    layer->feedInputs(prevLayerO);
-    prevLayerO = layer->getOutputs();
-  }
-
-  return prevLayerO;
+  return feedForward(prevLayerO);
 }
 
 Eigen::MatrixXd Network::forwardProp(Eigen::MatrixXd &inputs)
@@ -215,13 +208,7 @@ Eigen::MatrixXd Network::forwardProp(Eigen::MatrixXd &inputs)
   // Previous layer outputs
   Eigen::MatrixXd prevLayerO = inputs;
 
-  for (std::shared_ptr<Layer> &layer : layers)
-  {
-    layer->feedInputs(prevLayerO);
-    prevLayerO = layer->getOutputs();
-  }
-
-  return prevLayerO;
+  return feedForward(prevLayerO);
 }
 
 void Network::backProp(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y)
@@ -240,10 +227,8 @@ void Network::backProp(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y)
     // a(L - 1) . a'(L)
     Eigen::MatrixXd delta = beta.array() * aDer.array();
 
-    // gradW
     Eigen::MatrixXd gradW = (1.0 / m) * (nLayer->outputs.transpose() * delta);
 
-    // gradB
     Eigen::MatrixXd gradB = (1.0 / m) * delta.colwise().sum();
 
     // dL/dA(l - 1)

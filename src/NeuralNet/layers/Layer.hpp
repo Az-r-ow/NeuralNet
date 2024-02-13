@@ -64,13 +64,13 @@ namespace NeuralNet
 
     /**
      * @brief Return the biases of the layer
-     * 
+     *
      * @return an Eigen::Matrix representing the biases
-    */
-   Eigen::MatrixXd getBiases() const 
-   {
-    return biases;
-   }
+     */
+    Eigen::MatrixXd getBiases() const
+    {
+      return biases;
+    }
 
     /**
      * @brief This method get the layer's outputs
@@ -155,27 +155,24 @@ namespace NeuralNet
       this->weightInit == WEIGHT_INIT::RANDOM ? randomWeightInit(&(this->weights), -1, 1) : randomDistMatrixInit(&(this->weights), mean, stddev);
     }
 
-    virtual void feedInputs(std::vector<double> inputs)
+    virtual Eigen::MatrixXd feedInputs(std::vector<double> inputs)
     {
-      this->feedInputs(Eigen::MatrixXd::Map(&inputs[0], inputs.size(), 1));
-      return;
+      return this->feedInputs(Eigen::MatrixXd::Map(&inputs[0], inputs.size(), 1));
     };
 
-    // todo: return the outputs directly
-    virtual void feedInputs(Eigen::MatrixXd inputs)
+    virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs)
     {
       // Layer is "input" layer
       if (weights.rows() == 0)
       {
         this->setOutputs(inputs);
-        return;
+        return inputs;
       }
 
       inputs = inputs.cols() == weights.rows() ? inputs : inputs.transpose();
 
       assert(inputs.cols() == weights.rows());
-      this->computeOutputs(inputs);
-      return;
+      return this->computeOutputs(inputs);
     };
 
     virtual void feedInputs(std::vector<std::vector<std::vector<double>>> inputs)
@@ -184,7 +181,7 @@ namespace NeuralNet
       return;
     };
 
-    void computeOutputs(Eigen::MatrixXd inputs)
+    Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs)
     {
       // Initialize the biases based on the input's size
       if (biases.rows() == 0 && biases.cols() == 0)
@@ -198,7 +195,7 @@ namespace NeuralNet
       wSum.rowwise() += biases.row(0);
 
       outputs = activate(wSum);
-      return;
+      return outputs;
     };
 
     void setActivation(ACTIVATION activation)
