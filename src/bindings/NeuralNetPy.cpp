@@ -92,19 +92,17 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .def_static("load_from_file", &Model::load_from_file<Network>);
 
     py::class_<Network, Model>(m, "Network")
-        .def(py::init<double>(),
-             py::arg("alpha") = 0.1)
+        .def(py::init<>())
         .def("setup", &Network::setup,
              py::arg("optimizer"),
-             py::arg("epochs") = 10,
              py::arg("loss") = LOSS::QUADRATIC)
         .def("addLayer", &Network::addLayer)
         .def("getLayer", &Network::getLayer, py::return_value_policy::copy)
         .def("getNumLayers", &Network::getNumLayers)
-        .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>)>(&Network::train), "Train the network")
-        .def("train", static_cast<double (Network::*)(std::vector<std::vector<std::vector<double>>>, std::vector<double>)>(&Network::train), "Train the network")
-        .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<double>>, std::vector<double>>)>(&Network::train), "Train the network")
-        .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>>)>(&Network::train), "Train the network")
+        .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>, int)>(&Network::train), "Train the network")
+        .def("train", static_cast<double (Network::*)(std::vector<std::vector<std::vector<double>>>, std::vector<double>, int)>(&Network::train), "Train the network")
+        .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<double>>, std::vector<double>>, int)>(&Network::train), "Train the network")
+        .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>>, int)>(&Network::train), "Train the network")
         .def("predict", static_cast<Eigen::MatrixXd (Network::*)(std::vector<std::vector<double>>)>(&Network::predict), "Predict the outputs")
         .def("predict", static_cast<Eigen::MatrixXd (Network::*)(std::vector<std::vector<std::vector<double>>>)>(&Network::predict), "Predict the outputs");
 }

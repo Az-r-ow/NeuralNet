@@ -26,7 +26,7 @@ namespace NeuralNet
   class Network : public Model
   {
   public:
-    Network(double alpha = 0.001);
+    Network();
 
     /**
      * @brief Method that sets up the model's hyperparameter
@@ -35,7 +35,7 @@ namespace NeuralNet
      * @param epochs The number of epochs
      * @param loss The loss function
      */
-    void setup(const std::shared_ptr<Optimizer> &optimizer, int epochs = 10, LOSS loss = LOSS::QUADRATIC);
+    void setup(const std::shared_ptr<Optimizer> &optimizer, LOSS loss = LOSS::QUADRATIC);
 
     /**
      * @brief Method to add a layer to the network
@@ -43,13 +43,6 @@ namespace NeuralNet
      * @param layer the layer to add to the model it should be of type Layer
      */
     void addLayer(std::shared_ptr<Layer> &layer);
-
-    /**
-     * @brief This method will set the batch size of the network during training
-     *
-     * @param batchSize An integer > 0 that represents the batch size
-     */
-    void setBatchSize(int batchSize);
 
     /**
      * @brief This method will set the network's loss function
@@ -86,38 +79,42 @@ namespace NeuralNet
      *
      * @param inputs The inputs that will be passed to the model
      * @param labels The labels that represent the expected outputs of the model
+     * @param epochs
      *
      * @return The last training's loss
      */
-    double train(std::vector<std::vector<double>> inputs, std::vector<double> labels);
+    double train(std::vector<std::vector<double>> inputs, std::vector<double> labels, int epochs = 1);
 
     /**
      * @brief This method will Train the model with the given inputs and labels
      *
      * @param inputs The inputs that will be passed to the model
      * @param labels The labels that represent the expected outputs of the model
+     * @param epochs
      *
      * @return The last training's loss
      */
-    double train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels);
+    double train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels, int epochs = 1);
 
     /**
      * @brief This method will train the model with the given TrainingData
      *
      * @param trainingData the data passed through the TrainingData class
+     * @param epochs
      *
      * @return The last training's loss
      */
-    double train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData);
+    double train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData, int epochs = 1);
 
     /**
      * @brief This method will train the model with the given TrainingData
      *
      * @param trainingData the data passed through the TrainingData class
+     * @param epochs
      *
      * @return The last training's loss
      */
-    double train(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>> trainingData);
+    double train(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>> trainingData, int epochs = 1);
 
     /**
      * @brief This model will try to make predictions based off the inputs passed
@@ -160,30 +157,124 @@ namespace NeuralNet
     std::vector<std::shared_ptr<Layer>> layers;
     LOSS lossFunc;      // Storing the loss function for serialization
     int cp = 0, tp = 0; // Correct Predictions, Total Predictions
-    double alpha;       // Learning rate
-    double loss = 1;    // Loss
-    int batchSize = 50; // Default batch size
-    int epochs;
     bool debugMode = false;
     double (*cmpLoss)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
     Eigen::MatrixXd (*cmpLossGrad)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
     std::shared_ptr<Optimizer> optimizer;
 
-    // The template are called D for dimensions eg : 2d 3d
+    /**
+     * @brief online training with given training data
+     *
+     * @tparam D1 The type of data passed
+     * @tparam D2 The type of labels passed
+     * @param inputs A vector of inputs (features) of type D1
+     * @param labels A vector of labels (targets) of type D2. Each element in this vector corresponds to the
+     * label of the training example at the same index in the inputs vector.
+     * @param epochs An integer specifying the number of times the training algorithm should iterate over the dataset.
+     *
+     * @return A double value that represents the average loss of the training process. This can be used to gauge the effectiveness of the process.
+     *
+     * @note The functions assumes that the inputs and labels will be of the same length.
+     */
     template <typename D1, typename D2>
-    double onelineTraining(std::vector<D1> inputs, std::vector<D2> labels);
+    double onlineTraining(std::vector<D1> inputs, std::vector<D2> labels, int epochs);
+
+    /**
+     * @brief mini-batch training with given training data
+     *
+     * @tparam D1 The type of data passed
+     * @tparam D2 The type of labels passed
+     * @param inputs A vector of inputs (features) of type D1
+     * @param labels A vector of labels (targets) of type D2. Each element in this vector corresponds to the
+     * label of the training example at the same index in the inputs vector.
+     * @param epochs An integer specifying the number of times the training algorithm should iterate over the dataset.
+     *
+     * @return A double value that represents the average loss of the training process. This can be used to gauge the effectiveness of the process.
+     *
+     * @note The functions assumes that the inputs and labels will be of the same length.
+     */
     template <typename D1, typename D2>
-    double trainer(TrainingData<D1, D2> trainingData);
+    double trainer(TrainingData<D1, D2> trainingData, int epochs);
+
+    /**
+     * @brief mini-batch training with given training data
+     *
+     * @tparam D1 The type of data passed
+     * @tparam D2 The type of labels passed
+     * @param inputs A vector of inputs (features) of type D1
+     * @param labels A vector of labels (targets) of type D2. Each element in this vector corresponds to the
+     * label of the training example at the same index in the inputs vector.
+     * @param epochs An integer specifying the number of times the training algorithm should iterate over the dataset.
+     *
+     * @return A double value that represents the average loss of the training process. This can be used to gauge the effectiveness of the process.
+     *
+     * @note The functions assumes that the inputs and labels will be of the same length.
+     */
     template <typename D1, typename D2>
-    double miniBatchTraining(TrainingData<D1, D2> trainingData);
+    double miniBatchTraining(TrainingData<D1, D2> trainingData, int epochs);
+
+    /**
+     * @brief batch training with given training data
+     *
+     * @tparam D1 The type of data passed
+     * @tparam D2 The type of labels passed
+     * @param inputs A vector of inputs (features) of type D1
+     * @param labels A vector of labels (targets) of type D2. Each element in this vector corresponds to the
+     * label of the training example at the same index in the inputs vector.
+     * @param epochs An integer specifying the number of times the training algorithm should iterate over the dataset.
+     *
+     * @return A double value that represents the average loss of the training process. This can be used to gauge the effectiveness of the process.
+     *
+     * @note The functions assumes that the inputs and labels will be of the same length.
+     */
     template <typename D1, typename D2>
-    double batchTraining(TrainingData<D1, D2> trainingData);
+    double batchTraining(TrainingData<D1, D2> trainingData, int epochs);
+
+    /**
+     * @brief This method will pass the inputs through the network and return an output
+     *
+     * @param inputs The inputs that will be passed through the network
+     *
+     * @return The output of the network
+     */
     Eigen::MatrixXd forwardProp(std::vector<std::vector<std::vector<double>>> &inputs);
+
+    /**
+     * @brief This method will pass the inputs through the network and return an output
+     *
+     * @param inputs The inputs that will be passed through the network
+     *
+     * @return The output of the network
+     */
     Eigen::MatrixXd forwardProp(std::vector<std::vector<double>> &inputs);
+
+    /**
+     * @brief This method will pass the inputs through the network and return an output
+     *
+     * @param inputs The inputs that will be passed through the network
+     *
+     * @return The output of the network
+     */
     Eigen::MatrixXd forwardProp(Eigen::MatrixXd &inputs);
+
     Eigen::MatrixXd feedForward(Eigen::MatrixXd inputs, int startIdx = 0);
-    void backProp(Eigen::MatrixXd &lossGrad, Eigen::MatrixXd &y);
+
+    /**
+     * @brief This method will compute the loss and backpropagate it through the network whilst doing adjusting the parameters accordingly.
+     *
+     * @param outputs The outputs from the forward propagation
+     * @param y The expected outputs (targets)
+     */
+    void backProp(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y);
+
+    // todo: implement the following method
     double computeAccuracy(int predicted, int label);
+
+    /**
+     * @brief This method will update the optimizer's setup
+     *
+     * @param numLayers The number of layers in the network
+     */
     void updateOptimizerSetup(size_t numLayers);
   };
 }

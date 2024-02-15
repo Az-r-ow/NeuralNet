@@ -35,7 +35,7 @@ network.addLayer(NNP.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
 network.addLayer(NNP.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
 # Setting up the networks parameters
-network.setup(optimizer=NNP.Adam(0.02), epochs=3, loss=NNP.LOSS.MCE)
+network.setup(optimizer=NNP.Adam(0.02), loss=NNP.LOSS.MCE)
 
 # # combining the data with the labels for later shuffling 
 # combined = list(zip(x_train, y_train))

@@ -19,7 +19,7 @@ int main(int argc, char *argv[])
     std::cout << "fetched layer from network : " << l->getNumNeurons() << "\n";
     network.setup(AdamOptimizer);
 
-    network.setup(AdamOptimizer, 1, LOSS::QUADRATIC);
+    network.setup(AdamOptimizer, LOSS::QUADRATIC);
 
     std::cout << "num of layers : " << network.getNumLayers() << "\n";
 
