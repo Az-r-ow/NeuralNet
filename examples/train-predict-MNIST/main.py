@@ -53,7 +53,7 @@ trainingData = NNP.TrainingData3dI(f_x_train[:NUM_TRAININGS], y_train[:NUM_TRAIN
 
 trainingData.batch(128)
 
-network.train(trainingData)
+network.train(trainingData, 3)
 
 f_x_test = [normalize_img(x) for x in x_test]
 

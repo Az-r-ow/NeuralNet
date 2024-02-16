@@ -14,6 +14,11 @@ namespace NeuralNet
     std::vector<T> batches;
     bool batched = false;
 
+    /**
+     * @brief This method will separate the data into batches of the specified size
+     *
+     * @param batchSize The number of elements in each batch
+     */
     void batch(int batchSize)
     {
       assert(data.size() > 0 && batchSize < data.size());

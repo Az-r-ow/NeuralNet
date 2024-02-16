@@ -43,9 +43,4 @@ namespace cereal
   {
     ar(std::get<0>(t), std::get<1>(t));
   }
-
-  // template <class Archive, class T1, class T2>
-  // struct specialize<Archive, std::tuple<T1, T2>, cereal::specialization::non_member_load_save>
-  // {
-  // };
-}
+} // namespace cereal

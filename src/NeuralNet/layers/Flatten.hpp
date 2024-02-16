@@ -16,11 +16,24 @@ namespace NeuralNet
   class Flatten : public Layer
   {
   public:
+    /**
+     * @brief Construct a new Flatten object.
+     *
+     * This type of Layer is perfect as an input layer since its sole purpose is to flatten a given input
+     *
+     * @param inputShape The shape of the input to be flattened
+     */
     Flatten(std::tuple<int, int> inputShape) : Layer(inputShape), inputShape(inputShape)
     {
       type = LayerType::FLATTEN;
     };
 
+    /**
+     * @brief This method flattens a 3D vector into a 2D Eigen::MatrixXd
+     *
+     * @param inputs The 3D vector to be flattened
+     * @return Eigen::MatrixXd The flattened 2D Eigen::MatrixXd
+     */
     Eigen::MatrixXd flatten(std::vector<std::vector<std::vector<double>>> inputs)
     {
       int rows = std::get<0>(inputShape);

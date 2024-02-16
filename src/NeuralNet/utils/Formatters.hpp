@@ -2,7 +2,6 @@
 
 #include <Eigen/Core>
 #include <type_traits>
-#include "Typedefs.hpp"
 #include "Functions.hpp"
 
 namespace NeuralNet
@@ -51,26 +50,4 @@ namespace NeuralNet
 
     return mLabels;
   }
-
-  /**
-   * @brief Converts layer's outputs from Eigen::Eigen::MatrixXd to an std::vector
-   *
-   * @param outputs the model's outputs
-   *
-   * @return outputs as an std::vector
-   */
-  static std::vector<double> formatOutputs(Eigen::MatrixXd outputs)
-  {
-    int i = 0;
-    std::vector<double> v;
-    v.reserve(outputs.rows()); // Reserving space for efficiency
-
-    while (i < outputs.size())
-    {
-      v.push_back(outputs(i, 0));
-      i++;
-    }
-
-    return v;
-  }
-}
+} // namespace NeuralNet

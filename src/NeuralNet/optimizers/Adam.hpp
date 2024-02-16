@@ -12,6 +12,14 @@ namespace NeuralNet
   class Adam : public Optimizer
   {
   public:
+    /**
+     * Adam is an optimization algorithm that can be used instead of the classical stochastic gradient descent procedure to update network weights iteratively.
+     *
+     * @param alpha Learning rate
+     * @param beta1 Exponential decay rate for the first moment estimates
+     * @param beta2 Exponential decay rate for the second moment estimates
+     * @param epsilon A small constant for numerical stability
+     */
     Adam(double alpha = 0.001, double beta1 = 0.9, double beta2 = 0.999, double epsilon = 10E-8) : Optimizer(alpha)
     {
       this->beta1 = beta1;

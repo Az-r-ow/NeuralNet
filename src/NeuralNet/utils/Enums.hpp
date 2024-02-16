@@ -15,7 +15,7 @@ namespace NeuralNet
     GLOROT,
     HE,
     LECUN,
-    CONSTANT
+    CONSTANT // For testing
   };
 
   enum class LOSS

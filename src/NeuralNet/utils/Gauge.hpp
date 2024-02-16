@@ -129,4 +129,4 @@ namespace NeuralNet
     int totalEpochs;
     int currEpoch;
   };
-}
+} // namespace NeuralNet

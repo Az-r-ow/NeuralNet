@@ -155,11 +155,25 @@ namespace NeuralNet
       this->weightInit == WEIGHT_INIT::RANDOM ? randomWeightInit(&(this->weights), -1, 1) : randomDistMatrixInit(&(this->weights), mean, stddev);
     }
 
+    /**
+     * @brief This method is used to feed the inputs to the layer
+     *
+     * @param inputs A vector of doubles representing the inputs (features)
+     *
+     * @return an Eigen::MatrixXd representing the outputs of the layer
+     */
     virtual Eigen::MatrixXd feedInputs(std::vector<double> inputs)
     {
       return this->feedInputs(Eigen::MatrixXd::Map(&inputs[0], inputs.size(), 1));
     };
 
+    /**
+     * @brief This method is used to feed the inputs to the layer
+     *
+     * @param inputs An Eigen::MatrixXd representing the inputs (features)
+     *
+     * @return an Eigen::MatrixXd representing the outputs of the layer
+     */
     virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs)
     {
       // Layer is "input" layer
@@ -175,12 +189,26 @@ namespace NeuralNet
       return this->computeOutputs(inputs);
     };
 
+    /**
+     * @brief This method is used to feed the inputs to the layer
+     *
+     * @param inputs A vector of vectors of doubles representing the inputs (features)
+     *
+     * @return void
+     */
     virtual void feedInputs(std::vector<std::vector<std::vector<double>>> inputs)
     {
       assert(false && "Cannot feed 3d vectors, a Flatten layer could do it though");
       return;
     };
 
+    /**
+     * @brief This method is used to feed the inputs to the layer
+     *
+     * @param inputs A vector of vectors of doubles representing the inputs (features)
+     *
+     * @return an Eigen::MatrixXd representing the computed outputs based on the layer's parameters
+     */
     Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs)
     {
       // Initialize the biases based on the input's size
@@ -198,6 +226,13 @@ namespace NeuralNet
       return outputs;
     };
 
+    /**
+     * @brief This method is used to set the activation function of the layer
+     *
+     * @param activation The activation function to be used
+     *
+     * @return void
+     */
     void setActivation(ACTIVATION activation)
     {
       if (type == LayerType::FLATTEN)
@@ -252,7 +287,16 @@ namespace NeuralNet
     int nNeurons; // Number of neurons
     LayerType type = LayerType::DEFAULT;
 
-    void setOutputs(std::vector<double> outputs) // used for input layer
+    /**
+     * @brief This method is used to set the outputs of the layer
+     *
+     * @param outputs A vector of doubles representing the outputs of the layer
+     *
+     * @return void
+     *
+     * @note This method is used for the input layer (the first layer of the network)
+     */
+    void setOutputs(std::vector<double> outputs)
     {
       assert(outputs.size() == nNeurons);
       this->outputs = Eigen::MatrixXd ::Map(&outputs[0], this->getNumNeurons(), 1);

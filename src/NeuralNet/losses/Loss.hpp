@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Eigen/Dense>
-#include "utils/Typedefs.hpp"
 
 namespace NeuralNet
 {
@@ -16,7 +15,7 @@ namespace NeuralNet
      *
      * @return The loss based on the selected loss function
      */
-    static double cmpLoss(const Eigen::MatrixXd &o, const Labels &y);
+    static double cmpLoss(const Eigen::MatrixXd &o, const Eigen::MatrixXd &y);
 
     /**
      * @brief This function computes the loss gradient w.r.t the outputs
@@ -26,6 +25,6 @@ namespace NeuralNet
      *
      * @return The current iteration's gradient
      */
-    static Eigen::MatrixXd cmpLossGrad(const Eigen::MatrixXd &o, const Labels &y);
+    static Eigen::MatrixXd cmpLossGrad(const Eigen::MatrixXd &o, const Eigen::MatrixXd &y);
   };
 }
