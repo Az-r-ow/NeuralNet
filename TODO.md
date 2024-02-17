@@ -1,33 +1,22 @@
 ## TODOS :
 
 - [ ] Document the example in python
+- [ ] Implement early stopping
 - [ ] Find out why the predictions are not accurate on my_samples
 - [ ] Implement batch norm
 - [ ] Multithreading operations
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
-- [ ] Comment the code further
 - [ ] Implement a dropout to avoid over-fitting the model
 
 ## IN PROGRESS :
 
 - [ ] Add gradient clipping
-- [ ] Re-implement the whole mini-batch algorithm
-  - [x] Find a way to bind methods that have overrides
-  - [x] Make sure the whole shared_ptr layers don't affect serialization
-  - [x] Make Layer a base class and add Dense Layer to replace Layer
-  - [x] Check what's up with the main python script and the reason why the shapes aren't matching
-    - [x] Change the biases into vectors (this is causing the unmatching shapes error)
-    - [x] Adapt the return value of the predict function
-    - [x] Adapt predict function for flatten layer
-    - [x] Adapt Dense layer for serialization
-    - [ ] Fix the loading bar
-      - [x] Fix the loading bar for mini-batch training
-      - [ ] Fix the loading bar for online training
-    - [x] Find out what's wrong with batch/mini-batch training
 - [ ] Update README to include more information about the project
 
 ## DONE :
 
+- [x] Re-implement the whole mini-batch algorithm
+- [x] Comment the code further
 - [x] Find out if adam optimization is working
 - [x] Add type for data handling
 - [x] Adams optimizer

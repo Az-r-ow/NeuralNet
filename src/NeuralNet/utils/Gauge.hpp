@@ -14,6 +14,7 @@ namespace NeuralNet
    * A general purpose simple use gauge.
    * It encompasses the few lines of code to have an operational ftxui::gauge
    */
+
   class Gauge
   {
   public:
@@ -73,21 +74,16 @@ namespace NeuralNet
       std::string ratioStr = std::to_string(this->currIndex) + "/" + std::to_string(this->totalIndexes);
       std::string epochStr = "Epoch : " + std::to_string(this->currEpoch) + "/" + std::to_string(this->totalEpochs);
       std::string errorStr = "Loss : " + std::to_string(static_cast<float>(l));
-
       float ratio = static_cast<float>(this->currIndex) / this->totalIndexes;
-      Element document =
-          hbox({
-              hbox({
-                  text(epochStr + " "),
-                  gauge(ratio),
-                  text(" " + ratioStr),
-              }) | flex |
-                  border,
-              text(errorStr) | border,
-          });
 
-      auto screen = Screen::Create(Dimension::Full(), Dimension::Fit(document));
-      Render(screen, document);
+      auto screen = gaugeBuilder({hbox({
+                                      text(epochStr + " "),
+                                      gauge(ratio),
+                                      text(" " + ratioStr),
+                                  }) | flex |
+                                      border,
+                                  text(errorStr) | border});
+
       std::cout << this->resetPos;
       screen.Print();
       this->resetPos = screen.ResetPosition();
@@ -105,24 +101,38 @@ namespace NeuralNet
       std::string accStr = "Accuracy : " + std::to_string(static_cast<float>(a));
 
       float ratio = static_cast<float>(this->currIndex) / this->totalIndexes;
-      Element document =
-          hbox({
-              hbox({
-                  text(epochStr + " "),
-                  gauge(ratio),
-                  text(" " + ratioStr),
-              }) | flex |
-                  border,
-              text(errorStr) | border,
-              text(accStr) | border,
-          });
 
-      auto screen = Screen::Create(Dimension::Full(), Dimension::Fit(document));
-      Render(screen, document);
+      auto screen = gaugeBuilder({hbox({
+                                      text(epochStr + " "),
+                                      gauge(ratio),
+                                      text(" " + ratioStr),
+                                  }) | flex |
+                                      border,
+                                  text(errorStr) | border,
+                                  text(accStr) | border});
+
       std::cout << this->resetPos;
       screen.Print();
       this->resetPos = screen.ResetPosition();
     };
+
+    /**
+     * @brief Create a horizontal document with the given elements
+     *
+     * @param elements The elements to be added to the document
+     *
+     * @return The screen with the given elements
+     */
+    Screen gaugeBuilder(Elements elements)
+    {
+      Element document = hbox(elements);
+
+      Screen screen = Screen::Create(Dimension::Full(), Dimension::Fit(document));
+
+      Render(screen, document);
+
+      return screen;
+    }
 
   private:
     std::string resetPos;
