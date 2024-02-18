@@ -15,6 +15,7 @@ void Network::setup(const std::shared_ptr<Optimizer> &optimizer, LOSS loss)
   this->lossFunc = loss;
   this->setLoss(loss);
   this->updateOptimizerSetup(this->layers.size());
+  this->registerSignals(); // Allows smooth exit of program
 }
 
 void Network::addLayer(std::shared_ptr<Layer> &layer)

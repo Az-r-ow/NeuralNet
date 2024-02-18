@@ -3,6 +3,7 @@
 #include <string>
 #include <fstream>
 #include <type_traits>
+#include <csignal>
 #include <cereal/cereal.hpp>
 #include <cereal/archives/binary.hpp>
 #include "utils/Functions.hpp"
@@ -47,5 +48,13 @@ namespace NeuralNet
       cereal::BinaryInputArchive archive(file);
       archive(model);
     };
+
+  protected:
+    void registerSignals() const
+    {
+      // Registering signals
+      signal(SIGINT, signalHandler);
+      signal(SIGTERM, signalHandler);
+    }
   };
 }

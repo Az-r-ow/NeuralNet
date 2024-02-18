@@ -243,4 +243,15 @@ namespace NeuralNet
 
     return;
   };
+
+  /* SIGNAL HANDLING */
+  static void signalHandler(int signum)
+  {
+    std::cout << "Interrupt signal (" << signum << ") received.\n";
+
+    // cleanup and close up stuff here
+    // terminate program
+    exit(signum);
+  };
+
 } // namespace NeuralNet
