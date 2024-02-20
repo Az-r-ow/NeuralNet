@@ -1,6 +1,6 @@
 import numpy as np
 from halo import Halo
-import os, sys, cv2
+import os, sys, cv2, requests
 
 def load_data(path):
     """

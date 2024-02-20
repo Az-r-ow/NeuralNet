@@ -110,7 +110,7 @@ double Network::miniBatchTraining(TrainingData<D1, D2> trainingData, int epochs)
       loss = this->cmpLoss(o, y) / inputsSize;
       sumLoss += loss;
       this->backProp(o, y);
-      g.printWithLoss(loss);
+      g.printWithLAndA(loss, computeAccuracy(o, y));
     }
   }
 
@@ -260,19 +260,24 @@ void Network::updateOptimizerSetup(size_t numLayers)
 }
 
 /**
- * Updates the correct prediction and the total prediction
- * Returns the accuracy of the model
+ * @note This function will return the accuracy of the given outputs compared to the labels.
+ *
+ * @param outputs The outputs from the network
+ * @param y The labels
+ *
+ * @return The accuracy of the network.
  */
-double Network::computeAccuracy(const int predicted, const int label)
+double Network::computeAccuracy(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y)
 {
-  this->tp += 1;
+  int total = y.rows();
 
-  if (predicted == label)
-  {
-    this->cp += 1;
-  }
+  Eigen::MatrixXd outputsHm = hardmax(outputs);
 
-  return static_cast<double>(cp) / tp;
+  Eigen::MatrixXd diff = outputsHm - y;
+
+  int wrong = diff.cwiseAbs().sum() / 2;
+
+  return 1.0 - (wrong / static_cast<double>(total));
 }
 
 Network::~Network()

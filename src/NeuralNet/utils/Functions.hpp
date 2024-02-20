@@ -244,6 +244,28 @@ namespace NeuralNet
     return;
   };
 
+  /**
+   * @brief takes in a matrix and returns its hardmax equivalent.
+   *
+   * @param mat the inputs matrix
+   *
+   * @return the hardmax version of the matrix.
+   */
+  static Eigen::MatrixXd hardmax(const Eigen::MatrixXd &mat)
+  {
+    Eigen::MatrixXd hardmaxMatrix = Eigen::MatrixXd::Zero(mat.rows(), mat.cols());
+
+    for (int i = 0; i < mat.rows(); ++i)
+    {
+      int maxIndex;
+      mat.row(i).maxCoeff(&maxIndex);
+
+      hardmaxMatrix(i, maxIndex) = 1;
+    }
+
+    return hardmaxMatrix;
+  }
+
   /* SIGNAL HANDLING */
   static void signalHandler(int signum)
   {

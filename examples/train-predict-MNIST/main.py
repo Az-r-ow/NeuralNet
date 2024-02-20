@@ -6,7 +6,7 @@
   - Save the model in a binary file
 """
 
-import sys, os , requests, random
+import sys, random
 import numpy as np
 from utils import *
 from halo import Halo

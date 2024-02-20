@@ -268,7 +268,7 @@ namespace NeuralNet
     void backProp(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y);
 
     // todo: implement the following method
-    double computeAccuracy(int predicted, int label);
+    double computeAccuracy(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y);
 
     /**
      * @brief This method will update the optimizer's setup
