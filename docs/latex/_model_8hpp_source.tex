@@ -1,0 +1,52 @@
+\doxysection{Model.\+hpp}
+\hypertarget{_model_8hpp_source}{}\label{_model_8hpp_source}\index{src/NeuralNet/Model.hpp@{src/NeuralNet/Model.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <fstream>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <type\_traits>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <csignal>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <cereal/cereal.hpp>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cereal/archives/binary.hpp>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ "{}utils/Functions.hpp"{}}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keyword}{namespace\ }NeuralNet}
+\DoxyCodeLine{00012\ \{}
+\DoxyCodeLine{00013\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_neural_net_1_1_model}{Model}}}
+\DoxyCodeLine{00014\ \ \ \{}
+\DoxyCodeLine{00015\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00022\ \ \ \ \ template\ <typename\ T,\ typename\ =\ typename\ std::enable\_if<std::is\_base\_of<Model,\ T>::value>::type>}
+\DoxyCodeLine{00023\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_neural_net_1_1_model_aa6bf6ea54a2427d3e328e3f4d8c7740f}{save\_to\_file}}(\textcolor{keyword}{const}\ std::string\ \&filename,\ T\ model)}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ \textcolor{comment}{//\ Serializing\ model\ to\ a\ binary\ file}}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ std::ofstream\ file(filename,\ std::ios::binary);}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ cereal::BinaryOutputArchive\ archive(file);}
+\DoxyCodeLine{00028\ \ \ \ \ \ \ archive(model);}
+\DoxyCodeLine{00029\ \ \ \ \ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00039\ \ \ \ \ template\ <typename\ T,\ typename\ =\ typename\ std::enable\_if<std::is\_base\_of<Model,\ T>::value>::type>}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00041\ \ \ \ \ \mbox{\hyperlink{class_neural_net_1_1_model_ae2248524f9f678322c2686f7e4a52d50}{load\_from\_file}}(\textcolor{keyword}{const}\ std::string\ \&filename,\ T\ \&model)}
+\DoxyCodeLine{00042\ \ \ \ \ \{}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \textcolor{comment}{//\ Making\ sure\ the\ file\ exists\ and\ is\ binary}}
+\DoxyCodeLine{00044\ \ \ \ \ \ \ assert(fileExistsWithExtension(filename,\ \textcolor{stringliteral}{"{}.bin"{}})\ \&\&\ \textcolor{stringliteral}{"{}The\ file\ doesn't\ exists\ or\ is\ not\ binary\ '.bin'"{}});}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \ \ \ \ \ \ \textcolor{comment}{//\ Deserializing\ the\ model\ from\ the\ binary\ file}}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ std::ifstream\ file(filename,\ std::ios::binary);}
+\DoxyCodeLine{00048\ \ \ \ \ \ \ cereal::BinaryInputArchive\ archive(file);}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ archive(model);}
+\DoxyCodeLine{00050\ \ \ \ \ \};}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00053\ \ \ \ \ \textcolor{keywordtype}{void}\ registerSignals()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00054\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \textcolor{comment}{//\ Registering\ signals}}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ signal(SIGINT,\ signalHandler);}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ signal(SIGTERM,\ signalHandler);}
+\DoxyCodeLine{00058\ \ \ \ \ \}}
+\DoxyCodeLine{00059\ \ \ \};}
+\DoxyCodeLine{00060\ \}}
+
+\end{DoxyCode}

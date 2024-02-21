@@ -1,0 +1,26 @@
+\doxysection{Activation.\+hpp}
+\hypertarget{_activation_8hpp_source}{}\label{_activation_8hpp_source}\index{src/NeuralNet/activations/Activation.hpp@{src/NeuralNet/activations/Activation.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <Eigen/Dense>}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{namespace\ }NeuralNet}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_neural_net_1_1_activation}{Activation}}}
+\DoxyCodeLine{00008\ \ \ \{}
+\DoxyCodeLine{00009\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keyword}{static}\ Eigen::MatrixXd\ \mbox{\hyperlink{class_neural_net_1_1_activation_a2f6758fa2bb12c32cf5c02bff19c2864}{activate}}(\textcolor{keyword}{const}\ Eigen::MatrixXd\ \&z)}
+\DoxyCodeLine{00018\ \ \ \ \ \{}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ z;}
+\DoxyCodeLine{00020\ \ \ \ \ \};}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00029\ \ \ \ \ \textcolor{keyword}{static}\ Eigen::MatrixXd\ \mbox{\hyperlink{class_neural_net_1_1_activation_a14c8727d059ff60ff1a4aef683910ab1}{diff}}(\textcolor{keyword}{const}\ Eigen::MatrixXd\ \&a)}
+\DoxyCodeLine{00030\ \ \ \ \ \{}
+\DoxyCodeLine{00031\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ a;}
+\DoxyCodeLine{00032\ \ \ \ \ \};}
+\DoxyCodeLine{00033\ \ \ \};}
+\DoxyCodeLine{00034\ \}}
+
+\end{DoxyCode}

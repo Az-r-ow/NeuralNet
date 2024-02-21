@@ -1,0 +1,100 @@
+\doxysection{Neural\+Net\+::Optimizer Class Reference}
+\hypertarget{class_neural_net_1_1_optimizer}{}\label{class_neural_net_1_1_optimizer}\index{NeuralNet::Optimizer@{NeuralNet::Optimizer}}
+Inheritance diagram for Neural\+Net\+::Optimizer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_neural_net_1_1_optimizer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_optimizer_a2299055182e655e2e6025bee6d133f7f}\label{class_neural_net_1_1_optimizer_a2299055182e655e2e6025bee6d133f7f} 
+{\bfseries Optimizer} (double alpha)
+\item 
+virtual void \mbox{\hyperlink{class_neural_net_1_1_optimizer_ab630b544bc3d5734f207af48e0f4c291}{update\+Weights}} (Eigen\+::\+Matrix\+Xd \&weights, const Eigen\+::\+Matrix\+Xd \&weights\+Grad)=0
+\begin{DoxyCompactList}\small\item\em This function updates the weights passed based on the selected \doxylink{class_neural_net_1_1_optimizer}{Optimizer} and the weights gradients. \end{DoxyCompactList}\item 
+virtual void \mbox{\hyperlink{class_neural_net_1_1_optimizer_a47960c3d404be46ef6b0c5c2edc34fe8}{update\+Biases}} (Eigen\+::\+Matrix\+Xd \&biases, const Eigen\+::\+Matrix\+Xd \&biases\+Grad)=0
+\begin{DoxyCompactList}\small\item\em This function updates the biases passed based based on the \doxylink{class_neural_net_1_1_optimizer}{Optimizer} and the biases gradients. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{class_neural_net_1_1_optimizer_a61752a075a25ee0c782b6d5d10d26d29}{insider\+Init}} (size\+\_\+t size)=0
+\begin{DoxyCompactList}\small\item\em This function\textquotesingle{}s purpose is to provide an interface to perform updates for the Optimizers from within the network. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_optimizer_a3cf44ca9fa82082ee711dda892f6ff6a}\label{class_neural_net_1_1_optimizer_a3cf44ca9fa82082ee711dda892f6ff6a} 
+double {\bfseries alpha}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_optimizer_a88b59289ffd793fecd040d32e397b1e9}\label{class_neural_net_1_1_optimizer_a88b59289ffd793fecd040d32e397b1e9} 
+class {\bfseries Network}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_neural_net_1_1_optimizer_a61752a075a25ee0c782b6d5d10d26d29}\label{class_neural_net_1_1_optimizer_a61752a075a25ee0c782b6d5d10d26d29} 
+\index{NeuralNet::Optimizer@{NeuralNet::Optimizer}!insiderInit@{insiderInit}}
+\index{insiderInit@{insiderInit}!NeuralNet::Optimizer@{NeuralNet::Optimizer}}
+\doxysubsubsection{\texorpdfstring{insiderInit()}{insiderInit()}}
+{\footnotesize\ttfamily virtual void Neural\+Net\+::\+Optimizer\+::insider\+Init (\begin{DoxyParamCaption}\item[{size\+\_\+t}]{size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [pure virtual]}}
+
+
+
+This function\textquotesingle{}s purpose is to provide an interface to perform updates for the Optimizers from within the network. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em size} & The size (for now it\textquotesingle{}s only used to init the layer\textquotesingle{}s in the \doxylink{class_neural_net_1_1_adam}{Adam} optimizer)\\
+\hline
+\end{DoxyParams}
+This function returns nothing \Hypertarget{class_neural_net_1_1_optimizer_a47960c3d404be46ef6b0c5c2edc34fe8}\label{class_neural_net_1_1_optimizer_a47960c3d404be46ef6b0c5c2edc34fe8} 
+\index{NeuralNet::Optimizer@{NeuralNet::Optimizer}!updateBiases@{updateBiases}}
+\index{updateBiases@{updateBiases}!NeuralNet::Optimizer@{NeuralNet::Optimizer}}
+\doxysubsubsection{\texorpdfstring{updateBiases()}{updateBiases()}}
+{\footnotesize\ttfamily virtual void Neural\+Net\+::\+Optimizer\+::update\+Biases (\begin{DoxyParamCaption}\item[{Eigen\+::\+Matrix\+Xd \&}]{biases,  }\item[{const Eigen\+::\+Matrix\+Xd \&}]{biases\+Grad }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+This function updates the biases passed based based on the \doxylink{class_neural_net_1_1_optimizer}{Optimizer} and the biases gradients. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em biases} & The biases that should be updated \\
+\hline
+{\em biases\+Grad} & The biases gradient\\
+\hline
+\end{DoxyParams}
+The function will return void, since it only performs an update on the biases passed 
+
+Implemented in \mbox{\hyperlink{class_neural_net_1_1_adam_a957015939ff2cb82d7a9e982d8c5e6fe}{Neural\+Net\+::\+Adam}}, and \mbox{\hyperlink{class_neural_net_1_1_s_g_d_aa8461bef22cbc81d39702c3fb2574f71}{Neural\+Net\+::\+SGD}}.
+
+\Hypertarget{class_neural_net_1_1_optimizer_ab630b544bc3d5734f207af48e0f4c291}\label{class_neural_net_1_1_optimizer_ab630b544bc3d5734f207af48e0f4c291} 
+\index{NeuralNet::Optimizer@{NeuralNet::Optimizer}!updateWeights@{updateWeights}}
+\index{updateWeights@{updateWeights}!NeuralNet::Optimizer@{NeuralNet::Optimizer}}
+\doxysubsubsection{\texorpdfstring{updateWeights()}{updateWeights()}}
+{\footnotesize\ttfamily virtual void Neural\+Net\+::\+Optimizer\+::update\+Weights (\begin{DoxyParamCaption}\item[{Eigen\+::\+Matrix\+Xd \&}]{weights,  }\item[{const Eigen\+::\+Matrix\+Xd \&}]{weights\+Grad }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+This function updates the weights passed based on the selected \doxylink{class_neural_net_1_1_optimizer}{Optimizer} and the weights gradients. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em weights} & The weights that should be updated \\
+\hline
+{\em weights\+Grad} & The weights gradient\\
+\hline
+\end{DoxyParams}
+The function will return void, since it only performs an update on the weights passed 
+
+Implemented in \mbox{\hyperlink{class_neural_net_1_1_adam_a13bcb5f6d78ef95b1d829e09e7e90fe4}{Neural\+Net\+::\+Adam}}, and \mbox{\hyperlink{class_neural_net_1_1_s_g_d_a32bd3ee637d86041e5ca193b81f7ff96}{Neural\+Net\+::\+SGD}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Neural\+Net/optimizers/Optimizer.\+hpp\end{DoxyCompactItemize}

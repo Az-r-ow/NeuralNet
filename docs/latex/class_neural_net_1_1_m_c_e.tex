@@ -1,0 +1,36 @@
+\doxysection{Neural\+Net\+::MCE Class Reference}
+\hypertarget{class_neural_net_1_1_m_c_e}{}\label{class_neural_net_1_1_m_c_e}\index{NeuralNet::MCE@{NeuralNet::MCE}}
+
+
+{\ttfamily \#include $<$MCE.\+hpp$>$}
+
+Inheritance diagram for Neural\+Net\+::MCE\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_neural_net_1_1_m_c_e}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_m_c_e_a0e08bdefa400bd45dd57959ab6335c66}\label{class_neural_net_1_1_m_c_e_a0e08bdefa400bd45dd57959ab6335c66} 
+static double {\bfseries cmp\+Loss} (const Eigen\+::\+Matrix\+Xd \&o, const Eigen\+::\+Matrix\+Xd \&y)
+\item 
+\Hypertarget{class_neural_net_1_1_m_c_e_a1bf7c1eb92a862f330c48358030052fd}\label{class_neural_net_1_1_m_c_e_a1bf7c1eb92a862f330c48358030052fd} 
+static Eigen\+::\+Matrix\+Xd {\bfseries cmp\+Loss\+Grad} (const Eigen\+::\+Matrix\+Xd \&y\+Hat, const Eigen\+::\+Matrix\+Xd \&y)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_neural_net_1_1_loss}{Neural\+Net\+::\+Loss}}}
+\begin{DoxyCompactItemize}
+\item 
+static double \mbox{\hyperlink{class_neural_net_1_1_loss_a589437523689856b79dc10c1a2731573}{cmp\+Loss}} (const Eigen\+::\+Matrix\+Xd \&o, const Eigen\+::\+Matrix\+Xd \&y)
+\begin{DoxyCompactList}\small\item\em This function computes the loss of the current iteration. \end{DoxyCompactList}\item 
+static Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_neural_net_1_1_loss_af37cb8add4a4b9c9948514fe825acff1}{cmp\+Loss\+Grad}} (const Eigen\+::\+Matrix\+Xd \&o, const Eigen\+::\+Matrix\+Xd \&y)
+\begin{DoxyCompactList}\small\item\em This function computes the loss gradient w.\+r.\+t the outputs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Multi-\/class Cross Entropy 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Neural\+Net/losses/MCE.\+hpp\end{DoxyCompactItemize}

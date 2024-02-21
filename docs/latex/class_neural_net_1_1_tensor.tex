@@ -1,0 +1,55 @@
+\doxysection{Neural\+Net\+::Tensor\texorpdfstring{$<$}{<} T \texorpdfstring{$>$}{>} Class Template Reference}
+\hypertarget{class_neural_net_1_1_tensor}{}\label{class_neural_net_1_1_tensor}\index{NeuralNet::Tensor$<$ T $>$@{NeuralNet::Tensor$<$ T $>$}}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_tensor_a76fd78aa7060ad77116d23793d0d3377}\label{class_neural_net_1_1_tensor_a76fd78aa7060ad77116d23793d0d3377} 
+{\bfseries Tensor} (T data)
+\item 
+void \mbox{\hyperlink{class_neural_net_1_1_tensor_a57dbbb6b7e030d457bed610e5e8f133a}{batch}} (int batch\+Size)
+\begin{DoxyCompactList}\small\item\em This method will separate the data into batches of the specified size. \end{DoxyCompactList}\item 
+\Hypertarget{class_neural_net_1_1_tensor_a7b9ec937c189d9e80b43df650e3562a0}\label{class_neural_net_1_1_tensor_a7b9ec937c189d9e80b43df650e3562a0} 
+size\+\_\+t {\bfseries size} () const
+\item 
+\Hypertarget{class_neural_net_1_1_tensor_adf45515edc3c8c89981ec163935a252f}\label{class_neural_net_1_1_tensor_adf45515edc3c8c89981ec163935a252f} 
+std\+::vector$<$ T $>$ {\bfseries get\+Batched\+Data} () const
+\item 
+\Hypertarget{class_neural_net_1_1_tensor_ac51211c6788a9a7e3a393e3a02504870}\label{class_neural_net_1_1_tensor_ac51211c6788a9a7e3a393e3a02504870} 
+std\+::vector$<$ T $>$ {\bfseries get\+Data} () const
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_tensor_a4d34721114d5af82bc3f7f715735b305}\label{class_neural_net_1_1_tensor_a4d34721114d5af82bc3f7f715735b305} 
+T {\bfseries data}
+\item 
+\Hypertarget{class_neural_net_1_1_tensor_ae5f2f083ff29b0b17f50631dc1e520a0}\label{class_neural_net_1_1_tensor_ae5f2f083ff29b0b17f50631dc1e520a0} 
+std\+::vector$<$ T $>$ {\bfseries batches}
+\item 
+\Hypertarget{class_neural_net_1_1_tensor_adba91d019de20c4d0d0d065ed0099701}\label{class_neural_net_1_1_tensor_adba91d019de20c4d0d0d065ed0099701} 
+bool {\bfseries batched} = false
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_neural_net_1_1_tensor_a57dbbb6b7e030d457bed610e5e8f133a}\label{class_neural_net_1_1_tensor_a57dbbb6b7e030d457bed610e5e8f133a} 
+\index{NeuralNet::Tensor$<$ T $>$@{NeuralNet::Tensor$<$ T $>$}!batch@{batch}}
+\index{batch@{batch}!NeuralNet::Tensor$<$ T $>$@{NeuralNet::Tensor$<$ T $>$}}
+\doxysubsubsection{\texorpdfstring{batch()}{batch()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+void \mbox{\hyperlink{class_neural_net_1_1_tensor}{Neural\+Net\+::\+Tensor}}$<$ T $>$\+::batch (\begin{DoxyParamCaption}\item[{int}]{batch\+Size }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method will separate the data into batches of the specified size. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em batch\+Size} & The number of elements in each batch \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Neural\+Net/data/Tensor.\+hpp\end{DoxyCompactItemize}

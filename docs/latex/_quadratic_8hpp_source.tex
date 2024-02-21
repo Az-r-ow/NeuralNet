@@ -1,0 +1,30 @@
+\doxysection{Quadratic.\+hpp}
+\hypertarget{_quadratic_8hpp_source}{}\label{_quadratic_8hpp_source}\index{src/NeuralNet/losses/Quadratic.hpp@{src/NeuralNet/losses/Quadratic.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Loss.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{namespace\ }NeuralNet}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00010\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_neural_net_1_1_quadratic}{Quadratic}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_neural_net_1_1_loss}{Loss}}}
+\DoxyCodeLine{00011\ \ \ \{}
+\DoxyCodeLine{00012\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ cmpLoss(\textcolor{keyword}{const}\ Eigen::MatrixXd\ \&o,\ \textcolor{keyword}{const}\ Eigen::MatrixXd\ \&y)}
+\DoxyCodeLine{00014\ \ \ \ \ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ Eigen::MatrixXd\ cMatrix\ =\ o.array()\ -\/\ y.array();}
+\DoxyCodeLine{00016\ \ \ \ \ \ \ cMatrix\ =\ cMatrix.unaryExpr(\&sqr);}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ cMatrix.sum();}
+\DoxyCodeLine{00019\ \ \ \ \ \};}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \ \ \ \ \textcolor{keyword}{static}\ Eigen::MatrixXd\ cmpLossGrad(\textcolor{keyword}{const}\ Eigen::MatrixXd\ \&yHat,\ \textcolor{keyword}{const}\ Eigen::MatrixXd\ \&y)}
+\DoxyCodeLine{00022\ \ \ \ \ \{}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ assert(yHat.rows()\ ==\ y.rows());}
+\DoxyCodeLine{00024\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ (yHat.array()\ -\/\ y.array()).matrix()\ *\ 2;}
+\DoxyCodeLine{00025\ \ \ \ \ \};}
+\DoxyCodeLine{00026\ \ \ \};}
+\DoxyCodeLine{00027\ \}}
+
+\end{DoxyCode}

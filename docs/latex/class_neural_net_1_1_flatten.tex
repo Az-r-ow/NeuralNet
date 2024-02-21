@@ -1,0 +1,101 @@
+\doxysection{Neural\+Net\+::Flatten Class Reference}
+\hypertarget{class_neural_net_1_1_flatten}{}\label{class_neural_net_1_1_flatten}\index{NeuralNet::Flatten@{NeuralNet::Flatten}}
+Inheritance diagram for Neural\+Net\+::Flatten\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_neural_net_1_1_flatten}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_neural_net_1_1_flatten_a58993cf3bbad91fb4f3dc4570278e82c}{Flatten}} (std\+::tuple$<$ int, int $>$ input\+Shape)
+\begin{DoxyCompactList}\small\item\em Construct a new \doxylink{class_neural_net_1_1_flatten}{Flatten} object. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_neural_net_1_1_flatten_a715f3cb27e42842f4ac5fd10c67f3028}{flatten}} (std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ double $>$ $>$ $>$ inputs)
+\begin{DoxyCompactList}\small\item\em This method flattens a 3D vector into a 2D Eigen\+::\+Matrix\+Xd. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_neural_net_1_1_layer}{Neural\+Net\+::\+Layer}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Layer} (int n\+Neurons, ACTIVATION activation=ACTIVATION\+::\+SIGMOID, WEIGHT\+\_\+\+INIT weight\+Init=WEIGHT\+\_\+\+INIT\+::\+RANDOM, int bias=0)
+\item 
+int \mbox{\hyperlink{class_neural_net_1_1_layer_afa59ddacc5796712e5061ed055833fde}{get\+Num\+Neurons}} () const
+\begin{DoxyCompactList}\small\item\em This method get the number of neurons actually in the layer. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_neural_net_1_1_layer_ac6448e3a5415b1ea351ca22fa2b895a0}{get\+Weights}} () const
+\begin{DoxyCompactList}\small\item\em This method gets the layer\textquotesingle{}s weights. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_neural_net_1_1_layer_a296c21f474dbe7fc2926a5e0b7ab87aa}{get\+Biases}} () const
+\begin{DoxyCompactList}\small\item\em Return the biases of the layer. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_neural_net_1_1_layer_a1b86e971a93bed55690ecf1840207c34}{get\+Outputs}} () const
+\begin{DoxyCompactList}\small\item\em This method get the layer\textquotesingle{}s outputs. \end{DoxyCompactList}\item 
+void {\bfseries print\+Weights} ()
+\begin{DoxyCompactList}\small\item\em Method to print layer\textquotesingle{}s weights. \end{DoxyCompactList}\item 
+void {\bfseries print\+Outputs} ()
+\begin{DoxyCompactList}\small\item\em Method to print layer\textquotesingle{}s outputs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_flatten_ab2f44cbb59a08132f4c843e5225bba0e}\label{class_neural_net_1_1_flatten_ab2f44cbb59a08132f4c843e5225bba0e} 
+class {\bfseries cereal\+::access}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_neural_net_1_1_layer}{Neural\+Net\+::\+Layer}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Layer} (std\+::tuple$<$ int, int $>$ input\+Shape)
+\item 
+void \mbox{\hyperlink{class_neural_net_1_1_layer_ae81f8d543115f7be083f2a57d9baa551}{set\+Outputs}} (std\+::vector$<$ double $>$ outputs)
+\begin{DoxyCompactList}\small\item\em This method is used to set the outputs of the layer. \end{DoxyCompactList}\item 
+void {\bfseries set\+Outputs} (Eigen\+::\+Matrix\+Xd outputs)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_neural_net_1_1_layer}{Neural\+Net\+::\+Layer}}}
+\begin{DoxyCompactItemize}
+\item 
+int {\bfseries n\+Neurons}
+\item 
+Layer\+Type {\bfseries type} = Layer\+Type\+::\+DEFAULT
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_neural_net_1_1_flatten_a58993cf3bbad91fb4f3dc4570278e82c}\label{class_neural_net_1_1_flatten_a58993cf3bbad91fb4f3dc4570278e82c} 
+\index{NeuralNet::Flatten@{NeuralNet::Flatten}!Flatten@{Flatten}}
+\index{Flatten@{Flatten}!NeuralNet::Flatten@{NeuralNet::Flatten}}
+\doxysubsubsection{\texorpdfstring{Flatten()}{Flatten()}}
+{\footnotesize\ttfamily Neural\+Net\+::\+Flatten\+::\+Flatten (\begin{DoxyParamCaption}\item[{std\+::tuple$<$ int, int $>$}]{input\+Shape }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Construct a new \doxylink{class_neural_net_1_1_flatten}{Flatten} object. 
+
+This type of \doxylink{class_neural_net_1_1_layer}{Layer} is perfect as an input layer since its sole purpose is to flatten a given input
+
+
+\begin{DoxyParams}{Parameters}
+{\em input\+Shape} & The shape of the input to be flattened \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_neural_net_1_1_flatten_a715f3cb27e42842f4ac5fd10c67f3028}\label{class_neural_net_1_1_flatten_a715f3cb27e42842f4ac5fd10c67f3028} 
+\index{NeuralNet::Flatten@{NeuralNet::Flatten}!flatten@{flatten}}
+\index{flatten@{flatten}!NeuralNet::Flatten@{NeuralNet::Flatten}}
+\doxysubsubsection{\texorpdfstring{flatten()}{flatten()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xd Neural\+Net\+::\+Flatten\+::flatten (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ double $>$ $>$ $>$}]{inputs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method flattens a 3D vector into a 2D Eigen\+::\+Matrix\+Xd. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inputs} & The 3D vector to be flattened \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+Eigen\+::\+Matrix\+Xd The flattened 2D Eigen\+::\+Matrix\+Xd 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Neural\+Net/layers/Flatten.\+hpp\end{DoxyCompactItemize}

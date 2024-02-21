@@ -1,0 +1,276 @@
+\doxysection{Neural\+Net\+::Network Class Reference}
+\hypertarget{class_neural_net_1_1_network}{}\label{class_neural_net_1_1_network}\index{NeuralNet::Network@{NeuralNet::Network}}
+Inheritance diagram for Neural\+Net\+::Network\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_neural_net_1_1_network}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{class_neural_net_1_1_network_aa251283de01587f20f33bc76cc9fe77d}{setup}} (const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_neural_net_1_1_optimizer}{Optimizer}} $>$ \&optimizer, LOSS loss=LOSS\+::\+QUADRATIC)
+\begin{DoxyCompactList}\small\item\em Method that sets up the model\textquotesingle{}s hyperparameter. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_neural_net_1_1_network_a2c37b6f4103bc9d4cb13b6170ac42b40}{add\+Layer}} (std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_neural_net_1_1_layer}{Layer}} $>$ \&layer)
+\begin{DoxyCompactList}\small\item\em Method to add a layer to the network. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_neural_net_1_1_network_a0b56dc077a428d0346ee0a4d9458081a}{set\+Loss}} (LOSS loss)
+\begin{DoxyCompactList}\small\item\em This method will set the network\textquotesingle{}s loss function. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_neural_net_1_1_layer}{Layer}} $>$ \mbox{\hyperlink{class_neural_net_1_1_network_a304a3899e6f0921a67e61e30035d5975}{get\+Layer}} (int index) const
+\begin{DoxyCompactList}\small\item\em This method will return the \doxylink{class_neural_net_1_1_layer}{Layer} residing at the specified index. \end{DoxyCompactList}\item 
+std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_neural_net_1_1_layer}{Layer}} $>$ \mbox{\hyperlink{class_neural_net_1_1_network_ae4f8858beaf24d4b2e038e2db67db625}{get\+Output\+Layer}} () const
+\begin{DoxyCompactList}\small\item\em This method will return the output layer (the last layer of the network) \end{DoxyCompactList}\item 
+size\+\_\+t \mbox{\hyperlink{class_neural_net_1_1_network_a0b699dafa398dc219a05d7bf62a8424d}{get\+Num\+Layers}} () const
+\begin{DoxyCompactList}\small\item\em This method will get you the number of layers currently in the \doxylink{class_neural_net_1_1_network}{Network}. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_neural_net_1_1_network_ac733e5b1200daf25377aa2e1aa96a3f2}{train}} (std\+::vector$<$ std\+::vector$<$ double $>$ $>$ inputs, std\+::vector$<$ double $>$ labels, int epochs=1)
+\begin{DoxyCompactList}\small\item\em This method will Train the model with the given inputs and labels. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_neural_net_1_1_network_a9763cca4445dac9177f61c46282716f7}{train}} (std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ double $>$ $>$ $>$ inputs, std\+::vector$<$ double $>$ labels, int epochs=1)
+\begin{DoxyCompactList}\small\item\em This method will Train the model with the given inputs and labels. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_neural_net_1_1_network_af02fe05cffe41287815945181116d7b1}{train}} (\mbox{\hyperlink{class_neural_net_1_1_training_data}{Training\+Data}}$<$ std\+::vector$<$ std\+::vector$<$ double $>$ $>$, std\+::vector$<$ double $>$ $>$ training\+Data, int epochs=1)
+\begin{DoxyCompactList}\small\item\em This method will train the model with the given \doxylink{class_neural_net_1_1_training_data}{Training\+Data}. \end{DoxyCompactList}\item 
+double \mbox{\hyperlink{class_neural_net_1_1_network_a0393730f4ed84eec047659c3005ef47d}{train}} (\mbox{\hyperlink{class_neural_net_1_1_training_data}{Training\+Data}}$<$ std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ double $>$ $>$ $>$, std\+::vector$<$ double $>$ $>$ training\+Data, int epochs=1)
+\begin{DoxyCompactList}\small\item\em This method will train the model with the given \doxylink{class_neural_net_1_1_training_data}{Training\+Data}. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_neural_net_1_1_network_af25184f44a9b9d561edb99e48cd0ff77}{predict}} (std\+::vector$<$ std\+::vector$<$ double $>$ $>$ inputs)
+\begin{DoxyCompactList}\small\item\em This model will try to make predictions based off the inputs passed. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_neural_net_1_1_network_a5f13aaa01d86d8952910e92678c2b6f1}{predict}} (std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ double $>$ $>$ $>$ inputs)
+\begin{DoxyCompactList}\small\item\em This model will try to make predictions based off the inputs passed. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_network_ab2f44cbb59a08132f4c843e5225bba0e}\label{class_neural_net_1_1_network_ab2f44cbb59a08132f4c843e5225bba0e} 
+class {\bfseries cereal\+::access}
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Static Public Member Functions inherited from \mbox{\hyperlink{class_neural_net_1_1_model}{Neural\+Net\+::\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T , typename  = typename std\+::enable\+\_\+if$<$std\+::is\+\_\+base\+\_\+of$<$\+Model, T$>$\+::value$>$\+::type$>$ }\\static void \mbox{\hyperlink{class_neural_net_1_1_model_aa6bf6ea54a2427d3e328e3f4d8c7740f}{save\+\_\+to\+\_\+file}} (const std\+::string \&filename, T model)
+\begin{DoxyCompactList}\small\item\em This method will save (by serializing) the model passed as argument to a .bin file. \end{DoxyCompactList}\item 
+{\footnotesize template$<$typename T , typename  = typename std\+::enable\+\_\+if$<$std\+::is\+\_\+base\+\_\+of$<$\+Model, T$>$\+::value$>$\+::type$>$ }\\static void \mbox{\hyperlink{class_neural_net_1_1_model_ae2248524f9f678322c2686f7e4a52d50}{load\+\_\+from\+\_\+file}} (const std\+::string \&filename, T \&model)
+\begin{DoxyCompactList}\small\item\em This static method loads a \doxylink{class_neural_net_1_1_model}{Model} from a file and assigns it to the supposedly "{}empty"{} model passed as argument. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions inherited from \mbox{\hyperlink{class_neural_net_1_1_model}{Neural\+Net\+::\+Model}}}
+\begin{DoxyCompactItemize}
+\item 
+void {\bfseries register\+Signals} () const
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_neural_net_1_1_network_a2c37b6f4103bc9d4cb13b6170ac42b40}\label{class_neural_net_1_1_network_a2c37b6f4103bc9d4cb13b6170ac42b40} 
+\index{NeuralNet::Network@{NeuralNet::Network}!addLayer@{addLayer}}
+\index{addLayer@{addLayer}!NeuralNet::Network@{NeuralNet::Network}}
+\doxysubsubsection{\texorpdfstring{addLayer()}{addLayer()}}
+{\footnotesize\ttfamily void Network\+::add\+Layer (\begin{DoxyParamCaption}\item[{std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_neural_net_1_1_layer}{Layer}} $>$ \&}]{layer }\end{DoxyParamCaption})}
+
+
+
+Method to add a layer to the network. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em layer} & the layer to add to the model it should be of type \doxylink{class_neural_net_1_1_layer}{Layer} \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_neural_net_1_1_network_a304a3899e6f0921a67e61e30035d5975}\label{class_neural_net_1_1_network_a304a3899e6f0921a67e61e30035d5975} 
+\index{NeuralNet::Network@{NeuralNet::Network}!getLayer@{getLayer}}
+\index{getLayer@{getLayer}!NeuralNet::Network@{NeuralNet::Network}}
+\doxysubsubsection{\texorpdfstring{getLayer()}{getLayer()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_neural_net_1_1_layer}{Layer}} $>$ Network\+::get\+Layer (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption}) const}
+
+
+
+This method will return the \doxylink{class_neural_net_1_1_layer}{Layer} residing at the specified index. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em index} & The index from which to fetch the layer\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\doxylink{class_neural_net_1_1_layer}{Layer} at specified index 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_network_a0b699dafa398dc219a05d7bf62a8424d}\label{class_neural_net_1_1_network_a0b699dafa398dc219a05d7bf62a8424d} 
+\index{NeuralNet::Network@{NeuralNet::Network}!getNumLayers@{getNumLayers}}
+\index{getNumLayers@{getNumLayers}!NeuralNet::Network@{NeuralNet::Network}}
+\doxysubsubsection{\texorpdfstring{getNumLayers()}{getNumLayers()}}
+{\footnotesize\ttfamily size\+\_\+t Network\+::get\+Num\+Layers (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+This method will get you the number of layers currently in the \doxylink{class_neural_net_1_1_network}{Network}. 
+
+\begin{DoxyReturn}{Returns}
+A size\+\_\+t representing the number of layers in the \doxylink{class_neural_net_1_1_network}{Network} 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_network_ae4f8858beaf24d4b2e038e2db67db625}\label{class_neural_net_1_1_network_ae4f8858beaf24d4b2e038e2db67db625} 
+\index{NeuralNet::Network@{NeuralNet::Network}!getOutputLayer@{getOutputLayer}}
+\index{getOutputLayer@{getOutputLayer}!NeuralNet::Network@{NeuralNet::Network}}
+\doxysubsubsection{\texorpdfstring{getOutputLayer()}{getOutputLayer()}}
+{\footnotesize\ttfamily std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_neural_net_1_1_layer}{Layer}} $>$ Network\+::get\+Output\+Layer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+This method will return the output layer (the last layer of the network) 
+
+\begin{DoxyReturn}{Returns}
+The output \doxylink{class_neural_net_1_1_layer}{Layer} 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_network_af25184f44a9b9d561edb99e48cd0ff77}\label{class_neural_net_1_1_network_af25184f44a9b9d561edb99e48cd0ff77} 
+\index{NeuralNet::Network@{NeuralNet::Network}!predict@{predict}}
+\index{predict@{predict}!NeuralNet::Network@{NeuralNet::Network}}
+\doxysubsubsection{\texorpdfstring{predict()}{predict()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xd Network\+::predict (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::vector$<$ double $>$ $>$}]{inputs }\end{DoxyParamCaption})}
+
+
+
+This model will try to make predictions based off the inputs passed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inputs} & The inputs that will be passed through the network\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+This method will return the outputs of the neural network 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_network_a5f13aaa01d86d8952910e92678c2b6f1}\label{class_neural_net_1_1_network_a5f13aaa01d86d8952910e92678c2b6f1} 
+\index{NeuralNet::Network@{NeuralNet::Network}!predict@{predict}}
+\index{predict@{predict}!NeuralNet::Network@{NeuralNet::Network}}
+\doxysubsubsection{\texorpdfstring{predict()}{predict()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xd Network\+::predict (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ double $>$ $>$ $>$}]{inputs }\end{DoxyParamCaption})}
+
+
+
+This model will try to make predictions based off the inputs passed. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inputs} & The inputs that will be passed through the network\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+This method will return the outputs of the neural network 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_network_a0b56dc077a428d0346ee0a4d9458081a}\label{class_neural_net_1_1_network_a0b56dc077a428d0346ee0a4d9458081a} 
+\index{NeuralNet::Network@{NeuralNet::Network}!setLoss@{setLoss}}
+\index{setLoss@{setLoss}!NeuralNet::Network@{NeuralNet::Network}}
+\doxysubsubsection{\texorpdfstring{setLoss()}{setLoss()}}
+{\footnotesize\ttfamily void Network\+::set\+Loss (\begin{DoxyParamCaption}\item[{LOSS}]{loss }\end{DoxyParamCaption})}
+
+
+
+This method will set the network\textquotesingle{}s loss function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em loss} & The loss function (choose from the list of LOSS enums) \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_neural_net_1_1_network_aa251283de01587f20f33bc76cc9fe77d}\label{class_neural_net_1_1_network_aa251283de01587f20f33bc76cc9fe77d} 
+\index{NeuralNet::Network@{NeuralNet::Network}!setup@{setup}}
+\index{setup@{setup}!NeuralNet::Network@{NeuralNet::Network}}
+\doxysubsubsection{\texorpdfstring{setup()}{setup()}}
+{\footnotesize\ttfamily void Network\+::setup (\begin{DoxyParamCaption}\item[{const std\+::shared\+\_\+ptr$<$ \mbox{\hyperlink{class_neural_net_1_1_optimizer}{Optimizer}} $>$ \&}]{optimizer,  }\item[{LOSS}]{loss = {\ttfamily LOSS\+:\+:QUADRATIC} }\end{DoxyParamCaption})}
+
+
+
+Method that sets up the model\textquotesingle{}s hyperparameter. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em optimizer} & An \doxylink{class_neural_net_1_1_optimizer}{Optimizer}\textquotesingle{}s child class \\
+\hline
+{\em epochs} & The number of epochs \\
+\hline
+{\em loss} & The loss function \\
+\hline
+\end{DoxyParams}
+\Hypertarget{class_neural_net_1_1_network_ac733e5b1200daf25377aa2e1aa96a3f2}\label{class_neural_net_1_1_network_ac733e5b1200daf25377aa2e1aa96a3f2} 
+\index{NeuralNet::Network@{NeuralNet::Network}!train@{train}}
+\index{train@{train}!NeuralNet::Network@{NeuralNet::Network}}
+\doxysubsubsection{\texorpdfstring{train()}{train()}\hspace{0.1cm}{\footnotesize\ttfamily [1/4]}}
+{\footnotesize\ttfamily double Network\+::train (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::vector$<$ double $>$ $>$}]{inputs,  }\item[{std\+::vector$<$ double $>$}]{labels,  }\item[{int}]{epochs = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+This method will Train the model with the given inputs and labels. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inputs} & The inputs that will be passed to the model \\
+\hline
+{\em labels} & The labels that represent the expected outputs of the model \\
+\hline
+{\em epochs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The last training\textquotesingle{}s loss 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_network_a9763cca4445dac9177f61c46282716f7}\label{class_neural_net_1_1_network_a9763cca4445dac9177f61c46282716f7} 
+\index{NeuralNet::Network@{NeuralNet::Network}!train@{train}}
+\index{train@{train}!NeuralNet::Network@{NeuralNet::Network}}
+\doxysubsubsection{\texorpdfstring{train()}{train()}\hspace{0.1cm}{\footnotesize\ttfamily [2/4]}}
+{\footnotesize\ttfamily double Network\+::train (\begin{DoxyParamCaption}\item[{std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ double $>$ $>$ $>$}]{inputs,  }\item[{std\+::vector$<$ double $>$}]{labels,  }\item[{int}]{epochs = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+This method will Train the model with the given inputs and labels. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em inputs} & The inputs that will be passed to the model \\
+\hline
+{\em labels} & The labels that represent the expected outputs of the model \\
+\hline
+{\em epochs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The last training\textquotesingle{}s loss 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_network_af02fe05cffe41287815945181116d7b1}\label{class_neural_net_1_1_network_af02fe05cffe41287815945181116d7b1} 
+\index{NeuralNet::Network@{NeuralNet::Network}!train@{train}}
+\index{train@{train}!NeuralNet::Network@{NeuralNet::Network}}
+\doxysubsubsection{\texorpdfstring{train()}{train()}\hspace{0.1cm}{\footnotesize\ttfamily [3/4]}}
+{\footnotesize\ttfamily double Network\+::train (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_neural_net_1_1_training_data}{Training\+Data}}$<$ std\+::vector$<$ std\+::vector$<$ double $>$ $>$, std\+::vector$<$ double $>$ $>$}]{training\+Data,  }\item[{int}]{epochs = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+This method will train the model with the given \doxylink{class_neural_net_1_1_training_data}{Training\+Data}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em training\+Data} & the data passed through the \doxylink{class_neural_net_1_1_training_data}{Training\+Data} class \\
+\hline
+{\em epochs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The last training\textquotesingle{}s loss 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_network_a0393730f4ed84eec047659c3005ef47d}\label{class_neural_net_1_1_network_a0393730f4ed84eec047659c3005ef47d} 
+\index{NeuralNet::Network@{NeuralNet::Network}!train@{train}}
+\index{train@{train}!NeuralNet::Network@{NeuralNet::Network}}
+\doxysubsubsection{\texorpdfstring{train()}{train()}\hspace{0.1cm}{\footnotesize\ttfamily [4/4]}}
+{\footnotesize\ttfamily double Network\+::train (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{class_neural_net_1_1_training_data}{Training\+Data}}$<$ std\+::vector$<$ std\+::vector$<$ std\+::vector$<$ double $>$ $>$ $>$, std\+::vector$<$ double $>$ $>$}]{training\+Data,  }\item[{int}]{epochs = {\ttfamily 1} }\end{DoxyParamCaption})}
+
+
+
+This method will train the model with the given \doxylink{class_neural_net_1_1_training_data}{Training\+Data}. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em training\+Data} & the data passed through the \doxylink{class_neural_net_1_1_training_data}{Training\+Data} class \\
+\hline
+{\em epochs} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The last training\textquotesingle{}s loss 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Neural\+Net/Network.\+hpp\item 
+src/\+Neural\+Net/Network.\+cpp\end{DoxyCompactItemize}

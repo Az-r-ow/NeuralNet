@@ -1,0 +1,240 @@
+\doxysection{Layer.\+hpp}
+\hypertarget{_layer_8hpp_source}{}\label{_layer_8hpp_source}\index{src/NeuralNet/layers/Layer.hpp@{src/NeuralNet/layers/Layer.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <cstdlib>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ <random>}}
+\DoxyCodeLine{00006\ \textcolor{preprocessor}{\#include\ <string>}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#include\ <tuple>}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#include\ <cereal/access.hpp>}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#include\ <cereal/types/common.hpp>}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <cereal/types/base\_class.hpp>}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ <cereal/types/polymorphic.hpp>}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ <cereal/archives/portable\_binary.hpp>}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#include\ <cereal/archives/binary.hpp>}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#include\ <Eigen/Dense>}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#include\ "{}utils/Functions.hpp"{}}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#include\ "{}utils/Serialize.hpp"{}}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#include\ "{}utils/Enums.hpp"{}}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#include\ "{}activations/activations.hpp"{}}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#include\ "{}Network.hpp"{}}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{keyword}{namespace\ }NeuralNet}
+\DoxyCodeLine{00022\ \{}
+\DoxyCodeLine{00023\ \ \ \textcolor{comment}{//\ Should\ be\ updated\ when\ a\ new\ layer\ type\ is\ added}}
+\DoxyCodeLine{00024\ \ \ \textcolor{keyword}{enum\ class}\ LayerType}
+\DoxyCodeLine{00025\ \ \ \{}
+\DoxyCodeLine{00026\ \ \ \ \ DEFAULT,}
+\DoxyCodeLine{00027\ \ \ \ \ DENSE,}
+\DoxyCodeLine{00028\ \ \ \ \ FLATTEN}
+\DoxyCodeLine{00029\ \ \ \};}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_neural_net_1_1_layer}{Layer}}}
+\DoxyCodeLine{00032\ \ \ \{}
+\DoxyCodeLine{00033\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_neural_net_1_1_network}{Network}};}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00036\ \ \ \ \ \mbox{\hyperlink{class_neural_net_1_1_layer}{Layer}}(\textcolor{keywordtype}{int}\ nNeurons,\ ACTIVATION\ activation\ =\ ACTIVATION::SIGMOID,\ WEIGHT\_INIT\ weightInit\ =\ WEIGHT\_INIT::RANDOM,\ \textcolor{keywordtype}{int}\ bias\ =\ 0)}
+\DoxyCodeLine{00037\ \ \ \ \ \{}
+\DoxyCodeLine{00038\ \ \ \ \ \ \ this-\/>bias\ =\ bias;}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ this-\/>nNeurons\ =\ nNeurons;}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ this-\/>weightInit\ =\ weightInit;}
+\DoxyCodeLine{00041\ \ \ \ \ \ \ this-\/>activation\ =\ activation;}
+\DoxyCodeLine{00042\ \ \ \ \ \ \ this-\/>setActivation(activation);}
+\DoxyCodeLine{00043\ \ \ \ \ \};}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{class_neural_net_1_1_layer_afa59ddacc5796712e5061ed055833fde}{getNumNeurons}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00051\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ nNeurons;}
+\DoxyCodeLine{00053\ \ \ \ \ \};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00060\ \ \ \ \ Eigen::MatrixXd\ \mbox{\hyperlink{class_neural_net_1_1_layer_ac6448e3a5415b1ea351ca22fa2b895a0}{getWeights}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00061\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ weights;}
+\DoxyCodeLine{00063\ \ \ \ \ \}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00070\ \ \ \ \ Eigen::MatrixXd\ \mbox{\hyperlink{class_neural_net_1_1_layer_a296c21f474dbe7fc2926a5e0b7ab87aa}{getBiases}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00071\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ biases;}
+\DoxyCodeLine{00073\ \ \ \ \ \}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00080\ \ \ \ \ Eigen::MatrixXd\ \mbox{\hyperlink{class_neural_net_1_1_layer_a1b86e971a93bed55690ecf1840207c34}{getOutputs}}()\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00082\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ outputs;}
+\DoxyCodeLine{00083\ \ \ \ \ \};}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_neural_net_1_1_layer_a7e41c0fcc3f9e8fdf2ce506547670846}{printWeights}}()}
+\DoxyCodeLine{00089\ \ \ \ \ \{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ std::cout\ <<\ this-\/>weights\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00092\ \ \ \ \ \};}
+\DoxyCodeLine{00093\ }
+\DoxyCodeLine{00097\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_neural_net_1_1_layer_ab2b004ab5c1bb057f4ca568b55a47ef4}{printOutputs}}()}
+\DoxyCodeLine{00098\ \ \ \ \ \{}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ std::cout\ <<\ this-\/>outputs\ <<\ \textcolor{stringliteral}{"{}\(\backslash\)n"{}};}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00101\ \ \ \ \ \};}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \mbox{\hyperlink{class_neural_net_1_1_layer}{\string~Layer}}()\{\};}
+\DoxyCodeLine{00104\ }
+\DoxyCodeLine{00105\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{comment}{//\ non-\/public\ serialization}}
+\DoxyCodeLine{00107\ \ \ \ \ \textcolor{keyword}{friend}\ \textcolor{keyword}{class\ }cereal::access;}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \ \ \ \ \textcolor{keywordtype}{double}\ bias;}
+\DoxyCodeLine{00110\ \ \ \ \ Eigen::MatrixXd\ biases;}
+\DoxyCodeLine{00111\ \ \ \ \ WEIGHT\_INIT\ weightInit;}
+\DoxyCodeLine{00112\ \ \ \ \ Eigen::MatrixXd\ outputs;}
+\DoxyCodeLine{00113\ \ \ \ \ Eigen::MatrixXd\ weights;}
+\DoxyCodeLine{00114\ \ \ \ \ ACTIVATION\ activation;}
+\DoxyCodeLine{00115\ \ \ \ \ Eigen::MatrixXd\ (*activate)(\textcolor{keyword}{const}\ Eigen::MatrixXd\ \&);}
+\DoxyCodeLine{00116\ \ \ \ \ Eigen::MatrixXd\ (*diff)(\textcolor{keyword}{const}\ Eigen::MatrixXd\ \&);}
+\DoxyCodeLine{00117\ }
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordtype}{void}\ init(\textcolor{keywordtype}{int}\ numRows)}
+\DoxyCodeLine{00123\ \ \ \ \ \{}
+\DoxyCodeLine{00124\ \ \ \ \ \ \ \textcolor{comment}{//\ First\ and\ foremost\ init\ the\ biases\ and\ the\ outputs}}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ mean\ =\ 0,\ stddev\ =\ 0;}
+\DoxyCodeLine{00126\ \ \ \ \ \ \ this-\/>weights\ =\ Eigen::MatrixXd::Zero(numRows,\ nNeurons);}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00128\ \ \ \ \ \ \ \textcolor{comment}{//\ This\ is\ going\ to\ be\ used\ for\ testing}}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (this-\/>weightInit\ ==\ WEIGHT\_INIT::CONSTANT)}
+\DoxyCodeLine{00130\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ this-\/>weights\ =\ Eigen::MatrixXd::Constant(numRows,\ nNeurons,\ 1);}
+\DoxyCodeLine{00132\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00134\ }
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \textcolor{comment}{//\ calculate\ mean\ and\ stddev\ based\ on\ init\ algo}}
+\DoxyCodeLine{00136\ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (this-\/>weightInit)}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00138\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ WEIGHT\_INIT::GLOROT:}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sqrt(fan\_avg)}}
+\DoxyCodeLine{00140\ \ \ \ \ \ \ \ \ stddev\ =\ sqrt(\textcolor{keyword}{static\_cast<}\textcolor{keywordtype}{double}\textcolor{keyword}{>}(2)\ /\ (numRows\ +\ nNeurons));}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00142\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ WEIGHT\_INIT::HE:}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sqrt(2/fan\_in)}}
+\DoxyCodeLine{00144\ \ \ \ \ \ \ \ \ stddev\ =\ sqrt(2.0\ /\ numRows);}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00146\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ WEIGHT\_INIT::LECUN:}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ sqrt(1/fan\_in)}}
+\DoxyCodeLine{00148\ \ \ \ \ \ \ \ \ stddev\ =\ sqrt(1.0\ /\ numRows);}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00150\ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00152\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00153\ }
+\DoxyCodeLine{00154\ \ \ \ \ \ \ \textcolor{comment}{//\ Init\ the\ weights}}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ this-\/>weightInit\ ==\ WEIGHT\_INIT::RANDOM\ ?\ randomWeightInit(\&(this-\/>weights),\ -\/1,\ 1)\ :\ randomDistMatrixInit(\&(this-\/>weights),\ mean,\ stddev);}
+\DoxyCodeLine{00156\ \ \ \ \ \}}
+\DoxyCodeLine{00157\ }
+\DoxyCodeLine{00165\ \ \ \ \ \textcolor{keyword}{virtual}\ Eigen::MatrixXd\ feedInputs(std::vector<double>\ inputs)}
+\DoxyCodeLine{00166\ \ \ \ \ \{}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>feedInputs(Eigen::MatrixXd::Map(\&inputs[0],\ inputs.size(),\ 1));}
+\DoxyCodeLine{00168\ \ \ \ \ \};}
+\DoxyCodeLine{00169\ }
+\DoxyCodeLine{00177\ \ \ \ \ \textcolor{keyword}{virtual}\ Eigen::MatrixXd\ feedInputs(Eigen::MatrixXd\ inputs)}
+\DoxyCodeLine{00178\ \ \ \ \ \{}
+\DoxyCodeLine{00179\ \ \ \ \ \ \ \textcolor{comment}{//\ Layer\ is\ "{}input"{}\ layer}}
+\DoxyCodeLine{00180\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (weights.rows()\ ==\ 0)}
+\DoxyCodeLine{00181\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00182\ \ \ \ \ \ \ \ \ this-\/>\mbox{\hyperlink{class_neural_net_1_1_layer_ae81f8d543115f7be083f2a57d9baa551}{setOutputs}}(inputs);}
+\DoxyCodeLine{00183\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ inputs;}
+\DoxyCodeLine{00184\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ \ \ \ \ \ \ inputs\ =\ inputs.cols()\ ==\ weights.rows()\ ?\ inputs\ :\ inputs.transpose();}
+\DoxyCodeLine{00187\ }
+\DoxyCodeLine{00188\ \ \ \ \ \ \ assert(inputs.cols()\ ==\ weights.rows());}
+\DoxyCodeLine{00189\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ this-\/>computeOutputs(inputs);}
+\DoxyCodeLine{00190\ \ \ \ \ \};}
+\DoxyCodeLine{00191\ }
+\DoxyCodeLine{00199\ \ \ \ \ \textcolor{keyword}{virtual}\ \textcolor{keywordtype}{void}\ feedInputs(std::vector<std::vector<std::vector<double>>>\ inputs)}
+\DoxyCodeLine{00200\ \ \ \ \ \{}
+\DoxyCodeLine{00201\ \ \ \ \ \ \ assert(\textcolor{keyword}{false}\ \&\&\ \textcolor{stringliteral}{"{}Cannot\ feed\ 3d\ vectors,\ a\ Flatten\ layer\ could\ do\ it\ though"{}});}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00203\ \ \ \ \ \};}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00212\ \ \ \ \ Eigen::MatrixXd\ computeOutputs(Eigen::MatrixXd\ inputs)}
+\DoxyCodeLine{00213\ \ \ \ \ \{}
+\DoxyCodeLine{00214\ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ the\ biases\ based\ on\ the\ input's\ size}}
+\DoxyCodeLine{00215\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (biases.rows()\ ==\ 0\ \&\&\ biases.cols()\ ==\ 0)}
+\DoxyCodeLine{00216\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00217\ \ \ \ \ \ \ \ \ biases\ =\ Eigen::MatrixXd::Constant(1,\ nNeurons,\ bias);}
+\DoxyCodeLine{00218\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \ \ \ \ \ \ \textcolor{comment}{//\ Weighted\ sum}}
+\DoxyCodeLine{00221\ \ \ \ \ \ \ Eigen::MatrixXd\ wSum\ =\ inputs\ *\ weights;}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ \ \ wSum.rowwise()\ +=\ biases.row(0);}
+\DoxyCodeLine{00224\ }
+\DoxyCodeLine{00225\ \ \ \ \ \ \ outputs\ =\ activate(wSum);}
+\DoxyCodeLine{00226\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ outputs;}
+\DoxyCodeLine{00227\ \ \ \ \ \};}
+\DoxyCodeLine{00228\ }
+\DoxyCodeLine{00236\ \ \ \ \ \textcolor{keywordtype}{void}\ setActivation(ACTIVATION\ activation)}
+\DoxyCodeLine{00237\ \ \ \ \ \{}
+\DoxyCodeLine{00238\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (type\ ==\ LayerType::FLATTEN)}
+\DoxyCodeLine{00239\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00240\ \ \ \ \ \ \ \ \ this-\/>activate\ =\ \mbox{\hyperlink{class_neural_net_1_1_activation_a2f6758fa2bb12c32cf5c02bff19c2864}{Activation::activate}};}
+\DoxyCodeLine{00241\ \ \ \ \ \ \ \ \ this-\/>diff\ =\ \mbox{\hyperlink{class_neural_net_1_1_activation_a14c8727d059ff60ff1a4aef683910ab1}{Activation::diff}};}
+\DoxyCodeLine{00242\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00243\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00244\ }
+\DoxyCodeLine{00245\ \ \ \ \ \ \ \textcolor{keywordflow}{switch}\ (activation)}
+\DoxyCodeLine{00246\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00247\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ACTIVATION::SIGMOID:}
+\DoxyCodeLine{00248\ \ \ \ \ \ \ \ \ this-\/>activate\ =\ Sigmoid::activate;}
+\DoxyCodeLine{00249\ \ \ \ \ \ \ \ \ this-\/>diff\ =\ Sigmoid::diff;}
+\DoxyCodeLine{00250\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00251\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ACTIVATION::RELU:}
+\DoxyCodeLine{00252\ \ \ \ \ \ \ \ \ this-\/>activate\ =\ Relu::activate;}
+\DoxyCodeLine{00253\ \ \ \ \ \ \ \ \ this-\/>diff\ =\ Relu::diff;}
+\DoxyCodeLine{00254\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00255\ \ \ \ \ \ \ \textcolor{keywordflow}{case}\ ACTIVATION::SOFTMAX:}
+\DoxyCodeLine{00256\ \ \ \ \ \ \ \ \ this-\/>activate\ =\ Softmax::activate;}
+\DoxyCodeLine{00257\ \ \ \ \ \ \ \ \ this-\/>diff\ =\ Softmax::diff;}
+\DoxyCodeLine{00258\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{break};}
+\DoxyCodeLine{00262\ \ \ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00263\ \ \ \ \ \ \ \ \ assert(\textcolor{keyword}{false}\ \&\&\ \textcolor{stringliteral}{"{}Activation\ not\ defined"{}});}
+\DoxyCodeLine{00264\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \ \ \ \ \ \ \textcolor{keywordflow}{return};}
+\DoxyCodeLine{00267\ \ \ \ \ \};}
+\DoxyCodeLine{00268\ }
+\DoxyCodeLine{00269\ \ \ \ \ \textcolor{comment}{//\ Necessary\ function\ for\ serializing\ Layer}}
+\DoxyCodeLine{00270\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{00271\ \ \ \ \ \textcolor{keywordtype}{void}\ save(Archive\ \&archive)\textcolor{keyword}{\ const}}
+\DoxyCodeLine{00272\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00273\ \ \ \ \ \ \ archive(nNeurons,\ weights,\ outputs,\ biases,\ activation,\ type);}
+\DoxyCodeLine{00274\ \ \ \ \ \};}
+\DoxyCodeLine{00275\ }
+\DoxyCodeLine{00276\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{class}\ Archive>}
+\DoxyCodeLine{00277\ \ \ \ \ \textcolor{keywordtype}{void}\ load(Archive\ \&archive)}
+\DoxyCodeLine{00278\ \ \ \ \ \{}
+\DoxyCodeLine{00279\ \ \ \ \ \ \ archive(nNeurons,\ weights,\ outputs,\ biases,\ activation,\ type);}
+\DoxyCodeLine{00280\ \ \ \ \ \ \ setActivation(activation);}
+\DoxyCodeLine{00281\ \ \ \ \ \}}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00283\ \ \ \textcolor{keyword}{protected}:}
+\DoxyCodeLine{00284\ \ \ \ \ Layer()\{\};\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Necessary\ for\ serialization}}
+\DoxyCodeLine{00285\ \ \ \ \ Layer(std::tuple<int,\ int>\ inputShape)\ :\ nNeurons(std::get<0>(inputShape)\ *\ std::get<1>(inputShape))\{\};\ \textcolor{comment}{//\ Used\ in\ Flatten\ layer}}
+\DoxyCodeLine{00286\ }
+\DoxyCodeLine{00287\ \ \ \ \ \textcolor{keywordtype}{int}\ nNeurons;\ \textcolor{comment}{//\ Number\ of\ neurons}}
+\DoxyCodeLine{00288\ \ \ \ \ LayerType\ type\ =\ LayerType::DEFAULT;}
+\DoxyCodeLine{00289\ }
+\DoxyCodeLine{00299\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_neural_net_1_1_layer_ae81f8d543115f7be083f2a57d9baa551}{setOutputs}}(std::vector<double>\ outputs)}
+\DoxyCodeLine{00300\ \ \ \ \ \{}
+\DoxyCodeLine{00301\ \ \ \ \ \ \ assert(outputs.size()\ ==\ nNeurons);}
+\DoxyCodeLine{00302\ \ \ \ \ \ \ this-\/>outputs\ =\ Eigen::MatrixXd\ ::Map(\&outputs[0],\ this-\/>\mbox{\hyperlink{class_neural_net_1_1_layer_afa59ddacc5796712e5061ed055833fde}{getNumNeurons}}(),\ 1);}
+\DoxyCodeLine{00303\ \ \ \ \ \};}
+\DoxyCodeLine{00304\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_neural_net_1_1_layer_ae81f8d543115f7be083f2a57d9baa551}{setOutputs}}(Eigen::MatrixXd\ outputs)\ \textcolor{comment}{//\ used\ for\ the\ Flatten\ Layer}}
+\DoxyCodeLine{00305\ \ \ \ \ \{}
+\DoxyCodeLine{00306\ \ \ \ \ \ \ this-\/>outputs\ =\ outputs;}
+\DoxyCodeLine{00307\ \ \ \ \ \};}
+\DoxyCodeLine{00308\ \ \ \};}
+\DoxyCodeLine{00309\ \}}
+\DoxyCodeLine{00310\ }
+\DoxyCodeLine{00311\ CEREAL\_REGISTER\_TYPE(\mbox{\hyperlink{class_neural_net_1_1_layer}{NeuralNet::Layer}});}
+
+\end{DoxyCode}

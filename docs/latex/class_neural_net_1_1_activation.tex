@@ -1,0 +1,59 @@
+\doxysection{Neural\+Net\+::Activation Class Reference}
+\hypertarget{class_neural_net_1_1_activation}{}\label{class_neural_net_1_1_activation}\index{NeuralNet::Activation@{NeuralNet::Activation}}
+Inheritance diagram for Neural\+Net\+::Activation\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_neural_net_1_1_activation}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_neural_net_1_1_activation_a2f6758fa2bb12c32cf5c02bff19c2864}{activate}} (const Eigen\+::\+Matrix\+Xd \&z)
+\begin{DoxyCompactList}\small\item\em Activate a layer\textquotesingle{}s outputs. \end{DoxyCompactList}\item 
+static Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_neural_net_1_1_activation_a14c8727d059ff60ff1a4aef683910ab1}{diff}} (const Eigen\+::\+Matrix\+Xd \&a)
+\begin{DoxyCompactList}\small\item\em Compute the derivative of the activation function. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_neural_net_1_1_activation_a2f6758fa2bb12c32cf5c02bff19c2864}\label{class_neural_net_1_1_activation_a2f6758fa2bb12c32cf5c02bff19c2864} 
+\index{NeuralNet::Activation@{NeuralNet::Activation}!activate@{activate}}
+\index{activate@{activate}!NeuralNet::Activation@{NeuralNet::Activation}}
+\doxysubsubsection{\texorpdfstring{activate()}{activate()}}
+{\footnotesize\ttfamily static Eigen\+::\+Matrix\+Xd Neural\+Net\+::\+Activation\+::activate (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Xd \&}]{z }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Activate a layer\textquotesingle{}s outputs. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em z} & A matrix representing a layer\textquotesingle{}s outputs\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The activated outputs 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_activation_a14c8727d059ff60ff1a4aef683910ab1}\label{class_neural_net_1_1_activation_a14c8727d059ff60ff1a4aef683910ab1} 
+\index{NeuralNet::Activation@{NeuralNet::Activation}!diff@{diff}}
+\index{diff@{diff}!NeuralNet::Activation@{NeuralNet::Activation}}
+\doxysubsubsection{\texorpdfstring{diff()}{diff()}}
+{\footnotesize\ttfamily static Eigen\+::\+Matrix\+Xd Neural\+Net\+::\+Activation\+::diff (\begin{DoxyParamCaption}\item[{const Eigen\+::\+Matrix\+Xd \&}]{a }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Compute the derivative of the activation function. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em a} & Activated outputs\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+The activated outputs derivatives 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Neural\+Net/activations/Activation.\+hpp\end{DoxyCompactItemize}

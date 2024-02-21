@@ -1,0 +1,110 @@
+\doxysection{Neural\+Net\+::Adam Class Reference}
+\hypertarget{class_neural_net_1_1_adam}{}\label{class_neural_net_1_1_adam}\index{NeuralNet::Adam@{NeuralNet::Adam}}
+
+
+{\ttfamily \#include $<$Adam.\+hpp$>$}
+
+Inheritance diagram for Neural\+Net\+::Adam\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_neural_net_1_1_adam}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{class_neural_net_1_1_adam_aa1280358a1897644a5ba6a616b14de46}{Adam}} (double alpha=0.\+001, double beta1=0.\+9, double beta2=0.\+999, double epsilon=10E-\/8)
+\item 
+void \mbox{\hyperlink{class_neural_net_1_1_adam_a13bcb5f6d78ef95b1d829e09e7e90fe4}{update\+Weights}} (Eigen\+::\+Matrix\+Xd \&weights, const Eigen\+::\+Matrix\+Xd \&weights\+Grad) override
+\begin{DoxyCompactList}\small\item\em This function updates the weights passed based on the selected \doxylink{class_neural_net_1_1_optimizer}{Optimizer} and the weights gradients. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_neural_net_1_1_adam_a957015939ff2cb82d7a9e982d8c5e6fe}{update\+Biases}} (Eigen\+::\+Matrix\+Xd \&biases, const Eigen\+::\+Matrix\+Xd \&biases\+Grad) override
+\begin{DoxyCompactList}\small\item\em This function updates the biases passed based based on the \doxylink{class_neural_net_1_1_optimizer}{Optimizer} and the biases gradients. \end{DoxyCompactList}\item 
+\Hypertarget{class_neural_net_1_1_adam_ab0af1edde94729823d697462e8dbd5e0}\label{class_neural_net_1_1_adam_ab0af1edde94729823d697462e8dbd5e0} 
+{\footnotesize template$<$typename Derived1 , typename Derived2 $>$ }\\void {\bfseries update} (Eigen\+::\+Matrix\+Base$<$ Derived1 $>$ \&param, const Eigen\+::\+Matrix\+Base$<$ Derived2 $>$ \&gradients, Eigen\+::\+Matrix\+Base$<$ Derived1 $>$ \&m, Eigen\+::\+Matrix\+Base$<$ Derived1 $>$ \&v)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_neural_net_1_1_optimizer}{Neural\+Net\+::\+Optimizer}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Optimizer} (double alpha)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_neural_net_1_1_optimizer}{Neural\+Net\+::\+Optimizer}}}
+\begin{DoxyCompactItemize}
+\item 
+double {\bfseries alpha}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\doxylink{class_neural_net_1_1_adam}{Adam} optimizer 
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\Hypertarget{class_neural_net_1_1_adam_aa1280358a1897644a5ba6a616b14de46}\label{class_neural_net_1_1_adam_aa1280358a1897644a5ba6a616b14de46} 
+\index{NeuralNet::Adam@{NeuralNet::Adam}!Adam@{Adam}}
+\index{Adam@{Adam}!NeuralNet::Adam@{NeuralNet::Adam}}
+\doxysubsubsection{\texorpdfstring{Adam()}{Adam()}}
+{\footnotesize\ttfamily Neural\+Net\+::\+Adam\+::\+Adam (\begin{DoxyParamCaption}\item[{double}]{alpha = {\ttfamily 0.001},  }\item[{double}]{beta1 = {\ttfamily 0.9},  }\item[{double}]{beta2 = {\ttfamily 0.999},  }\item[{double}]{epsilon = {\ttfamily 10E-\/8} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+\doxylink{class_neural_net_1_1_adam}{Adam} is an optimization algorithm that can be used instead of the classical stochastic gradient descent procedure to update network weights iteratively.
+
+
+\begin{DoxyParams}{Parameters}
+{\em alpha} & Learning rate \\
+\hline
+{\em beta1} & Exponential decay rate for the first moment estimates \\
+\hline
+{\em beta2} & Exponential decay rate for the second moment estimates \\
+\hline
+{\em epsilon} & A small constant for numerical stability \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_neural_net_1_1_adam_a957015939ff2cb82d7a9e982d8c5e6fe}\label{class_neural_net_1_1_adam_a957015939ff2cb82d7a9e982d8c5e6fe} 
+\index{NeuralNet::Adam@{NeuralNet::Adam}!updateBiases@{updateBiases}}
+\index{updateBiases@{updateBiases}!NeuralNet::Adam@{NeuralNet::Adam}}
+\doxysubsubsection{\texorpdfstring{updateBiases()}{updateBiases()}}
+{\footnotesize\ttfamily void Neural\+Net\+::\+Adam\+::update\+Biases (\begin{DoxyParamCaption}\item[{Eigen\+::\+Matrix\+Xd \&}]{biases,  }\item[{const Eigen\+::\+Matrix\+Xd \&}]{biases\+Grad }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This function updates the biases passed based based on the \doxylink{class_neural_net_1_1_optimizer}{Optimizer} and the biases gradients. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em biases} & The biases that should be updated \\
+\hline
+{\em biases\+Grad} & The biases gradient\\
+\hline
+\end{DoxyParams}
+The function will return void, since it only performs an update on the biases passed 
+
+Implements \mbox{\hyperlink{class_neural_net_1_1_optimizer_a47960c3d404be46ef6b0c5c2edc34fe8}{Neural\+Net\+::\+Optimizer}}.
+
+\Hypertarget{class_neural_net_1_1_adam_a13bcb5f6d78ef95b1d829e09e7e90fe4}\label{class_neural_net_1_1_adam_a13bcb5f6d78ef95b1d829e09e7e90fe4} 
+\index{NeuralNet::Adam@{NeuralNet::Adam}!updateWeights@{updateWeights}}
+\index{updateWeights@{updateWeights}!NeuralNet::Adam@{NeuralNet::Adam}}
+\doxysubsubsection{\texorpdfstring{updateWeights()}{updateWeights()}}
+{\footnotesize\ttfamily void Neural\+Net\+::\+Adam\+::update\+Weights (\begin{DoxyParamCaption}\item[{Eigen\+::\+Matrix\+Xd \&}]{weights,  }\item[{const Eigen\+::\+Matrix\+Xd \&}]{weights\+Grad }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This function updates the weights passed based on the selected \doxylink{class_neural_net_1_1_optimizer}{Optimizer} and the weights gradients. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em weights} & The weights that should be updated \\
+\hline
+{\em weights\+Grad} & The weights gradient\\
+\hline
+\end{DoxyParams}
+The function will return void, since it only performs an update on the weights passed 
+
+Implements \mbox{\hyperlink{class_neural_net_1_1_optimizer_ab630b544bc3d5734f207af48e0f4c291}{Neural\+Net\+::\+Optimizer}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Neural\+Net/optimizers/Adam.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,27 @@
+\doxysection{Sigmoid.\+hpp}
+\hypertarget{_sigmoid_8hpp_source}{}\label{_sigmoid_8hpp_source}\index{src/NeuralNet/activations/Sigmoid.hpp@{src/NeuralNet/activations/Sigmoid.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Activation.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{namespace\ }NeuralNet}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00007\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_neural_net_1_1_sigmoid}{Sigmoid}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_neural_net_1_1_activation}{Activation}}}
+\DoxyCodeLine{00008\ \ \ \{}
+\DoxyCodeLine{00009\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keyword}{static}\ Eigen::MatrixXd\ activate(\textcolor{keyword}{const}\ Eigen::MatrixXd\ \&z)}
+\DoxyCodeLine{00011\ \ \ \ \ \{}
+\DoxyCodeLine{00012\ \ \ \ \ \ \ Eigen::MatrixXd\ negZ\ =\ -\/z;}
+\DoxyCodeLine{00013\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ 1\ /\ (1\ +\ negZ.array().exp());}
+\DoxyCodeLine{00014\ \ \ \ \ \};}
+\DoxyCodeLine{00015\ }
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keyword}{static}\ Eigen::MatrixXd\ diff(\textcolor{keyword}{const}\ Eigen::MatrixXd\ \&a)}
+\DoxyCodeLine{00017\ \ \ \ \ \{}
+\DoxyCodeLine{00018\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ a.array()\ *\ (1.0\ -\/\ a.array());}
+\DoxyCodeLine{00019\ \ \ \ \ \};}
+\DoxyCodeLine{00020\ \ \ \};}
+\DoxyCodeLine{00021\ \}}
+
+\end{DoxyCode}

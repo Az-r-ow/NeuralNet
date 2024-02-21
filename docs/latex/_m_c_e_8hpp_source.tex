@@ -1,0 +1,29 @@
+\doxysection{MCE.\+hpp}
+\hypertarget{_m_c_e_8hpp_source}{}\label{_m_c_e_8hpp_source}\index{src/NeuralNet/losses/MCE.hpp@{src/NeuralNet/losses/MCE.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}Loss.hpp"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{keyword}{namespace\ }NeuralNet}
+\DoxyCodeLine{00006\ \{}
+\DoxyCodeLine{00010\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_neural_net_1_1_m_c_e}{MCE}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_neural_net_1_1_loss}{Loss}}}
+\DoxyCodeLine{00011\ \ \ \{}
+\DoxyCodeLine{00012\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keyword}{static}\ \textcolor{keywordtype}{double}\ cmpLoss(\textcolor{keyword}{const}\ Eigen::MatrixXd\ \&o,\ \textcolor{keyword}{const}\ Eigen::MatrixXd\ \&y)}
+\DoxyCodeLine{00014\ \ \ \ \ \{}
+\DoxyCodeLine{00015\ \ \ \ \ \ \ Eigen::MatrixXd\ cMatrix\ =\ y.array()\ *\ o.array().log();}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ -\/cMatrix.sum();}
+\DoxyCodeLine{00018\ \ \ \ \ \};}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ \ \ \ \ \textcolor{keyword}{static}\ Eigen::MatrixXd\ cmpLossGrad(\textcolor{keyword}{const}\ Eigen::MatrixXd\ \&yHat,\ \textcolor{keyword}{const}\ Eigen::MatrixXd\ \&y)}
+\DoxyCodeLine{00021\ \ \ \ \ \{}
+\DoxyCodeLine{00022\ \ \ \ \ \ \ assert(yHat.rows()\ ==\ y.rows()\ \&\&\ yHat.cols()\ ==\ y.cols());}
+\DoxyCodeLine{00023\ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ yHat.array()\ -\/\ y.array();}
+\DoxyCodeLine{00024\ \ \ \ \ \};}
+\DoxyCodeLine{00025\ \ \ \};}
+\DoxyCodeLine{00026\ \}}
+
+\end{DoxyCode}

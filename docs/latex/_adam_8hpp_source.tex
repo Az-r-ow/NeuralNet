@@ -1,0 +1,105 @@
+\doxysection{Adam.\+hpp}
+\hypertarget{_adam_8hpp_source}{}\label{_adam_8hpp_source}\index{src/NeuralNet/optimizers/Adam.hpp@{src/NeuralNet/optimizers/Adam.hpp}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#pragma\ once}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ <Eigen/Core>}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <cmath>}}
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}Optimizer.hpp"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{keyword}{namespace\ }NeuralNet}
+\DoxyCodeLine{00008\ \{}
+\DoxyCodeLine{00012\ \ \ \textcolor{keyword}{class\ }\mbox{\hyperlink{class_neural_net_1_1_adam}{Adam}}\ :\ \textcolor{keyword}{public}\ \mbox{\hyperlink{class_neural_net_1_1_optimizer}{Optimizer}}}
+\DoxyCodeLine{00013\ \ \ \{}
+\DoxyCodeLine{00014\ \ \ \textcolor{keyword}{public}:}
+\DoxyCodeLine{00023\ \ \ \ \ \mbox{\hyperlink{class_neural_net_1_1_adam_aa1280358a1897644a5ba6a616b14de46}{Adam}}(\textcolor{keywordtype}{double}\ alpha\ =\ 0.001,\ \textcolor{keywordtype}{double}\ beta1\ =\ 0.9,\ \textcolor{keywordtype}{double}\ beta2\ =\ 0.999,\ \textcolor{keywordtype}{double}\ epsilon\ =\ 10E-\/8)\ :\ \mbox{\hyperlink{class_neural_net_1_1_optimizer}{Optimizer}}(alpha)}
+\DoxyCodeLine{00024\ \ \ \ \ \{}
+\DoxyCodeLine{00025\ \ \ \ \ \ \ this-\/>beta1\ =\ beta1;}
+\DoxyCodeLine{00026\ \ \ \ \ \ \ this-\/>beta2\ =\ beta2;}
+\DoxyCodeLine{00027\ \ \ \ \ \ \ this-\/>epsilon\ =\ epsilon;}
+\DoxyCodeLine{00028\ \ \ \ \ \};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \ \ \ \ \mbox{\hyperlink{class_neural_net_1_1_adam}{\string~Adam}}()\ \textcolor{keyword}{override}\ =\ \textcolor{keywordflow}{default};}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_neural_net_1_1_adam_a13bcb5f6d78ef95b1d829e09e7e90fe4}{updateWeights}}(Eigen::MatrixXd\ \&weights,\ \textcolor{keyword}{const}\ Eigen::MatrixXd\ \&weightsGrad)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00033\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00034\ \ \ \ \ \ \ this-\/>update(weights,\ weightsGrad,\ mWeights[cl],\ vWeights[cl]);}
+\DoxyCodeLine{00035\ \ \ \ \ \};}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \ \ \ \ \textcolor{keywordtype}{void}\ \mbox{\hyperlink{class_neural_net_1_1_adam_a957015939ff2cb82d7a9e982d8c5e6fe}{updateBiases}}(Eigen::MatrixXd\ \&biases,\ \textcolor{keyword}{const}\ Eigen::MatrixXd\ \&biasesGrad)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00038\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00039\ \ \ \ \ \ \ this-\/>update(biases,\ biasesGrad,\ mBiases[cl],\ vBiases[cl]);}
+\DoxyCodeLine{00040\ \ \ \ \ \ \ this-\/>setCurrentL();}
+\DoxyCodeLine{00041\ \ \ \ \ \};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \ \ \ \ \textcolor{keyword}{template}\ <\textcolor{keyword}{typename}\ Derived1,\ \textcolor{keyword}{typename}\ Derived2>}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordtype}{void}\ update(Eigen::MatrixBase<Derived1>\ \&param,\ \textcolor{keyword}{const}\ Eigen::MatrixBase<Derived2>\ \&gradients,\ Eigen::MatrixBase<Derived1>\ \&m,\ Eigen::MatrixBase<Derived1>\ \&v)}
+\DoxyCodeLine{00045\ \ \ \ \ \{}
+\DoxyCodeLine{00046\ \ \ \ \ \ \ assert(param.rows()\ ==\ gradients.rows()\ \&\&\ param.cols()\ ==\ gradients.cols());}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \ \ \ \ \ \ \textcolor{comment}{//\ increment\ time\ step}}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ t\ =\ t\ +\ 1;}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \textcolor{keywordflow}{if}\ (m.rows()\ ==\ 0\ ||\ m.cols()\ ==\ 0)}
+\DoxyCodeLine{00052\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Initialize\ moment\ matrices\ m\ and\ v}}
+\DoxyCodeLine{00054\ \ \ \ \ \ \ \ \ m\ =\ Eigen::MatrixBase<Derived1>::Zero(param.rows(),\ param.cols());}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ v\ =\ Eigen::MatrixBase<Derived1>::Zero(param.rows(),\ param.cols());}
+\DoxyCodeLine{00056\ \ \ \ \ \ \ \}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \ \ \ \ \ \ \textcolor{comment}{//\ update\ biased\ first\ moment\ estimate}}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ m\ =\ (beta1\ *\ m).array()\ +\ ((1\ -\/\ beta2)\ *\ gradients.array()).array();}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \textcolor{comment}{//\ updated\ biased\ second\ raw\ moment\ estimate}}
+\DoxyCodeLine{00062\ \ \ \ \ \ \ v\ =\ (beta2\ *\ v).array()\ +\ ((1\ -\/\ beta2)\ *\ (gradients.array()\ *\ gradients.array())).array();}
+\DoxyCodeLine{00063\ }
+\DoxyCodeLine{00064\ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ bias-\/corrected\ first\ moment\ estimate}}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ beta1\_t\ =\ std::pow(beta1,\ t);}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \textcolor{comment}{//\ compute\ bias-\/corrected\ second\ raw\ moment\ estimate}}
+\DoxyCodeLine{00068\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ beta2\_t\ =\ std::pow(beta2,\ t);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \ \ \ \ \ \ \textcolor{keywordtype}{double}\ alpha\_t\ =\ alpha\ *\ (sqrt(1\ -\/\ beta2\_t)\ /\ (1\ -\/\ beta1\_t));}
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ \ \ \ \ \ \ \textcolor{comment}{//\ update\ param}}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ param\ =\ param.array()\ -\/\ alpha\_t\ *\ (m.array()\ /\ (v.array().sqrt()\ +\ epsilon));}
+\DoxyCodeLine{00074\ \ \ \ \ \}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \ \ \textcolor{keyword}{private}:}
+\DoxyCodeLine{00077\ \ \ \ \ \textcolor{keywordtype}{double}\ beta1;}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordtype}{double}\ beta2;}
+\DoxyCodeLine{00079\ \ \ \ \ \textcolor{keywordtype}{double}\ epsilon;}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordtype}{int}\ t\ =\ 0;}
+\DoxyCodeLine{00081\ \ \ \ \ \textcolor{keywordtype}{int}\ cl;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Current\ layer\ (should\ be\ initialized\ to\ the\ total\ number\ of\ layers\ -\/\ 0)}}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordtype}{int}\ ll;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{//\ Last\ layer\ (should\ also\ be\ initialized\ to\ numLayers\ -\/\ 1)}}
+\DoxyCodeLine{00083\ \ \ \ \ std::vector<Eigen::MatrixXd>\ mWeights;\ \textcolor{comment}{//\ First-\/moment\ vector\ for\ weights}}
+\DoxyCodeLine{00084\ \ \ \ \ std::vector<Eigen::MatrixXd>\ vWeights;\ \textcolor{comment}{//\ Second-\/moment\ vector\ for\ weights}}
+\DoxyCodeLine{00085\ \ \ \ \ std::vector<Eigen::MatrixXd>\ mBiases;\ \ \textcolor{comment}{//\ First-\/moment\ vector\ for\ biases}}
+\DoxyCodeLine{00086\ \ \ \ \ std::vector<Eigen::MatrixXd>\ vBiases;\ \ \textcolor{comment}{//\ Second-\/moment\ vector\ for\ biases}}
+\DoxyCodeLine{00087\ }
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordtype}{void}\ insiderInit(\textcolor{keywordtype}{size\_t}\ numLayers)\textcolor{keyword}{\ override}}
+\DoxyCodeLine{00089\ \textcolor{keyword}{\ \ \ \ }\{}
+\DoxyCodeLine{00090\ \ \ \ \ \ \ cl\ =\ numLayers\ -\/\ 1;}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ ll\ =\ numLayers\ -\/\ 1;}
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \ \ \ \ \ \ Eigen::MatrixXd\ dotMatrix\ =\ Eigen::MatrixXd::Zero(0,\ 0);}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \textcolor{keywordflow}{for}\ (\textcolor{keywordtype}{int}\ i\ =\ mWeights.size();\ i\ <\ numLayers;\ i++)}
+\DoxyCodeLine{00096\ \ \ \ \ \ \ \{}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ mWeights.push\_back(dotMatrix);}
+\DoxyCodeLine{00098\ \ \ \ \ \ \ \ \ vWeights.push\_back(dotMatrix);}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ mBiases.push\_back(dotMatrix);}
+\DoxyCodeLine{00100\ \ \ \ \ \ \ \ \ vBiases.push\_back(dotMatrix);}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \};}
+\DoxyCodeLine{00102\ \ \ \ \ \}}
+\DoxyCodeLine{00103\ }
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordtype}{void}\ setCurrentL()}
+\DoxyCodeLine{00105\ \ \ \ \ \{}
+\DoxyCodeLine{00106\ \ \ \ \ \ \ \textcolor{comment}{//\ If\ current\ layer\ is\ the\ first\ layer\ set\ it\ to\ the\ last\ layer}}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ cl\ =\ cl\ ==\ 1\ ?\ ll\ :\ cl\ -\/\ 1;}
+\DoxyCodeLine{00108\ \ \ \ \ \}}
+\DoxyCodeLine{00109\ \ \ \};}
+\DoxyCodeLine{00110\ \}}
+
+\end{DoxyCode}

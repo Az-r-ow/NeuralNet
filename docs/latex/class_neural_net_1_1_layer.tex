@@ -1,0 +1,138 @@
+\doxysection{Neural\+Net\+::Layer Class Reference}
+\hypertarget{class_neural_net_1_1_layer}{}\label{class_neural_net_1_1_layer}\index{NeuralNet::Layer@{NeuralNet::Layer}}
+Inheritance diagram for Neural\+Net\+::Layer\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_neural_net_1_1_layer}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_layer_ac26663d66df5dad5989268d7cb8138fc}\label{class_neural_net_1_1_layer_ac26663d66df5dad5989268d7cb8138fc} 
+{\bfseries Layer} (int n\+Neurons, ACTIVATION activation=ACTIVATION\+::\+SIGMOID, WEIGHT\+\_\+\+INIT weight\+Init=WEIGHT\+\_\+\+INIT\+::\+RANDOM, int bias=0)
+\item 
+int \mbox{\hyperlink{class_neural_net_1_1_layer_afa59ddacc5796712e5061ed055833fde}{get\+Num\+Neurons}} () const
+\begin{DoxyCompactList}\small\item\em This method get the number of neurons actually in the layer. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_neural_net_1_1_layer_ac6448e3a5415b1ea351ca22fa2b895a0}{get\+Weights}} () const
+\begin{DoxyCompactList}\small\item\em This method gets the layer\textquotesingle{}s weights. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_neural_net_1_1_layer_a296c21f474dbe7fc2926a5e0b7ab87aa}{get\+Biases}} () const
+\begin{DoxyCompactList}\small\item\em Return the biases of the layer. \end{DoxyCompactList}\item 
+Eigen\+::\+Matrix\+Xd \mbox{\hyperlink{class_neural_net_1_1_layer_a1b86e971a93bed55690ecf1840207c34}{get\+Outputs}} () const
+\begin{DoxyCompactList}\small\item\em This method get the layer\textquotesingle{}s outputs. \end{DoxyCompactList}\item 
+\Hypertarget{class_neural_net_1_1_layer_a7e41c0fcc3f9e8fdf2ce506547670846}\label{class_neural_net_1_1_layer_a7e41c0fcc3f9e8fdf2ce506547670846} 
+void {\bfseries print\+Weights} ()
+\begin{DoxyCompactList}\small\item\em Method to print layer\textquotesingle{}s weights. \end{DoxyCompactList}\item 
+\Hypertarget{class_neural_net_1_1_layer_ab2b004ab5c1bb057f4ca568b55a47ef4}\label{class_neural_net_1_1_layer_ab2b004ab5c1bb057f4ca568b55a47ef4} 
+void {\bfseries print\+Outputs} ()
+\begin{DoxyCompactList}\small\item\em Method to print layer\textquotesingle{}s outputs. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_layer_aa282e671021b0c1ed1d8315e09d2f692}\label{class_neural_net_1_1_layer_aa282e671021b0c1ed1d8315e09d2f692} 
+{\bfseries Layer} (std\+::tuple$<$ int, int $>$ input\+Shape)
+\item 
+void \mbox{\hyperlink{class_neural_net_1_1_layer_ae81f8d543115f7be083f2a57d9baa551}{set\+Outputs}} (std\+::vector$<$ double $>$ outputs)
+\begin{DoxyCompactList}\small\item\em This method is used to set the outputs of the layer. \end{DoxyCompactList}\item 
+\Hypertarget{class_neural_net_1_1_layer_a5e920aa864e5000e701caa71a3506dff}\label{class_neural_net_1_1_layer_a5e920aa864e5000e701caa71a3506dff} 
+void {\bfseries set\+Outputs} (Eigen\+::\+Matrix\+Xd outputs)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_layer_ade725b2b3049543da3e86534538f50e8}\label{class_neural_net_1_1_layer_ade725b2b3049543da3e86534538f50e8} 
+int {\bfseries n\+Neurons}
+\item 
+\Hypertarget{class_neural_net_1_1_layer_ab0d69db8e7945e5084d00b618907e372}\label{class_neural_net_1_1_layer_ab0d69db8e7945e5084d00b618907e372} 
+Layer\+Type {\bfseries type} = Layer\+Type\+::\+DEFAULT
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_layer_a88b59289ffd793fecd040d32e397b1e9}\label{class_neural_net_1_1_layer_a88b59289ffd793fecd040d32e397b1e9} 
+class {\bfseries Network}
+\item 
+\Hypertarget{class_neural_net_1_1_layer_ab2f44cbb59a08132f4c843e5225bba0e}\label{class_neural_net_1_1_layer_ab2f44cbb59a08132f4c843e5225bba0e} 
+class {\bfseries cereal\+::access}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_neural_net_1_1_layer_a296c21f474dbe7fc2926a5e0b7ab87aa}\label{class_neural_net_1_1_layer_a296c21f474dbe7fc2926a5e0b7ab87aa} 
+\index{NeuralNet::Layer@{NeuralNet::Layer}!getBiases@{getBiases}}
+\index{getBiases@{getBiases}!NeuralNet::Layer@{NeuralNet::Layer}}
+\doxysubsubsection{\texorpdfstring{getBiases()}{getBiases()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xd Neural\+Net\+::\+Layer\+::get\+Biases (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Return the biases of the layer. 
+
+\begin{DoxyReturn}{Returns}
+an Eigen\+::\+Matrix representing the biases 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_layer_afa59ddacc5796712e5061ed055833fde}\label{class_neural_net_1_1_layer_afa59ddacc5796712e5061ed055833fde} 
+\index{NeuralNet::Layer@{NeuralNet::Layer}!getNumNeurons@{getNumNeurons}}
+\index{getNumNeurons@{getNumNeurons}!NeuralNet::Layer@{NeuralNet::Layer}}
+\doxysubsubsection{\texorpdfstring{getNumNeurons()}{getNumNeurons()}}
+{\footnotesize\ttfamily int Neural\+Net\+::\+Layer\+::get\+Num\+Neurons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method get the number of neurons actually in the layer. 
+
+\begin{DoxyReturn}{Returns}
+The number of neurons in the layer 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_layer_a1b86e971a93bed55690ecf1840207c34}\label{class_neural_net_1_1_layer_a1b86e971a93bed55690ecf1840207c34} 
+\index{NeuralNet::Layer@{NeuralNet::Layer}!getOutputs@{getOutputs}}
+\index{getOutputs@{getOutputs}!NeuralNet::Layer@{NeuralNet::Layer}}
+\doxysubsubsection{\texorpdfstring{getOutputs()}{getOutputs()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xd Neural\+Net\+::\+Layer\+::get\+Outputs (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method get the layer\textquotesingle{}s outputs. 
+
+\begin{DoxyReturn}{Returns}
+an Eigen\+::\+Eigen\+::\+Matrix\+Xd representing the layer\textquotesingle{}s outputs 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_layer_ac6448e3a5415b1ea351ca22fa2b895a0}\label{class_neural_net_1_1_layer_ac6448e3a5415b1ea351ca22fa2b895a0} 
+\index{NeuralNet::Layer@{NeuralNet::Layer}!getWeights@{getWeights}}
+\index{getWeights@{getWeights}!NeuralNet::Layer@{NeuralNet::Layer}}
+\doxysubsubsection{\texorpdfstring{getWeights()}{getWeights()}}
+{\footnotesize\ttfamily Eigen\+::\+Matrix\+Xd Neural\+Net\+::\+Layer\+::get\+Weights (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+This method gets the layer\textquotesingle{}s weights. 
+
+\begin{DoxyReturn}{Returns}
+an Eigen\+::\+Matrix\+Xd representing the weights 
+\end{DoxyReturn}
+\Hypertarget{class_neural_net_1_1_layer_ae81f8d543115f7be083f2a57d9baa551}\label{class_neural_net_1_1_layer_ae81f8d543115f7be083f2a57d9baa551} 
+\index{NeuralNet::Layer@{NeuralNet::Layer}!setOutputs@{setOutputs}}
+\index{setOutputs@{setOutputs}!NeuralNet::Layer@{NeuralNet::Layer}}
+\doxysubsubsection{\texorpdfstring{setOutputs()}{setOutputs()}}
+{\footnotesize\ttfamily void Neural\+Net\+::\+Layer\+::set\+Outputs (\begin{DoxyParamCaption}\item[{std\+::vector$<$ double $>$}]{outputs }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}}
+
+
+
+This method is used to set the outputs of the layer. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em outputs} & A vector of doubles representing the outputs of the layer\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void
+\end{DoxyReturn}
+\begin{DoxyNote}{Note}
+This method is used for the input layer (the first layer of the network) 
+\end{DoxyNote}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Neural\+Net/layers/Layer.\+hpp\end{DoxyCompactItemize}

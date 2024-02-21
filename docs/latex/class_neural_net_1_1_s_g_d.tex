@@ -1,0 +1,86 @@
+\doxysection{Neural\+Net\+::SGD Class Reference}
+\hypertarget{class_neural_net_1_1_s_g_d}{}\label{class_neural_net_1_1_s_g_d}\index{NeuralNet::SGD@{NeuralNet::SGD}}
+
+
+{\ttfamily \#include $<$SGD.\+hpp$>$}
+
+Inheritance diagram for Neural\+Net\+::SGD\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_neural_net_1_1_s_g_d}
+\end{center}
+\end{figure}
+\doxysubsubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\Hypertarget{class_neural_net_1_1_s_g_d_ae5a8f79a9fba38f5a05b5c1bbd622583}\label{class_neural_net_1_1_s_g_d_ae5a8f79a9fba38f5a05b5c1bbd622583} 
+{\bfseries SGD} (double alpha)
+\item 
+void \mbox{\hyperlink{class_neural_net_1_1_s_g_d_a32bd3ee637d86041e5ca193b81f7ff96}{update\+Weights}} (Eigen\+::\+Matrix\+Xd \&weights, const Eigen\+::\+Matrix\+Xd \&weights\+Grad) override
+\begin{DoxyCompactList}\small\item\em This function updates the weights passed based on the selected \doxylink{class_neural_net_1_1_optimizer}{Optimizer} and the weights gradients. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{class_neural_net_1_1_s_g_d_aa8461bef22cbc81d39702c3fb2574f71}{update\+Biases}} (Eigen\+::\+Matrix\+Xd \&biases, const Eigen\+::\+Matrix\+Xd \&biases\+Grad) override
+\begin{DoxyCompactList}\small\item\em This function updates the biases passed based based on the \doxylink{class_neural_net_1_1_optimizer}{Optimizer} and the biases gradients. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Public Member Functions inherited from \mbox{\hyperlink{class_neural_net_1_1_optimizer}{Neural\+Net\+::\+Optimizer}}}
+\begin{DoxyCompactItemize}
+\item 
+{\bfseries Optimizer} (double alpha)
+\end{DoxyCompactItemize}
+\doxysubsubsection*{Additional Inherited Members}
+\doxysubsection*{Protected Attributes inherited from \mbox{\hyperlink{class_neural_net_1_1_optimizer}{Neural\+Net\+::\+Optimizer}}}
+\begin{DoxyCompactItemize}
+\item 
+double {\bfseries alpha}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+Stochastic Gradient Descent optimizer 
+
+\doxysubsection{Member Function Documentation}
+\Hypertarget{class_neural_net_1_1_s_g_d_aa8461bef22cbc81d39702c3fb2574f71}\label{class_neural_net_1_1_s_g_d_aa8461bef22cbc81d39702c3fb2574f71} 
+\index{NeuralNet::SGD@{NeuralNet::SGD}!updateBiases@{updateBiases}}
+\index{updateBiases@{updateBiases}!NeuralNet::SGD@{NeuralNet::SGD}}
+\doxysubsubsection{\texorpdfstring{updateBiases()}{updateBiases()}}
+{\footnotesize\ttfamily void Neural\+Net\+::\+SGD\+::update\+Biases (\begin{DoxyParamCaption}\item[{Eigen\+::\+Matrix\+Xd \&}]{biases,  }\item[{const Eigen\+::\+Matrix\+Xd \&}]{biases\+Grad }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This function updates the biases passed based based on the \doxylink{class_neural_net_1_1_optimizer}{Optimizer} and the biases gradients. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em biases} & The biases that should be updated \\
+\hline
+{\em biases\+Grad} & The biases gradient\\
+\hline
+\end{DoxyParams}
+The function will return void, since it only performs an update on the biases passed 
+
+Implements \mbox{\hyperlink{class_neural_net_1_1_optimizer_a47960c3d404be46ef6b0c5c2edc34fe8}{Neural\+Net\+::\+Optimizer}}.
+
+\Hypertarget{class_neural_net_1_1_s_g_d_a32bd3ee637d86041e5ca193b81f7ff96}\label{class_neural_net_1_1_s_g_d_a32bd3ee637d86041e5ca193b81f7ff96} 
+\index{NeuralNet::SGD@{NeuralNet::SGD}!updateWeights@{updateWeights}}
+\index{updateWeights@{updateWeights}!NeuralNet::SGD@{NeuralNet::SGD}}
+\doxysubsubsection{\texorpdfstring{updateWeights()}{updateWeights()}}
+{\footnotesize\ttfamily void Neural\+Net\+::\+SGD\+::update\+Weights (\begin{DoxyParamCaption}\item[{Eigen\+::\+Matrix\+Xd \&}]{weights,  }\item[{const Eigen\+::\+Matrix\+Xd \&}]{weights\+Grad }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+This function updates the weights passed based on the selected \doxylink{class_neural_net_1_1_optimizer}{Optimizer} and the weights gradients. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em weights} & The weights that should be updated \\
+\hline
+{\em weights\+Grad} & The weights gradient\\
+\hline
+\end{DoxyParams}
+The function will return void, since it only performs an update on the weights passed 
+
+Implements \mbox{\hyperlink{class_neural_net_1_1_optimizer_ab630b544bc3d5734f207af48e0f4c291}{Neural\+Net\+::\+Optimizer}}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+src/\+Neural\+Net/optimizers/SGD.\+hpp\end{DoxyCompactItemize}
