@@ -1,0 +1,32 @@
+\doxysection{pgarrinter.\+h}
+\hypertarget{pgarrinter_8h_source}{}\label{pgarrinter_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/pgarrinter.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/pgarrinter.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ array\ structure\ interface\ version\ 3\ declarations\ */}}
+\DoxyCodeLine{00002\ }
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#if\ !defined(PG\_ARRAYINTER\_HEADER)}}
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#define\ PG\_ARRAYINTER\_HEADER}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ PAI\_CONTIGUOUS\ =\ 0x01;}
+\DoxyCodeLine{00007\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ PAI\_FORTRAN\ =\ 0x02;}
+\DoxyCodeLine{00008\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ PAI\_ALIGNED\ =\ 0x100;}
+\DoxyCodeLine{00009\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ PAI\_NOTSWAPPED\ =\ 0x200;}
+\DoxyCodeLine{00010\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ PAI\_WRITEABLE\ =\ 0x400;}
+\DoxyCodeLine{00011\ \textcolor{keyword}{static}\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ PAI\_ARR\_HAS\_DESCR\ =\ 0x800;}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00014\ \ \ \ \ \textcolor{keywordtype}{int}\ two;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ contains\ the\ integer\ 2\ -\/-\/\ simple\ sanity\ check\ */}}
+\DoxyCodeLine{00015\ \ \ \ \ \textcolor{keywordtype}{int}\ nd;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ number\ of\ dimensions\ */}}
+\DoxyCodeLine{00016\ \ \ \ \ \textcolor{keywordtype}{char}\ typekind;\ \ \ \ \ \ \ \ \textcolor{comment}{/*\ kind\ in\ array\ -\/-\/\ character\ code\ of\ typestr\ */}}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{int}\ itemsize;\ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ size\ of\ each\ element\ */}}
+\DoxyCodeLine{00018\ \ \ \ \ \textcolor{keywordtype}{int}\ flags;\ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ flags\ indicating\ how\ the\ data\ should\ be\ */}}
+\DoxyCodeLine{00019\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ interpreted\ */}}
+\DoxyCodeLine{00020\ \ \ \ \ Py\_intptr\_t\ *shape;\ \ \ \textcolor{comment}{/*\ A\ length-\/nd\ array\ of\ shape\ information\ */}}
+\DoxyCodeLine{00021\ \ \ \ \ Py\_intptr\_t\ *strides;\ \textcolor{comment}{/*\ A\ length-\/nd\ array\ of\ stride\ information\ */}}
+\DoxyCodeLine{00022\ \ \ \ \ \textcolor{keywordtype}{void}\ *data;\ \ \ \ \ \ \ \ \ \ \ \textcolor{comment}{/*\ A\ pointer\ to\ the\ first\ element\ of\ the\ array\ */}}
+\DoxyCodeLine{00023\ \ \ \ \ PyObject\ *\mbox{\hyperlink{structdescr}{descr}};\ \ \ \ \ \ \textcolor{comment}{/*\ NULL\ or\ a\ data-\/description\ */}}
+\DoxyCodeLine{00024\ \}\ \mbox{\hyperlink{struct_py_array_interface}{PyArrayInterface}};}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

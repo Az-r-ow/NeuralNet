@@ -1,0 +1,20 @@
+\doxysection{mixer.\+h}
+\hypertarget{mixer_8h_source}{}\label{mixer_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/mixer.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/mixer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ MIXER\_INTERNAL\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ MIXER\_INTERNAL\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <SDL\_mixer.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{/*\ test\ mixer\ initializations\ */}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ MIXER\_INIT\_CHECK()\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \ \ \ if\ (!SDL\_WasInit(SDL\_INIT\_AUDIO))\ \(\backslash\)}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\ \ \ \ return\ RAISE(pgExc\_SDLError,\ "{}mixer\ not\ initialized"{})}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_MIXER\_NUMSLOTS\ 5}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#include\ "{}include/pygame\_mixer.h"{}}}
+\DoxyCodeLine{00013\ }
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~MIXER\_INTERNAL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

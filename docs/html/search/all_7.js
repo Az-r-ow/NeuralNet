@@ -1,6 +1,9 @@
 var searchData=
 [
-  ['layer_0',['Layer',['../class_neural_net_1_1_layer.html',1,'NeuralNet']]],
-  ['load_5ffrom_5ffile_1',['load_from_file',['../class_neural_net_1_1_model.html#ae2248524f9f678322c2686f7e4a52d50',1,'NeuralNet::Model']]],
-  ['loss_2',['Loss',['../class_neural_net_1_1_loss.html',1,'NeuralNet']]]
+  ['importance_20of_20weight_20initialization_20functions_0',['The importance of weight initialization functions',['../index.html#autotoc_md7',1,'']]],
+  ['in_20cpp_20_3a_1',['NeuralNet in CPP :',['../index.html',1,'']]],
+  ['initialization_20functions_2',['The importance of weight initialization functions',['../index.html#autotoc_md7',1,'']]],
+  ['initializations_3',['Available Weight Initializations',['../index.html#autotoc_md8',1,'']]],
+  ['initialize_20submodules_4',['Initialize submodules',['../index.html#autotoc_md2',1,'']]],
+  ['insiderinit_5',['insiderInit',['../class_neural_net_1_1_optimizer.html#a61752a075a25ee0c782b6d5d10d26d29',1,'NeuralNet::Optimizer']]]
 ];

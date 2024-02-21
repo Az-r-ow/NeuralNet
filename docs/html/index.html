@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>NeuralNet: Main Page</title>
+<title>NeuralNet: NeuralNet in CPP :</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -70,10 +70,74 @@ $(function() {
 </div>
 </div>
 
-<div class="header">
-  <div class="headertitle"><div class="title">NeuralNet Documentation</div></div>
+<div><div class="header">
+  <div class="headertitle"><div class="title">NeuralNet in CPP : </div></div>
 </div><!--header-->
 <div class="contents">
+<div class="textblock"><p><a class="anchor" id="md__r_e_a_d_m_e"></a> This is my take on implementing a neural network in cpp. Keeping in mind that I learned cpp a couple of weeks prior to starting the project. You can see my programming style adapting and improving (hopefully) throughout the commits.</p>
+<ul>
+<li>NeuralNet in CPP :<ul>
+<li>Build<ul>
+<li>Initialize submodules</li>
+<li>Build the code</li>
+</ul>
+</li>
+<li>Tests</li>
+<li>Miscellaneous<ul>
+<li>🔗 Python Bindings</li>
+<li>The importance of weight initialization functions<ul>
+<li>Available Weight Initializations</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>⚖️ License</li>
+</ul>
+</li>
+</ul>
+<h1><a class="anchor" id="autotoc_md1"></a>
+Build</h1>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Initialize submodules</h2>
+<div class="fragment"><div class="line">git submodule init</div>
+<div class="line">git submodule update</div>
+</div><!-- fragment --><h2><a class="anchor" id="autotoc_md3"></a>
+Build the code</h2>
+<div class="fragment"><div class="line">scripts/build.sh</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md4"></a>
+Tests</h1>
+<p><a href="https://github.com/catchorg/Catch2">Catch 2</a> framework will be used for testing, after some research it seems like the most active and well maintained out of the other options.</p>
+<p>To run tests :</p>
+<div class="fragment"><div class="line">source /scripts/tests.sh</div>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md5"></a>
+Miscellaneous</h1>
+<h2><a class="anchor" id="autotoc_md6"></a>
+🔗 Python Bindings</h2>
+<p>I used the <a href="https://pybind11.readthedocs.io/en/stable/index.html">pybind11</a> library to bind some of the classes and functionalities. After building the project you can head to <code>/examples</code> folder to check out some of the cool mini-projects built in python.</p>
+<h2><a class="anchor" id="autotoc_md7"></a>
+The importance of weight initialization functions</h2>
+<p>Arbitrary initialization can slow down and sometimes stall completely the convergence process. This slowdown can result in the deeper layers receiving inputs with small variances, which in turn slows down back propagation, and slows down the overall convergence progress.</p>
+<h3><a class="anchor" id="autotoc_md8"></a>
+Available Weight Initializations</h3>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">WEIGHT_INIT   </th><th class="markdownTableHeadNone">Formula   </th><th class="markdownTableHeadNone">Activation    </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">RANDOM   </td><td class="markdownTableBodyNone">$mtRand(-1, 1)$   </td><td class="markdownTableBodyNone">Sigmoid    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">GLOROT   </td><td class="markdownTableBodyNone">$\frac{2}{n_{in} + n_{out}}$   </td><td class="markdownTableBodyNone">Relu    </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">HE   </td><td class="markdownTableBodyNone">$\frac{2}{n_{in}}$   </td><td class="markdownTableBodyNone">Relu<br  />
+Softmax    </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">LECUN   </td><td class="markdownTableBodyNone">$\frac{1}{n_{in}}$   </td><td class="markdownTableBodyNone">Softmax   </td></tr>
+</table>
+<p>$n_{in}$ number of inputs</p>
+<p>$n_{out}$ number of outputs</p>
+<h1><a class="anchor" id="autotoc_md9"></a>
+⚖️ License</h1>
+<p>This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details. </p>
+</div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"/>
 </div><!-- contents -->
 <!-- start footer part -->

@@ -1,0 +1,90 @@
+\doxysection{simd\+\_\+blitters.\+h}
+\hypertarget{simd__blitters_8h_source}{}\label{simd__blitters_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/simd\_blitters.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/simd\_blitters.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#define\ NO\_PYGAME\_C\_API}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\_surface.h"{}}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#include\ "{}\_blit\_info.h"{}}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#if\ !defined(PG\_ENABLE\_ARM\_NEON)\ \&\&\ defined(\_\_aarch64\_\_)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{//\ arm64\ has\ neon\ optimisations\ enabled\ by\ default,\ even\ when\ fpu=neon\ is\ not}}
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ passed}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ PG\_ENABLE\_ARM\_NEON\ 1}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00012\ pg\_sse2\_at\_runtime\_but\_uncompiled();}
+\DoxyCodeLine{00013\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00014\ pg\_neon\_at\_runtime\_but\_uncompiled();}
+\DoxyCodeLine{00015\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00016\ pg\_avx2\_at\_runtime\_but\_uncompiled();}
+\DoxyCodeLine{00017\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#if\ (defined(\_\_SSE2\_\_)\ ||\ defined(PG\_ENABLE\_ARM\_NEON))}}
+\DoxyCodeLine{00019\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00020\ alphablit\_alpha\_sse2\_argb\_surf\_alpha(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00021\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00022\ alphablit\_alpha\_sse2\_argb\_no\_surf\_alpha(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00023\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00024\ alphablit\_alpha\_sse2\_argb\_no\_surf\_alpha\_opaque\_dst(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00025\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00026\ blit\_blend\_rgba\_mul\_sse2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00027\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00028\ blit\_blend\_rgb\_mul\_sse2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00029\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00030\ blit\_blend\_rgba\_add\_sse2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00031\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00032\ blit\_blend\_rgb\_add\_sse2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00033\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00034\ blit\_blend\_rgba\_sub\_sse2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00035\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00036\ blit\_blend\_rgb\_sub\_sse2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00037\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00038\ blit\_blend\_rgba\_max\_sse2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00039\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00040\ blit\_blend\_rgb\_max\_sse2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00041\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00042\ blit\_blend\_rgba\_min\_sse2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00043\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00044\ blit\_blend\_rgb\_min\_sse2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00045\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00046\ blit\_blend\_premultiplied\_sse2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ (defined(\_\_SSE2\_\_)\ ||\ defined(PG\_ENABLE\_ARM\_NEON))\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{comment}{/*\ Deliberately\ putting\ these\ outside\ of\ the\ preprocessor\ guards\ as\ I\ want\ to}}
+\DoxyCodeLine{00050\ \textcolor{comment}{\ \ \ move\ to\ a\ system\ of\ trusting\ the\ runtime\ checks\ to\ head\ to\ the\ right}}
+\DoxyCodeLine{00051\ \textcolor{comment}{\ \ \ function\ and\ having\ a\ fallback\ function\ there\ if\ pygame\ is\ not\ compiled}}
+\DoxyCodeLine{00052\ \textcolor{comment}{\ \ \ with\ the\ right\ stuff\ (this\ is\ the\ strategy\ used\ for\ AVX2\ right\ now.}}
+\DoxyCodeLine{00053\ \textcolor{comment}{\ \ \ Potentially\ I\ might\ want\ to\ shift\ both\ these\ into\ a\ slightly\ different}}
+\DoxyCodeLine{00054\ \textcolor{comment}{\ \ \ file\ as\ they\ are\ not\ exactly\ blits\ (though\ v.\ similar)\ -\/\ or\ I\ could\ rename}}
+\DoxyCodeLine{00055\ \textcolor{comment}{\ \ \ the\ SIMD\ trilogy\ of\ files\ to\ replace\ the\ word\ blit\ with\ something\ more}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ generic\ like\ surface\_ops*/}}
+\DoxyCodeLine{00057\ }
+\DoxyCodeLine{00058\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00059\ premul\_surf\_color\_by\_alpha\_non\_simd(SDL\_Surface\ *src,\ SDL\_Surface\ *dst);}
+\DoxyCodeLine{00060\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00061\ premul\_surf\_color\_by\_alpha\_sse2(SDL\_Surface\ *src,\ SDL\_Surface\ *dst);}
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00064\ pg\_has\_avx2();}
+\DoxyCodeLine{00065\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00066\ blit\_blend\_rgba\_mul\_avx2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00067\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00068\ blit\_blend\_rgb\_mul\_avx2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00069\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00070\ blit\_blend\_rgba\_add\_avx2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00072\ blit\_blend\_rgb\_add\_avx2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00073\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00074\ blit\_blend\_rgba\_sub\_avx2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00076\ blit\_blend\_rgb\_sub\_avx2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00077\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00078\ blit\_blend\_rgba\_max\_avx2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00080\ blit\_blend\_rgb\_max\_avx2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00081\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00082\ blit\_blend\_rgba\_min\_avx2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00084\ blit\_blend\_rgb\_min\_avx2(\mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}}\ *info);}
+
+\end{DoxyCode}

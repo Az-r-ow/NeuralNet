@@ -1,0 +1,77 @@
+\doxysection{pygame\+\_\+mixer.\+h}
+\hypertarget{pygame__mixer_8h_source}{}\label{pygame__mixer_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/include/pygame\_mixer.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/include/pygame\_mixer.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ \ pygame\ -\/\ Python\ Game\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2000-\/2001\ \ Pete\ Shinners}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ \ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ \ version\ 2\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ \ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ \ Library\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ Foundation,\ Inc.,\ 59\ Temple\ Place,\ Suite\ 330,\ Boston,\ MA\ \ 02111-\/1307\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ \ \ Pete\ Shinners}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ \ \ pete@shinners.org}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifndef\ PGMIXER\_H}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ PGMIXER\_H}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <Python.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ <structmember.h>}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}pgcompat.h"{}}}
+\DoxyCodeLine{00030\ }
+\DoxyCodeLine{00031\ \textcolor{keyword}{struct\ }Mix\_Chunk;}
+\DoxyCodeLine{00032\ }
+\DoxyCodeLine{00033\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00034\ \ \ \ \ PyObject\_HEAD\ Mix\_Chunk\ *chunk;}
+\DoxyCodeLine{00035\ \ \ \ \ Uint8\ *mem;}
+\DoxyCodeLine{00036\ \ \ \ \ PyObject\ *weakreflist;}
+\DoxyCodeLine{00037\ \}\ \mbox{\hyperlink{structpg_sound_object}{pgSoundObject}};}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00040\ \ \ \ \ PyObject\_HEAD\ \textcolor{keywordtype}{int}\ chan;}
+\DoxyCodeLine{00041\ \}\ \mbox{\hyperlink{structpg_channel_object}{pgChannelObject}};}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#define\ pgSound\_AsChunk(x)\ (((pgSoundObject\ *)x)-\/>chunk)}}
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ pgChannel\_AsInt(x)\ (((pgChannelObject\ *)x)-\/>chan)}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#include\ "{}pgimport.h"{}}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_MIXER\_INTERNAL}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ PYGAMEAPI\_DEFINE\_SLOTS(mixer);}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ pgSound\_Type\ (*(PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(mixer,\ 0))}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ pgSound\_Check(x)\ ((x)-\/>ob\_type\ ==\ \&pgSound\_Type)}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ pgSound\_New\ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ (*(PyObject\ *\ (*)(Mix\_Chunk\ *))\ PYGAMEAPI\_GET\_SLOT(mixer,\ 1))}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ pgSound\_Play\ \(\backslash\)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\ \ \ \ (*(PyObject\ *\ (*)(PyObject\ *,\ PyObject\ *))\ PYGAMEAPI\_GET\_SLOT(mixer,\ 2))}}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ pgChannel\_Type\ (*(PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(mixer,\ 3))}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ pgChannel\_Check(x)\ ((x)-\/>ob\_type\ ==\ \&pgChannel\_Type)}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ pgChannel\_New\ (*(PyObject\ *\ (*)(int))\ PYGAMEAPI\_GET\_SLOT(mixer,\ 4))}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ import\_pygame\_mixer()\ \_IMPORT\_PYGAME\_MODULE(mixer)}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ PYGAMEAPI\_MIXER\_INTERNAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PGMIXER\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

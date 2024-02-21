@@ -1,0 +1,21 @@
+\doxysection{font.\+h}
+\hypertarget{font_8h_source}{}\label{font_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/font.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/font.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ PGFONT\_INTERNAL\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ PGFONT\_INTERNAL\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{preprocessor}{\#include\ <SDL\_ttf.h>}}
+\DoxyCodeLine{00005\ }
+\DoxyCodeLine{00006\ \textcolor{comment}{/*\ test\ font\ initialization\ */}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#define\ FONT\_INIT\_CHECK()\ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\ \ \ \ if\ (!(*(int\ *)PyFONT\_C\_API[2]))\ \(\backslash\)}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\ \ \ \ return\ RAISE(pgExc\_SDLError,\ "{}font\ system\ not\ initialized"{})}}
+\DoxyCodeLine{00010\ }
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#include\ "{}include/pygame\_font.h"{}}}
+\DoxyCodeLine{00012\ }
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_FONT\_NUMSLOTS\ 3}}
+\DoxyCodeLine{00014\ }
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PGFONT\_INTERNAL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

@@ -1,50 +1,34 @@
-# Neural Network in CPP :
+# NeuralNet in CPP :
 
-This is my take on implementing a neural network in cpp. Keeping in mind that I learned cpp a couple of weeks before I started the project.
+This is my take on implementing a neural network in cpp. Keeping in mind that I learned cpp a couple of weeks prior to starting the project. You can see my programming style adapting and improving (hopefully) throughout the commits.
 
-## The importance of weight initialization functions
+- [NeuralNet in CPP :](#neuralnet-in-cpp-)
+  - [Build](#build)
+    - [Initialize submodules](#initialize-submodules)
+    - [Build the code](#build-the-code)
+  - [Tests](#tests)
+  - [Miscellaneous](#miscellaneous)
+    - [🔗 Python Bindings](#-python-bindings)
+    - [The importance of weight initialization functions](#the-importance-of-weight-initialization-functions)
+      - [Available Weight Initializations](#available-weight-initializations)
+  - [⚖️ License](#️-license)
 
-Arbitrary initialization can slow down and sometimes stall completely the convergence process. This slowdown can result in the deeper layers receiving inputs with small variances, which in turn slows down back propagation, and retards the overall convergence progress.
+## Build
 
-### Available Weight Initializations :
+### Initialize submodules
 
-| WEIGHT_INIT | Formula                      | Activation       |
-| ----------- | ---------------------------- | ---------------- |
-| RANDOM      | $mtRand(-1, 1)$              | Sigmoid          |
-| GLOROT      | $\frac{2}{n_{in} + n_{out}}$ | Relu             |
-| HE          | $\frac{2}{n_{in}}$           | Relu<br>Softmax  |
-| LECUN       | $\frac{1}{n_{in}}$           | Softmax          |
+```bash
+git submodule init
+git submodule update
+```
 
-$n_{in}$ number of inputs
+### Build the code
 
-$n_{out}$ number of outputs
+```bash
+scripts/build.sh
+```
 
-## Activation functions and Scaling :
-
-### Sigmoid :
-
-The sigmoid function, denoted as σ(z), transforms a real number 'z' into a value between 0 and 1. It's characterized by an S-shaped curve and is commonly used in binary classification tasks, where it models probabilities. For example, σ(z) = 0.7 indicates a 70% probability of belonging to one class.
-
-$$
-\sigma \left(x \right) = \frac{1}{1 + e^{-x}}
-$$
-
-![Sigmoid Curve](https://upload.wikimedia.org/wikipedia/commons/thumb/8/88/Logistic-curve.svg/320px-Logistic-curve.svg.png)
-
-### Relu :
-
-The Rectified Linear Unit (ReLU) computes the output as follows: If the input is positive, it returns the input value; if negative, it returns 0. ReLU is computationally efficient, helps mitigate the vanishing gradient problem, and is widely used in hidden layers of deep networks for tasks like image recognition and natural language processing. Hence, why I'm using it in my MNIST example in python.
-
-![RELU vs GELU](https://upload.wikimedia.org/wikipedia/commons/thumb/4/42/ReLU_and_GELU.svg/220px-ReLU_and_GELU.svg.png)
-
-### Softmax :
-
-The softmax function is a versatile activation used mainly in the output layer of neural networks for multi-class classification tasks. It takes a vector of real numbers as input and transforms them into a probability distribution over multiple classes, ensuring that the output values sum up to 1. It's known for its smooth, differentiable properties and is particularly useful for scenarios where you need to model class probabilities. For example, in a 3-class problem, softmax converts input scores into probabilities like [0.2, 0.7, 0.1], indicating a 70% chance of belonging to class 2.
-I also used it for the output layer of my MNIST example.
-
-![SOFTMAX FUNCTION](https://latex.codecogs.com/png.image?%5Clarge%20%5Cdpi%7B120%7D%5Cbg%7Bblack%7D%5Csigma%5Cleft(z%5Cright)_%7Bi%7D=%5Cfrac%7Be%5E%7Bz_%7Bi%7D%7D%7D%7B%5Csum_%7Bj=1%7D%5E%7Bk%7De%5E%7Bz_%7Bj%7D%7D%7D)
-
-## Tests :
+## Tests
 
 [Catch 2](https://github.com/catchorg/Catch2) framework will be used for testing, after some research it seems like the most active and well maintained out of the other options.
 
@@ -54,21 +38,29 @@ To run tests :
 source /scripts/tests.sh
 ```
 
-## Build :
+## Miscellaneous
 
-### Initialize submodules :
+### 🔗 Python Bindings
 
-```bash
-git submodule init
-git submodule update
-```
+I used the [pybind11](https://pybind11.readthedocs.io/en/stable/index.html) library to bind some of the classes and functionalities. After [building](#build) the project you can head to `/examples` folder to check out some of the cool mini-projects built in python.
 
-### Build the code :
+### The importance of weight initialization functions
 
-```bash
-./scripts/build.sh
-```
+Arbitrary initialization can slow down and sometimes stall completely the convergence process. This slowdown can result in the deeper layers receiving inputs with small variances, which in turn slows down back propagation, and slows down the overall convergence progress.
 
-### License :
+#### Available Weight Initializations
+
+| WEIGHT_INIT | Formula                      | Activation      |
+| ----------- | ---------------------------- | --------------- |
+| RANDOM      | $mtRand(-1, 1)$              | Sigmoid         |
+| GLOROT      | $\frac{2}{n_{in} + n_{out}}$ | Relu            |
+| HE          | $\frac{2}{n_{in}}$           | Relu<br>Softmax |
+| LECUN       | $\frac{1}{n_{in}}$           | Softmax         |
+
+$n_{in}$ number of inputs
+
+$n_{out}$ number of outputs
+
+## ⚖️ License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

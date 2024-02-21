@@ -1,0 +1,27 @@
+\doxysection{\+\_\+blit\+\_\+info.\+h}
+\hypertarget{__blit__info_8h_source}{}\label{__blit__info_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/\_blit\_info.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/\_blit\_info.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#define\ NO\_PYGAME\_C\_API}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#include\ "{}\_surface.h"{}}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00004\ \textcolor{comment}{/*\ The\ structure\ passed\ to\ the\ low\ level\ blit\ functions\ */}}
+\DoxyCodeLine{00005\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00006\ \ \ \ \ \textcolor{keywordtype}{int}\ width;}
+\DoxyCodeLine{00007\ \ \ \ \ \textcolor{keywordtype}{int}\ height;}
+\DoxyCodeLine{00008\ \ \ \ \ Uint8\ *s\_pixels;}
+\DoxyCodeLine{00009\ \ \ \ \ \textcolor{keywordtype}{int}\ s\_pxskip;}
+\DoxyCodeLine{00010\ \ \ \ \ \textcolor{keywordtype}{int}\ s\_skip;}
+\DoxyCodeLine{00011\ \ \ \ \ Uint8\ *d\_pixels;}
+\DoxyCodeLine{00012\ \ \ \ \ \textcolor{keywordtype}{int}\ d\_pxskip;}
+\DoxyCodeLine{00013\ \ \ \ \ \textcolor{keywordtype}{int}\ d\_skip;}
+\DoxyCodeLine{00014\ \ \ \ \ SDL\_PixelFormat\ *src;}
+\DoxyCodeLine{00015\ \ \ \ \ SDL\_PixelFormat\ *dst;}
+\DoxyCodeLine{00016\ \ \ \ \ Uint8\ src\_blanket\_alpha;}
+\DoxyCodeLine{00017\ \ \ \ \ \textcolor{keywordtype}{int}\ src\_has\_colorkey;}
+\DoxyCodeLine{00018\ \ \ \ \ Uint32\ src\_colorkey;}
+\DoxyCodeLine{00019\ \ \ \ \ SDL\_BlendMode\ src\_blend;}
+\DoxyCodeLine{00020\ \ \ \ \ SDL\_BlendMode\ dst\_blend;}
+\DoxyCodeLine{00021\ \}\ \mbox{\hyperlink{struct_s_d_l___blit_info}{SDL\_BlitInfo}};}
+
+\end{DoxyCode}

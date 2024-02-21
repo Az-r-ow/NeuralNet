@@ -1,0 +1,380 @@
+\doxysection{\+\_\+pygame.\+h}
+\hypertarget{__pygame_8h_source}{}\label{__pygame_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/\_pygame.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/\_pygame.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ \ pygame\ -\/\ Python\ Game\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2000-\/2001\ \ Pete\ Shinners}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ \ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ \ version\ 2\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ \ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ \ Library\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ Foundation,\ Inc.,\ 59\ Temple\ Place,\ Suite\ 330,\ Boston,\ MA\ \ 02111-\/1307\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ \ \ Pete\ Shinners}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ \ \ pete@shinners.org}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{comment}{/*\ This\ will\ use\ PYGAMEAPI\_EXTERN\_SLOTS\ instead}}
+\DoxyCodeLine{00024\ \textcolor{comment}{\ *\ of\ PYGAMEAPI\_DEFINE\_SLOTS\ for\ base\ modules.}}
+\DoxyCodeLine{00025\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#ifndef\ \_PYGAME\_INTERNAL\_H}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ \_PYGAME\_INTERNAL\_H}}
+\DoxyCodeLine{00028\ }
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ "{}pgplatform.h"{}}}
+\DoxyCodeLine{00030\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ \ If\ PY\_SSIZE\_T\_CLEAN\ is\ defined\ before\ including\ Python.h,\ length\ is\ a}}
+\DoxyCodeLine{00032\ \textcolor{comment}{\ \ \ \ Py\_ssize\_t\ rather\ than\ an\ int\ for\ all\ \#\ variants\ of\ formats\ (s\#,\ y\#,\ etc.)}}
+\DoxyCodeLine{00033\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ PY\_SSIZE\_T\_CLEAN}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#include\ <Python.h>}}
+\DoxyCodeLine{00036\ }
+\DoxyCodeLine{00037\ \textcolor{comment}{/*\ Ensure\ PyPy-\/specific\ code\ is\ not\ in\ use\ when\ running\ on\ GraalPython\ (PR}}
+\DoxyCodeLine{00038\ \textcolor{comment}{\ *\ \#2580)\ */}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#if\ defined(GRAALVM\_PYTHON)\ \&\&\ defined(PYPY\_VERSION)}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#undef\ PYPY\_VERSION}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#include\ <SDL.h>}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{comment}{/*\ SDL\ 1.2\ constants\ removed\ from\ SDL\ 2\ */}}
+\DoxyCodeLine{00046\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00047\ \ \ \ \ SDL\_HWSURFACE\ =\ 0,}
+\DoxyCodeLine{00048\ \ \ \ \ SDL\_RESIZABLE\ =\ SDL\_WINDOW\_RESIZABLE,}
+\DoxyCodeLine{00049\ \ \ \ \ SDL\_ASYNCBLIT\ =\ 0,}
+\DoxyCodeLine{00050\ \ \ \ \ SDL\_OPENGL\ =\ SDL\_WINDOW\_OPENGL,}
+\DoxyCodeLine{00051\ \ \ \ \ SDL\_OPENGLBLIT\ =\ 0,}
+\DoxyCodeLine{00052\ \ \ \ \ SDL\_ANYFORMAT\ =\ 0,}
+\DoxyCodeLine{00053\ \ \ \ \ SDL\_HWPALETTE\ =\ 0,}
+\DoxyCodeLine{00054\ \ \ \ \ SDL\_DOUBLEBUF\ =\ 0,}
+\DoxyCodeLine{00055\ \ \ \ \ SDL\_FULLSCREEN\ =\ SDL\_WINDOW\_FULLSCREEN,}
+\DoxyCodeLine{00056\ \ \ \ \ SDL\_HWACCEL\ =\ 0,}
+\DoxyCodeLine{00057\ \ \ \ \ SDL\_SRCCOLORKEY\ =\ 0,}
+\DoxyCodeLine{00058\ \ \ \ \ SDL\_RLEACCELOK\ =\ 0,}
+\DoxyCodeLine{00059\ \ \ \ \ SDL\_SRCALPHA\ =\ 0,}
+\DoxyCodeLine{00060\ \ \ \ \ SDL\_NOFRAME\ =\ SDL\_WINDOW\_BORDERLESS,}
+\DoxyCodeLine{00061\ \ \ \ \ SDL\_GL\_SWAP\_CONTROL\ =\ 0,}
+\DoxyCodeLine{00062\ \ \ \ \ TIMER\_RESOLUTION\ =\ 0}
+\DoxyCodeLine{00063\ \}\ PygameVideoFlags;}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{comment}{/*\ the\ wheel\ button\ constants\ were\ removed\ from\ SDL\ 2\ */}}
+\DoxyCodeLine{00066\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00067\ \ \ \ \ PGM\_BUTTON\_LEFT\ =\ SDL\_BUTTON\_LEFT,}
+\DoxyCodeLine{00068\ \ \ \ \ PGM\_BUTTON\_RIGHT\ =\ SDL\_BUTTON\_RIGHT,}
+\DoxyCodeLine{00069\ \ \ \ \ PGM\_BUTTON\_MIDDLE\ =\ SDL\_BUTTON\_MIDDLE,}
+\DoxyCodeLine{00070\ \ \ \ \ PGM\_BUTTON\_WHEELUP\ =\ 4,}
+\DoxyCodeLine{00071\ \ \ \ \ PGM\_BUTTON\_WHEELDOWN\ =\ 5,}
+\DoxyCodeLine{00072\ \ \ \ \ PGM\_BUTTON\_X1\ =\ SDL\_BUTTON\_X1\ +\ 2,}
+\DoxyCodeLine{00073\ \ \ \ \ PGM\_BUTTON\_X2\ =\ SDL\_BUTTON\_X2\ +\ 2,}
+\DoxyCodeLine{00074\ \ \ \ \ PGM\_BUTTON\_KEEP\ =\ 0x80}
+\DoxyCodeLine{00075\ \}\ PygameMouseFlags;}
+\DoxyCodeLine{00076\ }
+\DoxyCodeLine{00077\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{comment}{/*\ Any\ SDL\_*\ events\ here\ are\ for\ backward\ compatibility.\ */}}
+\DoxyCodeLine{00079\ \ \ \ \ SDL\_NOEVENT\ =\ 0,}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \ \ \ \ SDL\_ACTIVEEVENT\ =\ SDL\_USEREVENT,}
+\DoxyCodeLine{00082\ \ \ \ \ SDL\_VIDEORESIZE,}
+\DoxyCodeLine{00083\ \ \ \ \ SDL\_VIDEOEXPOSE,}
+\DoxyCodeLine{00084\ }
+\DoxyCodeLine{00085\ \ \ \ \ PGE\_MIDIIN,}
+\DoxyCodeLine{00086\ \ \ \ \ PGE\_MIDIOUT,}
+\DoxyCodeLine{00087\ \ \ \ \ PGE\_KEYREPEAT,\ \textcolor{comment}{/*\ Special\ internal\ pygame\ event,\ for\ managing\ key-\/presses}}
+\DoxyCodeLine{00088\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ */}}
+\DoxyCodeLine{00089\ }
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{comment}{/*\ DO\ NOT\ CHANGE\ THE\ ORDER\ OF\ EVENTS\ HERE\ */}}
+\DoxyCodeLine{00091\ \ \ \ \ PGE\_WINDOWSHOWN,}
+\DoxyCodeLine{00092\ \ \ \ \ PGE\_WINDOWHIDDEN,}
+\DoxyCodeLine{00093\ \ \ \ \ PGE\_WINDOWEXPOSED,}
+\DoxyCodeLine{00094\ \ \ \ \ PGE\_WINDOWMOVED,}
+\DoxyCodeLine{00095\ \ \ \ \ PGE\_WINDOWRESIZED,}
+\DoxyCodeLine{00096\ \ \ \ \ PGE\_WINDOWSIZECHANGED,}
+\DoxyCodeLine{00097\ \ \ \ \ PGE\_WINDOWMINIMIZED,}
+\DoxyCodeLine{00098\ \ \ \ \ PGE\_WINDOWMAXIMIZED,}
+\DoxyCodeLine{00099\ \ \ \ \ PGE\_WINDOWRESTORED,}
+\DoxyCodeLine{00100\ \ \ \ \ PGE\_WINDOWENTER,}
+\DoxyCodeLine{00101\ \ \ \ \ PGE\_WINDOWLEAVE,}
+\DoxyCodeLine{00102\ \ \ \ \ PGE\_WINDOWFOCUSGAINED,}
+\DoxyCodeLine{00103\ \ \ \ \ PGE\_WINDOWFOCUSLOST,}
+\DoxyCodeLine{00104\ \ \ \ \ PGE\_WINDOWCLOSE,}
+\DoxyCodeLine{00105\ \ \ \ \ PGE\_WINDOWTAKEFOCUS,}
+\DoxyCodeLine{00106\ \ \ \ \ PGE\_WINDOWHITTEST,}
+\DoxyCodeLine{00107\ \ \ \ \ PGE\_WINDOWICCPROFCHANGED,}
+\DoxyCodeLine{00108\ \ \ \ \ PGE\_WINDOWDISPLAYCHANGED,}
+\DoxyCodeLine{00109\ }
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{comment}{/*\ Here\ we\ define\ PGPOST\_*\ events,\ events\ that\ act\ as\ a\ one-\/to-\/one}}
+\DoxyCodeLine{00111\ \textcolor{comment}{\ \ \ \ \ *\ proxy\ for\ SDL\ events\ (and\ some\ extra\ events\ too!),\ the\ proxy\ is\ used}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ \ \ *\ internally\ when\ pygame\ users\ use\ event.post()}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ \ \ \ \ *\ At\ a\ first\ glance,\ these\ may\ look\ redundant,\ but\ they\ are\ really}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ \ \ *\ important,\ especially\ with\ event\ blocking.\ If\ proxy\ events\ are}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ \ \ *\ not\ there,\ blocked\ events\ dont\ make\ it\ to\ our\ event\ filter,\ and}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ \ \ \ *\ that\ can\ break\ a\ lot\ of\ stuff.}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00119\ \textcolor{comment}{\ \ \ \ \ *\ IMPORTANT\ NOTE:\ Do\ not\ post\ events\ directly\ with\ these\ proxy\ types,}}
+\DoxyCodeLine{00120\ \textcolor{comment}{\ \ \ \ \ *\ use\ the\ appropriate\ functions\ from\ event.c,\ that\ handle\ these\ proxy}}
+\DoxyCodeLine{00121\ \textcolor{comment}{\ \ \ \ \ *\ events\ for\ you.}}
+\DoxyCodeLine{00122\ \textcolor{comment}{\ \ \ \ \ *\ Proxy\ events\ are\ for\ internal\ use\ only\ */}}
+\DoxyCodeLine{00123\ \ \ \ \ PGPOST\_EVENTBEGIN,\ \textcolor{comment}{/*\ mark\ start\ of\ proxy-\/events\ */}}
+\DoxyCodeLine{00124\ \ \ \ \ PGPOST\_ACTIVEEVENT\ =\ PGPOST\_EVENTBEGIN,}
+\DoxyCodeLine{00125\ \ \ \ \ PGPOST\_APP\_TERMINATING,}
+\DoxyCodeLine{00126\ \ \ \ \ PGPOST\_APP\_LOWMEMORY,}
+\DoxyCodeLine{00127\ \ \ \ \ PGPOST\_APP\_WILLENTERBACKGROUND,}
+\DoxyCodeLine{00128\ \ \ \ \ PGPOST\_APP\_DIDENTERBACKGROUND,}
+\DoxyCodeLine{00129\ \ \ \ \ PGPOST\_APP\_WILLENTERFOREGROUND,}
+\DoxyCodeLine{00130\ \ \ \ \ PGPOST\_APP\_DIDENTERFOREGROUND,}
+\DoxyCodeLine{00131\ \ \ \ \ PGPOST\_AUDIODEVICEADDED,}
+\DoxyCodeLine{00132\ \ \ \ \ PGPOST\_AUDIODEVICEREMOVED,}
+\DoxyCodeLine{00133\ \ \ \ \ PGPOST\_CLIPBOARDUPDATE,}
+\DoxyCodeLine{00134\ \ \ \ \ PGPOST\_CONTROLLERAXISMOTION,}
+\DoxyCodeLine{00135\ \ \ \ \ PGPOST\_CONTROLLERBUTTONDOWN,}
+\DoxyCodeLine{00136\ \ \ \ \ PGPOST\_CONTROLLERBUTTONUP,}
+\DoxyCodeLine{00137\ \ \ \ \ PGPOST\_CONTROLLERDEVICEADDED,}
+\DoxyCodeLine{00138\ \ \ \ \ PGPOST\_CONTROLLERDEVICEREMOVED,}
+\DoxyCodeLine{00139\ \ \ \ \ PGPOST\_CONTROLLERDEVICEREMAPPED,}
+\DoxyCodeLine{00140\ \ \ \ \ PGPOST\_CONTROLLERTOUCHPADDOWN,}
+\DoxyCodeLine{00141\ \ \ \ \ PGPOST\_CONTROLLERTOUCHPADMOTION,}
+\DoxyCodeLine{00142\ \ \ \ \ PGPOST\_CONTROLLERTOUCHPADUP,}
+\DoxyCodeLine{00143\ \ \ \ \ PGPOST\_CONTROLLERSENSORUPDATE,}
+\DoxyCodeLine{00144\ \ \ \ \ PGPOST\_DOLLARGESTURE,}
+\DoxyCodeLine{00145\ \ \ \ \ PGPOST\_DOLLARRECORD,}
+\DoxyCodeLine{00146\ \ \ \ \ PGPOST\_DROPFILE,}
+\DoxyCodeLine{00147\ \ \ \ \ PGPOST\_DROPTEXT,}
+\DoxyCodeLine{00148\ \ \ \ \ PGPOST\_DROPBEGIN,}
+\DoxyCodeLine{00149\ \ \ \ \ PGPOST\_DROPCOMPLETE,}
+\DoxyCodeLine{00150\ \ \ \ \ PGPOST\_FINGERMOTION,}
+\DoxyCodeLine{00151\ \ \ \ \ PGPOST\_FINGERDOWN,}
+\DoxyCodeLine{00152\ \ \ \ \ PGPOST\_FINGERUP,}
+\DoxyCodeLine{00153\ \ \ \ \ PGPOST\_KEYDOWN,}
+\DoxyCodeLine{00154\ \ \ \ \ PGPOST\_KEYMAPCHANGED,}
+\DoxyCodeLine{00155\ \ \ \ \ PGPOST\_KEYUP,}
+\DoxyCodeLine{00156\ \ \ \ \ PGPOST\_JOYAXISMOTION,}
+\DoxyCodeLine{00157\ \ \ \ \ PGPOST\_JOYBALLMOTION,}
+\DoxyCodeLine{00158\ \ \ \ \ PGPOST\_JOYHATMOTION,}
+\DoxyCodeLine{00159\ \ \ \ \ PGPOST\_JOYBUTTONDOWN,}
+\DoxyCodeLine{00160\ \ \ \ \ PGPOST\_JOYBUTTONUP,}
+\DoxyCodeLine{00161\ \ \ \ \ PGPOST\_JOYDEVICEADDED,}
+\DoxyCodeLine{00162\ \ \ \ \ PGPOST\_JOYDEVICEREMOVED,}
+\DoxyCodeLine{00163\ \ \ \ \ PGPOST\_LOCALECHANGED,}
+\DoxyCodeLine{00164\ \ \ \ \ PGPOST\_MIDIIN,}
+\DoxyCodeLine{00165\ \ \ \ \ PGPOST\_MIDIOUT,}
+\DoxyCodeLine{00166\ \ \ \ \ PGPOST\_MOUSEMOTION,}
+\DoxyCodeLine{00167\ \ \ \ \ PGPOST\_MOUSEBUTTONDOWN,}
+\DoxyCodeLine{00168\ \ \ \ \ PGPOST\_MOUSEBUTTONUP,}
+\DoxyCodeLine{00169\ \ \ \ \ PGPOST\_MOUSEWHEEL,}
+\DoxyCodeLine{00170\ \ \ \ \ PGPOST\_MULTIGESTURE,}
+\DoxyCodeLine{00171\ \ \ \ \ PGPOST\_NOEVENT,}
+\DoxyCodeLine{00172\ \ \ \ \ PGPOST\_QUIT,}
+\DoxyCodeLine{00173\ \ \ \ \ PGPOST\_RENDER\_TARGETS\_RESET,}
+\DoxyCodeLine{00174\ \ \ \ \ PGPOST\_RENDER\_DEVICE\_RESET,}
+\DoxyCodeLine{00175\ \ \ \ \ PGPOST\_SYSWMEVENT,}
+\DoxyCodeLine{00176\ \ \ \ \ PGPOST\_TEXTEDITING,}
+\DoxyCodeLine{00177\ \ \ \ \ PGPOST\_TEXTINPUT,}
+\DoxyCodeLine{00178\ \ \ \ \ PGPOST\_VIDEORESIZE,}
+\DoxyCodeLine{00179\ \ \ \ \ PGPOST\_VIDEOEXPOSE,}
+\DoxyCodeLine{00180\ \ \ \ \ PGPOST\_WINDOWSHOWN,}
+\DoxyCodeLine{00181\ \ \ \ \ PGPOST\_WINDOWHIDDEN,}
+\DoxyCodeLine{00182\ \ \ \ \ PGPOST\_WINDOWEXPOSED,}
+\DoxyCodeLine{00183\ \ \ \ \ PGPOST\_WINDOWMOVED,}
+\DoxyCodeLine{00184\ \ \ \ \ PGPOST\_WINDOWRESIZED,}
+\DoxyCodeLine{00185\ \ \ \ \ PGPOST\_WINDOWSIZECHANGED,}
+\DoxyCodeLine{00186\ \ \ \ \ PGPOST\_WINDOWMINIMIZED,}
+\DoxyCodeLine{00187\ \ \ \ \ PGPOST\_WINDOWMAXIMIZED,}
+\DoxyCodeLine{00188\ \ \ \ \ PGPOST\_WINDOWRESTORED,}
+\DoxyCodeLine{00189\ \ \ \ \ PGPOST\_WINDOWENTER,}
+\DoxyCodeLine{00190\ \ \ \ \ PGPOST\_WINDOWLEAVE,}
+\DoxyCodeLine{00191\ \ \ \ \ PGPOST\_WINDOWFOCUSGAINED,}
+\DoxyCodeLine{00192\ \ \ \ \ PGPOST\_WINDOWFOCUSLOST,}
+\DoxyCodeLine{00193\ \ \ \ \ PGPOST\_WINDOWCLOSE,}
+\DoxyCodeLine{00194\ \ \ \ \ PGPOST\_WINDOWTAKEFOCUS,}
+\DoxyCodeLine{00195\ \ \ \ \ PGPOST\_WINDOWHITTEST,}
+\DoxyCodeLine{00196\ \ \ \ \ PGPOST\_WINDOWICCPROFCHANGED,}
+\DoxyCodeLine{00197\ \ \ \ \ PGPOST\_WINDOWDISPLAYCHANGED,}
+\DoxyCodeLine{00198\ }
+\DoxyCodeLine{00199\ \ \ \ \ PGE\_USEREVENT,\ \textcolor{comment}{/*\ this\ event\ must\ stay\ in\ this\ position\ only\ */}}
+\DoxyCodeLine{00200\ }
+\DoxyCodeLine{00201\ \ \ \ \ PG\_NUMEVENTS\ =}
+\DoxyCodeLine{00202\ \ \ \ \ \ \ \ \ SDL\_LASTEVENT\ \textcolor{comment}{/*\ Not\ an\ event.\ Indicates\ end\ of\ user\ events.\ */}}
+\DoxyCodeLine{00203\ \}\ PygameEventCode;}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00205\ \textcolor{comment}{/*\ SDL1\ ACTIVEEVENT\ state\ attribute\ can\ take\ the\ following\ values\ */}}
+\DoxyCodeLine{00206\ \textcolor{comment}{/*\ These\ constant\ values\ are\ directly\ picked\ from\ SDL1\ source\ */}}
+\DoxyCodeLine{00207\ \textcolor{preprocessor}{\#define\ SDL\_APPMOUSEFOCUS\ 0x01}}
+\DoxyCodeLine{00208\ \textcolor{preprocessor}{\#define\ SDL\_APPINPUTFOCUS\ 0x02}}
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ SDL\_APPACTIVE\ 0x04}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{comment}{/*\ Surface\ flags:\ based\ on\ SDL\ 1.2\ flags\ */}}
+\DoxyCodeLine{00212\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{enum}\ \{}
+\DoxyCodeLine{00213\ \ \ \ \ PGS\_SWSURFACE\ =\ 0x00000000,}
+\DoxyCodeLine{00214\ \ \ \ \ PGS\_HWSURFACE\ =\ 0x00000001,}
+\DoxyCodeLine{00215\ \ \ \ \ PGS\_ASYNCBLIT\ =\ 0x00000004,}
+\DoxyCodeLine{00216\ }
+\DoxyCodeLine{00217\ \ \ \ \ PGS\_ANYFORMAT\ =\ 0x10000000,}
+\DoxyCodeLine{00218\ \ \ \ \ PGS\_HWPALETTE\ =\ 0x20000000,}
+\DoxyCodeLine{00219\ \ \ \ \ PGS\_DOUBLEBUF\ =\ 0x40000000,}
+\DoxyCodeLine{00220\ \ \ \ \ PGS\_FULLSCREEN\ =\ 0x80000000,}
+\DoxyCodeLine{00221\ \ \ \ \ PGS\_SCALED\ =\ 0x00000200,}
+\DoxyCodeLine{00222\ }
+\DoxyCodeLine{00223\ \ \ \ \ PGS\_OPENGL\ =\ 0x00000002,}
+\DoxyCodeLine{00224\ \ \ \ \ PGS\_OPENGLBLIT\ =\ 0x0000000A,}
+\DoxyCodeLine{00225\ \ \ \ \ PGS\_RESIZABLE\ =\ 0x00000010,}
+\DoxyCodeLine{00226\ \ \ \ \ PGS\_NOFRAME\ =\ 0x00000020,}
+\DoxyCodeLine{00227\ \ \ \ \ PGS\_SHOWN\ =\ 0x00000040,\ \ \textcolor{comment}{/*\ Added\ from\ SDL\ 2\ */}}
+\DoxyCodeLine{00228\ \ \ \ \ PGS\_HIDDEN\ =\ 0x00000080,\ \textcolor{comment}{/*\ Added\ from\ SDL\ 2\ */}}
+\DoxyCodeLine{00229\ }
+\DoxyCodeLine{00230\ \ \ \ \ PGS\_HWACCEL\ =\ 0x00000100,}
+\DoxyCodeLine{00231\ \ \ \ \ PGS\_SRCCOLORKEY\ =\ 0x00001000,}
+\DoxyCodeLine{00232\ \ \ \ \ PGS\_RLEACCELOK\ =\ 0x00002000,}
+\DoxyCodeLine{00233\ \ \ \ \ PGS\_RLEACCEL\ =\ 0x00004000,}
+\DoxyCodeLine{00234\ \ \ \ \ PGS\_SRCALPHA\ =\ 0x00010000,}
+\DoxyCodeLine{00235\ \ \ \ \ PGS\_PREALLOC\ =\ 0x01000000}
+\DoxyCodeLine{00236\ \}\ PygameSurfaceFlags;}
+\DoxyCodeLine{00237\ }
+\DoxyCodeLine{00238\ \textcolor{comment}{//\ TODO\ Implement\ check\ below\ in\ a\ way\ that\ does\ not\ break\ CI}}
+\DoxyCodeLine{00239\ \textcolor{comment}{/*\ New\ buffer\ protocol\ (PEP\ 3118)\ implemented\ on\ all\ supported\ Py\ versions.}}
+\DoxyCodeLine{00240\ \textcolor{comment}{\#if\ !defined(Py\_TPFLAGS\_HAVE\_NEWBUFFER)}}
+\DoxyCodeLine{00241\ \textcolor{comment}{\#error\ No\ support\ for\ PEP\ 3118/Py\_TPFLAGS\_HAVE\_NEWBUFFER.\ Please\ use\ a}}
+\DoxyCodeLine{00242\ \textcolor{comment}{supported\ Python\ version.\ \#endif\ */}}
+\DoxyCodeLine{00243\ }
+\DoxyCodeLine{00244\ \textcolor{preprocessor}{\#define\ RAISE(x,\ y)\ (PyErr\_SetString((x),\ (y)),\ NULL)}}
+\DoxyCodeLine{00245\ \textcolor{preprocessor}{\#define\ DEL\_ATTR\_NOT\_SUPPORTED\_CHECK(name,\ value)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00246\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00247\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (!value)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00248\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ PyErr\_Format(PyExc\_AttributeError,\ "{}Cannot\ delete\ attribute\ \%s"{},\ \(\backslash\)}}
+\DoxyCodeLine{00249\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ name);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ return\ -\/1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00252\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ (0)}}
+\DoxyCodeLine{00253\ }
+\DoxyCodeLine{00254\ \textcolor{preprocessor}{\#define\ DEL\_ATTR\_NOT\_SUPPORTED\_CHECK\_NO\_NAME(value)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00255\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00256\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (!value)\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00257\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ PyErr\_SetString(PyExc\_AttributeError,\ "{}Cannot\ delete\ attribute"{});\ \(\backslash\)}}
+\DoxyCodeLine{00258\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ return\ -\/1;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00259\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \}\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00260\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ (0)}}
+\DoxyCodeLine{00261\ }
+\DoxyCodeLine{00262\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00263\ \textcolor{comment}{\ *\ Initialization\ checks}}
+\DoxyCodeLine{00264\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00265\ }
+\DoxyCodeLine{00266\ \textcolor{preprocessor}{\#define\ VIDEO\_INIT\_CHECK()\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00267\ \textcolor{preprocessor}{\ \ \ \ if\ (!SDL\_WasInit(SDL\_INIT\_VIDEO))\ \(\backslash\)}}
+\DoxyCodeLine{00268\ \textcolor{preprocessor}{\ \ \ \ return\ RAISE(pgExc\_SDLError,\ "{}video\ system\ not\ initialized"{})}}
+\DoxyCodeLine{00269\ }
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\#define\ JOYSTICK\_INIT\_CHECK()\ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00271\ \textcolor{preprocessor}{\ \ \ \ if\ (!SDL\_WasInit(SDL\_INIT\_JOYSTICK))\ \(\backslash\)}}
+\DoxyCodeLine{00272\ \textcolor{preprocessor}{\ \ \ \ return\ RAISE(pgExc\_SDLError,\ "{}joystick\ system\ not\ initialized"{})}}
+\DoxyCodeLine{00273\ }
+\DoxyCodeLine{00274\ \textcolor{comment}{/*\ thread\ check\ */}}
+\DoxyCodeLine{00275\ \textcolor{preprocessor}{\#ifdef\ WITH\_THREAD}}
+\DoxyCodeLine{00276\ \textcolor{preprocessor}{\#define\ PG\_CHECK\_THREADS()\ (1)}}
+\DoxyCodeLine{00277\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ \string~WITH\_THREAD\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00278\ \textcolor{preprocessor}{\#define\ PG\_CHECK\_THREADS()\ \(\backslash\)}}
+\DoxyCodeLine{00279\ \textcolor{preprocessor}{\ \ \ \ (RAISE(PyExc\_NotImplementedError,\ "{}Python\ built\ without\ thread\ support"{}))}}
+\DoxyCodeLine{00280\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~WITH\_THREAD\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00281\ }
+\DoxyCodeLine{00282\ \textcolor{preprocessor}{\#define\ PyType\_Init(x)\ (((x).ob\_type)\ =\ \&PyType\_Type)}}
+\DoxyCodeLine{00283\ }
+\DoxyCodeLine{00284\ \textcolor{comment}{/*\ CPython\ 3.6\ had\ initial\ and\ undocumented\ FASTCALL\ support,\ but\ we\ play\ it}}
+\DoxyCodeLine{00285\ \textcolor{comment}{\ *\ safe\ by\ not\ relying\ on\ implementation\ details\ */}}
+\DoxyCodeLine{00286\ \textcolor{preprocessor}{\#if\ PY\_VERSION\_HEX\ <\ 0x03070000}}
+\DoxyCodeLine{00287\ }
+\DoxyCodeLine{00288\ \textcolor{comment}{/*\ Macro\ for\ naming\ a\ pygame\ fastcall\ wrapper\ function\ */}}
+\DoxyCodeLine{00289\ \textcolor{preprocessor}{\#define\ PG\_FASTCALL\_NAME(func)\ \_\#\#func\#\#\_fastcall\_wrap}}
+\DoxyCodeLine{00290\ }
+\DoxyCodeLine{00291\ \textcolor{comment}{/*\ used\ to\ forward\ declare\ compat\ functions\ */}}
+\DoxyCodeLine{00292\ \textcolor{preprocessor}{\#define\ PG\_DECLARE\_FASTCALL\_FUNC(func,\ self\_type)\ \(\backslash\)}}
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\ \ \ \ static\ PyObject\ *PG\_FASTCALL\_NAME(func)(self\_type\ *\ self,\ PyObject\ *\ args)}}
+\DoxyCodeLine{00294\ }
+\DoxyCodeLine{00295\ \textcolor{comment}{/*\ Using\ this\ macro\ on\ a\ function\ defined\ with\ the\ FASTCALL\ calling\ convention}}
+\DoxyCodeLine{00296\ \textcolor{comment}{\ *\ adds\ a\ wrapper\ definition\ that\ uses\ regular\ python\ VARARGS\ convention.}}
+\DoxyCodeLine{00297\ \textcolor{comment}{\ *\ Since\ it\ is\ guaranteed\ that\ the\ 'args'\ object\ is\ a\ tuple,\ we\ can\ directly}}
+\DoxyCodeLine{00298\ \textcolor{comment}{\ *\ call\ PySequence\_Fast\_ITEMS\ and\ PyTuple\_GET\_SIZE\ on\ it\ (which\ are\ macros\ that}}
+\DoxyCodeLine{00299\ \textcolor{comment}{\ *\ assume\ the\ same,\ and\ don't\ do\ error\ checking)\ */}}
+\DoxyCodeLine{00300\ \textcolor{preprocessor}{\#define\ PG\_WRAP\_FASTCALL\_FUNC(func,\ self\_type)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00301\ \textcolor{preprocessor}{\ \ \ \ PG\_DECLARE\_FASTCALL\_FUNC(func,\ self\_type)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00302\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00303\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ return\ func(self,\ (PyObject\ *const\ *)PySequence\_Fast\_ITEMS(args),\ \(\backslash\)}}
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ PyTuple\_GET\_SIZE(args));\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00307\ \textcolor{preprocessor}{\#define\ PG\_FASTCALL\ METH\_VARARGS}}
+\DoxyCodeLine{00308\ }
+\DoxyCodeLine{00309\ \textcolor{preprocessor}{\#else\ }\textcolor{comment}{/*\ PY\_VERSION\_HEX\ >=\ 0x03070000\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00310\ \textcolor{comment}{/*\ compat\ macros\ are\ no-\/op\ on\ python\ versions\ that\ support\ fastcall\ */}}
+\DoxyCodeLine{00311\ \textcolor{preprocessor}{\#define\ PG\_FASTCALL\_NAME(func)\ func}}
+\DoxyCodeLine{00312\ \textcolor{preprocessor}{\#define\ PG\_DECLARE\_FASTCALL\_FUNC(func,\ self\_type)}}
+\DoxyCodeLine{00313\ \textcolor{preprocessor}{\#define\ PG\_WRAP\_FASTCALL\_FUNC(func,\ self\_type)}}
+\DoxyCodeLine{00314\ }
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\#define\ PG\_FASTCALL\ METH\_FASTCALL}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00317\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ PY\_VERSION\_HEX\ >=\ 0x03070000\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00318\ }
+\DoxyCodeLine{00319\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00320\ \textcolor{comment}{\ *\ event\ module\ internals}}
+\DoxyCodeLine{00321\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00322\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpg_event_object}{pgEventObject}}\ \{}
+\DoxyCodeLine{00323\ \ \ \ \ PyObject\_HEAD\ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{classtype}{type}};}
+\DoxyCodeLine{00324\ \ \ \ \ PyObject\ *\mbox{\hyperlink{classdict}{dict}};}
+\DoxyCodeLine{00325\ \};}
+\DoxyCodeLine{00326\ }
+\DoxyCodeLine{00327\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00328\ \textcolor{comment}{\ *\ surflock\ module\ internals}}
+\DoxyCodeLine{00329\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00330\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00331\ \ \ \ \ PyObject\_HEAD\ PyObject\ *surface;}
+\DoxyCodeLine{00332\ \ \ \ \ PyObject\ *lockobj;}
+\DoxyCodeLine{00333\ \ \ \ \ PyObject\ *weakrefs;}
+\DoxyCodeLine{00334\ \}\ \mbox{\hyperlink{structpg_lifetime_lock_object}{pgLifetimeLockObject}};}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00336\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00337\ \textcolor{comment}{\ *\ surface\ module\ internals}}
+\DoxyCodeLine{00338\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00339\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpg_sub_surface___data}{pgSubSurface\_Data}}\ \{}
+\DoxyCodeLine{00340\ \ \ \ \ PyObject\ *owner;}
+\DoxyCodeLine{00341\ \ \ \ \ \textcolor{keywordtype}{int}\ pixeloffset;}
+\DoxyCodeLine{00342\ \ \ \ \ \textcolor{keywordtype}{int}\ offsetx,\ offsety;}
+\DoxyCodeLine{00343\ \};}
+\DoxyCodeLine{00344\ }
+\DoxyCodeLine{00345\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00346\ \textcolor{comment}{\ *\ color\ module\ internals}}
+\DoxyCodeLine{00347\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00348\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpg_color_object}{pgColorObject}}\ \{}
+\DoxyCodeLine{00349\ \ \ \ \ PyObject\_HEAD\ Uint8\ data[4];}
+\DoxyCodeLine{00350\ \ \ \ \ Uint8\ len;}
+\DoxyCodeLine{00351\ \};}
+\DoxyCodeLine{00352\ }
+\DoxyCodeLine{00353\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00354\ \textcolor{comment}{\ *\ include\ public\ API}}
+\DoxyCodeLine{00355\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00356\ \textcolor{preprocessor}{\#include\ "{}include/\_pygame.h"{}}}
+\DoxyCodeLine{00357\ }
+\DoxyCodeLine{00358\ \textcolor{comment}{/*\ Slot\ counts.}}
+\DoxyCodeLine{00359\ \textcolor{comment}{\ *\ Remember\ to\ keep\ these\ constants\ up\ to\ date.}}
+\DoxyCodeLine{00360\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00361\ }
+\DoxyCodeLine{00362\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_RECT\_NUMSLOTS\ 5}}
+\DoxyCodeLine{00363\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_JOYSTICK\_NUMSLOTS\ 2}}
+\DoxyCodeLine{00364\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_DISPLAY\_NUMSLOTS\ 2}}
+\DoxyCodeLine{00365\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_SURFACE\_NUMSLOTS\ 4}}
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_SURFLOCK\_NUMSLOTS\ 8}}
+\DoxyCodeLine{00367\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_RWOBJECT\_NUMSLOTS\ 6}}
+\DoxyCodeLine{00368\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_PIXELARRAY\_NUMSLOTS\ 2}}
+\DoxyCodeLine{00369\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_COLOR\_NUMSLOTS\ 5}}
+\DoxyCodeLine{00370\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_MATH\_NUMSLOTS\ 2}}
+\DoxyCodeLine{00371\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_BASE\_NUMSLOTS\ 27}}
+\DoxyCodeLine{00372\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_EVENT\_NUMSLOTS\ 6}}
+\DoxyCodeLine{00373\ }
+\DoxyCodeLine{00374\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \_PYGAME\_INTERNAL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

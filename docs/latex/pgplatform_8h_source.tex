@@ -1,0 +1,29 @@
+\doxysection{pgplatform.\+h}
+\hypertarget{pgplatform_8h_source}{}\label{pgplatform_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/pgplatform.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/pgplatform.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ platform/compiler\ adjustments\ (internal)\ */}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ PG\_PLATFORM\_INTERNAL\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ PG\_PLATFORM\_INTERNAL\_H}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#include\ "{}include/pgplatform.h"{}}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#ifndef\ MIN}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#define\ MIN(a,\ b)\ ((a)\ <\ (b)\ ?\ (a)\ :\ (b))}}
+\DoxyCodeLine{00009\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ MAX}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#define\ MAX(a,\ b)\ ((a)\ >\ (b)\ ?\ (a)\ :\ (b))}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#ifndef\ ABS}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ ABS(a)\ (((a)\ <\ 0)\ ?\ -\/(a)\ :\ (a))}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00016\ }
+\DoxyCodeLine{00017\ \textcolor{comment}{/*\ warnings\ */}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ PG\_STRINGIZE\_HELPER(x)\ \#x}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ PG\_STRINGIZE(x)\ PG\_STRINGIZE\_HELPER(x)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ PG\_WARN(desc)\ \(\backslash\)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ message(\_\_FILE\_\_\ "{}("{}\ PG\_STRINGIZE(\_\_LINE\_\_)\ "{}):\ WARNING:\ "{}\ \#desc)}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PG\_PLATFORM\_INTERNAL\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

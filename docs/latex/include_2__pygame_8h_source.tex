@@ -1,0 +1,538 @@
+\doxysection{\+\_\+pygame.\+h}
+\hypertarget{include_2__pygame_8h_source}{}\label{include_2__pygame_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/include/\_pygame.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/include/\_pygame.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ \ pygame\ -\/\ Python\ Game\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2000-\/2001\ \ Pete\ Shinners}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ \ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ \ version\ 2\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ \ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ \ Library\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ \ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ Foundation,\ Inc.,\ 59\ Temple\ Place,\ Suite\ 330,\ Boston,\ MA\ \ 02111-\/1307\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ \ \ Pete\ Shinners}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ \ \ pete@shinners.org}}
+\DoxyCodeLine{00021\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#ifndef\ \_PYGAME\_H}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#define\ \_PYGAME\_H}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#include\ "{}pgplatform.h"{}}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#include\ <Python.h>}}
+\DoxyCodeLine{00056\ }
+\DoxyCodeLine{00057\ \textcolor{comment}{/*\ version\ macros\ (defined\ since\ version\ 1.9.5)\ */}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ PG\_MAJOR\_VERSION\ 2}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ PG\_MINOR\_VERSION\ 5}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ PG\_PATCH\_VERSION\ 2}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ PG\_VERSIONNUM(MAJOR,\ MINOR,\ PATCH)\ \(\backslash\)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\ \ \ \ (1000\ *\ (MAJOR)\ +\ 100\ *\ (MINOR)\ +\ (PATCH))}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\#define\ PG\_VERSION\_ATLEAST(MAJOR,\ MINOR,\ PATCH)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00064\ \textcolor{preprocessor}{\ \ \ \ (PG\_VERSIONNUM(PG\_MAJOR\_VERSION,\ PG\_MINOR\_VERSION,\ PG\_PATCH\_VERSION)\ >=\ \(\backslash\)}}
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\ \ \ \ \ PG\_VERSIONNUM(MAJOR,\ MINOR,\ PATCH))}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#include\ "{}pgcompat.h"{}}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{/*\ Flag\ indicating\ a\ pg\_buffer;\ used\ for\ assertions\ within\ callbacks\ */}}
+\DoxyCodeLine{00070\ \textcolor{preprocessor}{\#ifndef\ NDEBUG}}
+\DoxyCodeLine{00071\ \textcolor{preprocessor}{\#define\ PyBUF\_PYGAME\ 0x4000}}
+\DoxyCodeLine{00072\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00073\ \textcolor{preprocessor}{\#define\ PyBUF\_HAS\_FLAG(f,\ F)\ (((f)\ \&\ (F))\ ==\ (F))}}
+\DoxyCodeLine{00074\ }
+\DoxyCodeLine{00075\ \textcolor{comment}{/*\ Array\ information\ exchange\ struct\ C\ type;\ inherits\ from\ Py\_buffer}}
+\DoxyCodeLine{00076\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00077\ \textcolor{comment}{\ *\ Pygame\ uses\ its\ own\ Py\_buffer\ derived\ C\ struct\ as\ an\ internal\ representation}}
+\DoxyCodeLine{00078\ \textcolor{comment}{\ *\ of\ an\ imported\ array\ buffer.\ The\ extended\ Py\_buffer\ allows\ for\ a}}
+\DoxyCodeLine{00079\ \textcolor{comment}{\ *\ per-\/instance\ release\ callback,}}
+\DoxyCodeLine{00080\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00081\ \textcolor{keyword}{typedef}\ void\ (*pybuffer\_releaseproc)(Py\_buffer\ *);}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpg__bufferinfo__s}{pg\_bufferinfo\_s}}\ \{}
+\DoxyCodeLine{00084\ \ \ \ \ Py\_buffer\ view;}
+\DoxyCodeLine{00085\ \ \ \ \ PyObject\ *consumer;\ \textcolor{comment}{/*\ Input:\ Borrowed\ reference\ */}}
+\DoxyCodeLine{00086\ \ \ \ \ pybuffer\_releaseproc\ release\_buffer;}
+\DoxyCodeLine{00087\ \}\ \mbox{\hyperlink{structpg__bufferinfo__s}{pg\_buffer}};}
+\DoxyCodeLine{00088\ }
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#include\ "{}pgimport.h"{}}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00092\ \textcolor{comment}{\ *\ BASE\ module}}
+\DoxyCodeLine{00093\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00094\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_BASE\_INTERNAL}}
+\DoxyCodeLine{00095\ \textcolor{preprocessor}{\#define\ pgExc\_SDLError\ ((PyObject\ *)PYGAMEAPI\_GET\_SLOT(base,\ 0))}}
+\DoxyCodeLine{00096\ }
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\#define\ pg\_RegisterQuit\ \(\backslash\)}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\ \ \ \ (*(void\ (*)(void\ (*)(void)))PYGAMEAPI\_GET\_SLOT(base,\ 1))}}
+\DoxyCodeLine{00099\ }
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#define\ pg\_IntFromObj\ \(\backslash\)}}
+\DoxyCodeLine{00111\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ int\ *))PYGAMEAPI\_GET\_SLOT(base,\ 2))}}
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00125\ \textcolor{preprocessor}{\#define\ pg\_IntFromObjIndex\ \(\backslash\)}}
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ int,\ int\ *))PYGAMEAPI\_GET\_SLOT(base,\ 3))}}
+\DoxyCodeLine{00127\ }
+\DoxyCodeLine{00140\ \textcolor{preprocessor}{\#define\ pg\_TwoIntsFromObj\ \(\backslash\)}}
+\DoxyCodeLine{00141\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ int\ *,\ int\ *))PYGAMEAPI\_GET\_SLOT(base,\ 4))}}
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00152\ \textcolor{preprocessor}{\#define\ pg\_FloatFromObj\ \(\backslash\)}}
+\DoxyCodeLine{00153\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ float\ *))PYGAMEAPI\_GET\_SLOT(base,\ 5))}}
+\DoxyCodeLine{00154\ }
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#define\ pg\_FloatFromObjIndex\ \(\backslash\)}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ int,\ float\ *))PYGAMEAPI\_GET\_SLOT(base,\ 6))}}
+\DoxyCodeLine{00168\ }
+\DoxyCodeLine{00180\ \textcolor{preprocessor}{\#define\ pg\_TwoFloatsFromObj\ \(\backslash\)}}
+\DoxyCodeLine{00181\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ float\ *,\ float\ *))PYGAMEAPI\_GET\_SLOT(base,\ 7))}}
+\DoxyCodeLine{00182\ }
+\DoxyCodeLine{00190\ \textcolor{preprocessor}{\#define\ pg\_UintFromObj\ \(\backslash\)}}
+\DoxyCodeLine{00191\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ Uint32\ *))PYGAMEAPI\_GET\_SLOT(base,\ 8))}}
+\DoxyCodeLine{00192\ }
+\DoxyCodeLine{00202\ \textcolor{preprocessor}{\#define\ pg\_UintFromObjIndex\ \(\backslash\)}}
+\DoxyCodeLine{00203\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ int,\ Uint32\ *))PYGAMEAPI\_GET\_SLOT(base,\ 9))}}
+\DoxyCodeLine{00204\ }
+\DoxyCodeLine{00209\ \textcolor{preprocessor}{\#define\ pg\_mod\_autoinit\ (*(int\ (*)(const\ char\ *))PYGAMEAPI\_GET\_SLOT(base,\ 10))}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00214\ \textcolor{preprocessor}{\#define\ pg\_mod\_autoquit\ (*(void\ (*)(const\ char\ *))PYGAMEAPI\_GET\_SLOT(base,\ 11))}}
+\DoxyCodeLine{00215\ }
+\DoxyCodeLine{00228\ \textcolor{preprocessor}{\#define\ pg\_RGBAFromObj\ \(\backslash\)}}
+\DoxyCodeLine{00229\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ Uint8\ *))PYGAMEAPI\_GET\_SLOT(base,\ 12))}}
+\DoxyCodeLine{00230\ }
+\DoxyCodeLine{00239\ \textcolor{preprocessor}{\#define\ pgBuffer\_AsArrayInterface\ \(\backslash\)}}
+\DoxyCodeLine{00240\ \textcolor{preprocessor}{\ \ \ \ (*(PyObject\ *\ (*)(Py\_buffer\ *))\ PYGAMEAPI\_GET\_SLOT(base,\ 13))}}
+\DoxyCodeLine{00241\ }
+\DoxyCodeLine{00250\ \textcolor{preprocessor}{\#define\ pgBuffer\_AsArrayStruct\ \(\backslash\)}}
+\DoxyCodeLine{00251\ \textcolor{preprocessor}{\ \ \ \ (*(PyObject\ *\ (*)(Py\_buffer\ *))\ PYGAMEAPI\_GET\_SLOT(base,\ 14))}}
+\DoxyCodeLine{00252\ }
+\DoxyCodeLine{00269\ \textcolor{preprocessor}{\#define\ pgObject\_GetBuffer\ \(\backslash\)}}
+\DoxyCodeLine{00270\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ pg\_buffer\ *,\ int))PYGAMEAPI\_GET\_SLOT(base,\ 15))}}
+\DoxyCodeLine{00271\ }
+\DoxyCodeLine{00281\ \textcolor{preprocessor}{\#define\ pgBuffer\_Release\ (*(void\ (*)(pg\_buffer\ *))PYGAMEAPI\_GET\_SLOT(base,\ 16))}}
+\DoxyCodeLine{00282\ }
+\DoxyCodeLine{00293\ \textcolor{preprocessor}{\#define\ pgDict\_AsBuffer\ \(\backslash\)}}
+\DoxyCodeLine{00294\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(pg\_buffer\ *,\ PyObject\ *,\ int))PYGAMEAPI\_GET\_SLOT(base,\ 17))}}
+\DoxyCodeLine{00295\ }
+\DoxyCodeLine{00296\ \textcolor{preprocessor}{\#define\ pgExc\_BufferError\ ((PyObject\ *)PYGAMEAPI\_GET\_SLOT(base,\ 18))}}
+\DoxyCodeLine{00297\ }
+\DoxyCodeLine{00304\ \textcolor{preprocessor}{\#define\ pg\_GetDefaultWindow\ \(\backslash\)}}
+\DoxyCodeLine{00305\ \textcolor{preprocessor}{\ \ \ \ (*(SDL\_Window\ *\ (*)(void))\ PYGAMEAPI\_GET\_SLOT(base,\ 19))}}
+\DoxyCodeLine{00306\ }
+\DoxyCodeLine{00314\ \textcolor{preprocessor}{\#define\ pg\_SetDefaultWindow\ \(\backslash\)}}
+\DoxyCodeLine{00315\ \textcolor{preprocessor}{\ \ \ \ (*(void\ (*)(SDL\_Window\ *))PYGAMEAPI\_GET\_SLOT(base,\ 20))}}
+\DoxyCodeLine{00316\ }
+\DoxyCodeLine{00323\ \textcolor{preprocessor}{\#define\ pg\_GetDefaultWindowSurface\ \(\backslash\)}}
+\DoxyCodeLine{00324\ \textcolor{preprocessor}{\ \ \ \ (*(pgSurfaceObject\ *\ (*)(void))\ PYGAMEAPI\_GET\_SLOT(base,\ 21))}}
+\DoxyCodeLine{00325\ }
+\DoxyCodeLine{00333\ \textcolor{preprocessor}{\#define\ pg\_SetDefaultWindowSurface\ \(\backslash\)}}
+\DoxyCodeLine{00334\ \textcolor{preprocessor}{\ \ \ \ (*(void\ (*)(pgSurfaceObject\ *))PYGAMEAPI\_GET\_SLOT(base,\ 22))}}
+\DoxyCodeLine{00335\ }
+\DoxyCodeLine{00340\ \textcolor{preprocessor}{\#define\ pg\_EnvShouldBlendAlphaSDL2\ \(\backslash\)}}
+\DoxyCodeLine{00341\ \textcolor{preprocessor}{\ \ \ \ (*(char\ *(*)(void))PYGAMEAPI\_GET\_SLOT(base,\ 23))}}
+\DoxyCodeLine{00342\ }
+\DoxyCodeLine{00352\ \textcolor{preprocessor}{\#define\ pg\_DoubleFromObj\ \(\backslash\)}}
+\DoxyCodeLine{00353\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ double\ *))PYGAMEAPI\_GET\_SLOT(base,\ 24))}}
+\DoxyCodeLine{00354\ }
+\DoxyCodeLine{00366\ \textcolor{preprocessor}{\#define\ pg\_DoubleFromObjIndex\ \(\backslash\)}}
+\DoxyCodeLine{00367\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ int,\ double\ *))PYGAMEAPI\_GET\_SLOT(base,\ 25))}}
+\DoxyCodeLine{00368\ }
+\DoxyCodeLine{00378\ \textcolor{preprocessor}{\#define\ pg\_TwoDoublesFromObj\ \(\backslash\)}}
+\DoxyCodeLine{00379\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ double\ *,\ double\ *))PYGAMEAPI\_GET\_SLOT(base,\ 26))}}
+\DoxyCodeLine{00380\ }
+\DoxyCodeLine{00381\ \textcolor{preprocessor}{\#define\ import\_pygame\_base()\ IMPORT\_PYGAME\_MODULE(base)}}
+\DoxyCodeLine{00382\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PYGAMEAPI\_BASE\_INTERNAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00383\ }
+\DoxyCodeLine{00384\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00388\ \ \ \ \ PyObject\_HEAD\ SDL\_Rect\ \mbox{\hyperlink{structpg_rect_object_ae101b10de97c8283d1a8039a294fd4b3}{r}};}
+\DoxyCodeLine{00392\ \ \ \ \ PyObject\ *\mbox{\hyperlink{structpg_rect_object_afecff16ded6797cbf9dfe6566a705bd5}{weakreflist}};}
+\DoxyCodeLine{00393\ \}\ \mbox{\hyperlink{structpg_rect_object}{pgRectObject}};}
+\DoxyCodeLine{00394\ }
+\DoxyCodeLine{00403\ \textcolor{preprocessor}{\#define\ pgRect\_AsRect(x)\ (((pgRectObject\ *)x)-\/>r)}}
+\DoxyCodeLine{00404\ }
+\DoxyCodeLine{00405\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_RECT\_INTERNAL}}
+\DoxyCodeLine{00406\ }
+\DoxyCodeLine{00410\ \textcolor{preprocessor}{\#define\ pgRect\_Type\ (*(PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(rect,\ 0))}}
+\DoxyCodeLine{00411\ }
+\DoxyCodeLine{00417\ \textcolor{preprocessor}{\#define\ pgRect\_Check(obj)\ ((obj)-\/>ob\_type\ ==\ \&pgRect\_Type)}}
+\DoxyCodeLine{00418\ }
+\DoxyCodeLine{00428\ \textcolor{preprocessor}{\#define\ pgRect\_New\ (*(PyObject\ *\ (*)(SDL\_Rect\ *))\ PYGAMEAPI\_GET\_SLOT(rect,\ 1))}}
+\DoxyCodeLine{00429\ }
+\DoxyCodeLine{00441\ \textcolor{preprocessor}{\#define\ pgRect\_New4\ \(\backslash\)}}
+\DoxyCodeLine{00442\ \textcolor{preprocessor}{\ \ \ \ (*(PyObject\ *\ (*)(int,\ int,\ int,\ int))\ PYGAMEAPI\_GET\_SLOT(rect,\ 2))}}
+\DoxyCodeLine{00443\ }
+\DoxyCodeLine{00460\ \textcolor{preprocessor}{\#define\ pgRect\_FromObject\ \(\backslash\)}}
+\DoxyCodeLine{00461\ \textcolor{preprocessor}{\ \ \ \ (*(SDL\_Rect\ *\ (*)(PyObject\ *,\ SDL\_Rect\ *))\ PYGAMEAPI\_GET\_SLOT(rect,\ 3))}}
+\DoxyCodeLine{00462\ }
+\DoxyCodeLine{00472\ \textcolor{preprocessor}{\#define\ pgRect\_Normalize\ (*(void\ (*)(SDL\_Rect\ *))PYGAMEAPI\_GET\_SLOT(rect,\ 4))}}
+\DoxyCodeLine{00473\ }
+\DoxyCodeLine{00474\ \textcolor{preprocessor}{\#define\ import\_pygame\_rect()\ IMPORT\_PYGAME\_MODULE(rect)}}
+\DoxyCodeLine{00475\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PYGAMEAPI\_RECT\_INTERNAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00476\ }
+\DoxyCodeLine{00477\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00478\ \textcolor{comment}{\ *\ JOYSTICK\ module}}
+\DoxyCodeLine{00479\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00480\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpg_joystick_object}{pgJoystickObject}}\ \{}
+\DoxyCodeLine{00481\ \ \ \ \ PyObject\_HEAD\ \textcolor{keywordtype}{int}\ id;}
+\DoxyCodeLine{00482\ \ \ \ \ SDL\_Joystick\ *joy;}
+\DoxyCodeLine{00483\ }
+\DoxyCodeLine{00484\ \ \ \ \ \textcolor{comment}{/*\ Joysticks\ form\ an\ intrusive\ linked\ list.}}
+\DoxyCodeLine{00485\ \textcolor{comment}{\ \ \ \ \ *}}
+\DoxyCodeLine{00486\ \textcolor{comment}{\ \ \ \ \ *\ Note\ that\ we\ don't\ maintain\ refcounts\ for\ these\ so\ they\ are\ weakrefs}}
+\DoxyCodeLine{00487\ \textcolor{comment}{\ \ \ \ \ *\ from\ the\ Python\ side.}}
+\DoxyCodeLine{00488\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00489\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpg_joystick_object}{pgJoystickObject}}\ *next;}
+\DoxyCodeLine{00490\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpg_joystick_object}{pgJoystickObject}}\ *prev;}
+\DoxyCodeLine{00491\ \}\ \mbox{\hyperlink{structpg_joystick_object}{pgJoystickObject}};}
+\DoxyCodeLine{00492\ }
+\DoxyCodeLine{00493\ \textcolor{preprocessor}{\#define\ pgJoystick\_AsID(x)\ (((pgJoystickObject\ *)x)-\/>id)}}
+\DoxyCodeLine{00494\ \textcolor{preprocessor}{\#define\ pgJoystick\_AsSDL(x)\ (((pgJoystickObject\ *)x)-\/>joy)}}
+\DoxyCodeLine{00495\ }
+\DoxyCodeLine{00496\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_JOYSTICK\_INTERNAL}}
+\DoxyCodeLine{00497\ \textcolor{preprocessor}{\#define\ pgJoystick\_Type\ (*(PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(joystick,\ 0))}}
+\DoxyCodeLine{00498\ }
+\DoxyCodeLine{00499\ \textcolor{preprocessor}{\#define\ pgJoystick\_Check(x)\ ((x)-\/>ob\_type\ ==\ \&pgJoystick\_Type)}}
+\DoxyCodeLine{00500\ \textcolor{preprocessor}{\#define\ pgJoystick\_New\ (*(PyObject\ *\ (*)(int))\ PYGAMEAPI\_GET\_SLOT(joystick,\ 1))}}
+\DoxyCodeLine{00501\ }
+\DoxyCodeLine{00502\ \textcolor{preprocessor}{\#define\ import\_pygame\_joystick()\ IMPORT\_PYGAME\_MODULE(joystick)}}
+\DoxyCodeLine{00503\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00504\ }
+\DoxyCodeLine{00505\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00506\ \textcolor{comment}{\ *\ DISPLAY\ module}}
+\DoxyCodeLine{00507\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00508\ }
+\DoxyCodeLine{00509\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00510\ \ \ \ \ Uint32\ hw\_available\ :\ 1;}
+\DoxyCodeLine{00511\ \ \ \ \ Uint32\ wm\_available\ :\ 1;}
+\DoxyCodeLine{00512\ \ \ \ \ Uint32\ blit\_hw\ :\ 1;}
+\DoxyCodeLine{00513\ \ \ \ \ Uint32\ blit\_hw\_CC\ :\ 1;}
+\DoxyCodeLine{00514\ \ \ \ \ Uint32\ blit\_hw\_A\ :\ 1;}
+\DoxyCodeLine{00515\ \ \ \ \ Uint32\ blit\_sw\ :\ 1;}
+\DoxyCodeLine{00516\ \ \ \ \ Uint32\ blit\_sw\_CC\ :\ 1;}
+\DoxyCodeLine{00517\ \ \ \ \ Uint32\ blit\_sw\_A\ :\ 1;}
+\DoxyCodeLine{00518\ \ \ \ \ Uint32\ blit\_fill\ :\ 1;}
+\DoxyCodeLine{00519\ \ \ \ \ Uint32\ video\_mem;}
+\DoxyCodeLine{00520\ \ \ \ \ SDL\_PixelFormat\ *vfmt;}
+\DoxyCodeLine{00521\ \ \ \ \ SDL\_PixelFormat\ vfmt\_data;}
+\DoxyCodeLine{00522\ \ \ \ \ \textcolor{keywordtype}{int}\ current\_w;}
+\DoxyCodeLine{00523\ \ \ \ \ \textcolor{keywordtype}{int}\ current\_h;}
+\DoxyCodeLine{00524\ \}\ \mbox{\hyperlink{structpg___video_info}{pg\_VideoInfo}};}
+\DoxyCodeLine{00525\ }
+\DoxyCodeLine{00530\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00531\ \ \ \ \ PyObject\_HEAD\ \mbox{\hyperlink{structpg___video_info}{pg\_VideoInfo}}\ info;}
+\DoxyCodeLine{00532\ \}\ \mbox{\hyperlink{structpg_vid_info_object}{pgVidInfoObject}};}
+\DoxyCodeLine{00533\ }
+\DoxyCodeLine{00545\ \textcolor{preprocessor}{\#define\ pgVidInfo\_AsVidInfo(x)\ (((pgVidInfoObject\ *)x)-\/>info)}}
+\DoxyCodeLine{00546\ }
+\DoxyCodeLine{00547\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_DISPLAY\_INTERNAL}}
+\DoxyCodeLine{00552\ \textcolor{preprocessor}{\#define\ pgVidInfo\_Type\ (*(PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(display,\ 0))}}
+\DoxyCodeLine{00553\ }
+\DoxyCodeLine{00562\ \textcolor{preprocessor}{\#define\ pgVidInfo\_Check(x)\ ((x)-\/>ob\_type\ ==\ \&pgVidInfo\_Type)}}
+\DoxyCodeLine{00563\ }
+\DoxyCodeLine{00573\ \textcolor{preprocessor}{\#define\ pgVidInfo\_New\ \(\backslash\)}}
+\DoxyCodeLine{00574\ \textcolor{preprocessor}{\ \ \ \ (*(PyObject\ *\ (*)(pg\_VideoInfo\ *))\ PYGAMEAPI\_GET\_SLOT(display,\ 1))}}
+\DoxyCodeLine{00575\ }
+\DoxyCodeLine{00576\ \textcolor{preprocessor}{\#define\ import\_pygame\_display()\ IMPORT\_PYGAME\_MODULE(display)}}
+\DoxyCodeLine{00577\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PYGAMEAPI\_DISPLAY\_INTERNAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00578\ }
+\DoxyCodeLine{00579\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00580\ \textcolor{comment}{\ *\ SURFACE\ module}}
+\DoxyCodeLine{00581\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00582\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpg_sub_surface___data}{pgSubSurface\_Data}};}
+\DoxyCodeLine{00583\ \textcolor{keyword}{struct\ }SDL\_Surface;}
+\DoxyCodeLine{00584\ }
+\DoxyCodeLine{00589\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00590\ \ \ \ \ PyObject\_HEAD\ \textcolor{keyword}{struct\ }SDL\_Surface\ *surf;}
+\DoxyCodeLine{00595\ \ \ \ \ \textcolor{keywordtype}{int}\ \mbox{\hyperlink{structpg_surface_object_ae06115953ca8e109959e7801e5d0ab86}{owner}};}
+\DoxyCodeLine{00599\ \ \ \ \ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpg_sub_surface___data}{pgSubSurface\_Data}}\ *\mbox{\hyperlink{structpg_surface_object_af88de874c2a9e1616104820e5050d979}{subsurface}};}
+\DoxyCodeLine{00603\ \ \ \ \ PyObject\ *\mbox{\hyperlink{structpg_surface_object_a1918eaf635affb55cbaccbffc0a75bcf}{weakreflist}};}
+\DoxyCodeLine{00607\ \ \ \ \ PyObject\ *\mbox{\hyperlink{structpg_surface_object_ac8e1e1eec4639dd65318ef954e73ef94}{locklist}};}
+\DoxyCodeLine{00611\ \ \ \ \ PyObject\ *\mbox{\hyperlink{structpg_surface_object_ac7fa0be13a9e38e00005d14b77a879b3}{dependency}};}
+\DoxyCodeLine{00612\ \}\ \mbox{\hyperlink{structpg_surface_object}{pgSurfaceObject}};}
+\DoxyCodeLine{00613\ }
+\DoxyCodeLine{00622\ \textcolor{preprocessor}{\#define\ pgSurface\_AsSurface(x)\ (((pgSurfaceObject\ *)x)-\/>surf)}}
+\DoxyCodeLine{00623\ }
+\DoxyCodeLine{00624\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_SURFACE\_INTERNAL}}
+\DoxyCodeLine{00628\ \textcolor{preprocessor}{\#define\ pgSurface\_Type\ (*(PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(surface,\ 0))}}
+\DoxyCodeLine{00629\ }
+\DoxyCodeLine{00640\ \textcolor{preprocessor}{\#define\ pgSurface\_Check(x)\ \(\backslash\)}}
+\DoxyCodeLine{00641\ \textcolor{preprocessor}{\ \ \ \ (PyObject\_IsInstance((x),\ (PyObject\ *)\&pgSurface\_Type))}}
+\DoxyCodeLine{00642\ }
+\DoxyCodeLine{00653\ \textcolor{preprocessor}{\#define\ pgSurface\_New2\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00654\ \textcolor{preprocessor}{\ \ \ \ (*(pgSurfaceObject\ *\ (*)(SDL\_Surface\ *,\ int))\ \(\backslash\)}}
+\DoxyCodeLine{00655\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ PYGAMEAPI\_GET\_SLOT(surface,\ 1))}}
+\DoxyCodeLine{00656\ }
+\DoxyCodeLine{00668\ \textcolor{preprocessor}{\#define\ pgSurface\_SetSurface\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00669\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(pgSurfaceObject\ *,\ SDL\_Surface\ *,\ int))PYGAMEAPI\_GET\_SLOT(\ \(\backslash\)}}
+\DoxyCodeLine{00670\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ surface,\ 3))}}
+\DoxyCodeLine{00671\ }
+\DoxyCodeLine{00686\ \textcolor{preprocessor}{\#define\ pgSurface\_Blit\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00687\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(pgSurfaceObject\ *,\ pgSurfaceObject\ *,\ SDL\_Rect\ *,\ SDL\_Rect\ *,\ \(\backslash\)}}
+\DoxyCodeLine{00688\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ int))PYGAMEAPI\_GET\_SLOT(surface,\ 2))}}
+\DoxyCodeLine{00689\ }
+\DoxyCodeLine{00690\ \textcolor{preprocessor}{\#define\ import\_pygame\_surface()\ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00691\ \textcolor{preprocessor}{\ \ \ \ do\ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00692\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ IMPORT\_PYGAME\_MODULE(surface);\ \ \(\backslash\)}}
+\DoxyCodeLine{00693\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ if\ (PyErr\_Occurred()\ !=\ NULL)\ \ \ \(\backslash\)}}
+\DoxyCodeLine{00694\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ \ \ \ break;\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00695\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ IMPORT\_PYGAME\_MODULE(surflock);\ \(\backslash\)}}
+\DoxyCodeLine{00696\ \textcolor{preprocessor}{\ \ \ \ \}\ while\ (0)}}
+\DoxyCodeLine{00697\ }
+\DoxyCodeLine{00698\ \textcolor{preprocessor}{\#define\ pgSurface\_New(surface)\ pgSurface\_New2((surface),\ 1)}}
+\DoxyCodeLine{00699\ \textcolor{preprocessor}{\#define\ pgSurface\_NewNoOwn(surface)\ pgSurface\_New2((surface),\ 0)}}
+\DoxyCodeLine{00700\ }
+\DoxyCodeLine{00701\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PYGAMEAPI\_SURFACE\_INTERNAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00702\ }
+\DoxyCodeLine{00703\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00704\ \textcolor{comment}{\ *\ SURFLOCK\ module}}
+\DoxyCodeLine{00705\ \textcolor{comment}{\ *\ auto\ imported/initialized\ by\ surface}}
+\DoxyCodeLine{00706\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00707\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_SURFLOCK\_INTERNAL}}
+\DoxyCodeLine{00708\ \textcolor{preprocessor}{\#define\ pgLifetimeLock\_Type\ (*(PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(surflock,\ 0))}}
+\DoxyCodeLine{00709\ }
+\DoxyCodeLine{00710\ \textcolor{preprocessor}{\#define\ pgLifetimeLock\_Check(x)\ ((x)-\/>ob\_type\ ==\ \&pgLifetimeLock\_Type)}}
+\DoxyCodeLine{00711\ }
+\DoxyCodeLine{00712\ \textcolor{preprocessor}{\#define\ pgSurface\_Prep(x)\ \(\backslash\)}}
+\DoxyCodeLine{00713\ \textcolor{preprocessor}{\ \ \ \ if\ ((x)-\/>subsurface)\ \ \(\backslash\)}}
+\DoxyCodeLine{00714\ \textcolor{preprocessor}{\ \ \ \ (*(*(void\ (*)(pgSurfaceObject\ *))PYGAMEAPI\_GET\_SLOT(surflock,\ 1)))(x)}}
+\DoxyCodeLine{00715\ }
+\DoxyCodeLine{00716\ \textcolor{preprocessor}{\#define\ pgSurface\_Unprep(x)\ \(\backslash\)}}
+\DoxyCodeLine{00717\ \textcolor{preprocessor}{\ \ \ \ if\ ((x)-\/>subsurface)\ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00718\ \textcolor{preprocessor}{\ \ \ \ (*(*(void\ (*)(pgSurfaceObject\ *))PYGAMEAPI\_GET\_SLOT(surflock,\ 2)))(x)}}
+\DoxyCodeLine{00719\ }
+\DoxyCodeLine{00720\ \textcolor{preprocessor}{\#define\ pgSurface\_Lock\ \(\backslash\)}}
+\DoxyCodeLine{00721\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(pgSurfaceObject\ *))PYGAMEAPI\_GET\_SLOT(surflock,\ 3))}}
+\DoxyCodeLine{00722\ }
+\DoxyCodeLine{00723\ \textcolor{preprocessor}{\#define\ pgSurface\_Unlock\ \(\backslash\)}}
+\DoxyCodeLine{00724\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(pgSurfaceObject\ *))PYGAMEAPI\_GET\_SLOT(surflock,\ 4))}}
+\DoxyCodeLine{00725\ }
+\DoxyCodeLine{00726\ \textcolor{preprocessor}{\#define\ pgSurface\_LockBy\ \(\backslash\)}}
+\DoxyCodeLine{00727\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(pgSurfaceObject\ *,\ PyObject\ *))PYGAMEAPI\_GET\_SLOT(surflock,\ 5))}}
+\DoxyCodeLine{00728\ }
+\DoxyCodeLine{00729\ \textcolor{preprocessor}{\#define\ pgSurface\_UnlockBy\ \(\backslash\)}}
+\DoxyCodeLine{00730\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(pgSurfaceObject\ *,\ PyObject\ *))PYGAMEAPI\_GET\_SLOT(surflock,\ 6))}}
+\DoxyCodeLine{00731\ }
+\DoxyCodeLine{00732\ \textcolor{preprocessor}{\#define\ pgSurface\_LockLifetime\ \(\backslash\)}}
+\DoxyCodeLine{00733\ \textcolor{preprocessor}{\ \ \ \ (*(PyObject\ *\ (*)(PyObject\ *,\ PyObject\ *))\ PYGAMEAPI\_GET\_SLOT(surflock,\ 7))}}
+\DoxyCodeLine{00734\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00735\ }
+\DoxyCodeLine{00736\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00737\ \textcolor{comment}{\ *\ EVENT\ module}}
+\DoxyCodeLine{00738\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00739\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpg_event_object}{pgEventObject}}\ \mbox{\hyperlink{structpg_event_object}{pgEventObject}};}
+\DoxyCodeLine{00740\ }
+\DoxyCodeLine{00741\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_EVENT\_INTERNAL}}
+\DoxyCodeLine{00742\ \textcolor{preprocessor}{\#define\ pgEvent\_Type\ (*(PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(event,\ 0))}}
+\DoxyCodeLine{00743\ }
+\DoxyCodeLine{00744\ \textcolor{preprocessor}{\#define\ pgEvent\_Check(x)\ ((x)-\/>ob\_type\ ==\ \&pgEvent\_Type)}}
+\DoxyCodeLine{00745\ }
+\DoxyCodeLine{00746\ \textcolor{preprocessor}{\#define\ pgEvent\_New\ \(\backslash\)}}
+\DoxyCodeLine{00747\ \textcolor{preprocessor}{\ \ \ \ (*(PyObject\ *\ (*)(SDL\_Event\ *))\ PYGAMEAPI\_GET\_SLOT(event,\ 1))}}
+\DoxyCodeLine{00748\ }
+\DoxyCodeLine{00749\ \textcolor{preprocessor}{\#define\ pgEvent\_New2\ \(\backslash\)}}
+\DoxyCodeLine{00750\ \textcolor{preprocessor}{\ \ \ \ (*(PyObject\ *\ (*)(int,\ PyObject\ *))\ PYGAMEAPI\_GET\_SLOT(event,\ 2))}}
+\DoxyCodeLine{00751\ }
+\DoxyCodeLine{00752\ \textcolor{preprocessor}{\#define\ pgEvent\_FillUserEvent\ \(\backslash\)}}
+\DoxyCodeLine{00753\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(pgEventObject\ *,\ SDL\_Event\ *))PYGAMEAPI\_GET\_SLOT(event,\ 3))}}
+\DoxyCodeLine{00754\ }
+\DoxyCodeLine{00755\ \textcolor{preprocessor}{\#define\ pg\_EnableKeyRepeat\ (*(int\ (*)(int,\ int))PYGAMEAPI\_GET\_SLOT(event,\ 4))}}
+\DoxyCodeLine{00756\ }
+\DoxyCodeLine{00757\ \textcolor{preprocessor}{\#define\ pg\_GetKeyRepeat\ (*(void\ (*)(int\ *,\ int\ *))PYGAMEAPI\_GET\_SLOT(event,\ 5))}}
+\DoxyCodeLine{00758\ }
+\DoxyCodeLine{00759\ \textcolor{preprocessor}{\#define\ import\_pygame\_event()\ IMPORT\_PYGAME\_MODULE(event)}}
+\DoxyCodeLine{00760\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00761\ }
+\DoxyCodeLine{00762\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00763\ \textcolor{comment}{\ *\ RWOBJECT\ module}}
+\DoxyCodeLine{00764\ \textcolor{comment}{\ *\ the\ rwobject\ are\ only\ needed\ for\ C\ side\ work,\ not\ accessible\ from\ python.}}
+\DoxyCodeLine{00765\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00766\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_RWOBJECT\_INTERNAL}}
+\DoxyCodeLine{00767\ \textcolor{preprocessor}{\#define\ pgRWops\_FromObject\ \(\backslash\)}}
+\DoxyCodeLine{00768\ \textcolor{preprocessor}{\ \ \ \ (*(SDL\_RWops\ *\ (*)(PyObject\ *,\ char\ **))\ PYGAMEAPI\_GET\_SLOT(rwobject,\ 0))}}
+\DoxyCodeLine{00769\ }
+\DoxyCodeLine{00770\ \textcolor{preprocessor}{\#define\ pgRWops\_IsFileObject\ \(\backslash\)}}
+\DoxyCodeLine{00771\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(SDL\_RWops\ *))PYGAMEAPI\_GET\_SLOT(rwobject,\ 1))}}
+\DoxyCodeLine{00772\ }
+\DoxyCodeLine{00773\ \textcolor{preprocessor}{\#define\ pg\_EncodeFilePath\ \(\backslash\)}}
+\DoxyCodeLine{00774\ \textcolor{preprocessor}{\ \ \ \ (*(PyObject\ *\ (*)(PyObject\ *,\ PyObject\ *))\ PYGAMEAPI\_GET\_SLOT(rwobject,\ 2))}}
+\DoxyCodeLine{00775\ }
+\DoxyCodeLine{00776\ \textcolor{preprocessor}{\#define\ pg\_EncodeString\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00777\ \textcolor{preprocessor}{\ \ \ \ (*(PyObject\ *\ (*)(PyObject\ *,\ const\ char\ *,\ const\ char\ *,\ PyObject\ *))\ \(\backslash\)}}
+\DoxyCodeLine{00778\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ \ PYGAMEAPI\_GET\_SLOT(rwobject,\ 3))}}
+\DoxyCodeLine{00779\ }
+\DoxyCodeLine{00780\ \textcolor{preprocessor}{\#define\ pgRWops\_FromFileObject\ \(\backslash\)}}
+\DoxyCodeLine{00781\ \textcolor{preprocessor}{\ \ \ \ (*(SDL\_RWops\ *\ (*)(PyObject\ *))\ PYGAMEAPI\_GET\_SLOT(rwobject,\ 4))}}
+\DoxyCodeLine{00782\ }
+\DoxyCodeLine{00783\ \textcolor{preprocessor}{\#define\ pgRWops\_ReleaseObject\ \(\backslash\)}}
+\DoxyCodeLine{00784\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(SDL\_RWops\ *))PYGAMEAPI\_GET\_SLOT(rwobject,\ 5))}}
+\DoxyCodeLine{00785\ }
+\DoxyCodeLine{00786\ \textcolor{preprocessor}{\#define\ import\_pygame\_rwobject()\ IMPORT\_PYGAME\_MODULE(rwobject)}}
+\DoxyCodeLine{00787\ }
+\DoxyCodeLine{00788\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00789\ }
+\DoxyCodeLine{00790\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00791\ \textcolor{comment}{\ *\ PixelArray\ module}}
+\DoxyCodeLine{00792\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00793\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_PIXELARRAY\_INTERNAL}}
+\DoxyCodeLine{00794\ \textcolor{preprocessor}{\#define\ PyPixelArray\_Type\ ((PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(pixelarray,\ 0))}}
+\DoxyCodeLine{00795\ }
+\DoxyCodeLine{00796\ \textcolor{preprocessor}{\#define\ PyPixelArray\_Check(x)\ ((x)-\/>ob\_type\ ==\ \&PyPixelArray\_Type)}}
+\DoxyCodeLine{00797\ \textcolor{preprocessor}{\#define\ PyPixelArray\_New\ (*(PyObject\ *\ (*))\ PYGAMEAPI\_GET\_SLOT(pixelarray,\ 1))}}
+\DoxyCodeLine{00798\ }
+\DoxyCodeLine{00799\ \textcolor{preprocessor}{\#define\ import\_pygame\_pixelarray()\ IMPORT\_PYGAME\_MODULE(pixelarray)}}
+\DoxyCodeLine{00800\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ PYGAMEAPI\_PIXELARRAY\_INTERNAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00801\ }
+\DoxyCodeLine{00802\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00803\ \textcolor{comment}{\ *\ Color\ module}}
+\DoxyCodeLine{00804\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00805\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structpg_color_object}{pgColorObject}}\ \mbox{\hyperlink{structpg_color_object}{pgColorObject}};}
+\DoxyCodeLine{00806\ }
+\DoxyCodeLine{00807\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_COLOR\_INTERNAL}}
+\DoxyCodeLine{00808\ \textcolor{preprocessor}{\#define\ pgColor\_Type\ (*(PyObject\ *)PYGAMEAPI\_GET\_SLOT(color,\ 0))}}
+\DoxyCodeLine{00809\ }
+\DoxyCodeLine{00810\ \textcolor{preprocessor}{\#define\ pgColor\_Check(x)\ ((x)-\/>ob\_type\ ==\ \&pgColor\_Type)}}
+\DoxyCodeLine{00811\ \textcolor{preprocessor}{\#define\ pgColor\_New\ (*(PyObject\ *\ (*)(Uint8\ *))\ PYGAMEAPI\_GET\_SLOT(color,\ 1))}}
+\DoxyCodeLine{00812\ }
+\DoxyCodeLine{00813\ \textcolor{preprocessor}{\#define\ pgColor\_NewLength\ \(\backslash\)}}
+\DoxyCodeLine{00814\ \textcolor{preprocessor}{\ \ \ \ (*(PyObject\ *\ (*)(Uint8\ *,\ Uint8))\ PYGAMEAPI\_GET\_SLOT(color,\ 3))}}
+\DoxyCodeLine{00815\ }
+\DoxyCodeLine{00816\ \textcolor{preprocessor}{\#define\ pg\_RGBAFromColorObj\ \(\backslash\)}}
+\DoxyCodeLine{00817\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ Uint8\ *))PYGAMEAPI\_GET\_SLOT(color,\ 2))}}
+\DoxyCodeLine{00818\ }
+\DoxyCodeLine{00819\ \textcolor{preprocessor}{\#define\ pg\_RGBAFromFuzzyColorObj\ \(\backslash\)}}
+\DoxyCodeLine{00820\ \textcolor{preprocessor}{\ \ \ \ (*(int\ (*)(PyObject\ *,\ Uint8\ *))PYGAMEAPI\_GET\_SLOT(color,\ 4))}}
+\DoxyCodeLine{00821\ }
+\DoxyCodeLine{00822\ \textcolor{preprocessor}{\#define\ pgColor\_AsArray(x)\ (((pgColorObject\ *)x)-\/>data)}}
+\DoxyCodeLine{00823\ \textcolor{preprocessor}{\#define\ pgColor\_NumComponents(x)\ (((pgColorObject\ *)x)-\/>len)}}
+\DoxyCodeLine{00824\ }
+\DoxyCodeLine{00825\ \textcolor{preprocessor}{\#define\ import\_pygame\_color()\ IMPORT\_PYGAME\_MODULE(color)}}
+\DoxyCodeLine{00826\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ PYGAMEAPI\_COLOR\_INTERNAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00827\ }
+\DoxyCodeLine{00828\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00829\ \textcolor{comment}{\ *\ Math\ module}}
+\DoxyCodeLine{00830\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00831\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_MATH\_INTERNAL}}
+\DoxyCodeLine{00832\ \textcolor{preprocessor}{\#define\ pgVector2\_Check(x)\ \(\backslash\)}}
+\DoxyCodeLine{00833\ \textcolor{preprocessor}{\ \ \ \ ((x)-\/>ob\_type\ ==\ (PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(math,\ 0))}}
+\DoxyCodeLine{00834\ }
+\DoxyCodeLine{00835\ \textcolor{preprocessor}{\#define\ pgVector3\_Check(x)\ \(\backslash\)}}
+\DoxyCodeLine{00836\ \textcolor{preprocessor}{\ \ \ \ ((x)-\/>ob\_type\ ==\ (PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(math,\ 1))}}
+\DoxyCodeLine{00837\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00838\ \textcolor{comment}{\#define\ pgVector2\_New\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00839\ \textcolor{comment}{\ \ \ \ (*(PyObject*(*))\ \ \(\backslash\)}}
+\DoxyCodeLine{00840\ \textcolor{comment}{\ \ \ \ \ \ \ \ PYGAMEAPI\_GET\_SLOT(PyGAME\_C\_API,\ 1))}}
+\DoxyCodeLine{00841\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00842\ \textcolor{preprocessor}{\#define\ import\_pygame\_math()\ IMPORT\_PYGAME\_MODULE(math)}}
+\DoxyCodeLine{00843\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ PYGAMEAPI\_MATH\_INTERNAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00844\ }
+\DoxyCodeLine{00845\ \textcolor{preprocessor}{\#define\ IMPORT\_PYGAME\_MODULE\ \_IMPORT\_PYGAME\_MODULE}}
+\DoxyCodeLine{00846\ }
+\DoxyCodeLine{00847\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00848\ \textcolor{comment}{\ *\ base\ pygame\ API\ slots}}
+\DoxyCodeLine{00849\ \textcolor{comment}{\ *\ disable\ slots\ with\ NO\_PYGAME\_C\_API}}
+\DoxyCodeLine{00850\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00851\ \textcolor{preprocessor}{\#ifdef\ PYGAME\_H}}
+\DoxyCodeLine{00852\ PYGAMEAPI\_DEFINE\_SLOTS(base);}
+\DoxyCodeLine{00853\ PYGAMEAPI\_DEFINE\_SLOTS(rect);}
+\DoxyCodeLine{00854\ PYGAMEAPI\_DEFINE\_SLOTS(cdrom);}
+\DoxyCodeLine{00855\ PYGAMEAPI\_DEFINE\_SLOTS(joystick);}
+\DoxyCodeLine{00856\ PYGAMEAPI\_DEFINE\_SLOTS(display);}
+\DoxyCodeLine{00857\ PYGAMEAPI\_DEFINE\_SLOTS(surface);}
+\DoxyCodeLine{00858\ PYGAMEAPI\_DEFINE\_SLOTS(surflock);}
+\DoxyCodeLine{00859\ PYGAMEAPI\_DEFINE\_SLOTS(event);}
+\DoxyCodeLine{00860\ PYGAMEAPI\_DEFINE\_SLOTS(rwobject);}
+\DoxyCodeLine{00861\ PYGAMEAPI\_DEFINE\_SLOTS(pixelarray);}
+\DoxyCodeLine{00862\ PYGAMEAPI\_DEFINE\_SLOTS(color);}
+\DoxyCodeLine{00863\ PYGAMEAPI\_DEFINE\_SLOTS(math);}
+\DoxyCodeLine{00864\ \textcolor{preprocessor}{\#else\ \ }\textcolor{comment}{/*\ \string~PYGAME\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00865\ PYGAMEAPI\_EXTERN\_SLOTS(base);}
+\DoxyCodeLine{00866\ PYGAMEAPI\_EXTERN\_SLOTS(rect);}
+\DoxyCodeLine{00867\ PYGAMEAPI\_EXTERN\_SLOTS(cdrom);}
+\DoxyCodeLine{00868\ PYGAMEAPI\_EXTERN\_SLOTS(joystick);}
+\DoxyCodeLine{00869\ PYGAMEAPI\_EXTERN\_SLOTS(display);}
+\DoxyCodeLine{00870\ PYGAMEAPI\_EXTERN\_SLOTS(surface);}
+\DoxyCodeLine{00871\ PYGAMEAPI\_EXTERN\_SLOTS(surflock);}
+\DoxyCodeLine{00872\ PYGAMEAPI\_EXTERN\_SLOTS(event);}
+\DoxyCodeLine{00873\ PYGAMEAPI\_EXTERN\_SLOTS(rwobject);}
+\DoxyCodeLine{00874\ PYGAMEAPI\_EXTERN\_SLOTS(pixelarray);}
+\DoxyCodeLine{00875\ PYGAMEAPI\_EXTERN\_SLOTS(color);}
+\DoxyCodeLine{00876\ PYGAMEAPI\_EXTERN\_SLOTS(math);}
+\DoxyCodeLine{00877\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PYGAME\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00878\ }
+\DoxyCodeLine{00879\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ PYGAME\_H\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00880\ }
+\DoxyCodeLine{00881\ \textcolor{comment}{/*\ \ Use\ the\ end\ of\ this\ file\ for\ other\ cross\ module\ inline\ utility}}
+\DoxyCodeLine{00882\ \textcolor{comment}{\ *\ \ functions\ There\ seems\ to\ be\ no\ good\ reason\ to\ stick\ to\ macro\ only}}
+\DoxyCodeLine{00883\ \textcolor{comment}{\ *\ \ functions\ in\ Python\ 3.}}
+\DoxyCodeLine{00884\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00885\ }
+\DoxyCodeLine{00886\ \textcolor{keyword}{static}\ PG\_INLINE\ PyObject\ *}
+\DoxyCodeLine{00887\ pg\_tuple\_couple\_from\_values\_int(\textcolor{keywordtype}{int}\ val1,\ \textcolor{keywordtype}{int}\ val2)}
+\DoxyCodeLine{00888\ \{}
+\DoxyCodeLine{00889\ \ \ \ \ \textcolor{comment}{/*\ This\ function\ turns\ two\ input\ integers\ into\ a\ python\ tuple\ object.}}
+\DoxyCodeLine{00890\ \textcolor{comment}{\ \ \ \ \ *\ Currently,\ 5th\ November\ 2022,\ this\ is\ faster\ than\ using\ Py\_BuildValue}}
+\DoxyCodeLine{00891\ \textcolor{comment}{\ \ \ \ \ *\ to\ do\ the\ same\ thing.}}
+\DoxyCodeLine{00892\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00893\ \ \ \ \ PyObject\ *tup\ =\ PyTuple\_New(2);}
+\DoxyCodeLine{00894\ \ \ \ \ \textcolor{keywordflow}{if}\ (!tup)\ \{}
+\DoxyCodeLine{00895\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00896\ \ \ \ \ \}}
+\DoxyCodeLine{00897\ }
+\DoxyCodeLine{00898\ \ \ \ \ PyObject\ *tmp\ =\ PyLong\_FromLong(val1);}
+\DoxyCodeLine{00899\ \ \ \ \ \textcolor{keywordflow}{if}\ (!tmp)\ \{}
+\DoxyCodeLine{00900\ \ \ \ \ \ \ \ \ Py\_DECREF(tup);}
+\DoxyCodeLine{00901\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00902\ \ \ \ \ \}}
+\DoxyCodeLine{00903\ \ \ \ \ PyTuple\_SET\_ITEM(tup,\ 0,\ tmp);}
+\DoxyCodeLine{00904\ }
+\DoxyCodeLine{00905\ \ \ \ \ tmp\ =\ PyLong\_FromLong(val2);}
+\DoxyCodeLine{00906\ \ \ \ \ \textcolor{keywordflow}{if}\ (!tmp)\ \{}
+\DoxyCodeLine{00907\ \ \ \ \ \ \ \ \ Py\_DECREF(tup);}
+\DoxyCodeLine{00908\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00909\ \ \ \ \ \}}
+\DoxyCodeLine{00910\ \ \ \ \ PyTuple\_SET\_ITEM(tup,\ 1,\ tmp);}
+\DoxyCodeLine{00911\ }
+\DoxyCodeLine{00912\ \ \ \ \ \textcolor{keywordflow}{return}\ tup;}
+\DoxyCodeLine{00913\ \}}
+\DoxyCodeLine{00914\ }
+\DoxyCodeLine{00915\ \textcolor{keyword}{static}\ PG\_INLINE\ PyObject\ *}
+\DoxyCodeLine{00916\ pg\_tuple\_triple\_from\_values\_int(\textcolor{keywordtype}{int}\ val1,\ \textcolor{keywordtype}{int}\ val2,\ \textcolor{keywordtype}{int}\ val3)}
+\DoxyCodeLine{00917\ \{}
+\DoxyCodeLine{00918\ \ \ \ \ \textcolor{comment}{/*\ This\ function\ turns\ three\ input\ integers\ into\ a\ python\ tuple\ object.}}
+\DoxyCodeLine{00919\ \textcolor{comment}{\ \ \ \ \ *\ Currently,\ 5th\ November\ 2022,\ this\ is\ faster\ than\ using\ Py\_BuildValue}}
+\DoxyCodeLine{00920\ \textcolor{comment}{\ \ \ \ \ *\ to\ do\ the\ same\ thing.}}
+\DoxyCodeLine{00921\ \textcolor{comment}{\ \ \ \ \ */}}
+\DoxyCodeLine{00922\ \ \ \ \ PyObject\ *tup\ =\ PyTuple\_New(3);}
+\DoxyCodeLine{00923\ \ \ \ \ \textcolor{keywordflow}{if}\ (!tup)\ \{}
+\DoxyCodeLine{00924\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00925\ \ \ \ \ \}}
+\DoxyCodeLine{00926\ }
+\DoxyCodeLine{00927\ \ \ \ \ PyObject\ *tmp\ =\ PyLong\_FromLong(val1);}
+\DoxyCodeLine{00928\ \ \ \ \ \textcolor{keywordflow}{if}\ (!tmp)\ \{}
+\DoxyCodeLine{00929\ \ \ \ \ \ \ \ \ Py\_DECREF(tup);}
+\DoxyCodeLine{00930\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00931\ \ \ \ \ \}}
+\DoxyCodeLine{00932\ \ \ \ \ PyTuple\_SET\_ITEM(tup,\ 0,\ tmp);}
+\DoxyCodeLine{00933\ }
+\DoxyCodeLine{00934\ \ \ \ \ tmp\ =\ PyLong\_FromLong(val2);}
+\DoxyCodeLine{00935\ \ \ \ \ \textcolor{keywordflow}{if}\ (!tmp)\ \{}
+\DoxyCodeLine{00936\ \ \ \ \ \ \ \ \ Py\_DECREF(tup);}
+\DoxyCodeLine{00937\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00938\ \ \ \ \ \}}
+\DoxyCodeLine{00939\ \ \ \ \ PyTuple\_SET\_ITEM(tup,\ 1,\ tmp);}
+\DoxyCodeLine{00940\ }
+\DoxyCodeLine{00941\ \ \ \ \ tmp\ =\ PyLong\_FromLong(val3);}
+\DoxyCodeLine{00942\ \ \ \ \ \textcolor{keywordflow}{if}\ (!tmp)\ \{}
+\DoxyCodeLine{00943\ \ \ \ \ \ \ \ \ Py\_DECREF(tup);}
+\DoxyCodeLine{00944\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ NULL;}
+\DoxyCodeLine{00945\ \ \ \ \ \}}
+\DoxyCodeLine{00946\ \ \ \ \ PyTuple\_SET\_ITEM(tup,\ 2,\ tmp);}
+\DoxyCodeLine{00947\ }
+\DoxyCodeLine{00948\ \ \ \ \ \textcolor{keywordflow}{return}\ tup;}
+\DoxyCodeLine{00949\ \}}
+
+\end{DoxyCode}

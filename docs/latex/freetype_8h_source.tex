@@ -1,0 +1,120 @@
+\doxysection{freetype.\+h}
+\hypertarget{freetype_8h_source}{}\label{freetype_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/freetype.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/freetype.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ pygame\ -\/\ Python\ Game\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ Copyright\ (C)\ 2009\ Vicent\ Marti}}
+\DoxyCodeLine{00004\ \textcolor{comment}{}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ version\ 2\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00009\ \textcolor{comment}{}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ Library\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00014\ \textcolor{comment}{}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ Foundation,\ Inc.,\ 59\ Temple\ Place,\ Suite\ 330,\ Boston,\ MA\ \ 02111-\/1307\ \ USA}}
+\DoxyCodeLine{00018\ \textcolor{comment}{}}
+\DoxyCodeLine{00019\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#ifndef\ \_PYGAME\_FREETYPE\_INTERNAL\_H\_}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#define\ \_PYGAME\_FREETYPE\_INTERNAL\_H\_}}
+\DoxyCodeLine{00022\ }
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}pgcompat.h"{}}}
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#include\ "{}pgplatform.h"{}}}
+\DoxyCodeLine{00025\ }
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#include\ <ft2build.h>}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#include\ FT\_FREETYPE\_H}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ FT\_CACHE\_H}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#include\ FT\_XFREE86\_H}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#include\ FT\_TRIGONOMETRY\_H}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{comment}{/**********************************************************}}
+\DoxyCodeLine{00033\ \textcolor{comment}{\ *\ Global\ module\ constants}}
+\DoxyCodeLine{00034\ \textcolor{comment}{\ **********************************************************/}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{comment}{/*\ Render\ styles\ */}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#define\ FT\_STYLE\_NORMAL\ 0x00}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ FT\_STYLE\_STRONG\ 0x01}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ FT\_STYLE\_OBLIQUE\ 0x02}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ FT\_STYLE\_UNDERLINE\ 0x04}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ FT\_STYLE\_WIDE\ 0x08}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ FT\_STYLE\_DEFAULT\ 0xFF}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{comment}{/*\ Bounding\ box\ modes\ */}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ FT\_BBOX\_EXACT\ FT\_GLYPH\_BBOX\_SUBPIXELS}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ FT\_BBOX\_EXACT\_GRIDFIT\ FT\_GLYPH\_BBOX\_GRIDFIT}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ FT\_BBOX\_PIXEL\ FT\_GLYPH\_BBOX\_TRUNCATE}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ FT\_BBOX\_PIXEL\_GRIDFIT\ FT\_GLYPH\_BBOX\_PIXELS}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{comment}{/*\ Rendering\ flags\ */}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\#define\ FT\_RFLAG\_NONE\ (0)}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ FT\_RFLAG\_ANTIALIAS\ (1\ <<\ 0)}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#define\ FT\_RFLAG\_AUTOHINT\ (1\ <<\ 1)}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ FT\_RFLAG\_VERTICAL\ (1\ <<\ 2)}}
+\DoxyCodeLine{00055\ \textcolor{preprocessor}{\#define\ FT\_RFLAG\_HINTED\ (1\ <<\ 3)}}
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#define\ FT\_RFLAG\_KERNING\ (1\ <<\ 4)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#define\ FT\_RFLAG\_TRANSFORM\ (1\ <<\ 5)}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#define\ FT\_RFLAG\_PAD\ (1\ <<\ 6)}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#define\ FT\_RFLAG\_ORIGIN\ (1\ <<\ 7)}}
+\DoxyCodeLine{00060\ \textcolor{preprocessor}{\#define\ FT\_RFLAG\_UCS4\ (1\ <<\ 8)}}
+\DoxyCodeLine{00061\ \textcolor{preprocessor}{\#define\ FT\_RFLAG\_USE\_BITMAP\_STRIKES\ (1\ <<\ 9)}}
+\DoxyCodeLine{00062\ \textcolor{preprocessor}{\#define\ FT\_RFLAG\_DEFAULTS\ \(\backslash\)}}
+\DoxyCodeLine{00063\ \textcolor{preprocessor}{\ \ \ \ (FT\_RFLAG\_HINTED\ |\ FT\_RFLAG\_USE\_BITMAP\_STRIKES\ |\ FT\_RFLAG\_ANTIALIAS)}}
+\DoxyCodeLine{00064\ }
+\DoxyCodeLine{00065\ \textcolor{preprocessor}{\#define\ FT\_RENDER\_NEWBYTEARRAY\ 0x0}}
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#define\ FT\_RENDER\_NEWSURFACE\ 0x1}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\#define\ FT\_RENDER\_EXISTINGSURFACE\ 0x2}}
+\DoxyCodeLine{00068\ }
+\DoxyCodeLine{00069\ \textcolor{comment}{/**********************************************************}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\ *\ Global\ module\ types}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\ **********************************************************/}}
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{struct__scale__s}{\_scale\_s}}\ \{}
+\DoxyCodeLine{00074\ \ \ \ \ FT\_UInt\ x,\ y;}
+\DoxyCodeLine{00075\ \}\ \mbox{\hyperlink{struct__scale__s}{Scale\_t}};}
+\DoxyCodeLine{00076\ \textcolor{keyword}{typedef}\ FT\_Angle\ Angle\_t;}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{keyword}{struct\ }fontinternals\_;}
+\DoxyCodeLine{00079\ \textcolor{keyword}{struct\ }freetypeinstance\_;}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00082\ \ \ \ \ FT\_Long\ font\_index;}
+\DoxyCodeLine{00083\ \ \ \ \ FT\_Open\_Args\ open\_args;}
+\DoxyCodeLine{00084\ \}\ \mbox{\hyperlink{structpg_font_id}{pgFontId}};}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00087\ \ \ \ \ PyObject\_HEAD\ \mbox{\hyperlink{structpg_font_id}{pgFontId}}\ id;}
+\DoxyCodeLine{00088\ \ \ \ \ PyObject\ *path;}
+\DoxyCodeLine{00089\ \ \ \ \ \textcolor{keywordtype}{int}\ is\_scalable;}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordtype}{int}\ is\_bg\_col\_set;}
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ \ \ \ \ \mbox{\hyperlink{struct__scale__s}{Scale\_t}}\ face\_size;}
+\DoxyCodeLine{00093\ \ \ \ \ FT\_Int16\ style;}
+\DoxyCodeLine{00094\ \ \ \ \ FT\_Int16\ render\_flags;}
+\DoxyCodeLine{00095\ \ \ \ \ \textcolor{keywordtype}{double}\ strength;}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordtype}{double}\ underline\_adjustment;}
+\DoxyCodeLine{00097\ \ \ \ \ FT\_UInt\ resolution;}
+\DoxyCodeLine{00098\ \ \ \ \ Angle\_t\ rotation;}
+\DoxyCodeLine{00099\ \ \ \ \ FT\_Matrix\ transform;}
+\DoxyCodeLine{00100\ \ \ \ \ FT\_Byte\ fgcolor[4];}
+\DoxyCodeLine{00101\ \ \ \ \ FT\_Byte\ bgcolor[4];}
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \ \ \ \ \textcolor{keyword}{struct\ }freetypeinstance\_\ *freetype;\ \textcolor{comment}{/*\ Personal\ reference\ */}}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keyword}{struct\ }fontinternals\_\ *\_internals;}
+\DoxyCodeLine{00105\ \}\ \mbox{\hyperlink{structpg_font_object}{pgFontObject}};}
+\DoxyCodeLine{00106\ }
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\#define\ pgFont\_IS\_ALIVE(o)\ (((pgFontObject\ *)(o))-\/>\_internals\ !=\ 0)}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{comment}{/*\ import\ public\ API\ */}}
+\DoxyCodeLine{00110\ \textcolor{preprocessor}{\#include\ "{}include/pygame\_freetype.h"{}}}
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ \textcolor{preprocessor}{\#define\ PYGAMEAPI\_FREETYPE\_NUMSLOTS\ 2}}
+\DoxyCodeLine{00113\ }
+\DoxyCodeLine{00114\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~\_PYGAME\_FREETYPE\_INTERNAL\_H\_\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

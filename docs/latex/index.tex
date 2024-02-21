@@ -1,0 +1,76 @@
+\chapter{Neural\+Net in CPP \+:}
+\hypertarget{index}{}\label{index}\index{NeuralNet in CPP :@{NeuralNet in CPP :}}
+\label{index_md__r_e_a_d_m_e}%
+\Hypertarget{index_md__r_e_a_d_m_e}%
+ This is my take on implementing a neural network in cpp. Keeping in mind that I learned cpp a couple of weeks prior to starting the project. You can see my programming style adapting and improving (hopefully) throughout the commits.
+
+
+\begin{DoxyItemize}
+\item Neural\+Net in CPP \+:
+\begin{DoxyItemize}
+\item Build
+\begin{DoxyItemize}
+\item Initialize submodules
+\item Build the code
+\end{DoxyItemize}
+\item Tests
+\item Miscellaneous
+\begin{DoxyItemize}
+\item 🔗 Python Bindings
+\item The importance of weight initialization functions
+\begin{DoxyItemize}
+\item Available Weight Initializations
+\end{DoxyItemize}
+\end{DoxyItemize}
+\item ⚖️ License
+\end{DoxyItemize}
+\end{DoxyItemize}\hypertarget{index_autotoc_md1}{}\doxysection{\texorpdfstring{Build}{Build}}\label{index_autotoc_md1}
+\hypertarget{index_autotoc_md2}{}\doxysubsection{\texorpdfstring{Initialize submodules}{Initialize submodules}}\label{index_autotoc_md2}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{git\ submodule\ init}
+\DoxyCodeLine{git\ submodule\ update}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md3}{}\doxysubsection{\texorpdfstring{Build the code}{Build the code}}\label{index_autotoc_md3}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{scripts/build.sh}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md4}{}\doxysection{\texorpdfstring{Tests}{Tests}}\label{index_autotoc_md4}
+\href{https://github.com/catchorg/Catch2}{\texttt{ Catch 2}} framework will be used for testing, after some research it seems like the most active and well maintained out of the other options.
+
+To run tests \+:
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{source\ /scripts/tests.sh}
+
+\end{DoxyCode}
+\hypertarget{index_autotoc_md5}{}\doxysection{\texorpdfstring{Miscellaneous}{Miscellaneous}}\label{index_autotoc_md5}
+\hypertarget{index_autotoc_md6}{}\doxysubsection{\texorpdfstring{🔗 Python Bindings}{🔗 Python Bindings}}\label{index_autotoc_md6}
+I used the \href{https://pybind11.readthedocs.io/en/stable/index.html}{\texttt{ pybind11}} library to bind some of the classes and functionalities. After building the project you can head to {\ttfamily /examples} folder to check out some of the cool mini-\/projects built in python.\hypertarget{index_autotoc_md7}{}\doxysubsection{\texorpdfstring{The importance of weight initialization functions}{The importance of weight initialization functions}}\label{index_autotoc_md7}
+Arbitrary initialization can slow down and sometimes stall completely the convergence process. This slowdown can result in the deeper layers receiving inputs with small variances, which in turn slows down back propagation, and slows down the overall convergence progress.\hypertarget{index_autotoc_md8}{}\doxysubsubsection{\texorpdfstring{Available Weight Initializations}{Available Weight Initializations}}\label{index_autotoc_md8}
+\tabulinesep=1mm
+\begin{longtabu}spread 0pt [c]{*{3}{|X[-1]}|}
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ WEIGHT\+\_\+\+INIT   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Formula   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Activation    }\\\cline{1-3}
+\endfirsthead
+\hline
+\endfoot
+\hline
+\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ WEIGHT\+\_\+\+INIT   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Formula   }&\PBS\centering \cellcolor{\tableheadbgcolor}\textbf{ Activation    }\\\cline{1-3}
+\endhead
+RANDOM   &\$mt\+Rand(-\/1, 1)\$   &Sigmoid    \\\cline{1-3}
+GLOROT   &\$\textbackslash{}frac\{2\}\{n\+\_\+\{in\} + n\+\_\+\{out\}\}\$   &Relu    \\\cline{1-3}
+HE   &\$\textbackslash{}frac\{2\}\{n\+\_\+\{in\}\}\$   &Relu~\newline
+Softmax    \\\cline{1-3}
+LECUN   &\$\textbackslash{}frac\{1\}\{n\+\_\+\{in\}\}\$   &Softmax   \\\cline{1-3}
+\end{longtabu}
+
+
+\$n\+\_\+\{in\}\$ number of inputs
+
+\$n\+\_\+\{out\}\$ number of outputs\hypertarget{index_autotoc_md9}{}\doxysection{\texorpdfstring{⚖️ License}{⚖️ License}}\label{index_autotoc_md9}
+This project is licensed under the MIT License -\/ see the \mbox{[}LICENSE\mbox{]}(LICENSE) file for details. 

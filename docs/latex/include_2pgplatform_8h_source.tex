@@ -1,0 +1,93 @@
+\doxysection{pgplatform.\+h}
+\hypertarget{include_2pgplatform_8h_source}{}\label{include_2pgplatform_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/include/pgplatform.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/include/pgplatform.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*\ platform/compiler\ adjustments\ */}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#ifndef\ PG\_PLATFORM\_H}}
+\DoxyCodeLine{00003\ \textcolor{preprocessor}{\#define\ PG\_PLATFORM\_H}}
+\DoxyCodeLine{00004\ }
+\DoxyCodeLine{00005\ \textcolor{preprocessor}{\#if\ defined(HAVE\_SNPRINTF)\ }\textcolor{comment}{/*\ defined\ in\ python.h\ (pyerrors.h)\ and\ SDL.h\ \(\backslash\)}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ (SDL\_config.h)\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00007\ \textcolor{preprocessor}{\#undef\ HAVE\_SNPRINTF\ \ \ \ \ \ \ }\textcolor{comment}{/*\ remove\ GCC\ redefine\ warning\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00008\ \textcolor{preprocessor}{\#endif\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ }\textcolor{comment}{/*\ HAVE\_SNPRINTF\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00009\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#ifndef\ PG\_INLINE}}
+\DoxyCodeLine{00011\ \textcolor{preprocessor}{\#if\ defined(\_\_clang\_\_)}}
+\DoxyCodeLine{00012\ \textcolor{preprocessor}{\#define\ PG\_INLINE\ \_\_inline\_\_\ \_\_attribute\_\_((\_\_unused\_\_))}}
+\DoxyCodeLine{00013\ \textcolor{preprocessor}{\#elif\ defined(\_\_GNUC\_\_)}}
+\DoxyCodeLine{00014\ \textcolor{preprocessor}{\#define\ PG\_INLINE\ \_\_inline\_\_}}
+\DoxyCodeLine{00015\ \textcolor{preprocessor}{\#elif\ defined(\_MSC\_VER)}}
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ PG\_INLINE\ \_\_inline}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#elif\ defined(\_\_STDC\_VERSION\_\_)\ \&\&\ \_\_STDC\_VERSION\_\_\ >=\ 199901L}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ PG\_INLINE\ inline}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ PG\_INLINE}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PG\_INLINE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ Worth\ trying\ this\ on\ MSVC/win32\ builds\ to\ see\ if\ provides\ any\ speed\ up}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#ifndef\ PG\_FORCEINLINE}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#if\ defined(\_\_clang\_\_)}}
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ PG\_FORCEINLINE\ \_\_inline\_\_\ \_\_attribute\_\_((\_\_unused\_\_))}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#elif\ defined(\_\_GNUC\_\_)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\#define\ PG\_FORCEINLINE\ \_\_inline\_\_}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#elif\ defined(\_MSC\_VER)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\#define\ PG\_FORCEINLINE\ \_\_forceinline}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#elif\ defined(\_\_STDC\_VERSION\_\_)\ \&\&\ \_\_STDC\_VERSION\_\_\ >=\ 199901L}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#define\ PG\_FORCEINLINE\ inline}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ PG\_FORCEINLINE}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PG\_FORCEINLINE\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00038\ }
+\DoxyCodeLine{00039\ \textcolor{comment}{/*\ This\ is\ unconditionally\ defined\ in\ Python.h\ */}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#if\ defined(\_POSIX\_C\_SOURCE)}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#undef\ \_POSIX\_C\_SOURCE}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#if\ defined(HAVE\_SNPRINTF)}}
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#undef\ HAVE\_SNPRINTF}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00047\ }
+\DoxyCodeLine{00048\ \textcolor{comment}{/*\ SDL\ needs\ WIN32\ */}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#if\ !defined(WIN32)\ \&\&\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ \ \ (defined(MS\_WIN32)\ ||\ defined(\_WIN32)\ ||\ defined(\_\_WIN32)\ ||\ \(\backslash\)}}
+\DoxyCodeLine{00051\ \textcolor{preprocessor}{\ \ \ \ \ defined(\_\_WIN32\_\_)\ ||\ defined(\_WINDOWS))}}
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ WIN32}}
+\DoxyCodeLine{00053\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{/*\ Commenting\ out\ SSE4\_2\ stuff\ because\ it\ does\ not\ do\ runtime\ detection.}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\#ifndef\ PG\_TARGET\_SSE4\_2}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\#if\ defined(\_\_clang\_\_)\ ||\ (defined(\_\_GNUC\_\_)\ \&\&\ ((\_\_GNUC\_\_\ ==\ 4\ \&\&}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\_\_GNUC\_MINOR\_\_\ >=\ 9)\ ||\ \_\_GNUC\_\_\ >=\ 5\ ))}}
+\DoxyCodeLine{00059\ \textcolor{comment}{//The\ old\ gcc\ 4.8\ on\ centos\ used\ by\ manylinux1\ does\ not\ seem\ to\ get\ sse4.2}}
+\DoxyCodeLine{00060\ \textcolor{comment}{intrinsics\ \#define\ PG\_FUNCTION\_TARGET\_SSE4\_2\ \_\_attribute\_\_((target("{}sse4.2"{})))}}
+\DoxyCodeLine{00061\ \textcolor{comment}{//\ No\ else;\ we\ define\ the\ fallback\ later}}
+\DoxyCodeLine{00062\ \textcolor{comment}{\#endif}}
+\DoxyCodeLine{00063\ \textcolor{comment}{\#endif}}
+\DoxyCodeLine{00064\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00065\ \textcolor{comment}{/*\ \string~PG\_TARGET\_SSE4\_2\ */}}
+\DoxyCodeLine{00066\ }
+\DoxyCodeLine{00067\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00068\ \textcolor{comment}{\#ifdef\ PG\_FUNCTION\_TARGET\_SSE4\_2}}
+\DoxyCodeLine{00069\ \textcolor{comment}{\#if\ !defined(\_\_SSE4\_2\_\_)\ \&\&\ !defined(PG\_COMPILE\_SSE4\_2)}}
+\DoxyCodeLine{00070\ \textcolor{comment}{\#if\ defined(\_\_x86\_64\_\_)\ ||\ defined(\_\_i386\_\_)}}
+\DoxyCodeLine{00071\ \textcolor{comment}{\#define\ PG\_COMPILE\_SSE4\_2\ 1}}
+\DoxyCodeLine{00072\ \textcolor{comment}{\#endif}}
+\DoxyCodeLine{00073\ \textcolor{comment}{\#endif}}
+\DoxyCodeLine{00074\ \textcolor{comment}{\#endif}}
+\DoxyCodeLine{00075\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00076\ \textcolor{comment}{/*\ \string~PG\_TARGET\_SSE4\_2\ */}}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{/*\ Fallback\ definition\ of\ target\ attribute\ */}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#ifndef\ PG\_FUNCTION\_TARGET\_SSE4\_2}}
+\DoxyCodeLine{00080\ \textcolor{preprocessor}{\#define\ PG\_FUNCTION\_TARGET\_SSE4\_2}}
+\DoxyCodeLine{00081\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{preprocessor}{\#ifndef\ PG\_COMPILE\_SSE4\_2}}
+\DoxyCodeLine{00084\ \textcolor{preprocessor}{\#define\ PG\_COMPILE\_SSE4\_2\ 0}}
+\DoxyCodeLine{00085\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00086\ }
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PG\_PLATFORM\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

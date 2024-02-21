@@ -1,0 +1,177 @@
+\doxysection{bitmask.\+h}
+\hypertarget{bitmask_8h_source}{}\label{bitmask_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/include/bitmask.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/include/bitmask.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ \ Bitmask\ 1.7\ -\/\ A\ pixel-\/perfect\ collision\ detection\ library.}}
+\DoxyCodeLine{00003\ \textcolor{comment}{}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ \ \ Copyright\ (C)\ 2002-\/2005\ Ulf\ Ekstrom\ except\ for\ the\ bitcount}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ \ function\ which\ is\ copyright\ (C)\ Donald\ W.\ Gillies,\ 1992.}}
+\DoxyCodeLine{00006\ \textcolor{comment}{}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ \ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ \ \ version\ 2\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00011\ \textcolor{comment}{}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ \ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ \ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ \ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ \ \ Library\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00016\ \textcolor{comment}{}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ \ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ \ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free}}
+\DoxyCodeLine{00019\ \textcolor{comment}{\ \ \ \ Foundation,\ Inc.,\ 59\ Temple\ Place,\ Suite\ 330,\ Boston,\ MA\ \ 02111-\/1307\ \ USA}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\#ifndef\ BITMASK\_H}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#define\ BITMASK\_H}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00025\ \textcolor{keyword}{extern}\ \textcolor{stringliteral}{"{}C"{}}\ \{}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <limits.h>}}
+\DoxyCodeLine{00029\ \textcolor{comment}{/*\ Define\ INLINE\ for\ different\ compilers.\ \ If\ your\ compiler\ does\ not}}
+\DoxyCodeLine{00030\ \textcolor{comment}{\ \ \ support\ inlining\ then\ there\ might\ be\ a\ performance\ hit\ in}}
+\DoxyCodeLine{00031\ \textcolor{comment}{\ \ \ bitmask\_overlap\_area().}}
+\DoxyCodeLine{00032\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#ifndef\ INLINE}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#ifdef\ \_\_GNUC\_\_}}
+\DoxyCodeLine{00035\ \textcolor{preprocessor}{\#define\ INLINE\ inline}}
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00037\ \textcolor{preprocessor}{\#ifdef\ \_MSC\_VER}}
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ INLINE\ \_\_inline}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ INLINE}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#define\ BITMASK\_W\ unsigned\ long\ int}}
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ BITMASK\_W\_LEN\ (sizeof(BITMASK\_W)\ *\ CHAR\_BIT)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ BITMASK\_W\_MASK\ (BITMASK\_W\_LEN\ -\/\ 1)}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#define\ BITMASK\_N(n)\ ((BITMASK\_W)1\ <<\ (n))}}
+\DoxyCodeLine{00049\ }
+\DoxyCodeLine{00050\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\mbox{\hyperlink{structbitmask}{bitmask}}\ \{}
+\DoxyCodeLine{00051\ \ \ \ \ \textcolor{keywordtype}{int}\ w,\ h;}
+\DoxyCodeLine{00052\ \ \ \ \ BITMASK\_W\ bits[1];}
+\DoxyCodeLine{00053\ \}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}};}
+\DoxyCodeLine{00054\ }
+\DoxyCodeLine{00055\ \textcolor{comment}{/*\ Creates\ a\ bitmask\ of\ width\ w\ and\ height\ h,\ where}}
+\DoxyCodeLine{00056\ \textcolor{comment}{\ \ \ w\ and\ h\ must\ both\ be\ greater\ than\ or\ equal\ to\ 0.}}
+\DoxyCodeLine{00057\ \textcolor{comment}{\ \ \ The\ mask\ is\ automatically\ cleared\ when\ created.}}
+\DoxyCodeLine{00058\ \textcolor{comment}{\ */}}
+\DoxyCodeLine{00059\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *}
+\DoxyCodeLine{00060\ bitmask\_create(\textcolor{keywordtype}{int}\ w,\ \textcolor{keywordtype}{int}\ h);}
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ \textcolor{comment}{/*\ Frees\ all\ the\ memory\ allocated\ by\ bitmask\_create\ for\ m.\ */}}
+\DoxyCodeLine{00063\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00064\ bitmask\_free(\mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *m);}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{comment}{/*\ Create\ a\ copy\ of\ the\ given\ bitmask.\ */}}
+\DoxyCodeLine{00067\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *}
+\DoxyCodeLine{00068\ bitmask\_copy(\mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *m);}
+\DoxyCodeLine{00069\ }
+\DoxyCodeLine{00070\ \textcolor{comment}{/*\ Clears\ all\ bits\ in\ the\ mask\ */}}
+\DoxyCodeLine{00071\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00072\ bitmask\_clear(\mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *m);}
+\DoxyCodeLine{00073\ }
+\DoxyCodeLine{00074\ \textcolor{comment}{/*\ Sets\ all\ bits\ in\ the\ mask\ */}}
+\DoxyCodeLine{00075\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00076\ bitmask\_fill(\mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *m);}
+\DoxyCodeLine{00077\ }
+\DoxyCodeLine{00078\ \textcolor{comment}{/*\ Flips\ all\ bits\ in\ the\ mask\ */}}
+\DoxyCodeLine{00079\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00080\ bitmask\_invert(\mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *m);}
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ \textcolor{comment}{/*\ Counts\ the\ bits\ in\ the\ mask\ */}}
+\DoxyCodeLine{00083\ \textcolor{keywordtype}{unsigned}\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00084\ bitmask\_count(\mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *m);}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{comment}{/*\ Returns\ nonzero\ if\ the\ bit\ at\ (x,y)\ is\ set.\ \ Coordinates\ start\ at}}
+\DoxyCodeLine{00087\ \textcolor{comment}{\ \ \ (0,0)\ */}}
+\DoxyCodeLine{00088\ \textcolor{keyword}{static}\ INLINE\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00089\ bitmask\_getbit(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *m,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)}
+\DoxyCodeLine{00090\ \{}
+\DoxyCodeLine{00091\ \ \ \ \ \textcolor{keywordflow}{return}\ (m-\/>bits[x\ /\ BITMASK\_W\_LEN\ *\ m-\/>h\ +\ y]\ \&}
+\DoxyCodeLine{00092\ \ \ \ \ \ \ \ \ \ \ \ \ BITMASK\_N(x\ \&\ BITMASK\_W\_MASK))\ !=\ 0;}
+\DoxyCodeLine{00093\ \}}
+\DoxyCodeLine{00094\ }
+\DoxyCodeLine{00095\ \textcolor{comment}{/*\ Sets\ the\ bit\ at\ (x,y)\ */}}
+\DoxyCodeLine{00096\ \textcolor{keyword}{static}\ INLINE\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00097\ bitmask\_setbit(\mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *m,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)}
+\DoxyCodeLine{00098\ \{}
+\DoxyCodeLine{00099\ \ \ \ \ m-\/>bits[x\ /\ BITMASK\_W\_LEN\ *\ m-\/>h\ +\ y]\ |=\ BITMASK\_N(x\ \&\ BITMASK\_W\_MASK);}
+\DoxyCodeLine{00100\ \}}
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ \textcolor{comment}{/*\ Clears\ the\ bit\ at\ (x,y)\ */}}
+\DoxyCodeLine{00103\ \textcolor{keyword}{static}\ INLINE\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00104\ bitmask\_clearbit(\mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *m,\ \textcolor{keywordtype}{int}\ x,\ \textcolor{keywordtype}{int}\ y)}
+\DoxyCodeLine{00105\ \{}
+\DoxyCodeLine{00106\ \ \ \ \ m-\/>bits[x\ /\ BITMASK\_W\_LEN\ *\ m-\/>h\ +\ y]\ \&=\ \string~BITMASK\_N(x\ \&\ BITMASK\_W\_MASK);}
+\DoxyCodeLine{00107\ \}}
+\DoxyCodeLine{00108\ }
+\DoxyCodeLine{00109\ \textcolor{comment}{/*\ Returns\ nonzero\ if\ the\ masks\ overlap\ with\ the\ given\ offset.}}
+\DoxyCodeLine{00110\ \textcolor{comment}{\ \ \ The\ overlap\ tests\ uses\ the\ following\ offsets\ (which\ may\ be\ negative):}}
+\DoxyCodeLine{00111\ \textcolor{comment}{}}
+\DoxyCodeLine{00112\ \textcolor{comment}{\ \ \ +-\/-\/-\/-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/..}}
+\DoxyCodeLine{00113\ \textcolor{comment}{\ \ \ |A\ \ \ |\ yoffset}}
+\DoxyCodeLine{00114\ \textcolor{comment}{\ \ \ |\ \ +-\/+-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/..}}
+\DoxyCodeLine{00115\ \textcolor{comment}{\ \ \ +-\/-\/|B}}
+\DoxyCodeLine{00116\ \textcolor{comment}{\ \ \ |xoffset}}
+\DoxyCodeLine{00117\ \textcolor{comment}{\ \ \ |\ \ |}}
+\DoxyCodeLine{00118\ \textcolor{comment}{\ \ \ :\ \ :}}
+\DoxyCodeLine{00119\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00120\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00121\ bitmask\_overlap(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *b,\ \textcolor{keywordtype}{int}\ xoffset,}
+\DoxyCodeLine{00122\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ yoffset);}
+\DoxyCodeLine{00123\ }
+\DoxyCodeLine{00124\ \textcolor{comment}{/*\ Like\ bitmask\_overlap(),\ but\ will\ also\ give\ a\ point\ of\ intersection.}}
+\DoxyCodeLine{00125\ \textcolor{comment}{\ \ \ x\ and\ y\ are\ given\ in\ the\ coordinates\ of\ mask\ a,\ and\ are\ untouched}}
+\DoxyCodeLine{00126\ \textcolor{comment}{\ \ \ if\ there\ is\ no\ overlap.\ */}}
+\DoxyCodeLine{00127\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00128\ bitmask\_overlap\_pos(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *b,\ \textcolor{keywordtype}{int}\ xoffset,}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ yoffset,\ \textcolor{keywordtype}{int}\ *x,\ \textcolor{keywordtype}{int}\ *y);}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ \textcolor{comment}{/*\ Returns\ the\ number\ of\ overlapping\ 'pixels'\ */}}
+\DoxyCodeLine{00132\ \textcolor{keywordtype}{int}}
+\DoxyCodeLine{00133\ bitmask\_overlap\_area(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *b,\ \textcolor{keywordtype}{int}\ xoffset,}
+\DoxyCodeLine{00134\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ yoffset);}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{comment}{/*\ Fills\ a\ mask\ with\ the\ overlap\ of\ two\ other\ masks.\ A\ bitwise\ AND.\ */}}
+\DoxyCodeLine{00137\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00138\ bitmask\_overlap\_mask(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *b,\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *c,}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ xoffset,\ \textcolor{keywordtype}{int}\ yoffset);}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ \textcolor{comment}{/*\ Draws\ mask\ b\ onto\ mask\ a\ (bitwise\ OR).\ Can\ be\ used\ to\ compose\ large}}
+\DoxyCodeLine{00142\ \textcolor{comment}{\ \ \ (game\ background?)\ mask\ from\ several\ submasks,\ which\ may\ speed\ up}}
+\DoxyCodeLine{00143\ \textcolor{comment}{\ \ \ the\ testing.\ */}}
+\DoxyCodeLine{00144\ }
+\DoxyCodeLine{00145\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00146\ bitmask\_draw(\mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *b,\ \textcolor{keywordtype}{int}\ xoffset,\ \textcolor{keywordtype}{int}\ yoffset);}
+\DoxyCodeLine{00147\ }
+\DoxyCodeLine{00148\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00149\ bitmask\_erase(\mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *b,\ \textcolor{keywordtype}{int}\ xoffset,\ \textcolor{keywordtype}{int}\ yoffset);}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ \textcolor{comment}{/*\ Return\ a\ new\ scaled\ bitmask,\ with\ dimensions\ w*h.\ The\ quality\ of\ the}}
+\DoxyCodeLine{00152\ \textcolor{comment}{\ \ \ scaling\ may\ not\ be\ perfect\ for\ all\ circumstances,\ but\ it\ should}}
+\DoxyCodeLine{00153\ \textcolor{comment}{\ \ \ be\ reasonable.\ If\ either\ w\ or\ h\ is\ 0\ a\ clear\ 1x1\ mask\ is\ returned.\ */}}
+\DoxyCodeLine{00154\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *}
+\DoxyCodeLine{00155\ bitmask\_scale(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *m,\ \textcolor{keywordtype}{int}\ w,\ \textcolor{keywordtype}{int}\ h);}
+\DoxyCodeLine{00156\ }
+\DoxyCodeLine{00157\ \textcolor{comment}{/*\ Convolve\ b\ into\ a,\ drawing\ the\ output\ into\ o,\ shifted\ by\ offset.\ \ If\ offset}}
+\DoxyCodeLine{00158\ \textcolor{comment}{\ *\ is\ 0,\ then\ the\ (x,y)\ bit\ will\ be\ set\ if\ and\ only\ if}}
+\DoxyCodeLine{00159\ \textcolor{comment}{\ *\ bitmask\_overlap(a,\ b,\ x\ -\/\ b-\/>w\ -\/\ 1,\ y\ -\/\ b-\/>h\ -\/\ 1)\ returns\ true.}}
+\DoxyCodeLine{00160\ \textcolor{comment}{\ *}}
+\DoxyCodeLine{00161\ \textcolor{comment}{\ *\ Modifies\ bits\ o[xoffset\ ...\ xoffset\ +\ a-\/>w\ +\ b-\/>w\ -\/\ 1)}}
+\DoxyCodeLine{00162\ \textcolor{comment}{\ *\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ [yoffset\ ...\ yoffset\ +\ a-\/>h\ +\ b-\/>h\ -\/\ 1).\ */}}
+\DoxyCodeLine{00163\ \textcolor{keywordtype}{void}}
+\DoxyCodeLine{00164\ bitmask\_convolve(\textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *a,\ \textcolor{keyword}{const}\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *b,\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *o,}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \textcolor{keywordtype}{int}\ xoffset,\ \textcolor{keywordtype}{int}\ yoffset);}
+\DoxyCodeLine{00166\ }
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\#ifdef\ \_\_cplusplus}}
+\DoxyCodeLine{00168\ \}\ \textcolor{comment}{/*\ End\ of\ extern\ "{}C"{}\ \{\ */}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

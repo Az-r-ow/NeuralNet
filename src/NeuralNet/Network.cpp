@@ -271,6 +271,7 @@ double Network::computeAccuracy(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y)
 {
   int total = y.rows();
 
+  // Hardmax the outputs
   Eigen::MatrixXd outputsHm = hardmax(outputs);
 
   Eigen::MatrixXd diff = outputsHm - y;

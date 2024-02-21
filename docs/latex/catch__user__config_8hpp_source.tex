@@ -1,0 +1,218 @@
+\doxysection{catch\+\_\+user\+\_\+config.\+hpp}
+\hypertarget{catch__user__config_8hpp_source}{}\label{catch__user__config_8hpp_source}\index{build/libs/Catch2/generated-\/includes/catch2/catch\_user\_config.hpp@{build/libs/Catch2/generated-\/includes/catch2/catch\_user\_config.hpp}}
+\mbox{\hyperlink{catch__user__config_8hpp}{Go to the documentation of this file.}}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ }
+\DoxyCodeLine{00002\ \textcolor{comment}{//\ \ \ \ \ \ \ \ \ \ \ \ \ \ Copyright\ Catch2\ Authors}}
+\DoxyCodeLine{00003\ \textcolor{comment}{//\ Distributed\ under\ the\ Boost\ Software\ License,\ Version\ 1.0.}}
+\DoxyCodeLine{00004\ \textcolor{comment}{//\ \ \ (See\ accompanying\ file\ LICENSE.txt\ or\ copy\ at}}
+\DoxyCodeLine{00005\ \textcolor{comment}{//\ \ \ \ \ \ \ \ https://www.boost.org/LICENSE\_1\_0.txt)}}
+\DoxyCodeLine{00006\ }
+\DoxyCodeLine{00007\ \textcolor{comment}{//\ SPDX-\/License-\/Identifier:\ BSL-\/1.0}}
+\DoxyCodeLine{00008\ }
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\#ifndef\ CATCH\_USER\_CONFIG\_HPP\_INCLUDED}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#define\ CATCH\_USER\_CONFIG\_HPP\_INCLUDED}}
+\DoxyCodeLine{00019\ }
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00021\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00022\ \textcolor{comment}{//\ Overridable\ compilation\ flags,}}
+\DoxyCodeLine{00023\ \textcolor{comment}{//\ these\ can\ have\ 3\ "{}states"{}:\ Force\ Yes,\ Force\ No,\ Use\ Default.}}
+\DoxyCodeLine{00024\ \textcolor{comment}{//\ Setting\ both\ Force\ Yes\ and\ Force\ No\ is\ an\ error}}
+\DoxyCodeLine{00025\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00026\ }
+\DoxyCodeLine{00027\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_ANDROID\_LOGWRITE\ */}}
+\DoxyCodeLine{00028\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_ANDROID\_LOGWRITE\ */}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_ANDROID\_LOGWRITE\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_ANDROID\_LOGWRITE\ )}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ ANDROID\_LOGWRITE\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00033\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00034\ }
+\DoxyCodeLine{00035\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_COLOUR\_WIN32\ */}}
+\DoxyCodeLine{00036\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_COLOUR\_WIN32\ */}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_COLOUR\_WIN32\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_COLOUR\_WIN32\ )}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ COLOUR\_WIN32\ to\ be\ ON\ and\ OFF}}
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_COUNTER\ */}}
+\DoxyCodeLine{00044\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_COUNTER\ */}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_COUNTER\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_COUNTER\ )}}
+\DoxyCodeLine{00048\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ COUNTER\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00050\ }
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ }
+\DoxyCodeLine{00053\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_CPP11\_TO\_STRING\ */}}
+\DoxyCodeLine{00054\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_CPP11\_TO\_STRING\ */}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_CPP11\_TO\_STRING\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_CPP11\_TO\_STRING\ )}}
+\DoxyCodeLine{00058\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ CPP11\_TO\_STRING\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00059\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00060\ }
+\DoxyCodeLine{00061\ }
+\DoxyCodeLine{00062\ }
+\DoxyCodeLine{00063\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_CPP17\_BYTE\ */}}
+\DoxyCodeLine{00064\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_CPP17\_BYTE\ */}}
+\DoxyCodeLine{00065\ }
+\DoxyCodeLine{00066\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_CPP17\_BYTE\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00067\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_CPP17\_BYTE\ )}}
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ CPP17\_BYTE\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00069\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00070\ }
+\DoxyCodeLine{00071\ }
+\DoxyCodeLine{00072\ }
+\DoxyCodeLine{00073\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_CPP17\_OPTIONAL\ */}}
+\DoxyCodeLine{00074\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_CPP17\_OPTIONAL\ */}}
+\DoxyCodeLine{00075\ }
+\DoxyCodeLine{00076\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_CPP17\_OPTIONAL\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00077\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_CPP17\_OPTIONAL\ )}}
+\DoxyCodeLine{00078\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ CPP17\_OPTIONAL\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00079\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00080\ }
+\DoxyCodeLine{00081\ }
+\DoxyCodeLine{00082\ }
+\DoxyCodeLine{00083\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_CPP17\_STRING\_VIEW\ */}}
+\DoxyCodeLine{00084\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_CPP17\_STRING\_VIEW\ */}}
+\DoxyCodeLine{00085\ }
+\DoxyCodeLine{00086\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_CPP17\_STRING\_VIEW\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00087\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_CPP17\_STRING\_VIEW\ )}}
+\DoxyCodeLine{00088\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ CPP17\_STRING\_VIEW\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00089\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00090\ }
+\DoxyCodeLine{00091\ }
+\DoxyCodeLine{00092\ }
+\DoxyCodeLine{00093\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_CPP17\_UNCAUGHT\_EXCEPTIONS\ */}}
+\DoxyCodeLine{00094\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_CPP17\_UNCAUGHT\_EXCEPTIONS\ */}}
+\DoxyCodeLine{00095\ }
+\DoxyCodeLine{00096\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_CPP17\_UNCAUGHT\_EXCEPTIONS\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00097\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_CPP17\_UNCAUGHT\_EXCEPTIONS\ )}}
+\DoxyCodeLine{00098\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ CPP17\_UNCAUGHT\_EXCEPTIONS\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00099\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00100\ }
+\DoxyCodeLine{00101\ }
+\DoxyCodeLine{00102\ }
+\DoxyCodeLine{00103\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_CPP17\_VARIANT\ */}}
+\DoxyCodeLine{00104\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_CPP17\_VARIANT\ */}}
+\DoxyCodeLine{00105\ }
+\DoxyCodeLine{00106\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_CPP17\_VARIANT\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00107\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_CPP17\_VARIANT\ )}}
+\DoxyCodeLine{00108\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ CPP17\_VARIANT\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00109\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00110\ }
+\DoxyCodeLine{00111\ }
+\DoxyCodeLine{00112\ }
+\DoxyCodeLine{00113\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_GLOBAL\_NEXTAFTER\ */}}
+\DoxyCodeLine{00114\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_GLOBAL\_NEXTAFTER\ */}}
+\DoxyCodeLine{00115\ }
+\DoxyCodeLine{00116\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_GLOBAL\_NEXTAFTER\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00117\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_GLOBAL\_NEXTAFTER\ )}}
+\DoxyCodeLine{00118\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ GLOBAL\_NEXTAFTER\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00119\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00120\ }
+\DoxyCodeLine{00121\ }
+\DoxyCodeLine{00122\ }
+\DoxyCodeLine{00123\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_POSIX\_SIGNALS\ */}}
+\DoxyCodeLine{00124\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_POSIX\_SIGNALS\ */}}
+\DoxyCodeLine{00125\ }
+\DoxyCodeLine{00126\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_POSIX\_SIGNALS\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00127\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_POSIX\_SIGNALS\ )}}
+\DoxyCodeLine{00128\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ POSIX\_SIGNALS\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00129\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00130\ }
+\DoxyCodeLine{00131\ }
+\DoxyCodeLine{00132\ }
+\DoxyCodeLine{00133\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_GETENV\ */}}
+\DoxyCodeLine{00134\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_GETENV\ */}}
+\DoxyCodeLine{00135\ }
+\DoxyCodeLine{00136\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_GETENV\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00137\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_GETENV\ )}}
+\DoxyCodeLine{00138\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ GETENV\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00139\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00140\ }
+\DoxyCodeLine{00141\ }
+\DoxyCodeLine{00142\ }
+\DoxyCodeLine{00143\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_USE\_ASYNC\ */}}
+\DoxyCodeLine{00144\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_USE\_ASYNC\ */}}
+\DoxyCodeLine{00145\ }
+\DoxyCodeLine{00146\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_USE\_ASYNC\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00147\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_USE\_ASYNC\ )}}
+\DoxyCodeLine{00148\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ USE\_ASYNC\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00149\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00150\ }
+\DoxyCodeLine{00151\ }
+\DoxyCodeLine{00152\ }
+\DoxyCodeLine{00153\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_WCHAR\ */}}
+\DoxyCodeLine{00154\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_WCHAR\ */}}
+\DoxyCodeLine{00155\ }
+\DoxyCodeLine{00156\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_WCHAR\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00157\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_WCHAR\ )}}
+\DoxyCodeLine{00158\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ WCHAR\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00159\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00160\ }
+\DoxyCodeLine{00161\ }
+\DoxyCodeLine{00162\ }
+\DoxyCodeLine{00163\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_WINDOWS\_SEH\ */}}
+\DoxyCodeLine{00164\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_WINDOWS\_SEH\ */}}
+\DoxyCodeLine{00165\ }
+\DoxyCodeLine{00166\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_WINDOWS\_SEH\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00167\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_WINDOWS\_SEH\ )}}
+\DoxyCodeLine{00168\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ WINDOWS\_SEH\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00169\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00170\ }
+\DoxyCodeLine{00171\ }
+\DoxyCodeLine{00172\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_EXPERIMENTAL\_STATIC\_ANALYSIS\_SUPPORT\ */}}
+\DoxyCodeLine{00173\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NO\_EXPERIMENTAL\_STATIC\_ANALYSIS\_SUPPORT\ */}}
+\DoxyCodeLine{00174\ }
+\DoxyCodeLine{00175\ \textcolor{preprocessor}{\#if\ defined(\ CATCH\_CONFIG\_EXPERIMENTAL\_STATIC\_ANALYSIS\_SUPPORT\ )\ \&\&\ \(\backslash\)}}
+\DoxyCodeLine{00176\ \textcolor{preprocessor}{\ \ \ \ defined(\ CATCH\_CONFIG\_NO\_EXPERIMENTAL\_STATIC\_ANALYSIS\_SUPPORT\ )}}
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#\ \ \ \ error\ Cannot\ force\ STATIC\_ANALYSIS\_SUPPORT\ to\ both\ ON\ and\ OFF}}
+\DoxyCodeLine{00178\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00179\ }
+\DoxyCodeLine{00180\ }
+\DoxyCodeLine{00181\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00182\ \textcolor{comment}{//\ Simple\ toggle\ defines}}
+\DoxyCodeLine{00183\ \textcolor{comment}{//\ their\ value\ is\ never\ used\ and\ they\ cannot\ be\ overridden}}
+\DoxyCodeLine{00184\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00185\ }
+\DoxyCodeLine{00186\ }
+\DoxyCodeLine{00187\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_BAZEL\_SUPPORT\ */}}
+\DoxyCodeLine{00188\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_DISABLE\_EXCEPTIONS\ */}}
+\DoxyCodeLine{00189\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_DISABLE\_EXCEPTIONS\_CUSTOM\_HANDLER\ */}}
+\DoxyCodeLine{00190\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_DISABLE\ */}}
+\DoxyCodeLine{00191\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_DISABLE\_STRINGIFICATION\ */}}
+\DoxyCodeLine{00192\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_ENABLE\_ALL\_STRINGMAKERS\ */}}
+\DoxyCodeLine{00193\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_ENABLE\_OPTIONAL\_STRINGMAKER\ */}}
+\DoxyCodeLine{00194\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_ENABLE\_PAIR\_STRINGMAKER\ */}}
+\DoxyCodeLine{00195\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_ENABLE\_TUPLE\_STRINGMAKER\ */}}
+\DoxyCodeLine{00196\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_ENABLE\_VARIANT\_STRINGMAKER\ */}}
+\DoxyCodeLine{00197\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_EXPERIMENTAL\_REDIRECT\ */}}
+\DoxyCodeLine{00198\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_FAST\_COMPILE\ */}}
+\DoxyCodeLine{00199\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_NOSTDOUT\ */}}
+\DoxyCodeLine{00200\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_PREFIX\_ALL\ */}}
+\DoxyCodeLine{00201\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_PREFIX\_MESSAGES\ */}}
+\DoxyCodeLine{00202\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_WINDOWS\_CRTDBG\ */}}
+\DoxyCodeLine{00203\ }
+\DoxyCodeLine{00204\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_SHARED\_LIBRARY\ */}}
+\DoxyCodeLine{00205\ }
+\DoxyCodeLine{00206\ }
+\DoxyCodeLine{00207\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00208\ \textcolor{comment}{//\ "{}Variable"{}\ defines,\ these\ have\ actual\ values}}
+\DoxyCodeLine{00209\ \textcolor{comment}{//\ -\/-\/-\/-\/-\/-\/}}
+\DoxyCodeLine{00210\ }
+\DoxyCodeLine{00211\ \textcolor{preprocessor}{\#define\ CATCH\_CONFIG\_DEFAULT\_REPORTER\ "{}console"{}}}
+\DoxyCodeLine{00212\ \textcolor{preprocessor}{\#define\ CATCH\_CONFIG\_CONSOLE\_WIDTH\ 80}}
+\DoxyCodeLine{00213\ }
+\DoxyCodeLine{00214\ \textcolor{comment}{//\ Unlike\ the\ macros\ above,\ CATCH\_CONFIG\_FALLBACK\_STRINGIFIER\ does\ not}}
+\DoxyCodeLine{00215\ \textcolor{comment}{//\ have\ a\ good\ default\ value,\ so\ we\ cannot\ always\ define\ it,\ and\ cannot}}
+\DoxyCodeLine{00216\ \textcolor{comment}{//\ even\ expose\ it\ as\ a\ variable\ in\ CMake.\ The\ users\ will\ have\ to\ find}}
+\DoxyCodeLine{00217\ \textcolor{comment}{//\ out\ about\ it\ from\ docs\ and\ set\ it\ only\ if\ they\ use\ it.}}
+\DoxyCodeLine{00218\ \textcolor{comment}{/*\ \#undef\ CATCH\_CONFIG\_FALLBACK\_STRINGIFIER\ */}}
+\DoxyCodeLine{00219\ }
+\DoxyCodeLine{00220\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{//\ CATCH\_USER\_CONFIG\_HPP\_INCLUDED}}
+
+\end{DoxyCode}

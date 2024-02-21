@@ -1,0 +1,62 @@
+\doxysection{pygame\+\_\+bufferproxy.\+h}
+\hypertarget{pygame__bufferproxy_8h_source}{}\label{pygame__bufferproxy_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/include/pygame\_bufferproxy.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/include/pygame\_bufferproxy.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ pygame\ -\/\ Python\ Game\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ Copyright\ (C)\ 2000-\/2001\ \ Pete\ Shinners}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ Copyright\ (C)\ 2007\ \ Rene\ Dudfield,\ Richard\ Goedeken}}
+\DoxyCodeLine{00005\ \textcolor{comment}{}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ version\ 2\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00013\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ Library\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00015\ \textcolor{comment}{}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00017\ \textcolor{comment}{\ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free}}
+\DoxyCodeLine{00018\ \textcolor{comment}{\ \ Foundation,\ Inc.,\ 59\ Temple\ Place,\ Suite\ 330,\ Boston,\ MA\ \ 02111-\/1307\ \ USA}}
+\DoxyCodeLine{00019\ \textcolor{comment}{}}
+\DoxyCodeLine{00020\ \textcolor{comment}{\ \ Pete\ Shinners}}
+\DoxyCodeLine{00021\ \textcolor{comment}{\ \ pete@shinners.org}}
+\DoxyCodeLine{00022\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00024\ \textcolor{comment}{/*\ Bufferproxy\ module\ C\ api.\ */}}
+\DoxyCodeLine{00025\ \textcolor{preprocessor}{\#if\ !defined(PG\_BUFPROXY\_HEADER)}}
+\DoxyCodeLine{00026\ \textcolor{preprocessor}{\#define\ PG\_BUFPROXY\_HEADER}}
+\DoxyCodeLine{00027\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#include\ <Python.h>}}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{keyword}{typedef}\ PyObject\ *(*\_pgbufproxy\_new\_t)(PyObject\ *,\ getbufferproc);}
+\DoxyCodeLine{00031\ \textcolor{keyword}{typedef}\ PyObject\ *(*\_pgbufproxy\_get\_obj\_t)(PyObject\ *);}
+\DoxyCodeLine{00032\ \textcolor{keyword}{typedef}\ int\ (*\_pgbufproxy\_trip\_t)(PyObject\ *);}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_BUFPROXY\_INTERNAL}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ \textcolor{preprocessor}{\#include\ "{}pgimport.h"{}}}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ PYGAMEAPI\_DEFINE\_SLOTS(bufferproxy);}
+\DoxyCodeLine{00039\ }
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ pgBufproxy\_Type\ (*(PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(bufferproxy,\ 0))}}
+\DoxyCodeLine{00041\ }
+\DoxyCodeLine{00042\ \textcolor{preprocessor}{\#define\ pgBufproxy\_Check(x)\ ((x)-\/>ob\_type\ ==\ \&pgBufproxy\_Type)}}
+\DoxyCodeLine{00043\ }
+\DoxyCodeLine{00044\ \textcolor{preprocessor}{\#define\ pgBufproxy\_New\ (*(\_pgbufproxy\_new\_t)PYGAMEAPI\_GET\_SLOT(bufferproxy,\ 1))}}
+\DoxyCodeLine{00045\ }
+\DoxyCodeLine{00046\ \textcolor{preprocessor}{\#define\ pgBufproxy\_GetParent\ \(\backslash\)}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\ \ \ \ (*(\_pgbufproxy\_get\_obj\_t)PYGAMEAPI\_GET\_SLOT(bufferproxy,\ 2))}}
+\DoxyCodeLine{00048\ }
+\DoxyCodeLine{00049\ \textcolor{preprocessor}{\#define\ pgBufproxy\_Trip\ \(\backslash\)}}
+\DoxyCodeLine{00050\ \textcolor{preprocessor}{\ \ \ \ (*(\_pgbufproxy\_trip\_t)PYGAMEAPI\_GET\_SLOT(bufferproxy,\ 3))}}
+\DoxyCodeLine{00051\ }
+\DoxyCodeLine{00052\ \textcolor{preprocessor}{\#define\ import\_pygame\_bufferproxy()\ \_IMPORT\_PYGAME\_MODULE(bufferproxy)}}
+\DoxyCodeLine{00053\ }
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PYGAMEAPI\_BUFPROXY\_INTERNAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~defined(PG\_BUFPROXY\_HEADER)\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

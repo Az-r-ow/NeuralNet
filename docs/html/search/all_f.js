@@ -1,9 +1,12 @@
 var searchData=
 [
-  ['tensor_0',['Tensor',['../class_neural_net_1_1_tensor.html',1,'NeuralNet']]],
-  ['tensor_3c_20i_20_3e_1',['Tensor&lt; I &gt;',['../class_neural_net_1_1_tensor.html',1,'NeuralNet']]],
-  ['tensor_3c_20l_20_3e_2',['Tensor&lt; L &gt;',['../class_neural_net_1_1_tensor.html',1,'NeuralNet']]],
-  ['train_3',['train',['../class_neural_net_1_1_network.html#ac733e5b1200daf25377aa2e1aa96a3f2',1,'NeuralNet::Network::train(std::vector&lt; std::vector&lt; double &gt; &gt; inputs, std::vector&lt; double &gt; labels, int epochs=1)'],['../class_neural_net_1_1_network.html#a9763cca4445dac9177f61c46282716f7',1,'NeuralNet::Network::train(std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs, std::vector&lt; double &gt; labels, int epochs=1)'],['../class_neural_net_1_1_network.html#af02fe05cffe41287815945181116d7b1',1,'NeuralNet::Network::train(TrainingData&lt; std::vector&lt; std::vector&lt; double &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1)'],['../class_neural_net_1_1_network.html#a0393730f4ed84eec047659c3005ef47d',1,'NeuralNet::Network::train(TrainingData&lt; std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1)']]],
-  ['trainingdata_4',['TrainingData',['../class_neural_net_1_1_training_data.html',1,'NeuralNet::TrainingData&lt; I, L &gt;'],['../class_neural_net_1_1_training_data.html#ac2e6d5aa40e7271bb363704e656de0e0',1,'NeuralNet::TrainingData::TrainingData()']]],
-  ['traininggauge_5',['TrainingGauge',['../class_neural_net_1_1_training_gauge.html',1,'NeuralNet']]]
+  ['save_5fto_5ffile_0',['save_to_file',['../class_neural_net_1_1_model.html#aa6bf6ea54a2427d3e328e3f4d8c7740f',1,'NeuralNet::Model']]],
+  ['setloss_1',['setLoss',['../class_neural_net_1_1_network.html#a0b56dc077a428d0346ee0a4d9458081a',1,'NeuralNet::Network']]],
+  ['setoutputs_2',['setOutputs',['../class_neural_net_1_1_layer.html#ae81f8d543115f7be083f2a57d9baa551',1,'NeuralNet::Layer']]],
+  ['setup_3',['setup',['../class_neural_net_1_1_network.html#aa251283de01587f20f33bc76cc9fe77d',1,'NeuralNet::Network']]],
+  ['sgd_4',['SGD',['../class_neural_net_1_1_s_g_d.html',1,'NeuralNet']]],
+  ['sigmoid_5',['Sigmoid',['../class_neural_net_1_1_sigmoid.html',1,'NeuralNet']]],
+  ['softmax_6',['Softmax',['../class_neural_net_1_1_softmax.html',1,'NeuralNet']]],
+  ['specialize_3c_20archive_2c_20neuralnet_3a_3aflatten_2c_20cereal_3a_3aspecialization_3a_3amember_5fserialize_20_3e_7',['specialize&lt; Archive, NeuralNet::Flatten, cereal::specialization::member_serialize &gt;',['../structcereal_1_1specialize_3_01_archive_00_01_neural_net_1_1_flatten_00_01cereal_1_1specialization_1_1member__serialize_01_4.html',1,'cereal']]],
+  ['submodules_8',['Initialize submodules',['../index.html#autotoc_md2',1,'']]]
 ];

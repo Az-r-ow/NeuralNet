@@ -1,0 +1,51 @@
+\doxysection{pygame\+\_\+mask.\+h}
+\hypertarget{pygame__mask_8h_source}{}\label{pygame__mask_8h_source}\index{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/include/pygame\_mask.h@{examples/train-\/predict-\/MNIST/venv/include/site/python3.9/pygame/include/pygame\_mask.h}}
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ pygame\ -\/\ Python\ Game\ Library}}
+\DoxyCodeLine{00003\ \textcolor{comment}{}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ This\ library\ is\ free\ software;\ you\ can\ redistribute\ it\ and/or}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ modify\ it\ under\ the\ terms\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ License\ as\ published\ by\ the\ Free\ Software\ Foundation;\ either}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ version\ 2\ of\ the\ License,\ or\ (at\ your\ option)\ any\ later\ version.}}
+\DoxyCodeLine{00008\ \textcolor{comment}{}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ This\ library\ is\ distributed\ in\ the\ hope\ that\ it\ will\ be\ useful,}}
+\DoxyCodeLine{00010\ \textcolor{comment}{\ \ but\ WITHOUT\ ANY\ WARRANTY;\ without\ even\ the\ implied\ warranty\ of}}
+\DoxyCodeLine{00011\ \textcolor{comment}{\ \ MERCHANTABILITY\ or\ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE.\ \ See\ the\ GNU}}
+\DoxyCodeLine{00012\ \textcolor{comment}{\ \ Library\ General\ Public\ License\ for\ more\ details.}}
+\DoxyCodeLine{00013\ \textcolor{comment}{}}
+\DoxyCodeLine{00014\ \textcolor{comment}{\ \ You\ should\ have\ received\ a\ copy\ of\ the\ GNU\ Library\ General\ Public}}
+\DoxyCodeLine{00015\ \textcolor{comment}{\ \ License\ along\ with\ this\ library;\ if\ not,\ write\ to\ the\ Free}}
+\DoxyCodeLine{00016\ \textcolor{comment}{\ \ Foundation,\ Inc.,\ 59\ Temple\ Place,\ Suite\ 330,\ Boston,\ MA\ \ 02111-\/1307\ \ USA}}
+\DoxyCodeLine{00017\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00018\ }
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#ifndef\ PGMASK\_H}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\#define\ PGMASK\_H}}
+\DoxyCodeLine{00021\ }
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\#include\ <Python.h>}}
+\DoxyCodeLine{00023\ \textcolor{preprocessor}{\#include\ "{}bitmask.h"{}}}
+\DoxyCodeLine{00024\ }
+\DoxyCodeLine{00025\ \textcolor{keyword}{typedef}\ \textcolor{keyword}{struct\ }\{}
+\DoxyCodeLine{00026\ \ \ \ \ PyObject\_HEAD\ \mbox{\hyperlink{structbitmask}{bitmask\_t}}\ *mask;}
+\DoxyCodeLine{00027\ \ \ \ \ \textcolor{keywordtype}{void}\ *bufdata;}
+\DoxyCodeLine{00028\ \}\ \mbox{\hyperlink{structpg_mask_object}{pgMaskObject}};}
+\DoxyCodeLine{00029\ }
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\#define\ pgMask\_AsBitmap(x)\ (((pgMaskObject\ *)x)-\/>mask)}}
+\DoxyCodeLine{00031\ }
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\#ifndef\ PYGAMEAPI\_MASK\_INTERNAL}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#include\ "{}pgimport.h"{}}}
+\DoxyCodeLine{00035\ }
+\DoxyCodeLine{00036\ PYGAMEAPI\_DEFINE\_SLOTS(mask);}
+\DoxyCodeLine{00037\ }
+\DoxyCodeLine{00038\ \textcolor{preprocessor}{\#define\ pgMask\_Type\ (*(PyTypeObject\ *)PYGAMEAPI\_GET\_SLOT(mask,\ 0))}}
+\DoxyCodeLine{00039\ \textcolor{preprocessor}{\#define\ pgMask\_Check(x)\ ((x)-\/>ob\_type\ ==\ \&pgMask\_Type)}}
+\DoxyCodeLine{00040\ }
+\DoxyCodeLine{00041\ \textcolor{preprocessor}{\#define\ import\_pygame\_mask()\ \_IMPORT\_PYGAME\_MODULE(mask)}}
+\DoxyCodeLine{00042\ }
+\DoxyCodeLine{00043\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PYGAMEAPI\_MASK\_INTERNAL\ */}\textcolor{preprocessor}{}}
+\DoxyCodeLine{00044\ }
+\DoxyCodeLine{00045\ \textcolor{preprocessor}{\#endif\ }\textcolor{comment}{/*\ \string~PGMASK\_H\ */}\textcolor{preprocessor}{}}
+
+\end{DoxyCode}

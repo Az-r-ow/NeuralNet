@@ -111,6 +111,8 @@ namespace NeuralNet
     WEIGHT_INIT weightInit;
     Eigen::MatrixXd outputs;
     Eigen::MatrixXd weights;
+    Eigen::MatrixXd cachedWeights;
+    Eigen::MatrixXd cachedBiases;
     ACTIVATION activation;
     Eigen::MatrixXd (*activate)(const Eigen::MatrixXd &);
     Eigen::MatrixXd (*diff)(const Eigen::MatrixXd &);
