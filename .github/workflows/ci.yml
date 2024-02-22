@@ -20,7 +20,7 @@ jobs:
         run: git submodule update
 
       - name: Build 
-        run: source /scripts/build.sh
+        run: source ./scripts/build.sh
 
       - name: Test
-        run: source /scripts/tests.sh
+        run: source ./scripts/tests.sh
