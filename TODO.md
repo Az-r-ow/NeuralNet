@@ -10,6 +10,8 @@
 
 ## IN PROGRESS :
 
+- [ ] Add CI / CD
+- [ ] Optimize `Catch2`'s build
 - [ ] Add gradient clipping
 - [ ] Update README to include more information about the project
 

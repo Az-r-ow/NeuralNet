@@ -7,6 +7,7 @@ This is my take on implementing a neural network in cpp. Keeping in mind that I 
     - [Initialize submodules](#initialize-submodules)
     - [Build the code](#build-the-code)
   - [Tests](#tests)
+  - [📖 Docs](#-docs)
   - [Miscellaneous](#miscellaneous)
     - [🔗 Python Bindings](#-python-bindings)
     - [The importance of weight initialization functions](#the-importance-of-weight-initialization-functions)
@@ -37,6 +38,11 @@ To run tests :
 ```bash
 source /scripts/tests.sh
 ```
+
+## 📖 Docs
+
+- [cpp docs 📖](https://az-r-ow.github.io/NeuralNet/)
+- python docs (coming soon...)
 
 ## Miscellaneous
 
