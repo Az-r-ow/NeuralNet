@@ -1,13 +1,13 @@
 name: CI
 
-on: 
+on:
   push:
-    branches: [ main ]
+    branches: [main]
   pull_request:
-    branches: [ main ] 
+    branches: [main]
 
-jobs: 
-  build: 
+jobs:
+  build_and_test:
     runs-on: ubuntu-latest
 
     steps:
@@ -19,8 +19,8 @@ jobs:
       - name: Update Submodules
         run: git submodule update
 
-      - name: Build 
-        run: source ./scripts/build.sh
+      - name: Build
+        run: source ./scripts/build_without_bindings.sh
 
       - name: Test
         run: source ./scripts/tests.sh
