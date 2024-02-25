@@ -26,6 +26,14 @@ using namespace NeuralNet;
 
 PYBIND11_MODULE(NeuralNetPy, m)
 {
+    m.doc() = R"pbdoc(
+        Neural Network Library
+        -----------------------
+        .. currentmodule:: NeuralNetPy
+        .. autosummary::
+           :toctree: _generate
+    )pbdoc";
+
     py::enum_<ACTIVATION>(m, "ACTIVATION")
         .value("RELU", ACTIVATION::RELU)
         .value("SIGMOID", ACTIVATION::SIGMOID)
@@ -99,7 +107,9 @@ PYBIND11_MODULE(NeuralNetPy, m)
         .def("addLayer", &Network::addLayer)
         .def("getLayer", &Network::getLayer, py::return_value_policy::copy)
         .def("getNumLayers", &Network::getNumLayers)
-        .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>, int)>(&Network::train), "Train the network")
+        .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>, int)>(&Network::train), R"pbdoc(
+            Train the network
+        )pbdoc")
         .def("train", static_cast<double (Network::*)(std::vector<std::vector<std::vector<double>>>, std::vector<double>, int)>(&Network::train), "Train the network")
         .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<double>>, std::vector<double>>, int)>(&Network::train), "Train the network")
         .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>>, int)>(&Network::train), "Train the network")

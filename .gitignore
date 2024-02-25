@@ -1,8 +1,9 @@
 ### IDE ###
 .vscode
 
-### build ###
-/build
+/*build*
+/docs/cppdoc/html
+/docs/pydoc/build
 
 ### macos ###
 .DS_Store
@@ -14,6 +15,3 @@ dataset/
 
 ### binaries ###
 *.bin
-
-### doxygen ###
-Doxyfile
