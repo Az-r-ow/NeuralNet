@@ -6,12 +6,21 @@ on:
   pull_request:
     branches: [main]
 
+env:
+  BUILD_DIR: build
+  SCRIPTS_DIR: scripts
+  DOCS_DIR: docs
+  CPP_DOCS_DIR: docs/cppdoc
+  PY_DOCS_DIR: docs/pydoc/html
+  BUILD_ARTIFACTS_ID: build-artifacts
+  CPP_DOCS_ARTIFACTS_ID: cpp-docs
+  PY_DOCS_ARTIFACTS_ID: py-docs
+
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
-
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Initialize Submodules
         run: git submodule init
@@ -20,7 +29,86 @@ jobs:
         run: git submodule update
 
       - name: Build
-        run: source ./scripts/build_without_bindings.sh
+        run: source ${{ env.SCRIPTS_DIR }}/build.sh
 
       - name: Test
-        run: source ./scripts/tests.sh
+        run: source ${{ env.SCRIPTS_DIR }}/tests.sh
+
+      - name: Archive build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.BUILD_ARTIFACTS_ID }}
+          path: ${{ env.BUILD_DIR }}
+
+  build_and_upload_cpp_docs:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.BUILD_ARTIFACTS_ID }}
+
+      - name: Build Cpp docs with Doxygen
+        uses: mattnotmitt/doxygen-action@v1.9.8
+        with:
+          doxyfile-path: ${{ env.DOCS_DIR }}/Doxyfile
+
+      - name: Upload Cpp docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.CPP_DOCS_ARTIFACTS_ID }}
+          path: ${{ env.CPP_DOCS_DIR }}
+
+  build_and_upload_py_docs:
+    needs: build_and_test
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: ${{ env.BUILD_ARTIFACTS_ID }}
+
+      - name: Install python dependencies
+        run: python ${{ env.DOCS_DIR }}/setup.py
+
+      - name: Build Py docs with Sphinx
+        run: make html
+
+      - name: Archive Py docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PY_DOCS_ARTIFACTS_ID }}
+          path: ${{ env.PY_DOCS_DIR }}
+
+      - name: Upload Py docs
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ env.PY_DOCS_ARTIFACTS_ID }}
+          path: ${{ env.PY_DOCS_DIR }}
+
+  pages_deployment:
+    needs: [build_and_upload_cpp_docs, build_and_upload_py_docs]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download Cpp docs
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "*-docs"
+
+      - name: Deploy Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ${{ env.DOCS_DIR }}

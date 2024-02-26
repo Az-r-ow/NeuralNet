@@ -2,8 +2,8 @@
 .vscode
 
 /*build*
-/docs/cppdoc/html
-/docs/pydoc/build
+/docs/cppdoc/
+/docs/pydoc/
 
 ### macos ###
 .DS_Store
