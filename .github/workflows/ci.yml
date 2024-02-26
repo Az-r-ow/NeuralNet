@@ -39,6 +39,8 @@ jobs:
         with:
           name: ${{ env.BUILD_ARTIFACTS_ID }}
           path: ${{ env.BUILD_DIR }}/*.so
+          if_no_files_found: error
+          retention-days: 1/*.so
 
   build_and_upload_cpp_docs:
     needs: build_and_test
@@ -58,6 +60,8 @@ jobs:
         with:
           name: ${{ env.CPP_DOCS_ARTIFACTS_ID }}
           path: ${{ env.CPP_DOCS_DIR }}
+          if_no_files_found: error
+          retention-days: 1
 
   build_and_upload_py_docs:
     needs: build_and_test
@@ -92,6 +96,8 @@ jobs:
         with:
           name: ${{ env.PY_DOCS_ARTIFACTS_ID }}
           path: ${{ env.PY_DOCS_DIR }}
+          if_no_files_found: error
+          retention-days: 1
 
   pages_deployment:
     needs: [build_and_upload_cpp_docs, build_and_upload_py_docs]
