@@ -39,7 +39,7 @@ jobs:
         with:
           name: ${{ env.BUILD_ARTIFACTS_ID }}
           path: ${{ env.BUILD_DIR }}/*.so
-          if_no_files_found: error
+          if-no-files-found: error
           retention-days: 1/*.so
 
   build_and_upload_cpp_docs:
@@ -60,7 +60,7 @@ jobs:
         with:
           name: ${{ env.CPP_DOCS_ARTIFACTS_ID }}
           path: ${{ env.CPP_DOCS_DIR }}
-          if_no_files_found: error
+          if-no-files-found: error
           retention-days: 1
 
   build_and_upload_py_docs:
@@ -96,7 +96,7 @@ jobs:
         with:
           name: ${{ env.PY_DOCS_ARTIFACTS_ID }}
           path: ${{ env.PY_DOCS_DIR }}
-          if_no_files_found: error
+          if-no-files-found: error
           retention-days: 1
 
   pages_deployment:
@@ -111,6 +111,10 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: "*-docs"
+          path: ${{ env.DOCS_DIR }}
+
+      - name: Print docs folder structure
+        run: cd docs && ls -a 
 
       - name: Deploy Pages
         uses: peaceiris/actions-gh-pages@v3
