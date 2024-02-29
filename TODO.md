@@ -1,7 +1,5 @@
 ## TODOS :
 
-- [ ] Document the example in python
-- [ ] Implement early stopping
 - [ ] Find out why the predictions are not accurate on my_samples
 - [ ] Implement batch norm
 - [ ] Multithreading operations
@@ -10,13 +8,15 @@
 
 ## IN PROGRESS :
 
-- [ ] Add CI / CD
+- [ ] Implement early stopping
 - [ ] Optimize `Catch2`'s build
 - [ ] Add gradient clipping
-- [ ] Update README to include more information about the project
 
 ## DONE :
 
+- [x] Update README to include more information about the project
+- [x] Add CI / CD
+- [x] Document the example in python
 - [x] Re-implement the whole mini-batch algorithm
 - [x] Comment the code further
 - [x] Find out if adam optimization is working

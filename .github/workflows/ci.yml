@@ -108,14 +108,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Download Cpp docs
+      - name: Download docs
         uses: actions/download-artifact@v4
         with:
           pattern: "*-docs"
           path: ${{ env.DOCS_DIR }}
-
-      - name: Print docs folder structure
-        run: cd docs && ls -a 
 
       - name: Deploy Pages
         uses: peaceiris/actions-gh-pages@v3
