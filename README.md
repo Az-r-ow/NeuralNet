@@ -41,8 +41,8 @@ source /scripts/tests.sh
 
 ## 📖 Docs
 
-- [cpp docs 📖](https://az-r-ow.github.io/NeuralNet/)
-- python docs (coming soon...)
+- [cpp docs 📖](https://az-r-ow.github.io/NeuralNet/cpp-docs)
+- [python docs 🐍](https://az-r-ow.github.io/NeuralNet/py-docs)
 
 ## Miscellaneous
 
