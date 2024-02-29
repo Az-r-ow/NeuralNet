@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeuralNet Docs</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --primary-color: #deeaf3;
+        --secondary-color: #c9d7e2;
+        --text-color: #112839;
+        --background-color: #edf2f7;
+        --border-radius: 15px;
+        --transition-speed: 0.4s;
+      }
+
+      body,
+      html {
+        height: 100%;
+        margin: 0;
+        font-family: "Poppins", sans-serif;
+        color: var(--text-color);
+        background: var(--background-color);
+      }
+
+      .container {
+        text-align: center;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 90%;
+        max-width: 600px;
+        padding: 20px;
+        /* background-color: #fefff7; */
+        background: linear-gradient(
+          145deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        border-radius: var(--border-radius);
+        box-shadow: 0 10px 20px -10px rgba(0, 0, 0, 0.2);
+      }
+
+      h1,
+      h2,
+      a {
+        color: var(
+          --text-color
+        ); /* Ensures text color is white for better contrast against the gradient background */
+      }
+
+      h1 {
+        font-size: 2.5rem;
+        margin-bottom: 0.5em;
+      }
+
+      h2 {
+        font-size: 1.75rem;
+        margin-bottom: 1em;
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+        display: inline-block;
+        text-align: center;
+      }
+
+      li {
+        margin: 10px 0;
+        opacity: 0;
+        transform: translateY(20px);
+        animation: fadeInUp 0.5s ease forwards;
+      }
+
+      li:nth-child(1) {
+        animation-delay: 0.75s;
+      }
+
+      li:nth-child(2) {
+        animation-delay: 1s;
+      }
+
+      a {
+        text-decoration: none;
+        color: inherit; /* Uses the text color specified for the container */
+        padding: 10px 15px;
+        border-radius: var(--border-radius);
+        transition: transform var(--transition-speed),
+          box-shadow var(--transition-speed);
+        display: inline-block;
+        font-weight: 600;
+        background: linear-gradient(
+          45deg,
+          var(--secondary-color),
+          var(--primary-color)
+        );
+        border: 2px solid #fff; /* Adds a white border to links for distinction */
+      }
+
+      a:hover,
+      a:focus {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 30px -10px rgba(0, 0, 0, 0.2);
+      }
+
+      @keyframes fadeInUp {
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>NeuralNet Docs</h1>
+      <ul>
+        <li><a href="/cpp-docs">📚 C++ Docs</a></li>
+        <li><a href="/py-docs">🐍 Python Docs</a></li>
+      </ul>
+    </div>
+  </body>
+</html>
