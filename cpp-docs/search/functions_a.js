@@ -1,0 +1,5 @@
+var searchData=
+[
+  ['train_0',['train',['../classNeuralNet_1_1Network.html#ac733e5b1200daf25377aa2e1aa96a3f2',1,'NeuralNet::Network::train(std::vector&lt; std::vector&lt; double &gt; &gt; inputs, std::vector&lt; double &gt; labels, int epochs=1)'],['../classNeuralNet_1_1Network.html#a9763cca4445dac9177f61c46282716f7',1,'NeuralNet::Network::train(std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs, std::vector&lt; double &gt; labels, int epochs=1)'],['../classNeuralNet_1_1Network.html#af02fe05cffe41287815945181116d7b1',1,'NeuralNet::Network::train(TrainingData&lt; std::vector&lt; std::vector&lt; double &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1)'],['../classNeuralNet_1_1Network.html#a0393730f4ed84eec047659c3005ef47d',1,'NeuralNet::Network::train(TrainingData&lt; std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1)']]],
+  ['trainingdata_1',['TrainingData',['../classNeuralNet_1_1TrainingData.html#ac2e6d5aa40e7271bb363704e656de0e0',1,'NeuralNet::TrainingData']]]
+];
