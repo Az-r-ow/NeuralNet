@@ -14,22 +14,19 @@ namespace NeuralNet
   class Callback
   {
   public:
-    virtual bool onTrainBegin(Logs logs) = 0;
-    virtual bool onTrainEnd(Logs logs) = 0;
-    virtual bool onEpochBegin(Logs logs) = 0;
-    virtual bool onEpochEnd(Logs logs) = 0;
-    virtual bool onBatchBegin(Logs logs) = 0;
-    virtual bool onBatchEnd(Logs logs) = 0;
+    virtual void onTrainBegin(Logs logs) = 0;
+    virtual void onTrainEnd(Logs logs) = 0;
+    virtual void onEpochBegin(Logs logs) = 0;
+    virtual void onEpochEnd(Logs logs) = 0;
+    virtual void onBatchBegin(Logs logs) = 0;
+    virtual void onBatchEnd(Logs logs) = 0;
 
     virtual ~Callback() = default;
 
-    template <typename T>
-    using MethodPointer = bool (T::*)(Logs logs);
-
     template <typename T, typename... Args>
-    static bool callMethod(std::shared_ptr<T> callback, const std::string &methodName, Logs logs)
+    static void callMethod(std::shared_ptr<T> callback, const std::string &methodName, Logs logs)
     {
-      static const std::unordered_map<std::string, std::function<bool(T *, Logs)>> methods = {
+      static const std::unordered_map<std::string, std::function<void(T *, Logs)>> methods = {
           {"onTrainBegin", [](T *callback, Logs logs)
            { return callback->onTrainBegin(logs); }},
           {"onTrainEnd", [](T *callback, Logs logs)
@@ -45,10 +42,10 @@ namespace NeuralNet
 
       auto it = methods.find(methodName);
 
-      if (it != methods.end())
-        return it->second(callback.get(), logs);
+      if (it == methods.end())
+        return;
 
-      return true;
+      it->second(callback.get(), logs);
     }
 
   protected:

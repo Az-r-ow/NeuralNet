@@ -273,7 +273,22 @@ namespace NeuralNet
      */
     void backProp(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y);
 
-    // todo: implement the following method
+    /**
+     * @brief This method will go over the provided callbacks and trigger the appropriate methods whilst passing the necessary logs.
+     *
+     * @param checkpointName The name of the checkpoint (e.g. onTrainBegin, onEpochEnd, etc.)
+     * @param callbacks A vector of `Callback` that will be called during training stages
+     */
+    void trainingCheckpoint(std::string checkpointName, std::vector<std::shared_ptr<Callback>> callbacks);
+
+    /**
+     * @brief This method will compute the accuracy of the model based on the outputs of the model and the expected values.
+     *
+     * @param outputs The outputs from the forward propagation
+     * @param y The expected outputs (targets)
+     *
+     * @return The accuracy of the model (percentage of correct predictions)
+     */
     double computeAccuracy(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y);
 
     /**
@@ -283,4 +298,4 @@ namespace NeuralNet
      */
     void updateOptimizerSetup(size_t numLayers);
   };
-}
+} // namespace NeuralNet

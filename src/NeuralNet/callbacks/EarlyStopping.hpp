@@ -35,7 +35,7 @@ namespace NeuralNet
      *
      * @warning The order of the logs should be the same as the order of the metrics.
      */
-    bool onEpochBegin(Logs logs) override { return true; };
+    void onEpochBegin(Logs logs) override{};
 
     /**
      * @brief This method will be called at the end of each epoch
@@ -46,7 +46,7 @@ namespace NeuralNet
      *
      * @warning The order of the logs should be the same as the order of the metrics.
      */
-    bool onEpochEnd(Logs logs) override
+    void onEpochEnd(Logs logs) override
     {
       auto it = logs.find(metric);
 
@@ -58,7 +58,7 @@ namespace NeuralNet
       if (previousMetric == 0)
       {
         previousMetric = currentMetric;
-        return true;
+        return;
       }
 
       double absCurrentDelta = std::abs(currentMetric - previousMetric);
@@ -67,15 +67,13 @@ namespace NeuralNet
       previousMetric = currentMetric;
 
       if (patience < 0)
-        return false;
-
-      return true;
+        throw std::runtime_error("Early stopping");
     };
 
-    bool onTrainBegin(Logs logs) override { return true; };
-    bool onTrainEnd(Logs logs) override { return true; };
-    bool onBatchBegin(Logs logs) override { return true; };
-    bool onBatchEnd(Logs logs) override { return true; };
+    void onTrainBegin(Logs logs) override{};
+    void onTrainEnd(Logs logs) override{};
+    void onBatchBegin(Logs logs) override{};
+    void onBatchEnd(Logs logs) override{};
 
     ~EarlyStopping() override = default;
 
