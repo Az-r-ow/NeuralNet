@@ -61,37 +61,37 @@ std::shared_ptr<Layer> Network::getOutputLayer() const
   return this->layers[this->layers.size() - 1];
 }
 
-double Network::train(std::vector<std::vector<double>> inputs, std::vector<double> labels, int epochs)
+double Network::train(std::vector<std::vector<double>> inputs, std::vector<double> labels, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
   return onlineTraining(inputs, labels, epochs);
 }
 
-double Network::train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels, int epochs)
+double Network::train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
   return onlineTraining(inputs, labels, epochs);
 }
 
 // Specific implementation of train that takes TrainingData class as input
-double Network::train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData, int epochs)
+double Network::train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
   return this->trainer(trainingData, epochs);
 }
 
-double Network::train(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>> trainingData, int epochs)
+double Network::train(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>> trainingData, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
   return this->trainer(trainingData, epochs);
 }
 
 template <typename D1, typename D2>
-double Network::trainer(TrainingData<D1, D2> trainingData, int epochs)
+double Network::trainer(TrainingData<D1, D2> trainingData, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
   if (trainingData.batched)
-    return this->miniBatchTraining(trainingData, epochs);
-  return this->batchTraining(trainingData, epochs);
+    return this->miniBatchTraining(trainingData, epochs, callbacks);
+  return this->batchTraining(trainingData, epochs, callbacks);
 }
 
 template <typename D1, typename D2>
-double Network::miniBatchTraining(TrainingData<D1, D2> trainingData, int epochs)
+double Network::miniBatchTraining(TrainingData<D1, D2> trainingData, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
   double loss;
   double sumLoss = 0;
@@ -118,7 +118,7 @@ double Network::miniBatchTraining(TrainingData<D1, D2> trainingData, int epochs)
 }
 
 template <typename D1, typename D2>
-double Network::batchTraining(TrainingData<D1, D2> trainingData, int epochs)
+double Network::batchTraining(TrainingData<D1, D2> trainingData, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
   double loss;
   double sumLoss = 0;
@@ -142,7 +142,7 @@ double Network::batchTraining(TrainingData<D1, D2> trainingData, int epochs)
 }
 
 template <typename D1, typename D2>
-double Network::onlineTraining(std::vector<D1> inputs, std::vector<D2> labels, int epochs)
+double Network::onlineTraining(std::vector<D1> inputs, std::vector<D2> labels, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
   double loss;
   double sumLoss;

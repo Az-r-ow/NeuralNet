@@ -2,13 +2,15 @@
 
 - [ ] Find out why the predictions are not accurate on my_samples
 - [ ] Implement batch norm
-- [ ] Multithreading operations
+- [ ] Parallelize operations
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
 - [ ] Implement a dropout to avoid over-fitting the model
 
 ## IN PROGRESS :
 
 - [ ] Implement early stopping
+  - [ ] Create a CallBack base class
+  - [ ] Create an EarlyStopping class
 - [ ] Optimize `Catch2`'s build
 - [ ] Add gradient clipping
 

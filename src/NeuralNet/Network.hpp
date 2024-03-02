@@ -18,6 +18,7 @@
 #include "losses/losses.hpp"
 #include "data/Tensor.hpp"
 #include "data/TrainingData.hpp"
+#include "callbacks/Callback.hpp"
 
 namespace NeuralNet
 {
@@ -80,10 +81,11 @@ namespace NeuralNet
      * @param inputs The inputs that will be passed to the model
      * @param labels The labels that represent the expected outputs of the model
      * @param epochs
+     * @param callbacks A vector of `Callback` that will be called during training stages
      *
      * @return The last training's loss
      */
-    double train(std::vector<std::vector<double>> inputs, std::vector<double> labels, int epochs = 1);
+    double train(std::vector<std::vector<double>> inputs, std::vector<double> labels, int epochs = 1, std::vector<std::shared_ptr<Callback>> callbacks = {});
 
     /**
      * @brief This method will Train the model with the given inputs and labels
@@ -91,30 +93,33 @@ namespace NeuralNet
      * @param inputs The inputs that will be passed to the model
      * @param labels The labels that represent the expected outputs of the model
      * @param epochs
+     * @param callbacks A vector of `Callback` that will be called during training stages
      *
      * @return The last training's loss
      */
-    double train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels, int epochs = 1);
+    double train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels, int epochs = 1, std::vector<std::shared_ptr<Callback>> callbacks = {});
 
     /**
      * @brief This method will train the model with the given TrainingData
      *
      * @param trainingData the data passed through the TrainingData class
      * @param epochs
+     * @param callbacks A vector of `Callback` that will be called during training stages
      *
      * @return The last training's loss
      */
-    double train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData, int epochs = 1);
+    double train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData, int epochs = 1, std::vector<std::shared_ptr<Callback>> callbacks = {});
 
     /**
      * @brief This method will train the model with the given TrainingData
      *
      * @param trainingData the data passed through the TrainingData class
      * @param epochs
+     * @param callbacks A vector of `Callback` that will be called during training stages
      *
      * @return The last training's loss
      */
-    double train(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>> trainingData, int epochs = 1);
+    double train(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>> trainingData, int epochs = 1, std::vector<std::shared_ptr<Callback>> callbacks = {});
 
     /**
      * @brief This model will try to make predictions based off the inputs passed
@@ -171,13 +176,14 @@ namespace NeuralNet
      * @param labels A vector of labels (targets) of type D2. Each element in this vector corresponds to the
      * label of the training example at the same index in the inputs vector.
      * @param epochs An integer specifying the number of times the training algorithm should iterate over the dataset.
+     * @param callbacks A vector of `Callback` that will be called during training stages
      *
      * @return A double value that represents the average loss of the training process. This can be used to gauge the effectiveness of the process.
      *
      * @note The functions assumes that the inputs and labels will be of the same length.
      */
     template <typename D1, typename D2>
-    double onlineTraining(std::vector<D1> inputs, std::vector<D2> labels, int epochs);
+    double onlineTraining(std::vector<D1> inputs, std::vector<D2> labels, int epochs, std::vector<std::shared_ptr<Callback>> callbacks = {});
 
     /**
      * @brief mini-batch training with given training data
@@ -188,13 +194,14 @@ namespace NeuralNet
      * @param labels A vector of labels (targets) of type D2. Each element in this vector corresponds to the
      * label of the training example at the same index in the inputs vector.
      * @param epochs An integer specifying the number of times the training algorithm should iterate over the dataset.
+     * @param callbacks A vector of `Callback` that will be called during training stages
      *
      * @return A double value that represents the average loss of the training process. This can be used to gauge the effectiveness of the process.
      *
      * @note The functions assumes that the inputs and labels will be of the same length.
      */
     template <typename D1, typename D2>
-    double trainer(TrainingData<D1, D2> trainingData, int epochs);
+    double trainer(TrainingData<D1, D2> trainingData, int epochs, std::vector<std::shared_ptr<Callback>> callbacks = {});
 
     /**
      * @brief mini-batch training with given training data
@@ -205,13 +212,12 @@ namespace NeuralNet
      * @param labels A vector of labels (targets) of type D2. Each element in this vector corresponds to the
      * label of the training example at the same index in the inputs vector.
      * @param epochs An integer specifying the number of times the training algorithm should iterate over the dataset.
-     *
-     * @return A double value that represents the average loss of the training process. This can be used to gauge the effectiveness of the process.
+     * @param callbacks A vector of `Callback` that will be called during training stages     * @return A double value that represents the average loss of the training process. This can be used to gauge the effectiveness of the process.
      *
      * @note The functions assumes that the inputs and labels will be of the same length.
      */
     template <typename D1, typename D2>
-    double miniBatchTraining(TrainingData<D1, D2> trainingData, int epochs);
+    double miniBatchTraining(TrainingData<D1, D2> trainingData, int epochs, std::vector<std::shared_ptr<Callback>> callbacks = {});
 
     /**
      * @brief batch training with given training data
@@ -222,13 +228,13 @@ namespace NeuralNet
      * @param labels A vector of labels (targets) of type D2. Each element in this vector corresponds to the
      * label of the training example at the same index in the inputs vector.
      * @param epochs An integer specifying the number of times the training algorithm should iterate over the dataset.
-     *
+     * @param callbacks A vector of `Callback` that will be called during training stages
      * @return A double value that represents the average loss of the training process. This can be used to gauge the effectiveness of the process.
      *
      * @note The functions assumes that the inputs and labels will be of the same length.
      */
     template <typename D1, typename D2>
-    double batchTraining(TrainingData<D1, D2> trainingData, int epochs);
+    double batchTraining(TrainingData<D1, D2> trainingData, int epochs, std::vector<std::shared_ptr<Callback>> callbacks = {});
 
     /**
      * @brief This method will pass the inputs through the network and return an output

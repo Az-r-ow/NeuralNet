@@ -171,6 +171,25 @@ namespace NeuralNet
     return result;
   }
 
+  /**
+   * @brief This function takes a vector and a value and returns the index of the value in that vector.
+   *
+   * @param v The vector
+   * @param el The element to look for in the vector
+   *
+   * @return The index of the element in the vector `-1` if not found.
+   */
+  template <typename T>
+  inline int findIndexOf(const std::vector<T> &v, const T &el)
+  {
+    auto it = std::find(v.begin(), v.end(), el);
+
+    if (it == v.end())
+      return -1;
+
+    return it - v.begin();
+  }
+
   /* MATRIX OPERATIONS */
   inline Eigen::MatrixXd zeroMatrix(const std::tuple<int, int> size)
   {

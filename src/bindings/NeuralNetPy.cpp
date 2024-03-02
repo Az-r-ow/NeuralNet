@@ -17,6 +17,8 @@
 #include "layers/Dense.hpp"
 #include "optimizers/Optimizer.hpp"
 #include "optimizers/optimizers.hpp"
+#include "callbacks/Callback.hpp"
+#include "callbacks/EarlyStopping.hpp"
 #include "utils/Enums.hpp"
 #include "TemplateBindings.hpp" // Template classes binding functions
 
@@ -131,6 +133,40 @@ PYBIND11_MODULE(NeuralNetPy, m)
                         import NeuralNetPy as NNP
 
                         layer = NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE)
+             )pbdoc");
+
+  py::class_<Callback, std::shared_ptr<Callback>>(m, "Callback");
+
+  py::class_<EarlyStopping, Callback, std::shared_ptr<EarlyStopping>>(m, "EarlyStopping")
+      .def(py::init<std::string, double, int>(),
+           py::arg("metric"),
+           py::arg("minDelta") = 0.01,
+           py::arg("patience") = 0,
+           R"pbdoc(
+                Initializes an ``EarlyStopping`` callback. This callback will stop the training if the given metric doesn't improve more than the given delta over a certain number of epochs (patience).
+
+                .. highlight: python
+                .. code-block:: python
+                    :caption: Example
+
+                    import NeuralNetPy as NNP
+
+                    network = NNP.Network()
+                    network.setup(optimizer=NNP.SGD(0.01), loss=NNP.LOSS.MCQ)
+                    network.addLayer(NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+                    network.addLayer(NNP.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
+
+                    inputs = [
+                      [0.4, 0.5, 0.67],
+                      [0.3, 0.2, 0.1],
+                      [0.1, 0.2, 0.3]
+                    ]
+
+                    labels = [1, 0, 1]
+
+                    earlyStopping = NNP.EarlyStopping("loss", 0.01, 10)
+
+                    network.train(inputs, labels, 100, [earlyStopping])
              )pbdoc");
 
   py::class_<Flatten, Layer, std::shared_ptr<Flatten>>(m, "Flatten")
@@ -313,7 +349,7 @@ PYBIND11_MODULE(NeuralNetPy, m)
                 layer = network.getLayer(1) # Return Dense layer with 2 neurons
           )pbdoc")
       .def("getNumLayers", &Network::getNumLayers, "Return the number of layers in the network.")
-      .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>, int)>(&Network::train), R"pbdoc(
+      .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>, int, std::vector<std::shared_ptr<Callback>>)>(&Network::train), R"pbdoc(
             Train the network by passing it 2 dimensional inputs (vectors).
 
             :param inputs: A list of vectors representing the inputs
@@ -344,7 +380,7 @@ PYBIND11_MODULE(NeuralNetPy, m)
                 loss = network.train(inputs, labels, 10)
             
         )pbdoc")
-      .def("train", static_cast<double (Network::*)(std::vector<std::vector<std::vector<double>>>, std::vector<double>, int)>(&Network::train), R"pbdoc(
+      .def("train", static_cast<double (Network::*)(std::vector<std::vector<std::vector<double>>>, std::vector<double>, int, std::vector<std::shared_ptr<Callback>>)>(&Network::train), R"pbdoc(
         Train the network by passing it a list of 3 dimensional inputs (matrices).
 
         :param inputs: A list of matrices representing the inputs
@@ -380,7 +416,7 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
             loss = network.train(inputs, labels, 10)
       )pbdoc")
-      .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<double>>, std::vector<double>>, int)>(&Network::train), R"pbdoc(
+      .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<double>>, std::vector<double>>, int, std::vector<std::shared_ptr<Callback>>)>(&Network::train), R"pbdoc(
         Train the network by passing it a ``TrainingData2dI`` object.
 
         :param trainingData: A ``TrainingData2dI`` object
@@ -413,7 +449,7 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
             loss = network.train(trainingData, 10)
       )pbdoc")
-      .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>>, int)>(&Network::train), R"pbdoc(
+      .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>>, int, std::vector<std::shared_ptr<Callback>>)>(&Network::train), R"pbdoc(
         Train the network by passing it a ``TrainingData3dI`` object.
 
         :param trainingData: A ``TrainingData3dI`` object
