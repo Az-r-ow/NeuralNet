@@ -159,6 +159,7 @@ namespace NeuralNet
       setLoss(lossFunc);
     }
 
+    double loss = 0, accuracy = 0;
     std::vector<std::shared_ptr<Layer>> layers;
     LOSS lossFunc;      // Storing the loss function for serialization
     int cp = 0, tp = 0; // Correct Predictions, Total Predictions
@@ -290,6 +291,13 @@ namespace NeuralNet
      * @return The accuracy of the model (percentage of correct predictions)
      */
     double computeAccuracy(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y);
+
+    /**
+     * @brief This method will fetch the logs and return them
+     *
+     * @return A map of useful logs
+     */
+    std::unordered_map<std::string, double> getLogs();
 
     /**
      * @brief This method will update the optimizer's setup

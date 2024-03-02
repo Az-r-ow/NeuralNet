@@ -9,8 +9,11 @@
 ## IN PROGRESS :
 
 - [ ] Implement early stopping
-  - [ ] Create a CallBack base class
-  - [ ] Create an EarlyStopping class
+  - [x] Create a CallBack base class
+  - [x] Create an EarlyStopping class
+  - [ ] Add more helpful logs
+  - [ ] Find a more convenient way of generating and tracking logs
+  - [ ] Test callbacks
 - [ ] Optimize `Catch2`'s build
 - [ ] Add gradient clipping
 

@@ -63,27 +63,51 @@ std::shared_ptr<Layer> Network::getOutputLayer() const
 
 double Network::train(std::vector<std::vector<double>> inputs, std::vector<double> labels, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
-  // todo: error handling
-  return onlineTraining(inputs, labels, epochs);
+  try
+  {
+    return onlineTraining(inputs, labels, epochs, callbacks);
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << "Training Interrupted : " e.what() << '\n';
+  }
 }
 
 double Network::train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
-  // todo: error handling
-  return onlineTraining(inputs, labels, epochs);
+  try
+  {
+    return onlineTraining(inputs, labels, epochs);
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << "Training Interrupted : " e.what() << '\n';
+  }
 }
 
 // Specific implementation of train that takes TrainingData class as input
 double Network::train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
-  // todo: error handling
-  return this->trainer(trainingData, epochs);
+  try
+  {
+    return this->trainer(trainingData, epochs);
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << "Training Interrupted : " e.what() << '\n';
+  }
 }
 
 double Network::train(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>> trainingData, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
-  // todo: error handling
-  return this->trainer(trainingData, epochs);
+  try
+  {
+    return this->trainer(trainingData, epochs);
+  }
+  catch (const std::exception &e)
+  {
+    std::cerr << "Training Interrupted : " e.what() << '\n';
+  }
 }
 
 template <typename D1, typename D2>
@@ -97,7 +121,6 @@ double Network::trainer(TrainingData<D1, D2> trainingData, int epochs, std::vect
 template <typename D1, typename D2>
 double Network::miniBatchTraining(TrainingData<D1, D2> trainingData, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
-  double loss;
   double sumLoss = 0;
   trainingCheckpoint("onTrainBegin", callbacks);
 
@@ -115,9 +138,10 @@ double Network::miniBatchTraining(TrainingData<D1, D2> trainingData, int epochs,
       // computing outputs from forward propagation
       Eigen::MatrixXd o = this->forwardProp(trainingData.inputs.batches[b]);
       loss = this->cmpLoss(o, y) / inputsSize;
+      accuracy = computeAccuracy(o, y);
       sumLoss += loss;
       this->backProp(o, y);
-      g.printWithLAndA(loss, computeAccuracy(o, y));
+      g.printWithLAndA(loss, accuracy);
       trainingCheckpoint("onBatchEnd", callbacks);
     }
     trainingCheckpoint("onEpochEnd", callbacks);
@@ -130,7 +154,6 @@ double Network::miniBatchTraining(TrainingData<D1, D2> trainingData, int epochs,
 template <typename D1, typename D2>
 double Network::batchTraining(TrainingData<D1, D2> trainingData, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
-  double loss;
   double sumLoss = 0;
   const int numOutputs = this->getOutputLayer()->getNumNeurons();
   const int numInputs = trainingData.inputs.data.size();
@@ -144,10 +167,11 @@ double Network::batchTraining(TrainingData<D1, D2> trainingData, int epochs, std
     Eigen::MatrixXd o = this->forwardProp(trainingData.inputs.data);
 
     loss = this->cmpLoss(o, y);
+    accuracy = computeAccuracy(o, y);
     sumLoss += loss;
 
     this->backProp(o, y);
-    g.printWithLoss(loss);
+    g.printWithLAndA(loss, accuracy);
     trainingCheckpoint("onEpochEnd", callbacks);
   }
 
@@ -158,8 +182,8 @@ double Network::batchTraining(TrainingData<D1, D2> trainingData, int epochs, std
 template <typename D1, typename D2>
 double Network::onlineTraining(std::vector<D1> inputs, std::vector<D2> labels, int epochs, std::vector<std::shared_ptr<Callback>> callbacks)
 {
-  double loss;
-  double sumLoss;
+  double sumLoss = 0;
+  int tCorrect = 0;
   const int numOutputs = this->getOutputLayer()->getNumNeurons();
   const int numInputs = inputs.size();
   Eigen::MatrixXd y = formatLabels(labels, {numInputs, numOutputs});
@@ -176,9 +200,13 @@ double Network::onlineTraining(std::vector<D1> inputs, std::vector<D2> labels, i
       Eigen::MatrixXd o = this->forwardProp(inputs);
       loss = this->cmpLoss(o, y);
       sumLoss += loss;
+      tCorrect += computeAccuracy(o, y);
       this->backProp(o, y);
       tg.printWithLoss(loss);
     }
+    // Computing metrics for the logs
+    average = tCorrect / numInputs;
+    loss = sumLoss / numInputs;
     trainingCheckpoint("onEpochEnd", callbacks);
   }
 
@@ -284,12 +312,22 @@ void Network::trainingCheckpoint(std::string checkpointName, std::vector<std::sh
   if (callbacks.size() == 0)
     return;
 
-  // todo: get logs
+  std::unordered_map<std::string, double> logs = getLogs();
 
   for (std::shared_ptr<Callback> callback : callbacks)
   {
-    Callback::callMethod(callback, checkpointName);
+    Callback::callMethod(callback, checkpointName, logs);
   }
+}
+
+std::unordered_map<std::string, double> Network::getLogs()
+{
+  std::unordered_map<std::string, double> logs;
+
+  logs["LOSS"] = loss;
+  logs["ACCURACY"] = accuracy;
+
+  return logs;
 }
 
 /**

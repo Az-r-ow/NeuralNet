@@ -308,6 +308,6 @@ namespace NeuralNet
       this->outputs = outputs;
     };
   };
-}
+} // namespace NeuralNet
 
 CEREAL_REGISTER_TYPE(NeuralNet::Layer);
