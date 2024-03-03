@@ -9,18 +9,13 @@
 
 ## IN PROGRESS :
 
-- [ ] Implement early stopping
-  - [x] Create a CallBack base class
-  - [x] Create an EarlyStopping class
-  - [ ] Add more helpful logs
-  - [ ] Find a more convenient way of generating and tracking logs
-  - [ ] Test callbacks
 - [ ] Python tests
 - [ ] Optimize `Catch2`'s build
 - [ ] Add gradient clipping
 
 ## DONE :
 
+- [x] Implement early stopping
 - [x] Update README to include more information about the project
 - [x] Add CI / CD
 - [x] Document the example in python

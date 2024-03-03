@@ -78,7 +78,7 @@ double Network::train(std::vector<std::vector<std::vector<double>>> inputs, std:
 {
   try
   {
-    return onlineTraining(inputs, labels, epochs);
+    return onlineTraining(inputs, labels, epochs, callbacks);
   }
   catch (const std::exception &e)
   {
@@ -92,7 +92,7 @@ double Network::train(TrainingData<std::vector<std::vector<double>>, std::vector
 {
   try
   {
-    return this->trainer(trainingData, epochs);
+    return this->trainer(trainingData, epochs, callbacks);
   }
   catch (const std::exception &e)
   {
@@ -105,7 +105,7 @@ double Network::train(TrainingData<std::vector<std::vector<std::vector<double>>>
 {
   try
   {
-    return this->trainer(trainingData, epochs);
+    return this->trainer(trainingData, epochs, callbacks);
   }
   catch (const std::exception &e)
   {
@@ -128,10 +128,10 @@ double Network::miniBatchTraining(TrainingData<D1, D2> trainingData, int epochs,
   double sumLoss = 0;
   trainingCheckpoint("onTrainBegin", callbacks);
 
-  for (int e = 0; e < epochs; e++)
+  for (cEpoch = 0; cEpoch < epochs; cEpoch++)
   {
     trainingCheckpoint("onEpochBegin", callbacks);
-    TrainingGauge g(trainingData.inputs.size(), 0, epochs, (e + 1));
+    TrainingGauge g(trainingData.inputs.size(), 0, epochs, (cEpoch + 1));
     for (int b = 0; b < trainingData.inputs.size(); b++)
     {
       trainingCheckpoint("onBatchBegin", callbacks);
@@ -164,10 +164,10 @@ double Network::batchTraining(TrainingData<D1, D2> trainingData, int epochs, std
   Eigen::MatrixXd y = formatLabels(trainingData.labels.data, {numInputs, numOutputs});
   trainingCheckpoint("onTrainBegin", callbacks);
 
-  for (int e = 0; e < epochs; e++)
+  for (cEpoch = 0; cEpoch < epochs; cEpoch++)
   {
     trainingCheckpoint("onEpochBegin", callbacks);
-    TrainingGauge g(1, 0, epochs, (e + 1));
+    TrainingGauge g(1, 0, epochs, (cEpoch + 1));
     Eigen::MatrixXd o = this->forwardProp(trainingData.inputs.data);
 
     loss = this->cmpLoss(o, y);
@@ -195,10 +195,10 @@ double Network::onlineTraining(std::vector<D1> inputs, std::vector<D2> labels, i
   // Injecting callbacks
   trainingCheckpoint("onTrainBegin", callbacks);
 
-  for (int e = 0; e < epochs; e++)
+  for (cEpoch = 0; cEpoch < epochs; cEpoch++)
   {
     trainingCheckpoint("onEpochBegin", callbacks);
-    TrainingGauge tg(inputs.size(), 0, epochs, (e + 1));
+    TrainingGauge tg(inputs.size(), 0, epochs, (cEpoch + 1));
     for (auto &input : inputs)
     {
       Eigen::MatrixXd o = this->forwardProp(inputs);
@@ -330,6 +330,7 @@ std::unordered_map<std::string, double> Network::getLogs()
 
   logs["LOSS"] = loss;
   logs["ACCURACY"] = accuracy;
+  logs["EPOCH"] = cEpoch;
 
   return logs;
 }

@@ -85,7 +85,7 @@ namespace NeuralNet
      *
      * @return The last training's loss
      */
-    double train(std::vector<std::vector<double>> inputs, std::vector<double> labels, int epochs = 1, std::vector<std::shared_ptr<Callback>> callbacks = {});
+    double train(std::vector<std::vector<double>> inputs, std::vector<double> labels, int epochs = 1, const std::vector<std::shared_ptr<Callback>> callbacks = {});
 
     /**
      * @brief This method will Train the model with the given inputs and labels
@@ -97,7 +97,7 @@ namespace NeuralNet
      *
      * @return The last training's loss
      */
-    double train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels, int epochs = 1, std::vector<std::shared_ptr<Callback>> callbacks = {});
+    double train(std::vector<std::vector<std::vector<double>>> inputs, std::vector<double> labels, int epochs = 1, const std::vector<std::shared_ptr<Callback>> callbacks = {});
 
     /**
      * @brief This method will train the model with the given TrainingData
@@ -108,7 +108,7 @@ namespace NeuralNet
      *
      * @return The last training's loss
      */
-    double train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData, int epochs = 1, std::vector<std::shared_ptr<Callback>> callbacks = {});
+    double train(TrainingData<std::vector<std::vector<double>>, std::vector<double>> trainingData, int epochs = 1, const std::vector<std::shared_ptr<Callback>> callbacks = {});
 
     /**
      * @brief This method will train the model with the given TrainingData
@@ -119,7 +119,7 @@ namespace NeuralNet
      *
      * @return The last training's loss
      */
-    double train(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>> trainingData, int epochs = 1, std::vector<std::shared_ptr<Callback>> callbacks = {});
+    double train(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>> trainingData, int epochs = 1, const std::vector<std::shared_ptr<Callback>> callbacks = {});
 
     /**
      * @brief This model will try to make predictions based off the inputs passed
@@ -145,6 +145,15 @@ namespace NeuralNet
     // non-public serialization
     friend class cereal::access;
 
+    int cEpoch = 0; // Current epoch
+    double loss = 0, accuracy = 0;
+    std::vector<std::shared_ptr<Layer>> layers;
+    LOSS lossFunc; // Storing the loss function for serialization
+    bool debugMode = false;
+    double (*cmpLoss)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
+    Eigen::MatrixXd (*cmpLossGrad)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
+    std::shared_ptr<Optimizer> optimizer;
+
     template <class Archive>
     void save(Archive &archive) const
     {
@@ -158,15 +167,6 @@ namespace NeuralNet
       archive(layers, lossFunc);
       setLoss(lossFunc);
     }
-
-    double loss = 0, accuracy = 0;
-    std::vector<std::shared_ptr<Layer>> layers;
-    LOSS lossFunc;      // Storing the loss function for serialization
-    int cp = 0, tp = 0; // Correct Predictions, Total Predictions
-    bool debugMode = false;
-    double (*cmpLoss)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
-    Eigen::MatrixXd (*cmpLossGrad)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
-    std::shared_ptr<Optimizer> optimizer;
 
     /**
      * @brief online training with given training data
