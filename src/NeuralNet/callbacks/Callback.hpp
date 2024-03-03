@@ -23,7 +23,17 @@ namespace NeuralNet
 
     virtual ~Callback() = default;
 
-    template <typename T, typename... Args>
+    /**
+     * @brief Calls the method of the callback with the given logs
+     *
+     * @tparam T The type of the callback
+     * @param callback A shared_ptr to the callback
+     * @param methodName The name of the method to call (onTrainBegin, onTrainEnd, onEpochBegin, onEpochEnd, onBatchBegin, onBatchEnd)
+     * @param logs The logs to pass to the method
+     *
+     * @warning There should be consistency between the names of the logs and the metrics of the callbacks
+     */
+    template <typename T>
     static void callMethod(std::shared_ptr<T> callback, const std::string &methodName, Logs logs)
     {
       static const std::unordered_map<std::string, std::function<void(T *, Logs)>> methods = {
@@ -55,4 +65,4 @@ namespace NeuralNet
         throw std::invalid_argument("Metric not found");
     };
   };
-}
+} // namespace NeuralNet

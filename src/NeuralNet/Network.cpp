@@ -69,7 +69,8 @@ double Network::train(std::vector<std::vector<double>> inputs, std::vector<doubl
   }
   catch (const std::exception &e)
   {
-    std::cerr << "Training Interrupted : " e.what() << '\n';
+    std::cerr << "Training Interrupted : " << e.what() << '\n';
+    return loss;
   }
 }
 
@@ -81,7 +82,8 @@ double Network::train(std::vector<std::vector<std::vector<double>>> inputs, std:
   }
   catch (const std::exception &e)
   {
-    std::cerr << "Training Interrupted : " e.what() << '\n';
+    std::cerr << "Training Interrupted : " << e.what() << '\n';
+    return loss;
   }
 }
 
@@ -94,7 +96,8 @@ double Network::train(TrainingData<std::vector<std::vector<double>>, std::vector
   }
   catch (const std::exception &e)
   {
-    std::cerr << "Training Interrupted : " e.what() << '\n';
+    std::cerr << "Training Interrupted : " << e.what() << '\n';
+    return loss;
   }
 }
 
@@ -106,7 +109,8 @@ double Network::train(TrainingData<std::vector<std::vector<std::vector<double>>>
   }
   catch (const std::exception &e)
   {
-    std::cerr << "Training Interrupted : " e.what() << '\n';
+    std::cerr << "Training Interrupted : " << e.what() << '\n';
+    return loss;
   }
 }
 
@@ -205,7 +209,7 @@ double Network::onlineTraining(std::vector<D1> inputs, std::vector<D2> labels, i
       tg.printWithLoss(loss);
     }
     // Computing metrics for the logs
-    average = tCorrect / numInputs;
+    accuracy = tCorrect / numInputs;
     loss = sumLoss / numInputs;
     trainingCheckpoint("onEpochEnd", callbacks);
   }

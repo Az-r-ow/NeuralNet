@@ -1,5 +1,6 @@
 ## TODOS :
 
+- [ ] Setup `clang-format`
 - [ ] Find out why the predictions are not accurate on my_samples
 - [ ] Implement batch norm
 - [ ] Parallelize operations
@@ -14,6 +15,7 @@
   - [ ] Add more helpful logs
   - [ ] Find a more convenient way of generating and tracking logs
   - [ ] Test callbacks
+- [ ] Python tests
 - [ ] Optimize `Catch2`'s build
 - [ ] Add gradient clipping
 
