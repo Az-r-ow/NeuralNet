@@ -19,6 +19,7 @@
 #include "optimizers/optimizers.hpp"
 #include "callbacks/Callback.hpp"
 #include "callbacks/EarlyStopping.hpp"
+#include "callbacks/CSVLogger.hpp"
 #include "utils/Enums.hpp"
 #include "TemplateBindings.hpp" // Template classes binding functions
 
@@ -167,6 +168,37 @@ PYBIND11_MODULE(NeuralNetPy, m)
                     earlyStopping = NNP.EarlyStopping("loss", 0.01, 10)
 
                     network.train(inputs, labels, 100, [earlyStopping])
+             )pbdoc");
+
+  py::class_<CSVLogger, Callback, std::shared_ptr<CSVLogger>>(m, "CSVLogger")
+      .def(py::init<std::string, std::string>(),
+           py::arg("filename"),
+           py::arg("separator") = ",",
+           R"pbdoc(
+                Initializes a ``CSVLogger`` callback. This callback will log the training process in a CSV file.
+
+                .. highlight: python
+                .. code-block:: python
+                    :caption: Example
+
+                    import NeuralNetPy as NNP
+
+                    network = NNP.Network()
+                    network.setup(optimizer=NNP.SGD(0.01), loss=NNP.LOSS.MCQ)
+                    network.addLayer(NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+                    network.addLayer(NNP.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
+
+                    inputs = [
+                      [0.4, 0.5, 0.67],
+                      [0.3, 0.2, 0.1],
+                      [0.1, 0.2, 0.3]
+                    ]
+
+                    labels = [1, 0, 1]
+
+                    csvLogger = NNP.CSVLogger("logs.csv")
+
+                    network.train(inputs, labels, 100, [csvLogger])
              )pbdoc");
 
   py::bind_vector<std::vector<std::shared_ptr<Callback>>>(m, "VectorCallback");

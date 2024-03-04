@@ -53,9 +53,9 @@ trainingData = NNP.TrainingData3dI(f_x_train[:NUM_TRAININGS], y_train[:NUM_TRAIN
 
 trainingData.batch(128)
 
-callbacks = [NNP.EarlyStopping("LOSS", 0.1, 1)]
+callbacks = [NNP.EarlyStopping("LOSS", 0.1, 1), NNP.CSVLogger("training.csv")]
 
-network.train(trainingData, 10, callbacks)
+network.train(trainingData, 3, callbacks)
 
 f_x_test = [normalize_img(x) for x in x_test]
 
