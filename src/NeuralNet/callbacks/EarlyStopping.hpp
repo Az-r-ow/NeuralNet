@@ -26,15 +26,6 @@ namespace NeuralNet
       this->patience = patience;
     };
 
-    /**
-     * @brief This method will be called at the beginning of each epoch
-     *
-     * @param epoch The current epoch
-     * @param logs The logs of the current epoch
-     * @return Returns true if the training should continue otherwise returns false
-     *
-     * @warning The order of the logs should be the same as the order of the metrics.
-     */
     void onEpochBegin(Logs logs) override{};
 
     /**
