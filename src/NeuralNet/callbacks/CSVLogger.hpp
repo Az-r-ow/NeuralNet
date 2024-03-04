@@ -20,6 +20,13 @@ namespace NeuralNet
 
     void onEpochBegin(Logs logs) override{};
 
+    /**
+     * @brief This method will be called at the end of each epoch
+     *
+     * In the case of CSVLogger, it will append the logs of the current epoch to data which `onTrainEnd` will be written to the file.
+     *
+     * @param logs The logs of the current epoch
+     */
     void onEpochEnd(Logs logs) override
     {
       std::vector<double> row;
@@ -33,6 +40,13 @@ namespace NeuralNet
       data.push_back(row);
     };
 
+    /**
+     * @brief This method will be called at the beginning of the training.
+     *
+     * It will initialize the headers with the logs keys.
+     *
+     * @param logs The logs of the current epoch
+     */
     void onTrainBegin(Logs logs) override
     {
       // Initializing the headers with the logs keys
@@ -42,6 +56,13 @@ namespace NeuralNet
       };
     };
 
+    /**
+     * @brief This method will be called at the end of the training.
+     *
+     * It will write the data in the given csv file.
+     *
+     * @param logs The logs of the current epoch
+     */
     void onTrainEnd(Logs logs) override
     {
       std::ofstream file(filename);
@@ -68,6 +89,14 @@ namespace NeuralNet
     std::vector<std::string> headers;
     std::vector<std::vector<double>> data;
 
+    /**
+     * @brief This method will format a row of the csv file
+     *
+     * @tparam T The type of the elements in the row
+     * @param v The row to format
+     *
+     * @return The row in a csv format
+     */
     template <typename T>
     std::string formatRow(const std::vector<T> &v)
     {

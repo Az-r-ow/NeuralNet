@@ -1,6 +1,7 @@
 ## TODOS :
 
 - [ ] Setup `clang-format`
+- [ ] CI versioning
 - [ ] Find out why the predictions are not accurate on my_samples
 - [ ] Implement batch norm
 - [ ] Parallelize operations
