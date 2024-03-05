@@ -28,14 +28,14 @@ if not file_exists(MNIST_DATASET_FILE):
 # Otherwise load data from file
 (x_train, y_train), (x_test, y_test) = load_data(MNIST_DATASET_FILE)
 
-network = NNP.Network()
+network = NNP.models.Network()
 
-network.addLayer(NNP.Flatten((28, 28)))
-network.addLayer(NNP.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
-network.addLayer(NNP.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
+network.addLayer(NNP.layers.Flatten((28, 28)))
+network.addLayer(NNP.layers.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+network.addLayer(NNP.layers.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
 # Setting up the networks parameters
-network.setup(optimizer=NNP.Adam(0.02), loss=NNP.LOSS.MCE)
+network.setup(optimizer=NNP.optimizers.Adam(0.02), loss=NNP.LOSS.MCE)
 
 # # combining the data with the labels for later shuffling 
 # combined = list(zip(x_train, y_train))
@@ -53,7 +53,7 @@ trainingData = NNP.TrainingData3dI(f_x_train[:NUM_TRAININGS], y_train[:NUM_TRAIN
 
 trainingData.batch(128)
 
-callbacks = [NNP.EarlyStopping("LOSS", 0.1, 1), NNP.CSVLogger("training.csv")]
+callbacks = [NNP.callbacks.EarlyStopping("LOSS", 0.1, 1), NNP.callbacks.CSVLogger("training.csv")]
 
 network.train(trainingData, 3, callbacks)
 
@@ -70,11 +70,11 @@ predicted_numbers = find_highest_indexes_in_matrix(predictions)
 print(f"Num correct predictions : {correct}/{n} - accuracy {accuracy}")
 
 # Saving the trained model in a bin file
-NNP.Model.save_to_file('./model.bin', network)
+NNP.models.Model.save_to_file('./model.bin', network)
 
-saved_model = NNP.Network()
+saved_model = NNP.models.Network()
 
-NNP.Model.load_from_file('./model.bin', saved_model)
+NNP.models.Model.load_from_file('./model.bin', saved_model)
 
 # preparing the testing data
 predictions = saved_model.predict(f_x_test[:NUM_PREDICTIONS])
