@@ -14,11 +14,11 @@ namespace NeuralNet
     /**
      * @brief EarlyStopping is a `Callback` that stops training when a monitored metric has stopped improving.
      *
-     * @param metric The metric to monitor default is `LOSS`
-     * @param minDelta Minimum change in the monitored quantity to qualify as an improvement, i.e. an absolute change of less than minDelta, will count as no improvement.
-     * @param patience Number of epochs with no improvement after which training will be stopped.
+     * @param metric The metric to monitor (default: `LOSS`)
+     * @param minDelta Minimum change in the monitored quantity to qualify as an improvement, i.e. an absolute change of less than minDelta, will count as no improvement. (default: 0)
+     * @param patience Number of epochs with no improvement after which training will be stopped. (default: 0)
      */
-    EarlyStopping(const std::string &metric, double minDelta = 0, int patience = 0)
+    EarlyStopping(const std::string &metric = "LOSS", double minDelta = 0, int patience = 0)
     {
       checkMetric(metric, metrics);
       this->metric = metric;
