@@ -20,6 +20,7 @@
 #include "callbacks/Callback.hpp"
 #include "callbacks/EarlyStopping.hpp"
 #include "callbacks/CSVLogger.hpp"
+#include "callbacks/CSVLogger.hpp"
 #include "utils/Enums.hpp"
 #include "TemplateBindings.hpp" // Template classes binding functions
 
@@ -136,6 +137,24 @@ PYBIND11_MODULE(NeuralNetPy, m)
                         layer = NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE)
              )pbdoc");
 
+  py::class_<Flatten, Layer, std::shared_ptr<Flatten>>(m, "Flatten")
+      .def(py::init<std::tuple<int, int>>(),
+           py::arg("inputShape"),
+           R"pbdoc(
+                Initializes a ``Flatten`` layer. The sole purpose of this layer is to vectorize matrix inputs like images.
+
+                .. code-block:: python
+                    :caption: Example
+
+                        import NeuralNetPy as NNP
+
+                        layer = NNP.Flatten((3, 3))
+             )pbdoc");
+
+  py::bind_vector<std::vector<std::shared_ptr<Layer>>>(m, "VectorLayer");
+  py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(m, "VectorFlatten");
+  py::bind_vector<std::vector<std::shared_ptr<Dense>>>(m, "VectorDense");
+
   py::class_<Callback, std::shared_ptr<Callback>>(m, "Callback");
 
   py::class_<EarlyStopping, Callback, std::shared_ptr<EarlyStopping>>(m, "EarlyStopping")
@@ -203,24 +222,6 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
   py::bind_vector<std::vector<std::shared_ptr<Callback>>>(m, "VectorCallback");
   py::bind_vector<std::vector<std::shared_ptr<EarlyStopping>>>(m, "VectorEarlyStopping");
-
-  py::class_<Flatten, Layer, std::shared_ptr<Flatten>>(m, "Flatten")
-      .def(py::init<std::tuple<int, int>>(),
-           py::arg("inputShape"),
-           R"pbdoc(
-                Initializes a ``Flatten`` layer. The sole purpose of this layer is to vectorize matrix inputs like images.
-
-                .. code-block:: python
-                    :caption: Example
-
-                        import NeuralNetPy as NNP
-
-                        layer = NNP.Flatten((3, 3))
-             )pbdoc");
-
-  py::bind_vector<std::vector<std::shared_ptr<Layer>>>(m, "VectorLayer");
-  py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(m, "VectorFlatten");
-  py::bind_vector<std::vector<std::shared_ptr<Dense>>>(m, "VectorDense");
 
   // TrainingData with 2 dimensional inputs
   bindTrainingData<std::vector<std::vector<double>>, std::vector<double>>(m, "TrainingData2dI", R"pbdoc(

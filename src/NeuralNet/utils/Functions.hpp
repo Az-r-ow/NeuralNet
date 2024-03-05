@@ -73,6 +73,20 @@ namespace NeuralNet
     return false;
   }
 
+  /**
+   * @brief This function checks if a file has a specific extension
+   *
+   * @param filePath The path of the file
+   * @param extension The extension that's checked
+   *
+   * @return Returns true if the file has the specified extension otherwise returns false
+   */
+  inline bool fileHasExtension(const std::string &filePath, const std::string &extension)
+  {
+    fs::path file(filePath);
+    return file.has_extension() && file.extension() == extension;
+  }
+
   /* MATHEMATICAL FUNCTIONS */
 
   /**
