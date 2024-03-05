@@ -68,160 +68,163 @@ PYBIND11_MODULE(NeuralNetPy, m)
       .value("QUADRATIC", LOSS::QUADRATIC)
       .value("MCE", LOSS::MCE);
 
-  py::class_<Optimizer, std::shared_ptr<Optimizer>>(m, "Optimizer");
+  py::module optimizers_m = m.def_submodule("optimizers", R"pbdoc(
+      Optimizers
+      ----------
 
-  py::class_<SGD, Optimizer, std::shared_ptr<SGD>>(m, "SGD")
+      Optimizers are algorithms or methods used to change the attributes of the Neural Network such as weights and learning rate in order to reduce the losses. They are used to solve the optimization problem of minimizing the loss function.
+
+      .. currentmodule:: NeuralNetPy.optimizers
+      .. autosummary::
+          :toctree: _generate
+          :recursive:
+    )pbdoc");
+
+  py::class_<Optimizer, std::shared_ptr<Optimizer>>(optimizers_m, "Optimizer");
+
+  py::class_<SGD, Optimizer, std::shared_ptr<SGD>>(optimizers_m, "SGD", R"pbdoc(
+        For more information on `Stochastic Gradient Descent <https://en.wikipedia.org/wiki/Stochastic_gradient_descent>`
+
+        :param alpha: The learning rate, defaults to 0.001
+        :type alpha: float
+      )pbdoc")
       .def(py::init<double>(),
-           py::arg("alpha") = 0.001,
-           R"pbdoc(
-                For more information on `Stochastic Gradient Descent <https://en.wikipedia.org/wiki/Stochastic_gradient_descent>`
+           py::arg("alpha") = 0.001);
 
-                .. highlight: python
-                .. code-block:: python
-                    :caption: Example
+  py::class_<Adam, Optimizer, std::shared_ptr<Adam>>(optimizers_m, "Adam", R"pbdoc(
+        For more information on `Adam optimizer <https://arxiv.org/abs/1412.6980>`
 
-                        import NeuralNetPy as NNP
-
-                        network = NNP.Network()
-                        network.setup(optimizer=NNP.SGD(0.01))
-              )pbdoc");
-
-  py::class_<Adam, Optimizer, std::shared_ptr<Adam>>(m, "Adam")
+        :param alpha: The learning rate, defaults to 0.001
+        :type alpha: float
+        :param beta1: The exponential decay rate for the first moment estimates, defaults to 0.9
+        :type beta1: float
+        :param beta2: The exponential decay rate for the second-moment estimates, defaults to 0.999
+        :type beta2: float
+        :param epsilon: A small constant for numerical stability, defaults to 10E-8
+        :type epsilon: float
+      )pbdoc")
       .def(py::init<double, double, double, double>(),
            py::arg("alpha") = 0.001,
            py::arg("beta1") = 0.9,
            py::arg("beta2") = 0.999,
-           py::arg("epsilon") = 10E-8,
-           R"pbdoc(
-                For more information on `Adam optimizer <https://arxiv.org/abs/1412.6980>`
-                
-                .. highlight: python 
-                .. code-block:: python
-                    :caption: Example
+           py::arg("epsilon") = 10E-8);
 
-                        import NeuralNetPy as NNP
+  py::module layers_m = m.def_submodule("layers", R"pbdoc(
+      Layers
+      ------
 
-                        network = NNP.Network()
-                        network.setup(optimizer=NNP.Adam(0.001))
-             )pbdoc");
+      Layers are the building blocks of a Neural Network. They are the individual neurons that are connected to each other to form the network. Each layer has a specific number of neurons and an activation function.
 
-  py::class_<Layer, std::shared_ptr<Layer>>(m, "Layer")
-      .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(),
-           py::arg("nNeurons"),
-           py::arg("activationFunc") = ACTIVATION::SIGMOID,
-           py::arg("weightInit") = WEIGHT_INIT::RANDOM,
-           py::arg("bias") = 0,
-           R"pbdoc(
-                Base class of all layers.
+      .. currentmodule:: NeuralNetPy.layers
+      .. autosummary::
+          :toctree: _generate
+          :recursive:
+    )pbdoc");
 
-                .. tip::
-                    It is recommended that you use it's derivatives instead. Like `Dense` or `Flatten` since they're more specific.
-             )pbdoc")
+  py::class_<Layer, std::shared_ptr<Layer>>(layers_m, "Layer")
+      .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(), py::arg("nNeurons"), py::arg("activationFunc") = ACTIVATION::SIGMOID, py::arg("weightInit") = WEIGHT_INIT::RANDOM, py::arg("bias") = 0, "This is a simple test")
       .def("getNumNeurons", &Layer::getNumNeurons);
 
-  py::class_<Dense, Layer, std::shared_ptr<Dense>>(m, "Dense")
+  py::class_<Dense, Layer, std::shared_ptr<Dense>>(layers_m, "Dense", R"pbdoc(
+        Initializes a ``Dense`` layer, which is the backbone of a Neural Network.
+
+        :param nNeurons: The number of neurons in the layer
+        :type nNeurons: int
+        :param activationFunc: The activation function to be used, defaults to ``SIGMOID``
+        :type activationFunc: ACTIVATION
+        :param weightInit: The weight initialization method to be used, defaults to ``RANDOM``
+        :type weightInit: WEIGHT_INIT
+        :param bias: The bias to be used, defaults to 0
+        :type bias: int
+
+        .. highlight: python 
+        .. code-block:: python
+            :caption: Example
+
+                import NeuralNetPy as NNP
+
+                layer = NNP.layers.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE)
+      )pbdoc")
       .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(),
            py::arg("nNeurons"),
            py::arg("activationFunc") = ACTIVATION::SIGMOID,
            py::arg("weightInit") = WEIGHT_INIT::RANDOM,
-           py::arg("bias") = 0,
-           R"pbdoc(
-                Initializes a ``Dense`` layer, which is the backbone of a Neural Network.
+           py::arg("bias") = 0);
 
-                .. highlight: python 
-                .. code-block:: python
-                    :caption: Example
+  py::class_<Flatten, Layer, std::shared_ptr<Flatten>>(layers_m, "Flatten", R"pbdoc(
+        Initializes a ``Flatten`` layer. The sole purpose of this layer is to vectorize matrix inputs like images.
 
-                        import NeuralNetPy as NNP
+        :param inputShape: The shape of the input matrix (rows, cols or number of pixels per row and column in the case of images)
+        :type inputShape: tuple
 
-                        layer = NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE)
-             )pbdoc");
+        .. code-block:: python
+            :caption: Example
 
-  py::class_<Flatten, Layer, std::shared_ptr<Flatten>>(m, "Flatten")
+                import NeuralNetPy as NNP
+
+                layer = NNP.layers.Flatten((3, 3))
+      )pbdoc")
       .def(py::init<std::tuple<int, int>>(),
-           py::arg("inputShape"),
-           R"pbdoc(
-                Initializes a ``Flatten`` layer. The sole purpose of this layer is to vectorize matrix inputs like images.
+           py::arg("inputShape"));
 
-                .. code-block:: python
-                    :caption: Example
+  py::bind_vector<std::vector<std::shared_ptr<Layer>>>(layers_m, "VectorLayer");
+  py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(layers_m, "VectorFlatten");
+  py::bind_vector<std::vector<std::shared_ptr<Dense>>>(layers_m, "VectorDense");
 
-                        import NeuralNetPy as NNP
+  py::module callbacks_m = m.def_submodule("callbacks", R"pbdoc(
+      Callbacks
+      ----------
 
-                        layer = NNP.Flatten((3, 3))
-             )pbdoc");
+      Callbacks are a set of functions that can be applied at given stages of the training procedure. They can be used to get a view on internal states and statistics of the model during training. You can pass a list of callbacks to the ``train`` method of the ``Network`` class.
+      Each callback has it's own purpose make sure the read their documentation carefully. 
 
-  py::bind_vector<std::vector<std::shared_ptr<Layer>>>(m, "VectorLayer");
-  py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(m, "VectorFlatten");
-  py::bind_vector<std::vector<std::shared_ptr<Dense>>>(m, "VectorDense");
+      .. currentmodule:: NeuralNetPy.callbacks
+      .. autosummary::
+          :toctree: _generate
+          :recursive:
+    )pbdoc");
 
-  py::class_<Callback, std::shared_ptr<Callback>>(m, "Callback");
+  py::class_<Callback, std::shared_ptr<Callback>>(callbacks_m, "Callback", R"pbdoc(
+      This is the base class for all callbacks.
+    )pbdoc");
 
-  py::class_<EarlyStopping, Callback, std::shared_ptr<EarlyStopping>>(m, "EarlyStopping")
+  py::class_<EarlyStopping, Callback, std::shared_ptr<EarlyStopping>>(callbacks_m, "EarlyStopping", R"pbdoc(
+          Initializes an ``EarlyStopping`` callback. This callback will stop the training if the given metric doesn't improve more than the given delta over a certain number of epochs (patience).
+
+          :param metric: The metric to be monitored (Either ``LOSS`` or ``ACCURACY``), defaults to ``LOSS``
+          :type metric: str
+          :param minDelta: The minimum change in the monitored metric to be considered an improvement, defaults to 0.01
+          :type minDelta: float
+          :param patience: The number of epochs with no improvement after which training will be stopped, defaults to 0
+          :type patience: int
+
+          .. highlight: python
+          .. code-block:: python
+              :caption: Example
+
+              network.train(inputs, labels, 100, [NNP.callbacks.EarlyStopping("loss", 0.01, 10)])
+      )pbdoc")
       .def(py::init<std::string, double, int>(),
-           py::arg("metric"),
+           py::arg("metric") = "LOSS",
            py::arg("minDelta") = 0.01,
-           py::arg("patience") = 0,
-           R"pbdoc(
-                Initializes an ``EarlyStopping`` callback. This callback will stop the training if the given metric doesn't improve more than the given delta over a certain number of epochs (patience).
+           py::arg("patience") = 0);
 
-                .. highlight: python
-                .. code-block:: python
-                    :caption: Example
+  py::class_<CSVLogger, Callback, std::shared_ptr<CSVLogger>>(callbacks_m, "CSVLogger", R"pbdoc(
+        Initializes a ``CSVLogger`` callback. This callback will log the training process in a CSV file.
 
-                    import NeuralNetPy as NNP
+        .. highlight: python
+        .. code-block:: python
+            :caption: Example
 
-                    network = NNP.Network()
-                    network.setup(optimizer=NNP.SGD(0.01), loss=NNP.LOSS.MCQ)
-                    network.addLayer(NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
-                    network.addLayer(NNP.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
-
-                    inputs = [
-                      [0.4, 0.5, 0.67],
-                      [0.3, 0.2, 0.1],
-                      [0.1, 0.2, 0.3]
-                    ]
-
-                    labels = [1, 0, 1]
-
-                    earlyStopping = NNP.EarlyStopping("loss", 0.01, 10)
-
-                    network.train(inputs, labels, 100, [earlyStopping])
-             )pbdoc");
-
-  py::class_<CSVLogger, Callback, std::shared_ptr<CSVLogger>>(m, "CSVLogger")
+            network.train(inputs, labels, 100, [NNP.callbacks.CSVLogger("logs.csv")])
+      )pbdoc")
       .def(py::init<std::string, std::string>(),
            py::arg("filename"),
-           py::arg("separator") = ",",
-           R"pbdoc(
-                Initializes a ``CSVLogger`` callback. This callback will log the training process in a CSV file.
+           py::arg("separator") = ",");
 
-                .. highlight: python
-                .. code-block:: python
-                    :caption: Example
-
-                    import NeuralNetPy as NNP
-
-                    network = NNP.Network()
-                    network.setup(optimizer=NNP.SGD(0.01), loss=NNP.LOSS.MCQ)
-                    network.addLayer(NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
-                    network.addLayer(NNP.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
-
-                    inputs = [
-                      [0.4, 0.5, 0.67],
-                      [0.3, 0.2, 0.1],
-                      [0.1, 0.2, 0.3]
-                    ]
-
-                    labels = [1, 0, 1]
-
-                    csvLogger = NNP.CSVLogger("logs.csv")
-
-                    network.train(inputs, labels, 100, [csvLogger])
-             )pbdoc");
-
-  py::bind_vector<std::vector<std::shared_ptr<Callback>>>(m, "VectorCallback");
-  py::bind_vector<std::vector<std::shared_ptr<EarlyStopping>>>(m, "VectorEarlyStopping");
+  py::bind_vector<std::vector<std::shared_ptr<Callback>>>(callbacks_m, "VectorCallback");
+  py::bind_vector<std::vector<std::shared_ptr<EarlyStopping>>>(callbacks_m, "VectorEarlyStopping");
+  py::bind_vector<std::vector<std::shared_ptr<CSVLogger>>>(callbacks_m, "VectorCSVLogger");
 
   // TrainingData with 2 dimensional inputs
   bindTrainingData<std::vector<std::vector<double>>, std::vector<double>>(m, "TrainingData2dI", R"pbdoc(
@@ -289,7 +292,20 @@ PYBIND11_MODULE(NeuralNetPy, m)
    *
    * This is why I had to specify the type "Network", I'll have to do so for every type added
    */
-  py::class_<Model>(m, "Model")
+
+  py::module models_m = m.def_submodule("models", R"pbdoc(
+      Models
+      ------
+
+      Models are used in machine learning to make predictions or decisions without being explicitly programmed to do so. 
+
+      .. currentmodule:: NeuralNetPy.models
+      .. autosummary::
+          :toctree: _generate
+          :recursive:
+    )pbdoc");
+
+  py::class_<Model>(models_m, "Model", "Base class for all models")
       .def_static("save_to_file", &Model::save_to_file<Network>, R"pbdoc(
         This function will save the given ``Model``'s parameters in a binary file.
 
@@ -299,14 +315,14 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
             import NeuralNetPy as NNP
 
-            network = NNP.Network()
-            network.setup(optimizer=NNP.SGD(0.01))
-            network.addLayer(NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
-            network.addLayer(NNP.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
+            network = NNP.models.Network()
+            network.setup(optimizer=NNP.optimizers.SGD(0.01))
+            network.addLayer(NNP.layers.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+            network.addLayer(NNP.layers.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
 
             # ... after training
 
-            NNP.Model.save_to_file(network, "network.bin") 
+            NNP.models.Model.save_to_file(network, "network.bin") 
 
         .. warning::
             The file content will be overwritten if it already exists.
@@ -321,35 +337,39 @@ PYBIND11_MODULE(NeuralNetPy, m)
             import NeuralNetPy as NNP
 
             # Initialize an empty network            
-            network = NNP.Network()
+            network = NNP.models.Network()
 
             # Populate it with previously saved parameters
-            NNP.Model.load_from_file("network.bin", network)
+            NNP.models.Model.load_from_file("network.bin", network)
       )pbdoc");
 
-  py::class_<Network, Model>(m, "Network")
-      .def(py::init<>(), R"pbdoc(
-            Initializes a Neural Network
-        )pbdoc")
+  py::class_<Network, Model>(models_m, "Network", R"pbdoc(
+      This is the base of a Neural Network. You can setup the network with the given optimizer and loss function.
+
+      :param optimizer: The optimizer to be used from the ``optimizers`` module
+      :type optimizer: Optimizer
+      :param loss: The loss function to be used from the ``LOSS`` enum, defaults to ``QUADRATIC``
+      :type loss: LOSS
+
+      .. highlight: python
+      .. code-block:: python
+          :caption: Example
+
+          import NeuralNetPy as NNP
+
+          network = NNP.models.Network()
+          network.setup(optimizer=NNP.SGD(0.01), loss=NNP.LOSS.MCQ)
+      )pbdoc")
+      .def(py::init<>())
       .def("setup",
            &Network::setup,
            py::arg("optimizer"),
-           py::arg("loss") = LOSS::QUADRATIC,
-           R"pbdoc(
-            Setup the network with the given optimizer and loss function
-
-            .. highlight: python
-            .. code-block:: python
-                :caption: Example
-
-                import NeuralNetPy as NNP
-
-                network = NNP.Network()
-                network.setup(optimizer=NNP.SGD(0.01), loss=NNP.LOSS.MCQ)
-           )pbdoc")
+           py::arg("loss") = LOSS::QUADRATIC)
       .def("addLayer", &Network::addLayer, R"pbdoc(
             Add a layer to the network. 
 
+            :param layer: The layer to be added
+            :type layer: Layer
 
             .. highlight: python
             .. code-block:: python
@@ -357,8 +377,8 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
                 import NeuralNetPy as NNP
 
-                network = NNP.Network()
-                network.addLayer(NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+                network = NNP.models.Network()
+                network.addLayer(NNP.layers.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
 
             .. warning::
                 The order of the layers added is important, it will reflect the overall structure of the network.
@@ -372,15 +392,20 @@ PYBIND11_MODULE(NeuralNetPy, m)
            R"pbdoc(
             Get a layer from the network by it's index. They're 0-indexed.
 
+            :param index: The index of the layer
+            :type index: int
+            :return: The layer at the given index
+            :rtype: Layer
+
             .. highlight: python
             .. code-block:: python
                 :caption: Example
 
                 import NeuralNetPy as NNP
 
-                network = NNP.Network()
-                network.addLayer(NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
-                network.addLayer(NNP.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
+                network = NNP.models.Network()
+                network.addLayer(NNP.layers.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+                network.addLayer(NNP.layers.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
 
                 layer = network.getLayer(1) # Return Dense layer with 2 neurons
           )pbdoc")
@@ -389,8 +414,13 @@ PYBIND11_MODULE(NeuralNetPy, m)
             Train the network by passing it 2 dimensional inputs (vectors).
 
             :param inputs: A list of vectors representing the inputs
+            :type inputs: list[list[float]]
             :param labels: A list of labels
+            :type labels: list[float]
             :param epochs: The number of epochs to train the network
+            :type epochs: int
+            :param callbacks: A list of callbacks to be used during the training
+            :type callbacks: list[Callback]
             :return: The average loss throughout the training
             :rtype: float
 
@@ -400,10 +430,10 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
                 import NeuralNetPy as NNP
 
-                network = NNP.Network()
-                network.setup(optimizer=NNP.SGD(0.01), loss=NNP.LOSS.MCQ)
-                network.addLayer(NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
-                network.addLayer(NNP.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
+                network = NNP.models.Network()
+                network.setup(optimizer=NNP.optimizers.SGD(0.01), loss=NNP.LOSS.MCQ)
+                network.addLayer(NNP.layers.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+                network.addLayer(NNP.layers.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
 
                 inputs = [
                   [0.4, 0.5, 0.67],
@@ -420,9 +450,15 @@ PYBIND11_MODULE(NeuralNetPy, m)
         Train the network by passing it a list of 3 dimensional inputs (matrices).
 
         :param inputs: A list of matrices representing the inputs
+        :type inputs: list[list[list[float]]]
         :param labels: A list of labels
+        :type labels: list[float]
         :param epochs: The number of epochs to train the network
+        :type epochs: int
+        :param callbacks: A list of callbacks to be used during the training
+        :type callbacks: list[Callback]
         :return: The average loss throughout the training
+        :rtype: float
 
         .. highlight: python
         .. code-block: python
@@ -430,10 +466,10 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
             import NeuralNetPy as NNP
 
-            network = NNP.Network()
-            network.setup(optimizer=NNP.SGD(0.01), loss=NNP.LOSS.MCQ)
-            network.addLayer(NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
-            network.addLayer(NNP.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
+            network = NNP.models.Network()
+            network.setup(optimizer=NNP.optimizers.SGD(0.01), loss=NNP.LOSS.MCQ)
+            network.addLayer(NNP.layers.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+            network.addLayer(NNP.layers.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
 
             inputs = [
               [
@@ -456,8 +492,13 @@ PYBIND11_MODULE(NeuralNetPy, m)
         Train the network by passing it a ``TrainingData2dI`` object.
 
         :param trainingData: A ``TrainingData2dI`` object
+        :type trainingData: TrainingData2dI
         :param epochs: The number of epochs to train the network
+        :type epochs: int
+        :param callbacks: A list of callbacks to be used during the training
+        :type callbacks: list[Callback]
         :return: The average loss throughout the training
+        :rtype: float
 
         .. highlight: python
         .. code-block: python
@@ -465,11 +506,12 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
             import NeuralNetPy as NNP
 
-            network = NNP.Network()
-            network.setup(optimizer=NNP.SGD(0.01), loss=NNP.LOSS.MCQ)
-            network.addLayer(NNP.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
-            network.addLayer(NNP.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
+            network = NNP.models.Network()
+            network.setup(optimizer=NNP.optimizers.SGD(0.01), loss=NNP.LOSS.MCQ)
+            network.addLayer(NNP.layers.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+            network.addLayer(NNP.layers.Dense(2, NNP.ACTIVATION.SIGMOID, NNP.WEIGHT_INIT.HE))
 
+            # Meaningless values just for the sake of the example
             inputs = [
               [0.4, 0.5, 0.67],
               [0.3, 0.2, 0.1],
@@ -489,8 +531,13 @@ PYBIND11_MODULE(NeuralNetPy, m)
         Train the network by passing it a ``TrainingData3dI`` object.
 
         :param trainingData: A ``TrainingData3dI`` object
+        :type trainingData: TrainingData3dI
         :param epochs: The number of epochs to train the network
+        :type epochs: int
+        :param callbacks: A list of callbacks to be used during the training
+        :type callbacks: list[Callback]
         :return: The average loss throughout the training
+        :rtype: float
 
         .. highlight: python
         .. code-block: python
@@ -535,6 +582,7 @@ PYBIND11_MODULE(NeuralNetPy, m)
         Feed forward the given inputs through the network and return the predictions/outputs.
 
         :param inputs: A list of vectors representing the inputs
+        :type inputs: list[list[float]]
         :return: A matrix representing the outputs of the network for the given inputs
         :rtype: numpy.ndarray
       )pbdoc")
@@ -542,6 +590,7 @@ PYBIND11_MODULE(NeuralNetPy, m)
         Feed forward the given inputs through the network and return the predictions/outputs.
 
         :param inputs: A list of vectors representing the inputs
+        :type inputs: list[list[list[float]]]
         :return: A matrix representing the outputs of the network for the given inputs
         :rtype: numpy.ndarray
       )pbdoc");
