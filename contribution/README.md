@@ -11,3 +11,9 @@ For the main part following whatever's written [here](https://www.conventionalco
 ### Non Functional Commit :
 
 Non functional commits are when a feature is still under development but you had to create a commit. For example, if you're working on feature A at home on your PC, and all of a sudden you have to save you're changes so you can resume working at a Starbucks on your laptop. You create a commit with the tag : nfc(A) - A should be replaced with the name of the feature (which is the name of the branch).
+
+## Code Style :
+
+I used [google](https://google.github.io/styleguide/cppguide.html)'s style for formatting the code, however I don't apply all google's C++ style guides in the project.
+
+When contributing make sure you format your code with `clang-format`. If you're on VS Code setup the `clang-format` extension and enable `formatOnSave`.
