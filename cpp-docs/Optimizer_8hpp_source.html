@@ -87,31 +87,31 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span> </div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span><span class="preprocessor">#include &lt;Eigen/Dense&gt;</span></div>
 <div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span> </div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>NeuralNet</div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span>{</div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="};">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Optimizer.html">    7</a></span>  <span class="keyword">class </span><a class="code hl_class" href="classNeuralNet_1_1Optimizer.html">Optimizer</a></div>
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span>  {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span>    <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classNeuralNet_1_1Network.html">Network</a>;</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span>  <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>    <a class="code hl_class" href="classNeuralNet_1_1Optimizer.html">Optimizer</a>(<span class="keywordtype">double</span> alpha) : alpha(alpha){};</div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="keyword">namespace </span>NeuralNet {</div>
+<div class="foldopen" id="foldopen00006" data-start="{" data-end="};">
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Optimizer.html">    6</a></span><span class="keyword">class </span><a class="code hl_class" href="classNeuralNet_1_1Optimizer.html">Optimizer</a> {</div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span>  <span class="keyword">friend</span> <span class="keyword">class </span><a class="code hl_class" href="classNeuralNet_1_1Network.html">Network</a>;</div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span>  <a class="code hl_class" href="classNeuralNet_1_1Optimizer.html">Optimizer</a>(<span class="keywordtype">double</span> alpha) : alpha(alpha){};</div>
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span>  <span class="keyword">virtual</span> <a class="code hl_class" href="classNeuralNet_1_1Optimizer.html">~Optimizer</a>() = <span class="keywordflow">default</span>;  <span class="comment">// Virtual destructor</span></div>
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>    <span class="keyword">virtual</span> <a class="code hl_class" href="classNeuralNet_1_1Optimizer.html">~Optimizer</a>() = <span class="keywordflow">default</span>; <span class="comment">// Virtual destructor</span></div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Optimizer.html#ab630b544bc3d5734f207af48e0f4c291">   24</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1Optimizer.html#ab630b544bc3d5734f207af48e0f4c291">updateWeights</a>(Eigen::MatrixXd &amp;weights, <span class="keyword">const</span> Eigen::MatrixXd &amp;weightsGrad) = 0;</div>
-<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span> </div>
-<div class="line"><a id="l00034" name="l00034"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Optimizer.html#a47960c3d404be46ef6b0c5c2edc34fe8">   34</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1Optimizer.html#a47960c3d404be46ef6b0c5c2edc34fe8">updateBiases</a>(Eigen::MatrixXd &amp;biases, <span class="keyword">const</span> Eigen::MatrixXd &amp;biasesGrad) = 0;</div>
-<div class="line"><a id="l00035" name="l00035"></a><span class="lineno">   35</span> </div>
-<div class="line"><a id="l00036" name="l00036"></a><span class="lineno">   36</span>  <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>    <span class="keywordtype">double</span> alpha;</div>
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span> </div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Optimizer.html#a61752a075a25ee0c782b6d5d10d26d29">   46</a></span>    <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1Optimizer.html#a61752a075a25ee0c782b6d5d10d26d29">insiderInit</a>(<span class="keywordtype">size_t</span> size) = 0;</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>  };</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Optimizer.html#ab630b544bc3d5734f207af48e0f4c291">   24</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1Optimizer.html#ab630b544bc3d5734f207af48e0f4c291">updateWeights</a>(Eigen::MatrixXd &amp;weights,</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>                             <span class="keyword">const</span> Eigen::MatrixXd &amp;weightsGrad) = 0;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Optimizer.html#a47960c3d404be46ef6b0c5c2edc34fe8">   37</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1Optimizer.html#a47960c3d404be46ef6b0c5c2edc34fe8">updateBiases</a>(Eigen::MatrixXd &amp;biases,</div>
+<div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>                            <span class="keyword">const</span> Eigen::MatrixXd &amp;biasesGrad) = 0;</div>
+<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
+<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span> <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>  <span class="keywordtype">double</span> alpha;</div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span> </div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Optimizer.html#a61752a075a25ee0c782b6d5d10d26d29">   52</a></span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1Optimizer.html#a61752a075a25ee0c782b6d5d10d26d29">insiderInit</a>(<span class="keywordtype">size_t</span> size) = 0;</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>};</div>
 </div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>}</div>
-<div class="ttc" id="aclassNeuralNet_1_1Network_html"><div class="ttname"><a href="classNeuralNet_1_1Network.html">NeuralNet::Network</a></div><div class="ttdef"><b>Definition</b> Network.hpp:28</div></div>
-<div class="ttc" id="aclassNeuralNet_1_1Optimizer_html"><div class="ttname"><a href="classNeuralNet_1_1Optimizer.html">NeuralNet::Optimizer</a></div><div class="ttdef"><b>Definition</b> Optimizer.hpp:8</div></div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>}  <span class="comment">// namespace NeuralNet</span></div>
+<div class="ttc" id="aclassNeuralNet_1_1Network_html"><div class="ttname"><a href="classNeuralNet_1_1Network.html">NeuralNet::Network</a></div><div class="ttdef"><b>Definition</b> Network.hpp:27</div></div>
+<div class="ttc" id="aclassNeuralNet_1_1Optimizer_html"><div class="ttname"><a href="classNeuralNet_1_1Optimizer.html">NeuralNet::Optimizer</a></div><div class="ttdef"><b>Definition</b> Optimizer.hpp:6</div></div>
 <div class="ttc" id="aclassNeuralNet_1_1Optimizer_html_a47960c3d404be46ef6b0c5c2edc34fe8"><div class="ttname"><a href="classNeuralNet_1_1Optimizer.html#a47960c3d404be46ef6b0c5c2edc34fe8">NeuralNet::Optimizer::updateBiases</a></div><div class="ttdeci">virtual void updateBiases(Eigen::MatrixXd &amp;biases, const Eigen::MatrixXd &amp;biasesGrad)=0</div><div class="ttdoc">This function updates the biases passed based based on the Optimizer and the biases gradients.</div></div>
 <div class="ttc" id="aclassNeuralNet_1_1Optimizer_html_a61752a075a25ee0c782b6d5d10d26d29"><div class="ttname"><a href="classNeuralNet_1_1Optimizer.html#a61752a075a25ee0c782b6d5d10d26d29">NeuralNet::Optimizer::insiderInit</a></div><div class="ttdeci">virtual void insiderInit(size_t size)=0</div><div class="ttdoc">This function's purpose is to provide an interface to perform updates for the Optimizers from within ...</div></div>
 <div class="ttc" id="aclassNeuralNet_1_1Optimizer_html_ab630b544bc3d5734f207af48e0f4c291"><div class="ttname"><a href="classNeuralNet_1_1Optimizer.html#ab630b544bc3d5734f207af48e0f4c291">NeuralNet::Optimizer::updateWeights</a></div><div class="ttdeci">virtual void updateWeights(Eigen::MatrixXd &amp;weights, const Eigen::MatrixXd &amp;weightsGrad)=0</div><div class="ttdoc">This function updates the weights passed based on the selected Optimizer and the weights gradients.</div></div>
