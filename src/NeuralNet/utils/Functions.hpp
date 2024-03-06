@@ -73,6 +73,20 @@ namespace NeuralNet
     return false;
   }
 
+  /**
+   * @brief This function checks if a file has a specific extension
+   *
+   * @param filePath The path of the file
+   * @param extension The extension that's checked
+   *
+   * @return Returns true if the file has the specified extension otherwise returns false
+   */
+  inline bool fileHasExtension(const std::string &filePath, const std::string &extension)
+  {
+    fs::path file(filePath);
+    return file.has_extension() && file.extension() == extension;
+  }
+
   /* MATHEMATICAL FUNCTIONS */
 
   /**
@@ -169,6 +183,25 @@ namespace NeuralNet
     }
 
     return result;
+  }
+
+  /**
+   * @brief This function takes a vector and a value and returns the index of the value in that vector.
+   *
+   * @param v The vector
+   * @param el The element to look for in the vector
+   *
+   * @return The index of the element in the vector `-1` if not found.
+   */
+  template <typename T>
+  inline int findIndexOf(const std::vector<T> &v, const T &el)
+  {
+    auto it = std::find(v.begin(), v.end(), el);
+
+    if (it == v.end())
+      return -1;
+
+    return it - v.begin();
   }
 
   /* MATRIX OPERATIONS */

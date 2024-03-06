@@ -17,14 +17,14 @@ so_dir = add_module_path_to_sys_path(__file__)
 
 import NeuralNetPy as NNP
 
-network = NNP.Network()
+network = NNP.models.Network()
 
-network.addLayer(NNP.Dense(15, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.GLOROT))
-network.addLayer(NNP.Dense(20, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.GLOROT))
-network.addLayer(NNP.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
+network.addLayer(NNP.layers.Dense(15, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.GLOROT))
+network.addLayer(NNP.layers.Dense(20, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.GLOROT))
+network.addLayer(NNP.layers.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
 # Setting up the networks parameters
-network.setup(optimizer=NNP.SGD(1), epochs=1, loss=NNP.LOSS.MCE)
+network.setup(optimizer=NNP.optimizers.SGD(1), epochs=1, loss=NNP.LOSS.MCE)
 
 inputs = list()
 

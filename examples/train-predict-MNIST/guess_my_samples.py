@@ -12,10 +12,10 @@ import NeuralNetPy as NNP
 
 MY_SAMPLES_FOLDER = "./dataset/my_samples"
 
-network = NNP.Network()
+network = NNP.models.Network()
 
 # Loading the model from the file into the network created
-NNP.Model.load_from_file("model.bin", network)
+NNP.models.Model.load_from_file("model.bin", network)
 
 inputs = list()
 

@@ -1,19 +1,22 @@
 ## TODOS :
 
+- [ ] Setup `clang-format`
+- [ ] CI versioning
 - [ ] Find out why the predictions are not accurate on my_samples
 - [ ] Implement batch norm
-- [ ] Multithreading operations
+- [ ] Parallelize operations
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
 - [ ] Implement a dropout to avoid over-fitting the model
 
 ## IN PROGRESS :
 
-- [ ] Implement early stopping
+- [ ] Python tests
 - [ ] Optimize `Catch2`'s build
 - [ ] Add gradient clipping
 
 ## DONE :
 
+- [x] Implement early stopping
 - [x] Update README to include more information about the project
 - [x] Add CI / CD
 - [x] Document the example in python
