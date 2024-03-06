@@ -1,14 +1,14 @@
 #include <catch2/catch_test_macros.hpp>
 #include <catch2/matchers/catch_matchers_floating_point.hpp>
-#include <vector>
 #include <utils/Functions.hpp>
+#include <vector>
+
 #include "test-macros.hpp"
 
 using namespace Catch::Matchers;
 using namespace NeuralNet;
 
-TEST_CASE("Sqr function returns the right square", "[helper_function]")
-{
+TEST_CASE("Sqr function returns the right square", "[helper_function]") {
   CHECK(sqr(0) == 0);
   CHECK(sqr(2) == 4);
   CHECK(sqr(10) == 100);
@@ -16,24 +16,18 @@ TEST_CASE("Sqr function returns the right square", "[helper_function]")
   CHECK(sqr(657666) == 432524567556);
 }
 
-TEST_CASE("vectorToMatrixXd outputs the correct format", "[helper_function]")
-{
-  std::vector<std::vector<double>> v = {
-      {1, 2, 3},
-      {4, 5, 6},
-      {7, 8, 9}};
+TEST_CASE("vectorToMatrixXd outputs the correct format", "[helper_function]") {
+  std::vector<std::vector<double>> v = {{1, 2, 3}, {4, 5, 6}, {7, 8, 9}};
 
   Eigen::MatrixXd expected(3, 3);
 
-  expected << 1, 2, 3,
-      4, 5, 6,
-      7, 8, 9;
+  expected << 1, 2, 3, 4, 5, 6, 7, 8, 9;
 
   CHECK(vectorToMatrixXd(v) == expected);
 }
 
-TEST_CASE("randomWeightInit initializes value properly", "[weight_initialization]")
-{
+TEST_CASE("randomWeightInit initializes value properly",
+          "[weight_initialization]") {
   Eigen::MatrixXd weights = Eigen::MatrixXd::Zero(5, 5);
   double min = -2.0;
   double max = 2.0;
@@ -42,8 +36,8 @@ TEST_CASE("randomWeightInit initializes value properly", "[weight_initialization
   CHECK_MATRIX_VALUES_IN_RANGE(weights, min, max);
 }
 
-TEST_CASE("randomDistMatrixInit initializes values properly", "[weight_initialization]")
-{
+TEST_CASE("randomDistMatrixInit initializes values properly",
+          "[weight_initialization]") {
   Eigen::MatrixXd weights = Eigen::MatrixXd::Zero(5, 5);
   double mean = -1.0;
   double stddev = 0;

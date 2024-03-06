@@ -1,5 +1,6 @@
 ## TODOS :
 
+- [ ] add automatic versioning in ci
 - [ ] Setup `clang-format`
 - [ ] CI versioning
 - [ ] Find out why the predictions are not accurate on my_samples

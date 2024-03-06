@@ -1,35 +1,34 @@
 /**
  * In this file the essential classes and methods are exposed to Python.
  * Just enough to be able to setup and manipulate the Neural Network
- * When the project is built with the PYBIND_BUILD option, it will create a .so file
- * in the build folder.
+ * When the project is built with the PYBIND_BUILD option, it will create a .so
+ * file in the build folder.
  */
 
+#include <pybind11/eigen.h>
 #include <pybind11/pybind11.h>
 #include <pybind11/stl.h>
 #include <pybind11/stl_bind.h>
-#include <pybind11/eigen.h>
-#include "Network.hpp"
+
 #include "Model.hpp"
 #include "Network.cpp"
-#include "layers/Layer.hpp"
-#include "layers/Flatten.hpp"
-#include "layers/Dense.hpp"
-#include "optimizers/Optimizer.hpp"
-#include "optimizers/optimizers.hpp"
+#include "Network.hpp"
+#include "TemplateBindings.hpp"  // Template classes binding functions
+#include "callbacks/CSVLogger.hpp"
 #include "callbacks/Callback.hpp"
 #include "callbacks/EarlyStopping.hpp"
-#include "callbacks/CSVLogger.hpp"
-#include "callbacks/CSVLogger.hpp"
+#include "layers/Dense.hpp"
+#include "layers/Flatten.hpp"
+#include "layers/Layer.hpp"
+#include "optimizers/Optimizer.hpp"
+#include "optimizers/optimizers.hpp"
 #include "utils/Enums.hpp"
-#include "TemplateBindings.hpp" // Template classes binding functions
 
 namespace py = pybind11;
 
 using namespace NeuralNet;
 
-PYBIND11_MODULE(NeuralNetPy, m)
-{
+PYBIND11_MODULE(NeuralNetPy, m) {
   m.doc() = R"pbdoc(
       Neural Network Library
       -----------------------
@@ -44,7 +43,8 @@ PYBIND11_MODULE(NeuralNetPy, m)
       .value("SOFTMAX", ACTIVATION::SOFTMAX, "Softmax Activation Function");
 
   py::enum_<WEIGHT_INIT>(m, "WEIGHT_INIT")
-      .value("RANDOM", WEIGHT_INIT::RANDOM, "Initialize weights with random values")
+      .value("RANDOM", WEIGHT_INIT::RANDOM,
+             "Initialize weights with random values")
       .value("GLOROT", WEIGHT_INIT::GLOROT, R"pbdoc(
           Initialize weights with Glorot initialization.
 
@@ -88,10 +88,10 @@ PYBIND11_MODULE(NeuralNetPy, m)
         :param alpha: The learning rate, defaults to 0.001
         :type alpha: float
       )pbdoc")
-      .def(py::init<double>(),
-           py::arg("alpha") = 0.001);
+      .def(py::init<double>(), py::arg("alpha") = 0.001);
 
-  py::class_<Adam, Optimizer, std::shared_ptr<Adam>>(optimizers_m, "Adam", R"pbdoc(
+  py::class_<Adam, Optimizer, std::shared_ptr<Adam>>(optimizers_m, "Adam",
+                                                     R"pbdoc(
         For more information on `Adam optimizer <https://arxiv.org/abs/1412.6980>`
 
         :param alpha: The learning rate, defaults to 0.001
@@ -103,10 +103,8 @@ PYBIND11_MODULE(NeuralNetPy, m)
         :param epsilon: A small constant for numerical stability, defaults to 10E-8
         :type epsilon: float
       )pbdoc")
-      .def(py::init<double, double, double, double>(),
-           py::arg("alpha") = 0.001,
-           py::arg("beta1") = 0.9,
-           py::arg("beta2") = 0.999,
+      .def(py::init<double, double, double, double>(), py::arg("alpha") = 0.001,
+           py::arg("beta1") = 0.9, py::arg("beta2") = 0.999,
            py::arg("epsilon") = 10E-8);
 
   py::module layers_m = m.def_submodule("layers", R"pbdoc(
@@ -122,7 +120,10 @@ PYBIND11_MODULE(NeuralNetPy, m)
     )pbdoc");
 
   py::class_<Layer, std::shared_ptr<Layer>>(layers_m, "Layer")
-      .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(), py::arg("nNeurons"), py::arg("activationFunc") = ACTIVATION::SIGMOID, py::arg("weightInit") = WEIGHT_INIT::RANDOM, py::arg("bias") = 0, "This is a simple test")
+      .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(), py::arg("nNeurons"),
+           py::arg("activationFunc") = ACTIVATION::SIGMOID,
+           py::arg("weightInit") = WEIGHT_INIT::RANDOM, py::arg("bias") = 0,
+           "This is a simple test")
       .def("getNumNeurons", &Layer::getNumNeurons);
 
   py::class_<Dense, Layer, std::shared_ptr<Dense>>(layers_m, "Dense", R"pbdoc(
@@ -145,13 +146,12 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
                 layer = NNP.layers.Dense(3, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE)
       )pbdoc")
-      .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(),
-           py::arg("nNeurons"),
+      .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(), py::arg("nNeurons"),
            py::arg("activationFunc") = ACTIVATION::SIGMOID,
-           py::arg("weightInit") = WEIGHT_INIT::RANDOM,
-           py::arg("bias") = 0);
+           py::arg("weightInit") = WEIGHT_INIT::RANDOM, py::arg("bias") = 0);
 
-  py::class_<Flatten, Layer, std::shared_ptr<Flatten>>(layers_m, "Flatten", R"pbdoc(
+  py::class_<Flatten, Layer, std::shared_ptr<Flatten>>(layers_m, "Flatten",
+                                                       R"pbdoc(
         Initializes a ``Flatten`` layer. The sole purpose of this layer is to vectorize matrix inputs like images.
 
         :param inputShape: The shape of the input matrix (rows, cols or number of pixels per row and column in the case of images)
@@ -164,11 +164,11 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
                 layer = NNP.layers.Flatten((3, 3))
       )pbdoc")
-      .def(py::init<std::tuple<int, int>>(),
-           py::arg("inputShape"));
+      .def(py::init<std::tuple<int, int>>(), py::arg("inputShape"));
 
   py::bind_vector<std::vector<std::shared_ptr<Layer>>>(layers_m, "VectorLayer");
-  py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(layers_m, "VectorFlatten");
+  py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(layers_m,
+                                                         "VectorFlatten");
   py::bind_vector<std::vector<std::shared_ptr<Dense>>>(layers_m, "VectorDense");
 
   py::module callbacks_m = m.def_submodule("callbacks", R"pbdoc(
@@ -184,11 +184,13 @@ PYBIND11_MODULE(NeuralNetPy, m)
           :recursive:
     )pbdoc");
 
-  py::class_<Callback, std::shared_ptr<Callback>>(callbacks_m, "Callback", R"pbdoc(
+  py::class_<Callback, std::shared_ptr<Callback>>(callbacks_m, "Callback",
+                                                  R"pbdoc(
       This is the base class for all callbacks.
     )pbdoc");
 
-  py::class_<EarlyStopping, Callback, std::shared_ptr<EarlyStopping>>(callbacks_m, "EarlyStopping", R"pbdoc(
+  py::class_<EarlyStopping, Callback, std::shared_ptr<EarlyStopping>>(
+      callbacks_m, "EarlyStopping", R"pbdoc(
           Initializes an ``EarlyStopping`` callback. This callback will stop the training if the given metric doesn't improve more than the given delta over a certain number of epochs (patience).
 
           :param metric: The metric to be monitored (Either ``LOSS`` or ``ACCURACY``), defaults to ``LOSS``
@@ -204,12 +206,11 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
               network.train(inputs, labels, 100, [NNP.callbacks.EarlyStopping("loss", 0.01, 10)])
       )pbdoc")
-      .def(py::init<std::string, double, int>(),
-           py::arg("metric") = "LOSS",
-           py::arg("minDelta") = 0.01,
-           py::arg("patience") = 0);
+      .def(py::init<std::string, double, int>(), py::arg("metric") = "LOSS",
+           py::arg("minDelta") = 0.01, py::arg("patience") = 0);
 
-  py::class_<CSVLogger, Callback, std::shared_ptr<CSVLogger>>(callbacks_m, "CSVLogger", R"pbdoc(
+  py::class_<CSVLogger, Callback, std::shared_ptr<CSVLogger>>(
+      callbacks_m, "CSVLogger", R"pbdoc(
         Initializes a ``CSVLogger`` callback. This callback will log the training process in a CSV file.
 
         .. highlight: python
@@ -218,16 +219,19 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
             network.train(inputs, labels, 100, [NNP.callbacks.CSVLogger("logs.csv")])
       )pbdoc")
-      .def(py::init<std::string, std::string>(),
-           py::arg("filename"),
+      .def(py::init<std::string, std::string>(), py::arg("filename"),
            py::arg("separator") = ",");
 
-  py::bind_vector<std::vector<std::shared_ptr<Callback>>>(callbacks_m, "VectorCallback");
-  py::bind_vector<std::vector<std::shared_ptr<EarlyStopping>>>(callbacks_m, "VectorEarlyStopping");
-  py::bind_vector<std::vector<std::shared_ptr<CSVLogger>>>(callbacks_m, "VectorCSVLogger");
+  py::bind_vector<std::vector<std::shared_ptr<Callback>>>(callbacks_m,
+                                                          "VectorCallback");
+  py::bind_vector<std::vector<std::shared_ptr<EarlyStopping>>>(
+      callbacks_m, "VectorEarlyStopping");
+  py::bind_vector<std::vector<std::shared_ptr<CSVLogger>>>(callbacks_m,
+                                                           "VectorCSVLogger");
 
   // TrainingData with 2 dimensional inputs
-  bindTrainingData<std::vector<std::vector<double>>, std::vector<double>>(m, "TrainingData2dI", R"pbdoc(
+  bindTrainingData<std::vector<std::vector<double>>, std::vector<double>>(
+      m, "TrainingData2dI", R"pbdoc(
     Represents training data with 2 dimensional inputs (vectors). This class is supposed to bring the table some methods to easily manipulate the data and prepare it for training.
 
     .. highlight: python 
@@ -253,7 +257,8 @@ PYBIND11_MODULE(NeuralNetPy, m)
   )pbdoc");
 
   // TrainingData with 3 dimensional inputs
-  bindTrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>>(m, "TrainingData3dI", R"pbdoc(
+  bindTrainingData<std::vector<std::vector<std::vector<double>>>,
+                   std::vector<double>>(m, "TrainingData3dI", R"pbdoc(
     Represents training data with 3 dimensional inputs (matrices). This class is supposed to bring the table some methods to easily manipulate the data and prepare it for training.
 
     .. highlight: python
@@ -290,7 +295,8 @@ PYBIND11_MODULE(NeuralNetPy, m)
    *
    * https://github.com/pybind/pybind11/issues/199#issuecomment-220302516
    *
-   * This is why I had to specify the type "Network", I'll have to do so for every type added
+   * This is why I had to specify the type "Network", I'll have to do so for
+   * every type added
    */
 
   py::module models_m = m.def_submodule("models", R"pbdoc(
@@ -361,9 +367,7 @@ PYBIND11_MODULE(NeuralNetPy, m)
           network.setup(optimizer=NNP.SGD(0.01), loss=NNP.LOSS.MCQ)
       )pbdoc")
       .def(py::init<>())
-      .def("setup",
-           &Network::setup,
-           py::arg("optimizer"),
+      .def("setup", &Network::setup, py::arg("optimizer"),
            py::arg("loss") = LOSS::QUADRATIC)
       .def("addLayer", &Network::addLayer, R"pbdoc(
             Add a layer to the network. 
@@ -386,9 +390,7 @@ PYBIND11_MODULE(NeuralNetPy, m)
             .. danger::
                 Under no circumstances you should add a ``Flatten`` layer as a hidden layer.
            )pbdoc")
-      .def("getLayer",
-           &Network::getLayer,
-           py::return_value_policy::copy,
+      .def("getLayer", &Network::getLayer, py::return_value_policy::copy,
            R"pbdoc(
             Get a layer from the network by it's index. They're 0-indexed.
 
@@ -409,8 +411,13 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
                 layer = network.getLayer(1) # Return Dense layer with 2 neurons
           )pbdoc")
-      .def("getNumLayers", &Network::getNumLayers, "Return the number of layers in the network.")
-      .def("train", static_cast<double (Network::*)(std::vector<std::vector<double>>, std::vector<double>, int, const std::vector<std::shared_ptr<Callback>>)>(&Network::train), R"pbdoc(
+      .def("getNumLayers", &Network::getNumLayers,
+           "Return the number of layers in the network.")
+      .def("train",
+           static_cast<double (Network::*)(
+               std::vector<std::vector<double>>, std::vector<double>, int,
+               const std::vector<std::shared_ptr<Callback>>)>(&Network::train),
+           R"pbdoc(
             Train the network by passing it 2 dimensional inputs (vectors).
 
             :param inputs: A list of vectors representing the inputs
@@ -446,7 +453,12 @@ PYBIND11_MODULE(NeuralNetPy, m)
                 loss = network.train(inputs, labels, 10)
             
         )pbdoc")
-      .def("train", static_cast<double (Network::*)(std::vector<std::vector<std::vector<double>>>, std::vector<double>, int, const std::vector<std::shared_ptr<Callback>>)>(&Network::train), R"pbdoc(
+      .def("train",
+           static_cast<double (Network::*)(
+               std::vector<std::vector<std::vector<double>>>,
+               std::vector<double>, int,
+               const std::vector<std::shared_ptr<Callback>>)>(&Network::train),
+           R"pbdoc(
         Train the network by passing it a list of 3 dimensional inputs (matrices).
 
         :param inputs: A list of matrices representing the inputs
@@ -488,7 +500,13 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
             loss = network.train(inputs, labels, 10)
       )pbdoc")
-      .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<double>>, std::vector<double>>, int, const std::vector<std::shared_ptr<Callback>>)>(&Network::train), R"pbdoc(
+      .def("train",
+           static_cast<double (Network::*)(
+               TrainingData<std::vector<std::vector<double>>,
+                            std::vector<double>>,
+               int, const std::vector<std::shared_ptr<Callback>>)>(
+               &Network::train),
+           R"pbdoc(
         Train the network by passing it a ``TrainingData2dI`` object.
 
         :param trainingData: A ``TrainingData2dI`` object
@@ -527,7 +545,13 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
             loss = network.train(trainingData, 10)
       )pbdoc")
-      .def("train", static_cast<double (Network::*)(TrainingData<std::vector<std::vector<std::vector<double>>>, std::vector<double>>, int, const std::vector<std::shared_ptr<Callback>>)>(&Network::train), R"pbdoc(
+      .def("train",
+           static_cast<double (Network::*)(
+               TrainingData<std::vector<std::vector<std::vector<double>>>,
+                            std::vector<double>>,
+               int, const std::vector<std::shared_ptr<Callback>>)>(
+               &Network::train),
+           R"pbdoc(
         Train the network by passing it a ``TrainingData3dI`` object.
 
         :param trainingData: A ``TrainingData3dI`` object
@@ -578,7 +602,10 @@ PYBIND11_MODULE(NeuralNetPy, m)
 
             loss = network.train(trainingData, 10)
       )pbdoc")
-      .def("predict", static_cast<Eigen::MatrixXd (Network::*)(std::vector<std::vector<double>>)>(&Network::predict), R"pbdoc(
+      .def("predict",
+           static_cast<Eigen::MatrixXd (Network::*)(
+               std::vector<std::vector<double>>)>(&Network::predict),
+           R"pbdoc(
         Feed forward the given inputs through the network and return the predictions/outputs.
 
         :param inputs: A list of vectors representing the inputs
@@ -586,7 +613,11 @@ PYBIND11_MODULE(NeuralNetPy, m)
         :return: A matrix representing the outputs of the network for the given inputs
         :rtype: numpy.ndarray
       )pbdoc")
-      .def("predict", static_cast<Eigen::MatrixXd (Network::*)(std::vector<std::vector<std::vector<double>>>)>(&Network::predict), R"pbdoc(
+      .def("predict",
+           static_cast<Eigen::MatrixXd (Network::*)(
+               std::vector<std::vector<std::vector<double>>>)>(
+               &Network::predict),
+           R"pbdoc(
         Feed forward the given inputs through the network and return the predictions/outputs.
 
         :param inputs: A list of vectors representing the inputs
