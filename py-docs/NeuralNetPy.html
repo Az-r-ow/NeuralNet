@@ -3,7 +3,7 @@
   <head><meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width,initial-scale=1"/>
     <meta name="color-scheme" content="light dark"><meta name="viewport" content="width=device-width, initial-scale=1" />
-<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="prev" title="Usage" href="usage.html" />
+<link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="Callbacks" href="submodules/callbacks.html" /><link rel="prev" title="Usage" href="usage.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
         <title>NeuralNetPy - NeuralNetPy documentation</title>
@@ -157,7 +157,22 @@
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="usage.html">Usage</a></li>
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">NeuralNetPy</a></li>
+<li class="toctree-l1 current has-children current-page"><a class="current reference internal" href="#">NeuralNetPy</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of NeuralNetPy</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="submodules/callbacks.html">Callbacks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/callbacks.html#NeuralNetPy.callbacks.CSVLogger"><code class="docutils literal notranslate"><span class="pre">CSVLogger</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/callbacks.html#NeuralNetPy.callbacks.Callback"><code class="docutils literal notranslate"><span class="pre">Callback</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/callbacks.html#NeuralNetPy.callbacks.EarlyStopping"><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/optimizers.html">Optimizers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/optimizers.html#NeuralNetPy.optimizers.Adam"><code class="docutils literal notranslate"><span class="pre">Adam</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/optimizers.html#NeuralNetPy.optimizers.SGD"><code class="docutils literal notranslate"><span class="pre">SGD</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/layers.html">Layers</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/layers.html#NeuralNetPy.layers.Dense"><code class="docutils literal notranslate"><span class="pre">Dense</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/layers.html#NeuralNetPy.layers.Flatten"><code class="docutils literal notranslate"><span class="pre">Flatten</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/models.html">Models</a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/models.html#NeuralNetPy.models.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/models.html#NeuralNetPy.models.Network"><code class="docutils literal notranslate"><span class="pre">Network</span></code></a></li>
+</ul>
+</li>
 </ul>
 
 </div>
@@ -192,10 +207,39 @@
           </label>
         </div>
         <article role="main">
-          <section id="module-NeuralNetPy">
-<span id="neuralnetpy"></span><h1>NeuralNetPy<a class="headerlink" href="#module-NeuralNetPy" title="Link to this heading">#</a></h1>
+          <section id="neuralnetpy">
+<h1>NeuralNetPy<a class="headerlink" href="#neuralnetpy" title="Link to this heading">#</a></h1>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="submodules/callbacks.html">Callbacks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="submodules/callbacks.html#NeuralNetPy.callbacks.CSVLogger"><code class="docutils literal notranslate"><span class="pre">CSVLogger</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="submodules/callbacks.html#NeuralNetPy.callbacks.Callback"><code class="docutils literal notranslate"><span class="pre">Callback</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="submodules/callbacks.html#NeuralNetPy.callbacks.EarlyStopping"><code class="docutils literal notranslate"><span class="pre">EarlyStopping</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="submodules/optimizers.html">Optimizers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="submodules/optimizers.html#NeuralNetPy.optimizers.Adam"><code class="docutils literal notranslate"><span class="pre">Adam</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="submodules/optimizers.html#NeuralNetPy.optimizers.SGD"><code class="docutils literal notranslate"><span class="pre">SGD</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="submodules/layers.html">Layers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="submodules/layers.html#NeuralNetPy.layers.Dense"><code class="docutils literal notranslate"><span class="pre">Dense</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="submodules/layers.html#NeuralNetPy.layers.Flatten"><code class="docutils literal notranslate"><span class="pre">Flatten</span></code></a></li>
+<li class="toctree-l1"><a class="reference internal" href="submodules/models.html">Models</a></li>
+<li class="toctree-l1"><a class="reference internal" href="submodules/models.html#NeuralNetPy.models.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="submodules/models.html#NeuralNetPy.models.Model.load_from_file"><code class="docutils literal notranslate"><span class="pre">Model.load_from_file()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/models.html#NeuralNetPy.models.Model.save_to_file"><code class="docutils literal notranslate"><span class="pre">Model.save_to_file()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="submodules/models.html#NeuralNetPy.models.Network"><code class="docutils literal notranslate"><span class="pre">Network</span></code></a><ul>
+<li class="toctree-l2"><a class="reference internal" href="submodules/models.html#NeuralNetPy.models.Network.addLayer"><code class="docutils literal notranslate"><span class="pre">Network.addLayer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/models.html#NeuralNetPy.models.Network.getLayer"><code class="docutils literal notranslate"><span class="pre">Network.getLayer()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/models.html#NeuralNetPy.models.Network.getNumLayers"><code class="docutils literal notranslate"><span class="pre">Network.getNumLayers()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/models.html#NeuralNetPy.models.Network.predict"><code class="docutils literal notranslate"><span class="pre">Network.predict()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/models.html#NeuralNetPy.models.Network.setup"><code class="docutils literal notranslate"><span class="pre">Network.setup()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="submodules/models.html#NeuralNetPy.models.Network.train"><code class="docutils literal notranslate"><span class="pre">Network.train()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</div>
 <section id="neural-network-library">
-<h2>Neural Network Library<a class="headerlink" href="#neural-network-library" title="Link to this heading">#</a></h2>
+<span id="module-NeuralNetPy"></span><h2>Neural Network Library<a class="headerlink" href="#neural-network-library" title="Link to this heading">#</a></h2>
 <div class="table-wrapper autosummary longtable docutils container">
 <table class="autosummary longtable docutils align-default">
 <tbody>
@@ -239,24 +283,6 @@
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="NeuralNetPy.Adam">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">Adam</span></span><a class="headerlink" href="#NeuralNetPy.Adam" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#NeuralNetPy.Optimizer" title="NeuralNetPy.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a></p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="NeuralNetPy.Dense">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">Dense</span></span><a class="headerlink" href="#NeuralNetPy.Dense" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></a></p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="NeuralNetPy.Flatten">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">Flatten</span></span><a class="headerlink" href="#NeuralNetPy.Flatten" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></a></p>
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="NeuralNetPy.LOSS">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">LOSS</span></span><a class="headerlink" href="#NeuralNetPy.LOSS" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
@@ -286,288 +312,6 @@
 </dd></dl>
 
 <dl class="py class">
-<dt class="sig sig-object py" id="NeuralNetPy.Layer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">Layer</span></span><a class="headerlink" href="#NeuralNetPy.Layer" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.Layer.getNumNeurons">
-<span class="sig-name descname"><span class="pre">getNumNeurons</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><span class="pre">NeuralNetPy.Layer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#NeuralNetPy.Layer.getNumNeurons" title="Link to this definition">#</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="NeuralNetPy.Model">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">Model</span></span><a class="headerlink" href="#NeuralNetPy.Model" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.Model.load_from_file">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">load_from_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1:</span> <span class="pre">NeuralNet::Network</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.Model.load_from_file" title="Link to this definition">#</a></dt>
-<dd><p>This function will load the parameters of a <code class="docutils literal notranslate"><span class="pre">Model</span></code> from a binary file.</p>
-<div class="literal-block-wrapper docutils container" id="id1">
-<div class="code-block-caption"><span class="caption-text">Usage</span><a class="headerlink" href="#id1" title="Link to this code">#</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">NeuralNetPy</span> <span class="k">as</span> <span class="nn">NNP</span>
-
-<span class="c1"># Initialize an empty network            </span>
-<span class="n">network</span> <span class="o">=</span> <span class="n">NNP</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
-
-<span class="c1"># Populate it with previously saved parameters</span>
-<span class="n">NNP</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">load_from_file</span><span class="p">(</span><span class="s2">&quot;network.bin&quot;</span><span class="p">,</span> <span class="n">network</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.Model.save_to_file">
-<em class="property"><span class="pre">static</span><span class="w"> </span></em><span class="sig-name descname"><span class="pre">save_to_file</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">arg0:</span> <span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg1:</span> <span class="pre">NeuralNet::Network</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.Model.save_to_file" title="Link to this definition">#</a></dt>
-<dd><p>This function will save the given <code class="docutils literal notranslate"><span class="pre">Model</span></code>’s parameters in a binary file.</p>
-<div class="literal-block-wrapper docutils container" id="id2">
-<div class="code-block-caption"><span class="caption-text">Usage</span><a class="headerlink" href="#id2" title="Link to this code">#</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">NeuralNetPy</span> <span class="k">as</span> <span class="nn">NNP</span>
-
-<span class="n">network</span> <span class="o">=</span> <span class="n">NNP</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
-<span class="n">network</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">NNP</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="mf">0.01</span><span class="p">))</span>
-<span class="n">network</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">NNP</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">ACTIVATION</span><span class="o">.</span><span class="n">RELU</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">WEIGHT_INIT</span><span class="o">.</span><span class="n">HE</span><span class="p">))</span>
-<span class="n">network</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">NNP</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">ACTIVATION</span><span class="o">.</span><span class="n">SIGMOID</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">WEIGHT_INIT</span><span class="o">.</span><span class="n">HE</span><span class="p">))</span>
-
-<span class="c1"># ... after training</span>
-
-<span class="n">NNP</span><span class="o">.</span><span class="n">Model</span><span class="o">.</span><span class="n">save_to_file</span><span class="p">(</span><span class="n">network</span><span class="p">,</span> <span class="s2">&quot;network.bin&quot;</span><span class="p">)</span> 
-</pre></div>
-</div>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The file content will be overwritten if it already exists.</p>
-</div>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="NeuralNetPy.Network">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">Network</span></span><a class="headerlink" href="#NeuralNetPy.Network" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#NeuralNetPy.Model" title="NeuralNetPy.Model"><code class="xref py py-class docutils literal notranslate"><span class="pre">Model</span></code></a></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.Network.addLayer">
-<span class="sig-name descname"><span class="pre">addLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Network" title="NeuralNetPy.Network"><span class="pre">NeuralNetPy.Network</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><span class="pre">NeuralNetPy.Layer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.Network.addLayer" title="Link to this definition">#</a></dt>
-<dd><p>Add a layer to the network.</p>
-<div class="literal-block-wrapper docutils container" id="id3">
-<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id3" title="Link to this code">#</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">NeuralNetPy</span> <span class="k">as</span> <span class="nn">NNP</span>
-
-<span class="n">network</span> <span class="o">=</span> <span class="n">NNP</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
-<span class="n">network</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">NNP</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">ACTIVATION</span><span class="o">.</span><span class="n">RELU</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">WEIGHT_INIT</span><span class="o">.</span><span class="n">HE</span><span class="p">))</span>
-</pre></div>
-</div>
-</div>
-<div class="admonition warning">
-<p class="admonition-title">Warning</p>
-<p>The order of the layers added is important, it will reflect the overall structure of the network.</p>
-</div>
-<div class="admonition danger">
-<p class="admonition-title">Danger</p>
-<p>Under no circumstances you should add a <code class="docutils literal notranslate"><span class="pre">Flatten</span></code> layer as a hidden layer.</p>
-</div>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.Network.getLayer">
-<span class="sig-name descname"><span class="pre">getLayer</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Network" title="NeuralNetPy.Network"><span class="pre">NeuralNetPy.Network</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">arg0</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><span class="pre">NeuralNetPy.Layer</span></a></span></span><a class="headerlink" href="#NeuralNetPy.Network.getLayer" title="Link to this definition">#</a></dt>
-<dd><p>Get a layer from the network by it’s index. They’re 0-indexed.</p>
-<div class="literal-block-wrapper docutils container" id="id4">
-<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id4" title="Link to this code">#</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">NeuralNetPy</span> <span class="k">as</span> <span class="nn">NNP</span>
-
-<span class="n">network</span> <span class="o">=</span> <span class="n">NNP</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
-<span class="n">network</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">NNP</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">ACTIVATION</span><span class="o">.</span><span class="n">RELU</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">WEIGHT_INIT</span><span class="o">.</span><span class="n">HE</span><span class="p">))</span>
-<span class="n">network</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">NNP</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">ACTIVATION</span><span class="o">.</span><span class="n">SIGMOID</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">WEIGHT_INIT</span><span class="o">.</span><span class="n">HE</span><span class="p">))</span>
-
-<span class="n">layer</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">getLayer</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span> <span class="c1"># Return Dense layer with 2 neurons</span>
-</pre></div>
-</div>
-</div>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.Network.getNumLayers">
-<span class="sig-name descname"><span class="pre">getNumLayers</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Network" title="NeuralNetPy.Network"><span class="pre">NeuralNetPy.Network</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#NeuralNetPy.Network.getNumLayers" title="Link to this definition">#</a></dt>
-<dd><p>Return the number of layers in the network.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.Network.predict">
-<span class="sig-name descname"><span class="pre">predict</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NeuralNetPy.Network.predict" title="Link to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic">
-<li><p>predict(self: NeuralNetPy.Network, arg0: List[List[float]]) -&gt; numpy.ndarray[numpy.float64[m, n]]</p>
-<blockquote>
-<div><p>Feed forward the given inputs through the network and return the predictions/outputs.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param inputs<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A list of vectors representing the inputs</p>
-</dd>
-<dt class="field-even">return<span class="colon">:</span></dt>
-<dd class="field-even"><p>A matrix representing the outputs of the network for the given inputs</p>
-</dd>
-<dt class="field-odd">rtype<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</div></blockquote>
-</li>
-<li><p>predict(self: NeuralNetPy.Network, arg0: List[List[List[float]]]) -&gt; numpy.ndarray[numpy.float64[m, n]]</p>
-<blockquote>
-<div><p>Feed forward the given inputs through the network and return the predictions/outputs.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param inputs<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A list of vectors representing the inputs</p>
-</dd>
-<dt class="field-even">return<span class="colon">:</span></dt>
-<dd class="field-even"><p>A matrix representing the outputs of the network for the given inputs</p>
-</dd>
-<dt class="field-odd">rtype<span class="colon">:</span></dt>
-<dd class="field-odd"><p>numpy.ndarray</p>
-</dd>
-</dl>
-</div></blockquote>
-</li>
-</ol>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.Network.setup">
-<span class="sig-name descname"><span class="pre">setup</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self:</span> <span class="pre">NeuralNetPy.Network</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">optimizer:</span> <span class="pre">NeuralNetPy.Optimizer</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">loss:</span> <span class="pre">NeuralNetPy.LOSS</span> <span class="pre">=</span> <span class="pre">&lt;LOSS.QUADRATIC:</span> <span class="pre">1&gt;</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.Network.setup" title="Link to this definition">#</a></dt>
-<dd><p>Setup the network with the given optimizer and loss function</p>
-<div class="literal-block-wrapper docutils container" id="id5">
-<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id5" title="Link to this code">#</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">NeuralNetPy</span> <span class="k">as</span> <span class="nn">NNP</span>
-
-<span class="n">network</span> <span class="o">=</span> <span class="n">NNP</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
-<span class="n">network</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">NNP</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">loss</span><span class="o">=</span><span class="n">NNP</span><span class="o">.</span><span class="n">LOSS</span><span class="o">.</span><span class="n">MCQ</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.Network.train">
-<span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NeuralNetPy.Network.train" title="Link to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic">
-<li><p>train(self: NeuralNetPy.Network, arg0: List[List[float]], arg1: List[float], arg2: int) -&gt; float</p>
-<blockquote>
-<div><p>Train the network by passing it 2 dimensional inputs (vectors).</p>
-<dl class="field-list simple">
-<dt class="field-odd">param inputs<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A list of vectors representing the inputs</p>
-</dd>
-<dt class="field-even">param labels<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of labels</p>
-</dd>
-<dt class="field-odd">param epochs<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The number of epochs to train the network</p>
-</dd>
-<dt class="field-even">return<span class="colon">:</span></dt>
-<dd class="field-even"><p>The average loss throughout the training</p>
-</dd>
-<dt class="field-odd">rtype<span class="colon">:</span></dt>
-<dd class="field-odd"><p>float</p>
-</dd>
-</dl>
-<div class="literal-block-wrapper docutils container" id="id6">
-<div class="code-block-caption"><span class="caption-text">Example</span><a class="headerlink" href="#id6" title="Link to this code">#</a></div>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">NeuralNetPy</span> <span class="k">as</span> <span class="nn">NNP</span>
-
-<span class="n">network</span> <span class="o">=</span> <span class="n">NNP</span><span class="o">.</span><span class="n">Network</span><span class="p">()</span>
-<span class="n">network</span><span class="o">.</span><span class="n">setup</span><span class="p">(</span><span class="n">optimizer</span><span class="o">=</span><span class="n">NNP</span><span class="o">.</span><span class="n">SGD</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">loss</span><span class="o">=</span><span class="n">NNP</span><span class="o">.</span><span class="n">LOSS</span><span class="o">.</span><span class="n">MCQ</span><span class="p">)</span>
-<span class="n">network</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">NNP</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">ACTIVATION</span><span class="o">.</span><span class="n">RELU</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">WEIGHT_INIT</span><span class="o">.</span><span class="n">HE</span><span class="p">))</span>
-<span class="n">network</span><span class="o">.</span><span class="n">addLayer</span><span class="p">(</span><span class="n">NNP</span><span class="o">.</span><span class="n">Dense</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">ACTIVATION</span><span class="o">.</span><span class="n">SIGMOID</span><span class="p">,</span> <span class="n">NNP</span><span class="o">.</span><span class="n">WEIGHT_INIT</span><span class="o">.</span><span class="n">HE</span><span class="p">))</span>
-
-<span class="n">inputs</span> <span class="o">=</span> <span class="p">[</span>
-  <span class="p">[</span><span class="mf">0.4</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.67</span><span class="p">],</span>
-  <span class="p">[</span><span class="mf">0.3</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span>
-  <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mf">0.2</span><span class="p">,</span> <span class="mf">0.3</span><span class="p">]</span>
-<span class="p">]</span>
-
-<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]</span>
-
-<span class="n">loss</span> <span class="o">=</span> <span class="n">network</span><span class="o">.</span><span class="n">train</span><span class="p">(</span><span class="n">inputs</span><span class="p">,</span> <span class="n">labels</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-</div></blockquote>
-</li>
-<li><p>train(self: NeuralNetPy.Network, arg0: List[List[List[float]]], arg1: List[float], arg2: int) -&gt; float</p>
-<blockquote>
-<div><p>Train the network by passing it a list of 3 dimensional inputs (matrices).</p>
-<dl class="field-list simple">
-<dt class="field-odd">param inputs<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A list of matrices representing the inputs</p>
-</dd>
-<dt class="field-even">param labels<span class="colon">:</span></dt>
-<dd class="field-even"><p>A list of labels</p>
-</dd>
-<dt class="field-odd">param epochs<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The number of epochs to train the network</p>
-</dd>
-<dt class="field-even">return<span class="colon">:</span></dt>
-<dd class="field-even"><p>The average loss throughout the training</p>
-</dd>
-</dl>
-</div></blockquote>
-</li>
-<li><p>train(self: NeuralNetPy.Network, arg0: NeuralNetPy.TrainingData2dI, arg1: int) -&gt; float</p>
-<blockquote>
-<div><p>Train the network by passing it a <code class="docutils literal notranslate"><span class="pre">TrainingData2dI</span></code> object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param trainingData<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">TrainingData2dI</span></code> object</p>
-</dd>
-<dt class="field-even">param epochs<span class="colon">:</span></dt>
-<dd class="field-even"><p>The number of epochs to train the network</p>
-</dd>
-<dt class="field-odd">return<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The average loss throughout the training</p>
-</dd>
-</dl>
-</div></blockquote>
-</li>
-<li><p>train(self: NeuralNetPy.Network, arg0: NeuralNetPy.TrainingData3dI, arg1: int) -&gt; float</p>
-<blockquote>
-<div><p>Train the network by passing it a <code class="docutils literal notranslate"><span class="pre">TrainingData3dI</span></code> object.</p>
-<dl class="field-list simple">
-<dt class="field-odd">param trainingData<span class="colon">:</span></dt>
-<dd class="field-odd"><p>A <code class="docutils literal notranslate"><span class="pre">TrainingData3dI</span></code> object</p>
-</dd>
-<dt class="field-even">param epochs<span class="colon">:</span></dt>
-<dd class="field-even"><p>The number of epochs to train the network</p>
-</dd>
-<dt class="field-odd">return<span class="colon">:</span></dt>
-<dd class="field-odd"><p>The average loss throughout the training</p>
-</dd>
-</dl>
-</div></blockquote>
-</li>
-</ol>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="NeuralNetPy.Optimizer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">Optimizer</span></span><a class="headerlink" href="#NeuralNetPy.Optimizer" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="NeuralNetPy.SGD">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">SGD</span></span><a class="headerlink" href="#NeuralNetPy.SGD" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <a class="reference internal" href="#NeuralNetPy.Optimizer" title="NeuralNetPy.Optimizer"><code class="xref py py-class docutils literal notranslate"><span class="pre">Optimizer</span></code></a></p>
-</dd></dl>
-
-<dl class="py class">
 <dt class="sig sig-object py" id="NeuralNetPy.TrainingData2dI">
 <em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">TrainingData2dI</span></span><a class="headerlink" href="#NeuralNetPy.TrainingData2dI" title="Link to this definition">#</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
@@ -587,198 +331,6 @@
 <dt class="sig sig-object py" id="NeuralNetPy.TrainingData3dI.batch">
 <span class="sig-name descname"><span class="pre">batch</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.TrainingData3dI" title="NeuralNetPy.TrainingData3dI"><span class="pre">NeuralNetPy.TrainingData3dI</span></a></span></em>, <em class="sig-param"><span class="n"><span class="pre">batchSize</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.TrainingData3dI.batch" title="Link to this definition">#</a></dt>
 <dd><p>This method will separate the inputs and labels data into batches of the specified size</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorDense">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">VectorDense</span></span><a class="headerlink" href="#NeuralNetPy.VectorDense" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorDense.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Dense" title="NeuralNetPy.Dense"><span class="pre">NeuralNetPy.Dense</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Dense" title="NeuralNetPy.Dense"><span class="pre">NeuralNetPy.Dense</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorDense.append" title="Link to this definition">#</a></dt>
-<dd><p>Add an item to the end of the list</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorDense.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Dense" title="NeuralNetPy.Dense"><span class="pre">NeuralNetPy.Dense</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorDense.clear" title="Link to this definition">#</a></dt>
-<dd><p>Clear the contents</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorDense.count">
-<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Dense" title="NeuralNetPy.Dense"><span class="pre">NeuralNetPy.Dense</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Dense" title="NeuralNetPy.Dense"><span class="pre">NeuralNetPy.Dense</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorDense.count" title="Link to this definition">#</a></dt>
-<dd><p>Return the number of times <code class="docutils literal notranslate"><span class="pre">x</span></code> appears in the list</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorDense.extend">
-<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NeuralNetPy.VectorDense.extend" title="Link to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>extend(self: List[NeuralNetPy.Dense], L: List[NeuralNetPy.Dense]) -&gt; None</p></li>
-</ol>
-<p>Extend the list by appending all the items in the given list</p>
-<ol class="arabic simple" start="2">
-<li><p>extend(self: List[NeuralNetPy.Dense], L: Iterable) -&gt; None</p></li>
-</ol>
-<p>Extend the list by appending all the items in the given list</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorDense.insert">
-<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Dense" title="NeuralNetPy.Dense"><span class="pre">NeuralNetPy.Dense</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Dense" title="NeuralNetPy.Dense"><span class="pre">NeuralNetPy.Dense</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorDense.insert" title="Link to this definition">#</a></dt>
-<dd><p>Insert an item at a given position.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorDense.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NeuralNetPy.VectorDense.pop" title="Link to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>pop(self: List[NeuralNetPy.Dense]) -&gt; NeuralNetPy.Dense</p></li>
-</ol>
-<p>Remove and return the last item</p>
-<ol class="arabic simple" start="2">
-<li><p>pop(self: List[NeuralNetPy.Dense], i: int) -&gt; NeuralNetPy.Dense</p></li>
-</ol>
-<p>Remove and return the item at index <code class="docutils literal notranslate"><span class="pre">i</span></code></p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorDense.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Dense" title="NeuralNetPy.Dense"><span class="pre">NeuralNetPy.Dense</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Dense" title="NeuralNetPy.Dense"><span class="pre">NeuralNetPy.Dense</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorDense.remove" title="Link to this definition">#</a></dt>
-<dd><p>Remove the first item from the list whose value is x. It is an error if there is no such item.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorFlatten">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">VectorFlatten</span></span><a class="headerlink" href="#NeuralNetPy.VectorFlatten" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorFlatten.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Flatten" title="NeuralNetPy.Flatten"><span class="pre">NeuralNetPy.Flatten</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Flatten" title="NeuralNetPy.Flatten"><span class="pre">NeuralNetPy.Flatten</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorFlatten.append" title="Link to this definition">#</a></dt>
-<dd><p>Add an item to the end of the list</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorFlatten.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Flatten" title="NeuralNetPy.Flatten"><span class="pre">NeuralNetPy.Flatten</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorFlatten.clear" title="Link to this definition">#</a></dt>
-<dd><p>Clear the contents</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorFlatten.count">
-<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Flatten" title="NeuralNetPy.Flatten"><span class="pre">NeuralNetPy.Flatten</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Flatten" title="NeuralNetPy.Flatten"><span class="pre">NeuralNetPy.Flatten</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorFlatten.count" title="Link to this definition">#</a></dt>
-<dd><p>Return the number of times <code class="docutils literal notranslate"><span class="pre">x</span></code> appears in the list</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorFlatten.extend">
-<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NeuralNetPy.VectorFlatten.extend" title="Link to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>extend(self: List[NeuralNetPy.Flatten], L: List[NeuralNetPy.Flatten]) -&gt; None</p></li>
-</ol>
-<p>Extend the list by appending all the items in the given list</p>
-<ol class="arabic simple" start="2">
-<li><p>extend(self: List[NeuralNetPy.Flatten], L: Iterable) -&gt; None</p></li>
-</ol>
-<p>Extend the list by appending all the items in the given list</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorFlatten.insert">
-<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Flatten" title="NeuralNetPy.Flatten"><span class="pre">NeuralNetPy.Flatten</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Flatten" title="NeuralNetPy.Flatten"><span class="pre">NeuralNetPy.Flatten</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorFlatten.insert" title="Link to this definition">#</a></dt>
-<dd><p>Insert an item at a given position.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorFlatten.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NeuralNetPy.VectorFlatten.pop" title="Link to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>pop(self: List[NeuralNetPy.Flatten]) -&gt; NeuralNetPy.Flatten</p></li>
-</ol>
-<p>Remove and return the last item</p>
-<ol class="arabic simple" start="2">
-<li><p>pop(self: List[NeuralNetPy.Flatten], i: int) -&gt; NeuralNetPy.Flatten</p></li>
-</ol>
-<p>Remove and return the item at index <code class="docutils literal notranslate"><span class="pre">i</span></code></p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorFlatten.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Flatten" title="NeuralNetPy.Flatten"><span class="pre">NeuralNetPy.Flatten</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Flatten" title="NeuralNetPy.Flatten"><span class="pre">NeuralNetPy.Flatten</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorFlatten.remove" title="Link to this definition">#</a></dt>
-<dd><p>Remove the first item from the list whose value is x. It is an error if there is no such item.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="py class">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorLayer">
-<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.</span></span><span class="sig-name descname"><span class="pre">VectorLayer</span></span><a class="headerlink" href="#NeuralNetPy.VectorLayer" title="Link to this definition">#</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">pybind11_object</span></code></p>
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorLayer.append">
-<span class="sig-name descname"><span class="pre">append</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><span class="pre">NeuralNetPy.Layer</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><span class="pre">NeuralNetPy.Layer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorLayer.append" title="Link to this definition">#</a></dt>
-<dd><p>Add an item to the end of the list</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorLayer.clear">
-<span class="sig-name descname"><span class="pre">clear</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><span class="pre">NeuralNetPy.Layer</span></a><span class="p"><span class="pre">]</span></span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorLayer.clear" title="Link to this definition">#</a></dt>
-<dd><p>Clear the contents</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorLayer.count">
-<span class="sig-name descname"><span class="pre">count</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><span class="pre">NeuralNetPy.Layer</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><span class="pre">NeuralNetPy.Layer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">int</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorLayer.count" title="Link to this definition">#</a></dt>
-<dd><p>Return the number of times <code class="docutils literal notranslate"><span class="pre">x</span></code> appears in the list</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorLayer.extend">
-<span class="sig-name descname"><span class="pre">extend</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NeuralNetPy.VectorLayer.extend" title="Link to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>extend(self: List[NeuralNetPy.Layer], L: List[NeuralNetPy.Layer]) -&gt; None</p></li>
-</ol>
-<p>Extend the list by appending all the items in the given list</p>
-<ol class="arabic simple" start="2">
-<li><p>extend(self: List[NeuralNetPy.Layer], L: Iterable) -&gt; None</p></li>
-</ol>
-<p>Extend the list by appending all the items in the given list</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorLayer.insert">
-<span class="sig-name descname"><span class="pre">insert</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><span class="pre">NeuralNetPy.Layer</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">i</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">int</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><span class="pre">NeuralNetPy.Layer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorLayer.insert" title="Link to this definition">#</a></dt>
-<dd><p>Insert an item at a given position.</p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorLayer.pop">
-<span class="sig-name descname"><span class="pre">pop</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NeuralNetPy.VectorLayer.pop" title="Link to this definition">#</a></dt>
-<dd><p>Overloaded function.</p>
-<ol class="arabic simple">
-<li><p>pop(self: List[NeuralNetPy.Layer]) -&gt; NeuralNetPy.Layer</p></li>
-</ol>
-<p>Remove and return the last item</p>
-<ol class="arabic simple" start="2">
-<li><p>pop(self: List[NeuralNetPy.Layer], i: int) -&gt; NeuralNetPy.Layer</p></li>
-</ol>
-<p>Remove and return the item at index <code class="docutils literal notranslate"><span class="pre">i</span></code></p>
-</dd></dl>
-
-<dl class="py method">
-<dt class="sig sig-object py" id="NeuralNetPy.VectorLayer.remove">
-<span class="sig-name descname"><span class="pre">remove</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">List</span><span class="p"><span class="pre">[</span></span><a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><span class="pre">NeuralNetPy.Layer</span></a><span class="p"><span class="pre">]</span></span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.Layer" title="NeuralNetPy.Layer"><span class="pre">NeuralNetPy.Layer</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">None</span></span></span><a class="headerlink" href="#NeuralNetPy.VectorLayer.remove" title="Link to this definition">#</a></dt>
-<dd><p>Remove the first item from the list whose value is x. It is an error if there is no such item.</p>
 </dd></dl>
 
 </dd></dl>
@@ -848,7 +400,15 @@
       <footer>
         
         <div class="related-pages">
-          
+          <a class="next-page" href="submodules/callbacks.html">
+              <div class="page-info">
+                <div class="context">
+                  <span>Next</span>
+                </div>
+                <div class="title">Callbacks</div>
+              </div>
+              <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
+            </a>
           <a class="prev-page" href="usage.html">
               <svg class="furo-related-icon"><use href="#svg-arrow-right"></use></svg>
               <div class="page-info">
@@ -900,9 +460,6 @@
 <li><a class="reference internal" href="#NeuralNetPy.ACTIVATION.value"><code class="docutils literal notranslate"><span class="pre">ACTIVATION.value</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#NeuralNetPy.Adam"><code class="docutils literal notranslate"><span class="pre">Adam</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.Dense"><code class="docutils literal notranslate"><span class="pre">Dense</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.Flatten"><code class="docutils literal notranslate"><span class="pre">Flatten</span></code></a></li>
 <li><a class="reference internal" href="#NeuralNetPy.LOSS"><code class="docutils literal notranslate"><span class="pre">LOSS</span></code></a><ul>
 <li><a class="reference internal" href="#NeuralNetPy.LOSS.MCE"><code class="docutils literal notranslate"><span class="pre">LOSS.MCE</span></code></a></li>
 <li><a class="reference internal" href="#NeuralNetPy.LOSS.QUADRATIC"><code class="docutils literal notranslate"><span class="pre">LOSS.QUADRATIC</span></code></a></li>
@@ -910,62 +467,12 @@
 <li><a class="reference internal" href="#NeuralNetPy.LOSS.value"><code class="docutils literal notranslate"><span class="pre">LOSS.value</span></code></a></li>
 </ul>
 </li>
-<li><a class="reference internal" href="#NeuralNetPy.Layer"><code class="docutils literal notranslate"><span class="pre">Layer</span></code></a><ul>
-<li><a class="reference internal" href="#NeuralNetPy.Layer.getNumNeurons"><code class="docutils literal notranslate"><span class="pre">Layer.getNumNeurons()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NeuralNetPy.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a><ul>
-<li><a class="reference internal" href="#NeuralNetPy.Model.load_from_file"><code class="docutils literal notranslate"><span class="pre">Model.load_from_file()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.Model.save_to_file"><code class="docutils literal notranslate"><span class="pre">Model.save_to_file()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NeuralNetPy.Network"><code class="docutils literal notranslate"><span class="pre">Network</span></code></a><ul>
-<li><a class="reference internal" href="#NeuralNetPy.Network.addLayer"><code class="docutils literal notranslate"><span class="pre">Network.addLayer()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.Network.getLayer"><code class="docutils literal notranslate"><span class="pre">Network.getLayer()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.Network.getNumLayers"><code class="docutils literal notranslate"><span class="pre">Network.getNumLayers()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.Network.predict"><code class="docutils literal notranslate"><span class="pre">Network.predict()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.Network.setup"><code class="docutils literal notranslate"><span class="pre">Network.setup()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.Network.train"><code class="docutils literal notranslate"><span class="pre">Network.train()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NeuralNetPy.Optimizer"><code class="docutils literal notranslate"><span class="pre">Optimizer</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.SGD"><code class="docutils literal notranslate"><span class="pre">SGD</span></code></a></li>
 <li><a class="reference internal" href="#NeuralNetPy.TrainingData2dI"><code class="docutils literal notranslate"><span class="pre">TrainingData2dI</span></code></a><ul>
 <li><a class="reference internal" href="#NeuralNetPy.TrainingData2dI.batch"><code class="docutils literal notranslate"><span class="pre">TrainingData2dI.batch()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#NeuralNetPy.TrainingData3dI"><code class="docutils literal notranslate"><span class="pre">TrainingData3dI</span></code></a><ul>
 <li><a class="reference internal" href="#NeuralNetPy.TrainingData3dI.batch"><code class="docutils literal notranslate"><span class="pre">TrainingData3dI.batch()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorDense"><code class="docutils literal notranslate"><span class="pre">VectorDense</span></code></a><ul>
-<li><a class="reference internal" href="#NeuralNetPy.VectorDense.append"><code class="docutils literal notranslate"><span class="pre">VectorDense.append()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorDense.clear"><code class="docutils literal notranslate"><span class="pre">VectorDense.clear()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorDense.count"><code class="docutils literal notranslate"><span class="pre">VectorDense.count()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorDense.extend"><code class="docutils literal notranslate"><span class="pre">VectorDense.extend()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorDense.insert"><code class="docutils literal notranslate"><span class="pre">VectorDense.insert()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorDense.pop"><code class="docutils literal notranslate"><span class="pre">VectorDense.pop()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorDense.remove"><code class="docutils literal notranslate"><span class="pre">VectorDense.remove()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorFlatten"><code class="docutils literal notranslate"><span class="pre">VectorFlatten</span></code></a><ul>
-<li><a class="reference internal" href="#NeuralNetPy.VectorFlatten.append"><code class="docutils literal notranslate"><span class="pre">VectorFlatten.append()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorFlatten.clear"><code class="docutils literal notranslate"><span class="pre">VectorFlatten.clear()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorFlatten.count"><code class="docutils literal notranslate"><span class="pre">VectorFlatten.count()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorFlatten.extend"><code class="docutils literal notranslate"><span class="pre">VectorFlatten.extend()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorFlatten.insert"><code class="docutils literal notranslate"><span class="pre">VectorFlatten.insert()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorFlatten.pop"><code class="docutils literal notranslate"><span class="pre">VectorFlatten.pop()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorFlatten.remove"><code class="docutils literal notranslate"><span class="pre">VectorFlatten.remove()</span></code></a></li>
-</ul>
-</li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorLayer"><code class="docutils literal notranslate"><span class="pre">VectorLayer</span></code></a><ul>
-<li><a class="reference internal" href="#NeuralNetPy.VectorLayer.append"><code class="docutils literal notranslate"><span class="pre">VectorLayer.append()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorLayer.clear"><code class="docutils literal notranslate"><span class="pre">VectorLayer.clear()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorLayer.count"><code class="docutils literal notranslate"><span class="pre">VectorLayer.count()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorLayer.extend"><code class="docutils literal notranslate"><span class="pre">VectorLayer.extend()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorLayer.insert"><code class="docutils literal notranslate"><span class="pre">VectorLayer.insert()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorLayer.pop"><code class="docutils literal notranslate"><span class="pre">VectorLayer.pop()</span></code></a></li>
-<li><a class="reference internal" href="#NeuralNetPy.VectorLayer.remove"><code class="docutils literal notranslate"><span class="pre">VectorLayer.remove()</span></code></a></li>
 </ul>
 </li>
 <li><a class="reference internal" href="#NeuralNetPy.WEIGHT_INIT"><code class="docutils literal notranslate"><span class="pre">WEIGHT_INIT</span></code></a><ul>

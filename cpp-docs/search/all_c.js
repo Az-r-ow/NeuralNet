@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['predict_0',['predict',['../classNeuralNet_1_1Network.html#af25184f44a9b9d561edb99e48cd0ff77',1,'NeuralNet::Network::predict(std::vector&lt; std::vector&lt; double &gt; &gt; inputs)'],['../classNeuralNet_1_1Network.html#a5f13aaa01d86d8952910e92678c2b6f1',1,'NeuralNet::Network::predict(std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs)']]],
-  ['printoutputs_1',['printOutputs',['../classNeuralNet_1_1Layer.html#ab2b004ab5c1bb057f4ca568b55a47ef4',1,'NeuralNet::Layer']]],
-  ['printweights_2',['printWeights',['../classNeuralNet_1_1Layer.html#a7e41c0fcc3f9e8fdf2ce506547670846',1,'NeuralNet::Layer']]],
-  ['printwithlanda_3',['printWithLAndA',['../classNeuralNet_1_1TrainingGauge.html#a7ddb368eeecc30d88efbe51c0edd1885',1,'NeuralNet::TrainingGauge']]],
-  ['python_20bindings_4',['🔗 Python Bindings',['../index.html#autotoc_md7',1,'']]]
+  ['of_20weight_20initialization_20functions_0',['The importance of weight initialization functions',['../index.html#autotoc_md8',1,'']]],
+  ['onepochend_1',['onEpochEnd',['../classNeuralNet_1_1CSVLogger.html#abcfb0f73009d01dd41acdbfeb2d8a63c',1,'NeuralNet::CSVLogger::onEpochEnd()'],['../classNeuralNet_1_1EarlyStopping.html#a69831b59a613da0175947bcb78bab14a',1,'NeuralNet::EarlyStopping::onEpochEnd()']]],
+  ['ontrainbegin_2',['onTrainBegin',['../classNeuralNet_1_1CSVLogger.html#af19f366734488e734aea88de27d93c3b',1,'NeuralNet::CSVLogger']]],
+  ['ontrainend_3',['onTrainEnd',['../classNeuralNet_1_1CSVLogger.html#a4a4db2e14dd4334e0f955094a8d4327b',1,'NeuralNet::CSVLogger']]],
+  ['optimizer_4',['Optimizer',['../classNeuralNet_1_1Optimizer.html',1,'NeuralNet']]]
 ];

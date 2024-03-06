@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['mce_0',['MCE',['../classNeuralNet_1_1MCE.html',1,'NeuralNet']]],
-  ['model_1',['Model',['../classNeuralNet_1_1Model.html',1,'NeuralNet']]]
+  ['gauge_0',['Gauge',['../classNeuralNet_1_1Gauge.html',1,'NeuralNet']]]
 ];

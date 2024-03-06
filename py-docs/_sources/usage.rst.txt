@@ -18,7 +18,7 @@ Then you can import the module just like any other :
 
 .. code-block:: python
 
-  import NeuralNetPy as nnp
+  import NeuralNetPy as NNP
 
 .. Attention::
   The path to the build folder must be set before importing the module.

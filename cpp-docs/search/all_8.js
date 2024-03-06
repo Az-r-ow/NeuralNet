@@ -1,7 +1,9 @@
 var searchData=
 [
-  ['layer_0',['Layer',['../classNeuralNet_1_1Layer.html',1,'NeuralNet']]],
-  ['license_1',['⚖️ License',['../index.html#autotoc_md10',1,'']]],
-  ['load_5ffrom_5ffile_2',['load_from_file',['../classNeuralNet_1_1Model.html#ae2248524f9f678322c2686f7e4a52d50',1,'NeuralNet::Model']]],
-  ['loss_3',['Loss',['../classNeuralNet_1_1Loss.html',1,'NeuralNet']]]
+  ['importance_20of_20weight_20initialization_20functions_0',['The importance of weight initialization functions',['../index.html#autotoc_md8',1,'']]],
+  ['in_20cpp_20_3a_1',['NeuralNet in CPP :',['../index.html',1,'']]],
+  ['initialization_20functions_2',['The importance of weight initialization functions',['../index.html#autotoc_md8',1,'']]],
+  ['initializations_3',['Available Weight Initializations',['../index.html#autotoc_md9',1,'']]],
+  ['initialize_20submodules_4',['Initialize submodules',['../index.html#autotoc_md2',1,'']]],
+  ['insiderinit_5',['insiderInit',['../classNeuralNet_1_1Optimizer.html#a61752a075a25ee0c782b6d5d10d26d29',1,'NeuralNet::Optimizer']]]
 ];

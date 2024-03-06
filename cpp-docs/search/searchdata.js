@@ -1,8 +1,8 @@
 var indexSectionsWithContent =
 {
-  0: ":abcdfgilmnopqrstuw⚖📖🔗",
-  1: "adfglmnoqrst",
-  2: "abcdfgilpstu",
+  0: ":abcdefgilmnopqrstuw⚖📖🔗",
+  1: "acdefglmnoqrst",
+  2: "abcdefgilopstu",
   3: ":cin"
 };
 

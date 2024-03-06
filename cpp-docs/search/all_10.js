@@ -1,12 +1,12 @@
 var searchData=
 [
-  ['tensor_0',['Tensor',['../classNeuralNet_1_1Tensor.html',1,'NeuralNet']]],
-  ['tensor_3c_20i_20_3e_1',['Tensor&lt; I &gt;',['../classNeuralNet_1_1Tensor.html',1,'NeuralNet']]],
-  ['tensor_3c_20l_20_3e_2',['Tensor&lt; L &gt;',['../classNeuralNet_1_1Tensor.html',1,'NeuralNet']]],
-  ['tests_3',['Tests',['../index.html#autotoc_md4',1,'']]],
-  ['the_20code_4',['Build the code',['../index.html#autotoc_md3',1,'']]],
-  ['the_20importance_20of_20weight_20initialization_20functions_5',['The importance of weight initialization functions',['../index.html#autotoc_md8',1,'']]],
-  ['train_6',['train',['../classNeuralNet_1_1Network.html#ac733e5b1200daf25377aa2e1aa96a3f2',1,'NeuralNet::Network::train(std::vector&lt; std::vector&lt; double &gt; &gt; inputs, std::vector&lt; double &gt; labels, int epochs=1)'],['../classNeuralNet_1_1Network.html#a9763cca4445dac9177f61c46282716f7',1,'NeuralNet::Network::train(std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs, std::vector&lt; double &gt; labels, int epochs=1)'],['../classNeuralNet_1_1Network.html#af02fe05cffe41287815945181116d7b1',1,'NeuralNet::Network::train(TrainingData&lt; std::vector&lt; std::vector&lt; double &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1)'],['../classNeuralNet_1_1Network.html#a0393730f4ed84eec047659c3005ef47d',1,'NeuralNet::Network::train(TrainingData&lt; std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1)']]],
-  ['trainingdata_7',['TrainingData',['../classNeuralNet_1_1TrainingData.html',1,'NeuralNet::TrainingData&lt; I, L &gt;'],['../classNeuralNet_1_1TrainingData.html#ac2e6d5aa40e7271bb363704e656de0e0',1,'NeuralNet::TrainingData::TrainingData()']]],
-  ['traininggauge_8',['TrainingGauge',['../classNeuralNet_1_1TrainingGauge.html',1,'NeuralNet']]]
+  ['save_5fto_5ffile_0',['save_to_file',['../classNeuralNet_1_1Model.html#aa6bf6ea54a2427d3e328e3f4d8c7740f',1,'NeuralNet::Model']]],
+  ['setloss_1',['setLoss',['../classNeuralNet_1_1Network.html#a0b56dc077a428d0346ee0a4d9458081a',1,'NeuralNet::Network']]],
+  ['setoutputs_2',['setOutputs',['../classNeuralNet_1_1Layer.html#ae81f8d543115f7be083f2a57d9baa551',1,'NeuralNet::Layer']]],
+  ['setup_3',['setup',['../classNeuralNet_1_1Network.html#aa251283de01587f20f33bc76cc9fe77d',1,'NeuralNet::Network']]],
+  ['sgd_4',['SGD',['../classNeuralNet_1_1SGD.html',1,'NeuralNet']]],
+  ['sigmoid_5',['Sigmoid',['../classNeuralNet_1_1Sigmoid.html',1,'NeuralNet']]],
+  ['softmax_6',['Softmax',['../classNeuralNet_1_1Softmax.html',1,'NeuralNet']]],
+  ['specialize_3c_20archive_2c_20neuralnet_3a_3aflatten_2c_20cereal_3a_3aspecialization_3a_3amember_5fserialize_20_3e_7',['specialize&lt; Archive, NeuralNet::Flatten, cereal::specialization::member_serialize &gt;',['../structcereal_1_1specialize_3_01Archive_00_01NeuralNet_1_1Flatten_00_01cereal_1_1specialization_1_1member__serialize_01_4.html',1,'cereal']]],
+  ['submodules_8',['Initialize submodules',['../index.html#autotoc_md2',1,'']]]
 ];

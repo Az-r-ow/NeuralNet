@@ -112,18 +112,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0b699dafa398dc219a05d7bf62a8424d" id="r_a0b699dafa398dc219a05d7bf62a8424d"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b699dafa398dc219a05d7bf62a8424d">getNumLayers</a> () const</td></tr>
 <tr class="memdesc:a0b699dafa398dc219a05d7bf62a8424d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will get you the number of layers currently in the <a class="el" href="classNeuralNet_1_1Network.html">Network</a>.  <br /></td></tr>
 <tr class="separator:a0b699dafa398dc219a05d7bf62a8424d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac733e5b1200daf25377aa2e1aa96a3f2" id="r_ac733e5b1200daf25377aa2e1aa96a3f2"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac733e5b1200daf25377aa2e1aa96a3f2">train</a> (std::vector&lt; std::vector&lt; double &gt; &gt; inputs, std::vector&lt; double &gt; labels, int epochs=1)</td></tr>
-<tr class="memdesc:ac733e5b1200daf25377aa2e1aa96a3f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will Train the model with the given inputs and labels.  <br /></td></tr>
-<tr class="separator:ac733e5b1200daf25377aa2e1aa96a3f2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9763cca4445dac9177f61c46282716f7" id="r_a9763cca4445dac9177f61c46282716f7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9763cca4445dac9177f61c46282716f7">train</a> (std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs, std::vector&lt; double &gt; labels, int epochs=1)</td></tr>
-<tr class="memdesc:a9763cca4445dac9177f61c46282716f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will Train the model with the given inputs and labels.  <br /></td></tr>
-<tr class="separator:a9763cca4445dac9177f61c46282716f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af02fe05cffe41287815945181116d7b1" id="r_af02fe05cffe41287815945181116d7b1"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af02fe05cffe41287815945181116d7b1">train</a> (<a class="el" href="classNeuralNet_1_1TrainingData.html">TrainingData</a>&lt; std::vector&lt; std::vector&lt; double &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1)</td></tr>
-<tr class="memdesc:af02fe05cffe41287815945181116d7b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will train the model with the given <a class="el" href="classNeuralNet_1_1TrainingData.html">TrainingData</a>.  <br /></td></tr>
-<tr class="separator:af02fe05cffe41287815945181116d7b1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0393730f4ed84eec047659c3005ef47d" id="r_a0393730f4ed84eec047659c3005ef47d"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0393730f4ed84eec047659c3005ef47d">train</a> (<a class="el" href="classNeuralNet_1_1TrainingData.html">TrainingData</a>&lt; std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1)</td></tr>
-<tr class="memdesc:a0393730f4ed84eec047659c3005ef47d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will train the model with the given <a class="el" href="classNeuralNet_1_1TrainingData.html">TrainingData</a>.  <br /></td></tr>
-<tr class="separator:a0393730f4ed84eec047659c3005ef47d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0f7580020f24f6d38ac59612ae9b78f9" id="r_a0f7580020f24f6d38ac59612ae9b78f9"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0f7580020f24f6d38ac59612ae9b78f9">train</a> (std::vector&lt; std::vector&lt; double &gt; &gt; inputs, std::vector&lt; double &gt; labels, int epochs=1, const std::vector&lt; std::shared_ptr&lt; <a class="el" href="classNeuralNet_1_1Callback.html">Callback</a> &gt; &gt; callbacks={})</td></tr>
+<tr class="memdesc:a0f7580020f24f6d38ac59612ae9b78f9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will Train the model with the given inputs and labels.  <br /></td></tr>
+<tr class="separator:a0f7580020f24f6d38ac59612ae9b78f9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2f242569ec8168e635a1b27bd565ec96" id="r_a2f242569ec8168e635a1b27bd565ec96"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2f242569ec8168e635a1b27bd565ec96">train</a> (std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs, std::vector&lt; double &gt; labels, int epochs=1, const std::vector&lt; std::shared_ptr&lt; <a class="el" href="classNeuralNet_1_1Callback.html">Callback</a> &gt; &gt; callbacks={})</td></tr>
+<tr class="memdesc:a2f242569ec8168e635a1b27bd565ec96"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will Train the model with the given inputs and labels.  <br /></td></tr>
+<tr class="separator:a2f242569ec8168e635a1b27bd565ec96"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83b879ef03eeb8ac14e4ee92809c4657" id="r_a83b879ef03eeb8ac14e4ee92809c4657"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a83b879ef03eeb8ac14e4ee92809c4657">train</a> (<a class="el" href="classNeuralNet_1_1TrainingData.html">TrainingData</a>&lt; std::vector&lt; std::vector&lt; double &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1, const std::vector&lt; std::shared_ptr&lt; <a class="el" href="classNeuralNet_1_1Callback.html">Callback</a> &gt; &gt; callbacks={})</td></tr>
+<tr class="memdesc:a83b879ef03eeb8ac14e4ee92809c4657"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will train the model with the given <a class="el" href="classNeuralNet_1_1TrainingData.html">TrainingData</a>.  <br /></td></tr>
+<tr class="separator:a83b879ef03eeb8ac14e4ee92809c4657"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a900966df0974a18e3d21824b838cee53" id="r_a900966df0974a18e3d21824b838cee53"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a900966df0974a18e3d21824b838cee53">train</a> (<a class="el" href="classNeuralNet_1_1TrainingData.html">TrainingData</a>&lt; std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1, const std::vector&lt; std::shared_ptr&lt; <a class="el" href="classNeuralNet_1_1Callback.html">Callback</a> &gt; &gt; callbacks={})</td></tr>
+<tr class="memdesc:a900966df0974a18e3d21824b838cee53"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will train the model with the given <a class="el" href="classNeuralNet_1_1TrainingData.html">TrainingData</a>.  <br /></td></tr>
+<tr class="separator:a900966df0974a18e3d21824b838cee53"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af25184f44a9b9d561edb99e48cd0ff77" id="r_af25184f44a9b9d561edb99e48cd0ff77"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af25184f44a9b9d561edb99e48cd0ff77">predict</a> (std::vector&lt; std::vector&lt; double &gt; &gt; inputs)</td></tr>
 <tr class="memdesc:af25184f44a9b9d561edb99e48cd0ff77"><td class="mdescLeft">&#160;</td><td class="mdescRight">This model will try to make predictions based off the inputs passed.  <br /></td></tr>
 <tr class="separator:af25184f44a9b9d561edb99e48cd0ff77"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -353,8 +353,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> (
 
 </div>
 </div>
-<a id="ac733e5b1200daf25377aa2e1aa96a3f2" name="ac733e5b1200daf25377aa2e1aa96a3f2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac733e5b1200daf25377aa2e1aa96a3f2">&#9670;&#160;</a></span>train() <span class="overload">[1/4]</span></h2>
+<a id="a0f7580020f24f6d38ac59612ae9b78f9" name="a0f7580020f24f6d38ac59612ae9b78f9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0f7580020f24f6d38ac59612ae9b78f9">&#9670;&#160;</a></span>train() <span class="overload">[1/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -372,7 +372,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> (
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>epochs</em><span class="paramdefsep"> = </span><span class="paramdefval">1</span></span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>epochs</em><span class="paramdefsep"> = </span><span class="paramdefval">1</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="classNeuralNet_1_1Callback.html">Callback</a> &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>callbacks</em><span class="paramdefsep"> = </span><span class="paramdefval">{}</span></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -383,6 +388,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> (
     <tr><td class="paramname">inputs</td><td>The inputs that will be passed to the model </td></tr>
     <tr><td class="paramname">labels</td><td>The labels that represent the expected outputs of the model </td></tr>
     <tr><td class="paramname">epochs</td><td></td></tr>
+    <tr><td class="paramname">callbacks</td><td>A vector of <code><a class="el" href="classNeuralNet_1_1Callback.html">Callback</a></code> that will be called during training stages</td></tr>
   </table>
   </dd>
 </dl>
@@ -390,8 +396,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> (
 
 </div>
 </div>
-<a id="a9763cca4445dac9177f61c46282716f7" name="a9763cca4445dac9177f61c46282716f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9763cca4445dac9177f61c46282716f7">&#9670;&#160;</a></span>train() <span class="overload">[2/4]</span></h2>
+<a id="a2f242569ec8168e635a1b27bd565ec96" name="a2f242569ec8168e635a1b27bd565ec96"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f242569ec8168e635a1b27bd565ec96">&#9670;&#160;</a></span>train() <span class="overload">[2/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -409,7 +415,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> (
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>epochs</em><span class="paramdefsep"> = </span><span class="paramdefval">1</span></span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>epochs</em><span class="paramdefsep"> = </span><span class="paramdefval">1</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="classNeuralNet_1_1Callback.html">Callback</a> &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>callbacks</em><span class="paramdefsep"> = </span><span class="paramdefval">{}</span></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -420,6 +431,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> (
     <tr><td class="paramname">inputs</td><td>The inputs that will be passed to the model </td></tr>
     <tr><td class="paramname">labels</td><td>The labels that represent the expected outputs of the model </td></tr>
     <tr><td class="paramname">epochs</td><td></td></tr>
+    <tr><td class="paramname">callbacks</td><td>A vector of <code><a class="el" href="classNeuralNet_1_1Callback.html">Callback</a></code> that will be called during training stages</td></tr>
   </table>
   </dd>
 </dl>
@@ -427,8 +439,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> (
 
 </div>
 </div>
-<a id="af02fe05cffe41287815945181116d7b1" name="af02fe05cffe41287815945181116d7b1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af02fe05cffe41287815945181116d7b1">&#9670;&#160;</a></span>train() <span class="overload">[3/4]</span></h2>
+<a id="a83b879ef03eeb8ac14e4ee92809c4657" name="a83b879ef03eeb8ac14e4ee92809c4657"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a83b879ef03eeb8ac14e4ee92809c4657">&#9670;&#160;</a></span>train() <span class="overload">[3/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -441,7 +453,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> (
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>epochs</em><span class="paramdefsep"> = </span><span class="paramdefval">1</span></span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>epochs</em><span class="paramdefsep"> = </span><span class="paramdefval">1</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="classNeuralNet_1_1Callback.html">Callback</a> &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>callbacks</em><span class="paramdefsep"> = </span><span class="paramdefval">{}</span></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -451,6 +468,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> (
   <table class="params">
     <tr><td class="paramname">trainingData</td><td>the data passed through the <a class="el" href="classNeuralNet_1_1TrainingData.html">TrainingData</a> class </td></tr>
     <tr><td class="paramname">epochs</td><td></td></tr>
+    <tr><td class="paramname">callbacks</td><td>A vector of <code><a class="el" href="classNeuralNet_1_1Callback.html">Callback</a></code> that will be called during training stages</td></tr>
   </table>
   </dd>
 </dl>
@@ -458,8 +476,8 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> (
 
 </div>
 </div>
-<a id="a0393730f4ed84eec047659c3005ef47d" name="a0393730f4ed84eec047659c3005ef47d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0393730f4ed84eec047659c3005ef47d">&#9670;&#160;</a></span>train() <span class="overload">[4/4]</span></h2>
+<a id="a900966df0974a18e3d21824b838cee53" name="a900966df0974a18e3d21824b838cee53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a900966df0974a18e3d21824b838cee53">&#9670;&#160;</a></span>train() <span class="overload">[4/4]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -472,7 +490,12 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> (
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>epochs</em><span class="paramdefsep"> = </span><span class="paramdefval">1</span></span>&#160;)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>epochs</em><span class="paramdefsep"> = </span><span class="paramdefval">1</span>, </span></td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; std::shared_ptr&lt; <a class="el" href="classNeuralNet_1_1Callback.html">Callback</a> &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>callbacks</em><span class="paramdefsep"> = </span><span class="paramdefval">{}</span></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -482,6 +505,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> (
   <table class="params">
     <tr><td class="paramname">trainingData</td><td>the data passed through the <a class="el" href="classNeuralNet_1_1TrainingData.html">TrainingData</a> class </td></tr>
     <tr><td class="paramname">epochs</td><td></td></tr>
+    <tr><td class="paramname">callbacks</td><td>A vector of <code><a class="el" href="classNeuralNet_1_1Callback.html">Callback</a></code> that will be called during training stages</td></tr>
   </table>
   </dd>
 </dl>

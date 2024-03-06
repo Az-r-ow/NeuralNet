@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['quadratic_0',['Quadratic',['../classNeuralNet_1_1Quadratic.html',1,'NeuralNet']]]
+  ['network_0',['Network',['../classNeuralNet_1_1Network.html',1,'NeuralNet']]]
 ];

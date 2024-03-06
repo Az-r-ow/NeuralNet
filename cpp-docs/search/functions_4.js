@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['flatten_0',['Flatten',['../classNeuralNet_1_1Flatten.html#a58993cf3bbad91fb4f3dc4570278e82c',1,'NeuralNet::Flatten']]],
-  ['flatten_1',['flatten',['../classNeuralNet_1_1Flatten.html#a715f3cb27e42842f4ac5fd10c67f3028',1,'NeuralNet::Flatten']]]
+  ['earlystopping_0',['EarlyStopping',['../classNeuralNet_1_1EarlyStopping.html#ac3cf6d35c5de4ba607b9d1adac6a1946',1,'NeuralNet::EarlyStopping']]]
 ];

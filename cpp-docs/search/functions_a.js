@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['train_0',['train',['../classNeuralNet_1_1Network.html#ac733e5b1200daf25377aa2e1aa96a3f2',1,'NeuralNet::Network::train(std::vector&lt; std::vector&lt; double &gt; &gt; inputs, std::vector&lt; double &gt; labels, int epochs=1)'],['../classNeuralNet_1_1Network.html#a9763cca4445dac9177f61c46282716f7',1,'NeuralNet::Network::train(std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs, std::vector&lt; double &gt; labels, int epochs=1)'],['../classNeuralNet_1_1Network.html#af02fe05cffe41287815945181116d7b1',1,'NeuralNet::Network::train(TrainingData&lt; std::vector&lt; std::vector&lt; double &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1)'],['../classNeuralNet_1_1Network.html#a0393730f4ed84eec047659c3005ef47d',1,'NeuralNet::Network::train(TrainingData&lt; std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1)']]],
-  ['trainingdata_1',['TrainingData',['../classNeuralNet_1_1TrainingData.html#ac2e6d5aa40e7271bb363704e656de0e0',1,'NeuralNet::TrainingData']]]
+  ['predict_0',['predict',['../classNeuralNet_1_1Network.html#af25184f44a9b9d561edb99e48cd0ff77',1,'NeuralNet::Network::predict(std::vector&lt; std::vector&lt; double &gt; &gt; inputs)'],['../classNeuralNet_1_1Network.html#a5f13aaa01d86d8952910e92678c2b6f1',1,'NeuralNet::Network::predict(std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs)']]],
+  ['printoutputs_1',['printOutputs',['../classNeuralNet_1_1Layer.html#ab2b004ab5c1bb057f4ca568b55a47ef4',1,'NeuralNet::Layer']]],
+  ['printweights_2',['printWeights',['../classNeuralNet_1_1Layer.html#a7e41c0fcc3f9e8fdf2ce506547670846',1,'NeuralNet::Layer']]],
+  ['printwithlanda_3',['printWithLAndA',['../classNeuralNet_1_1TrainingGauge.html#a7ddb368eeecc30d88efbe51c0edd1885',1,'NeuralNet::TrainingGauge']]]
 ];

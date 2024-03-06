@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['of_20weight_20initialization_20functions_0',['The importance of weight initialization functions',['../index.html#autotoc_md8',1,'']]],
-  ['optimizer_1',['Optimizer',['../classNeuralNet_1_1Optimizer.html',1,'NeuralNet']]]
+  ['network_0',['Network',['../classNeuralNet_1_1Network.html',1,'NeuralNet']]],
+  ['neuralnet_20in_20cpp_20_3a_1',['NeuralNet in CPP :',['../index.html',1,'']]]
 ];
