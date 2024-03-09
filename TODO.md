@@ -5,6 +5,7 @@
 - [ ] Parallelize operations
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
 - [ ] Implement a dropout to avoid over-fitting the model
+- [ ] Add macos arm runner when available
 
 ## IN PROGRESS :
 

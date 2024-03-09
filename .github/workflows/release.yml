@@ -59,7 +59,7 @@ jobs:
           pattern: "so-file-*"
           path: ${{ env.BUILD_DIR }}
 
-      - run: ls ${{ env.BUILD_DIR }}
+      - run: ls -R ${{ env.BUILD_DIR }}
 
       - name: Create Release
         uses: marvinpinto/action-automatic-releases@latest
