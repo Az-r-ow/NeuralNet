@@ -56,7 +56,7 @@ jobs:
       - name: Download .so files
         uses: actions/download-artifact@v4
         with:
-          pattern: "so-file-*"
+          pattern: so-file-*
           path: ${{ env.BUILD_DIR }}
           merge_multiple: true
 
