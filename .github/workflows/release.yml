@@ -1,10 +1,9 @@
 name: Create Release
 
-# This is a test run
 on:
   push:
     tags:
-      - "v*.*.*"
+      - "v*"
 
 env:
   SCRIPTS_DIR: scripts
@@ -15,15 +14,15 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macOS-latest]
-        python-version: [3.9, 3.10]
+        os: [ubuntu-latest, macos-latest]
+        python-version: ["3.9", "3.10"]
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Initialize Submodules
-        run: source ${{ env.SCRIPTS_DIR }}/initialize_submodules.sh
+        run: source ${{ env.SCRIPTS_DIR }}/init_submodules.sh
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -43,25 +42,28 @@ jobs:
         with:
           name: so-file-${{ matrix.os }}-${{ matrix.python-version }}
           path: ${{ env.BUILD_DIR}}/*.so
+          if-no-files-found: error
+          retention-days: 1
 
   release:
     needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: Download .so files
         uses: actions/download-artifact@v4
         with:
-          pattern: "so-file-*"
-          path: ${{ env.BUILD_DIR}}
+          pattern: so-file-*
+          path: ${{ env.BUILD_DIR }}
+          merge-multiple: true
 
       - name: Create Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
-          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          repo_token: ${{ secrets.PAT }}
           automatic_release_tag: "latest"
-          prerelase: true
+          prerelease: true
           title: "Pre-release"
-          files: ${{ env.BUILD_DIR}}/*.so
+          files: ${{ env.BUILD_DIR }}/*
