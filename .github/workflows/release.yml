@@ -58,9 +58,7 @@ jobs:
         with:
           pattern: so-file-*
           path: ${{ env.BUILD_DIR }}
-          merge_multiple: true
-
-      - run: ls -R ${{ env.BUILD_DIR }}
+          merge-multiple: true
 
       - name: Create Release
         uses: marvinpinto/action-automatic-releases@latest
