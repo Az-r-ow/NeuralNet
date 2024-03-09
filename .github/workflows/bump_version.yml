@@ -12,13 +12,13 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-      - uses: actoins/checkout@v3
+      - uses: actions/checkout@v3
         with:
           ref: ${{ github.event.pull_request.merge_commit_sha}}
           fetch-depth: "0"
 
       - name: Bump Version and Push tag
-        uses: softprops/action-gh-release@1.67.0
+        uses: anothrNick/github-tag-action@1.67.0
         env:
           DEFAULT_BUMP: "none"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
