@@ -4,7 +4,7 @@ name: Create Release
 on:
   push:
     tags:
-      - "*"
+      - "v*"
 
 env:
   SCRIPTS_DIR: scripts
@@ -15,7 +15,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        os: [ubuntu-latest, macOS-latest]
+        os: [ubuntu-latest, macos-latest, macos-13-xlarge]
         python-version: ["3.9", "3.10"]
 
     steps:
@@ -43,6 +43,8 @@ jobs:
         with:
           name: so-file-${{ matrix.os }}-${{ matrix.python-version }}
           path: ${{ env.BUILD_DIR}}/*.so
+          if-no-files-found: error
+          retention-days: 1
 
   release:
     needs: build
@@ -55,13 +57,15 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           pattern: "so-file-*"
-          path: ${{ env.BUILD_DIR}}
+          path: ${{ env.BUILD_DIR }}
+
+      - run: ls ${{ env.BUILD_DIR }}
 
       - name: Create Release
         uses: marvinpinto/action-automatic-releases@latest
         with:
           repo_token: ${{ secrets.PAT }}
           automatic_release_tag: "latest"
-          prerelase: true
+          prerelease: true
           title: "Pre-release"
-          files: ${{ env.BUILD_DIR}}/*.so
+          files: ${{ env.BUILD_DIR }}/*.so
