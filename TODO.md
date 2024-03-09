@@ -1,9 +1,6 @@
 ## TODOS :
 
-- [ ] add automatic versioning in ci
-- [ ] Setup `clang-format`
 - [ ] CI versioning
-- [ ] Find out why the predictions are not accurate on my_samples
 - [ ] Implement batch norm
 - [ ] Parallelize operations
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
@@ -17,6 +14,7 @@
 
 ## DONE :
 
+- [x] Setup `clang-format`
 - [x] Implement early stopping
 - [x] Update README to include more information about the project
 - [x] Add CI / CD
