@@ -1,0 +1,67 @@
+name: Create Release
+
+# This is a test run
+on:
+  push:
+    tags:
+      - "v*.*.*"
+
+env:
+  SCRIPTS_DIR: scripts
+  BUILD_DIR: build
+
+jobs:
+  build:
+    runs-on: ${{ matrix.os }}
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest, macOS-latest]
+        python-version: [3.9, 3.10]
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Initialize Submodules
+        run: source ${{ env.SCRIPTS_DIR }}/initialize_submodules.sh
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Get CMake
+        uses: lukka/get-cmake@latest
+        with:
+          cmakeVersion: "~3.26.0"
+
+      - name: Build
+        run: source ${{ env.SCRIPTS_DIR }}/build_without_tests.sh
+
+      - name: Upload .so files
+        uses: actions/upload-artifact@v4
+        with:
+          name: so-file-${{ matrix.os }}-${{ matrix.python-version }}
+          path: ${{ env.BUILD_DIR}}/*.so
+
+  release:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Download .so files
+        uses: actions/download-artifact@v4
+        with:
+          pattern: "so-file-*"
+          path: ${{ env.BUILD_DIR}}
+
+      - name: Create Release
+        uses: marvinpinto/action-automatic-releases@latest
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          automatic_release_tag: "latest"
+          prerelase: true
+          title: "Pre-release"
+          files: ${{ env.BUILD_DIR}}/*.so
