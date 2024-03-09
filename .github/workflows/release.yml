@@ -4,7 +4,7 @@ name: Create Release
 on:
   push:
     tags:
-      - "v*.*.*"
+      - "*"
 
 env:
   SCRIPTS_DIR: scripts
