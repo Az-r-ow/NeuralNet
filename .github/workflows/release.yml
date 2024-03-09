@@ -68,4 +68,4 @@ jobs:
           automatic_release_tag: "latest"
           prerelease: true
           title: "Pre-release"
-          files: ${{ env.BUILD_DIR }}/*.so
+          files: ${{ env.BUILD_DIR }}/*
