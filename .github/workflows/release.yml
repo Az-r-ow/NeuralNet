@@ -21,11 +21,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.PAT }}
 
       - name: Initialize Submodules
-        run: source ${{ env.SCRIPTS_DIR }}/initialize_submodules.sh
+        run: source ${{ env.SCRIPTS_DIR }}/init_submodules.sh
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
