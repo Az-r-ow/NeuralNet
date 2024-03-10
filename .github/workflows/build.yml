@@ -23,7 +23,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Initialize Submodules
-        run: source ${{ env.SCRIPTS_DIR }}/init_submodules.sh
+        run: git submodule init && git submodule update
 
       - name: Build
         run: source ${{ env.SCRIPTS_DIR }}/build.sh
