@@ -22,7 +22,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Initialize Submodules
-        run: source ${{ env.SCRIPTS_DIR }}/init_submodules.sh
+        run: git submodule init && git submodule update
 
       - name: Set up Python ${{ matrix.python-version }}
         uses: actions/setup-python@v5
@@ -34,14 +34,29 @@ jobs:
         with:
           cmakeVersion: "~3.26.0"
 
-      - name: Build
+      - name: Build Unix
+        if: ${{ matrix.os != 'windows-latest'}}
         run: source ${{ env.SCRIPTS_DIR }}/build_without_tests.sh
 
-      - name: Upload .so files
+      - name: Build Windows
+        if: ${{ matrix.os == 'windows-latest' }}
+        run: .\${{ env.SCRIPTS_DIR }}\build_without_tests.bat
+
+      - name: Upload .so files Unix
+        if: ${{ matrix.os != 'windows-latest'}}
         uses: actions/upload-artifact@v4
         with:
-          name: so-file-${{ matrix.os }}-${{ matrix.python-version }}
+          name: dist-file-${{ matrix.os }}-${{ matrix.python-version }}
           path: ${{ env.BUILD_DIR}}/*.so
+          if-no-files-found: error
+          retention-days: 1
+
+      - name: Upload Windows DDL files Windows
+        if: ${{ matrix.os == 'windows-latest' }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: dist-file-${{ matrix.os }}-${{ matrix.python-version }}
+          path: ${{ env.BUILD_DIR}}\*.pyd
           if-no-files-found: error
           retention-days: 1
 
@@ -52,10 +67,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: Download .so files
+      - name: Download distribution files
         uses: actions/download-artifact@v4
         with:
-          pattern: so-file-*
+          pattern: dist-file-*
           path: ${{ env.BUILD_DIR }}
           merge-multiple: true
 
