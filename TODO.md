@@ -1,6 +1,5 @@
 ## TODOS :
 
-- [ ] CI versioning
 - [ ] Implement batch norm
 - [ ] Parallelize operations
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
@@ -9,6 +8,7 @@
 
 ## IN PROGRESS :
 
+- [ ] CI versioning
 - [ ] Python tests
 - [ ] Optimize `Catch2`'s build
 - [ ] Add gradient clipping
