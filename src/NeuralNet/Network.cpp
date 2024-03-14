@@ -57,6 +57,7 @@ double Network::train(std::vector<std::vector<double>> inputs,
   try {
     return onlineTraining(inputs, labels, epochs, callbacks);
   } catch (const std::exception &e) {
+    trainingCheckpoint("onTrainEnd", callbacks);
     std::cerr << "Training Interrupted : " << e.what() << '\n';
     return loss;
   }
@@ -68,6 +69,7 @@ double Network::train(std::vector<std::vector<std::vector<double>>> inputs,
   try {
     return onlineTraining(inputs, labels, epochs, callbacks);
   } catch (const std::exception &e) {
+    trainingCheckpoint("onTrainEnd", callbacks);  // wrap up callbacks
     std::cerr << "Training Interrupted : " << e.what() << '\n';
     return loss;
   }
@@ -81,6 +83,7 @@ double Network::train(
   try {
     return this->trainer(trainingData, epochs, callbacks);
   } catch (const std::exception &e) {
+    trainingCheckpoint("onTrainEnd", callbacks);
     std::cerr << "Training Interrupted : " << e.what() << '\n';
     return loss;
   }
@@ -94,6 +97,7 @@ double Network::train(
   try {
     return this->trainer(trainingData, epochs, callbacks);
   } catch (const std::exception &e) {
+    trainingCheckpoint("onTrainEnd", callbacks);
     std::cerr << "Training Interrupted : " << e.what() << '\n';
     return loss;
   }

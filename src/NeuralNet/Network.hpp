@@ -246,7 +246,8 @@ class Network : public Model {
    * @param epochs An integer specifying the number of times the training
    * algorithm should iterate over the dataset.
    * @param callbacks A vector of `Callback` that will be called during training
-   * stages     * @return A double value that represents the average loss of the
+   * stages
+   * @return A double value that represents the average loss of the
    * training process. This can be used to gauge the effectiveness of the
    * process.
    *
