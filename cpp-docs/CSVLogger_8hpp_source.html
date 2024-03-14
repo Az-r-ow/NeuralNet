@@ -106,10 +106,10 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  };</div>
 </div>
 <div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span> </div>
-<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keywordtype">void</span> onEpochBegin(Logs logs)<span class="keyword"> override</span>{};</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span>  <span class="keywordtype">void</span> onEpochBegin(std::unordered_map&lt;std::string, double&gt; logs)<span class="keyword"> override</span>{};</div>
 <div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span> </div>
 <div class="foldopen" id="foldopen00037" data-start="{" data-end="}">
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1CSVLogger.html#abcfb0f73009d01dd41acdbfeb2d8a63c">   37</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1CSVLogger.html#abcfb0f73009d01dd41acdbfeb2d8a63c">onEpochEnd</a>(Logs logs)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00037" name="l00037"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1CSVLogger.html#a536f19afd2db59a2c904426322d873eb">   37</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1CSVLogger.html#a536f19afd2db59a2c904426322d873eb">onEpochEnd</a>(std::unordered_map&lt;std::string, double&gt; logs)<span class="keyword"> override </span>{</div>
 <div class="line"><a id="l00038" name="l00038"></a><span class="lineno">   38</span>    std::vector&lt;double&gt; row;</div>
 <div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span> </div>
 <div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>    row.reserve(logs.size());</div>
@@ -123,7 +123,7 @@ $(function() { codefold.init(0); });
 </div>
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span> </div>
 <div class="foldopen" id="foldopen00056" data-start="{" data-end="}">
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1CSVLogger.html#af19f366734488e734aea88de27d93c3b">   56</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1CSVLogger.html#af19f366734488e734aea88de27d93c3b">onTrainBegin</a>(Logs logs)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1CSVLogger.html#a7137a898f7b223480f4eedfc5adc23b9">   56</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1CSVLogger.html#a7137a898f7b223480f4eedfc5adc23b9">onTrainBegin</a>(std::unordered_map&lt;std::string, double&gt; logs)<span class="keyword"> override </span>{</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="comment">// Initializing the headers with the logs keys</span></div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> <span class="keyword">auto</span> &amp;log : logs) {</div>
 <div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      headers.push_back(log.first);</div>
@@ -132,7 +132,7 @@ $(function() { codefold.init(0); });
 </div>
 <div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span> </div>
 <div class="foldopen" id="foldopen00070" data-start="{" data-end="}">
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1CSVLogger.html#a4a4db2e14dd4334e0f955094a8d4327b">   70</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1CSVLogger.html#a4a4db2e14dd4334e0f955094a8d4327b">onTrainEnd</a>(Logs logs)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1CSVLogger.html#a6a4ec36931caac77d0e7a57283319775">   70</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1CSVLogger.html#a6a4ec36931caac77d0e7a57283319775">onTrainEnd</a>(std::unordered_map&lt;std::string, double&gt; logs)<span class="keyword"> override </span>{</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    std::ofstream file(filename);</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span> (!file.is_open()) {</div>
@@ -148,8 +148,8 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  };</div>
 </div>
 <div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
-<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  <span class="keywordtype">void</span> onBatchBegin(Logs logs)<span class="keyword"> override</span>{};</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <span class="keywordtype">void</span> onBatchEnd(Logs logs)<span class="keyword"> override</span>{};</div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  <span class="keywordtype">void</span> onBatchBegin(std::unordered_map&lt;std::string, double&gt; logs)<span class="keyword"> override</span>{};</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>  <span class="keywordtype">void</span> onBatchEnd(std::unordered_map&lt;std::string, double&gt; logs)<span class="keyword"> override</span>{};</div>
 <div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>  std::string filename;</div>
@@ -181,11 +181,11 @@ $(function() { codefold.init(0); });
 </div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>}  <span class="comment">// namespace NeuralNet</span></div>
 <div class="ttc" id="aclassNeuralNet_1_1CSVLogger_html"><div class="ttname"><a href="classNeuralNet_1_1CSVLogger.html">NeuralNet::CSVLogger</a></div><div class="ttdef"><b>Definition</b> CSVLogger.hpp:12</div></div>
-<div class="ttc" id="aclassNeuralNet_1_1CSVLogger_html_a4a4db2e14dd4334e0f955094a8d4327b"><div class="ttname"><a href="classNeuralNet_1_1CSVLogger.html#a4a4db2e14dd4334e0f955094a8d4327b">NeuralNet::CSVLogger::onTrainEnd</a></div><div class="ttdeci">void onTrainEnd(Logs logs) override</div><div class="ttdoc">This method will be called at the end of the training.</div><div class="ttdef"><b>Definition</b> CSVLogger.hpp:70</div></div>
-<div class="ttc" id="aclassNeuralNet_1_1CSVLogger_html_abcfb0f73009d01dd41acdbfeb2d8a63c"><div class="ttname"><a href="classNeuralNet_1_1CSVLogger.html#abcfb0f73009d01dd41acdbfeb2d8a63c">NeuralNet::CSVLogger::onEpochEnd</a></div><div class="ttdeci">void onEpochEnd(Logs logs) override</div><div class="ttdoc">This method will be called at the end of each epoch.</div><div class="ttdef"><b>Definition</b> CSVLogger.hpp:37</div></div>
+<div class="ttc" id="aclassNeuralNet_1_1CSVLogger_html_a536f19afd2db59a2c904426322d873eb"><div class="ttname"><a href="classNeuralNet_1_1CSVLogger.html#a536f19afd2db59a2c904426322d873eb">NeuralNet::CSVLogger::onEpochEnd</a></div><div class="ttdeci">void onEpochEnd(std::unordered_map&lt; std::string, double &gt; logs) override</div><div class="ttdoc">This method will be called at the end of each epoch.</div><div class="ttdef"><b>Definition</b> CSVLogger.hpp:37</div></div>
+<div class="ttc" id="aclassNeuralNet_1_1CSVLogger_html_a6a4ec36931caac77d0e7a57283319775"><div class="ttname"><a href="classNeuralNet_1_1CSVLogger.html#a6a4ec36931caac77d0e7a57283319775">NeuralNet::CSVLogger::onTrainEnd</a></div><div class="ttdeci">void onTrainEnd(std::unordered_map&lt; std::string, double &gt; logs) override</div><div class="ttdoc">This method will be called at the end of the training.</div><div class="ttdef"><b>Definition</b> CSVLogger.hpp:70</div></div>
+<div class="ttc" id="aclassNeuralNet_1_1CSVLogger_html_a7137a898f7b223480f4eedfc5adc23b9"><div class="ttname"><a href="classNeuralNet_1_1CSVLogger.html#a7137a898f7b223480f4eedfc5adc23b9">NeuralNet::CSVLogger::onTrainBegin</a></div><div class="ttdeci">void onTrainBegin(std::unordered_map&lt; std::string, double &gt; logs) override</div><div class="ttdoc">This method will be called at the beginning of the training.</div><div class="ttdef"><b>Definition</b> CSVLogger.hpp:56</div></div>
 <div class="ttc" id="aclassNeuralNet_1_1CSVLogger_html_acd057de4056158dce67a1c3ec28cf689"><div class="ttname"><a href="classNeuralNet_1_1CSVLogger.html#acd057de4056158dce67a1c3ec28cf689">NeuralNet::CSVLogger::CSVLogger</a></div><div class="ttdeci">CSVLogger(const std::string &amp;filename, const std::string &amp;separator=&quot;,&quot;)</div><div class="ttdoc">CSVLogger is a Callback that streams epoch results to a csv file.</div><div class="ttdef"><b>Definition</b> CSVLogger.hpp:20</div></div>
-<div class="ttc" id="aclassNeuralNet_1_1CSVLogger_html_af19f366734488e734aea88de27d93c3b"><div class="ttname"><a href="classNeuralNet_1_1CSVLogger.html#af19f366734488e734aea88de27d93c3b">NeuralNet::CSVLogger::onTrainBegin</a></div><div class="ttdeci">void onTrainBegin(Logs logs) override</div><div class="ttdoc">This method will be called at the beginning of the training.</div><div class="ttdef"><b>Definition</b> CSVLogger.hpp:56</div></div>
-<div class="ttc" id="aclassNeuralNet_1_1Callback_html"><div class="ttname"><a href="classNeuralNet_1_1Callback.html">NeuralNet::Callback</a></div><div class="ttdef"><b>Definition</b> Callback.hpp:15</div></div>
+<div class="ttc" id="aclassNeuralNet_1_1Callback_html"><div class="ttname"><a href="classNeuralNet_1_1Callback.html">NeuralNet::Callback</a></div><div class="ttdef"><b>Definition</b> Callback.hpp:14</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
