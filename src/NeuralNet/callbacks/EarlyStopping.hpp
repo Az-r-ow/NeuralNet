@@ -30,7 +30,7 @@ class EarlyStopping : public Callback {
     this->patience = patience;
   };
 
-  void onEpochBegin(Logs logs) override{};
+  void onEpochBegin(std::unordered_map<std::string, double> logs) override{};
 
   /**
    * @brief This method will be called at the end of each epoch
@@ -43,7 +43,7 @@ class EarlyStopping : public Callback {
    * @warning The order of the logs should be the same as the order of the
    * metrics.
    */
-  void onEpochEnd(Logs logs) override {
+  void onEpochEnd(std::unordered_map<std::string, double> logs) override {
     auto it = logs.find(metric);
 
     if (it == logs.end()) throw std::invalid_argument("Metric not found");
@@ -63,10 +63,10 @@ class EarlyStopping : public Callback {
     if (patience < 0) throw std::runtime_error("Early stopping");
   };
 
-  void onTrainBegin(Logs logs) override{};
-  void onTrainEnd(Logs logs) override{};
-  void onBatchBegin(Logs logs) override{};
-  void onBatchEnd(Logs logs) override{};
+  void onTrainBegin(std::unordered_map<std::string, double> logs) override{};
+  void onTrainEnd(std::unordered_map<std::string, double> logs) override{};
+  void onBatchBegin(std::unordered_map<std::string, double> logs) override{};
+  void onBatchEnd(std::unordered_map<std::string, double> logs) override{};
 
   ~EarlyStopping() override = default;
 

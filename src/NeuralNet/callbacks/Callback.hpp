@@ -10,16 +10,15 @@
 #include <vector>
 
 namespace NeuralNet {
-using Logs = std::unordered_map<std::string, double>;
 
 class Callback {
  public:
-  virtual void onTrainBegin(Logs logs) = 0;
-  virtual void onTrainEnd(Logs logs) = 0;
-  virtual void onEpochBegin(Logs logs) = 0;
-  virtual void onEpochEnd(Logs logs) = 0;
-  virtual void onBatchBegin(Logs logs) = 0;
-  virtual void onBatchEnd(Logs logs) = 0;
+  virtual void onTrainBegin(std::unordered_map<std::string, double> logs) = 0;
+  virtual void onTrainEnd(std::unordered_map<std::string, double> logs) = 0;
+  virtual void onEpochBegin(std::unordered_map<std::string, double> logs) = 0;
+  virtual void onEpochEnd(std::unordered_map<std::string, double> logs) = 0;
+  virtual void onBatchBegin(std::unordered_map<std::string, double> logs) = 0;
+  virtual void onBatchEnd(std::unordered_map<std::string, double> logs) = 0;
 
   virtual ~Callback() = default;
 
@@ -37,26 +36,34 @@ class Callback {
    */
   template <typename T>
   static void callMethod(std::shared_ptr<T> callback,
-                         const std::string &methodName, Logs logs) {
-    static const std::unordered_map<std::string, std::function<void(T *, Logs)>>
+                         const std::string &methodName,
+                         std::unordered_map<std::string, double> logs) {
+    static const std::unordered_map<
+        std::string,
+        std::function<void(T *, std::unordered_map<std::string, double>)>>
         methods = {
             {"onTrainBegin",
-             [](T *callback, Logs logs) {
+             [](T *callback, std::unordered_map<std::string, double> logs) {
                return callback->onTrainBegin(logs);
              }},
             {"onTrainEnd",
-             [](T *callback, Logs logs) { return callback->onTrainEnd(logs); }},
+             [](T *callback, std::unordered_map<std::string, double> logs) {
+               return callback->onTrainEnd(logs);
+             }},
             {"onEpochBegin",
-             [](T *callback, Logs logs) {
+             [](T *callback, std::unordered_map<std::string, double> logs) {
                return callback->onEpochBegin(logs);
              }},
             {"onEpochEnd",
-             [](T *callback, Logs logs) { return callback->onEpochEnd(logs); }},
+             [](T *callback, std::unordered_map<std::string, double> logs) {
+               return callback->onEpochEnd(logs);
+             }},
             {"onBatchBegin",
-             [](T *callback, Logs logs) {
+             [](T *callback, std::unordered_map<std::string, double> logs) {
                return callback->onBatchBegin(logs);
              }},
-            {"onBatchEnd", [](T *callback, Logs logs) {
+            {"onBatchEnd",
+             [](T *callback, std::unordered_map<std::string, double> logs) {
                return callback->onBatchEnd(logs);
              }}};
 

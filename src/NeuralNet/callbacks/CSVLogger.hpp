@@ -24,7 +24,7 @@ class CSVLogger : public Callback {
     this->separator = separator;
   };
 
-  void onEpochBegin(Logs logs) override{};
+  void onEpochBegin(std::unordered_map<std::string, double> logs) override{};
 
   /**
    * @brief This method will be called at the end of each epoch
@@ -34,7 +34,7 @@ class CSVLogger : public Callback {
    *
    * @param logs The logs of the current epoch
    */
-  void onEpochEnd(Logs logs) override {
+  void onEpochEnd(std::unordered_map<std::string, double> logs) override {
     std::vector<double> row;
 
     row.reserve(logs.size());
@@ -53,7 +53,7 @@ class CSVLogger : public Callback {
    *
    * @param logs The logs of the current epoch
    */
-  void onTrainBegin(Logs logs) override {
+  void onTrainBegin(std::unordered_map<std::string, double> logs) override {
     // Initializing the headers with the logs keys
     for (const auto &log : logs) {
       headers.push_back(log.first);
@@ -67,7 +67,7 @@ class CSVLogger : public Callback {
    *
    * @param logs The logs of the current epoch
    */
-  void onTrainEnd(Logs logs) override {
+  void onTrainEnd(std::unordered_map<std::string, double> logs) override {
     std::ofstream file(filename);
 
     if (!file.is_open()) {
@@ -82,8 +82,8 @@ class CSVLogger : public Callback {
     file.close();
   };
 
-  void onBatchBegin(Logs logs) override{};
-  void onBatchEnd(Logs logs) override{};
+  void onBatchBegin(std::unordered_map<std::string, double> logs) override{};
+  void onBatchEnd(std::unordered_map<std::string, double> logs) override{};
 
  private:
   std::string filename;
