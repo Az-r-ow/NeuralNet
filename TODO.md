@@ -1,9 +1,10 @@
 ## TODOS :
 
+- [ ] Docker image for quick start
 - [ ] Implement batch norm
 - [ ] Parallelize operations
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
-- [ ] Implement a dropout to avoid over-fitting the model
+- [ ] Implement a dropout
 - [ ] Add macos arm runner when available
 
 ## IN PROGRESS :
