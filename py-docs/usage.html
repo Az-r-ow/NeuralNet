@@ -214,17 +214,26 @@
 <p>Requirements :
 - <cite>Docker</cite></p>
 <p>Start by creating the python image :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>python-neuralnet<span class="w"> </span>-f<span class="w"> </span>.devops/python.Dockerfile
+</pre></div>
+</div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>We’re assuming that you’re running the commands from the root of the project.
 Otherwise you’d have to adjust the paths accordingly.</p>
 </div>
 <p>Access the docker container which will act as your working environment :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>python-neuralnet
+</pre></div>
+</div>
 <p>To know if you’re in you should see a change in the cli’s prompt :</p>
-<div class="highlight-root&#64;ad245b0ff5c4:/app# notranslate"><div class="highlight"><pre><span></span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">root</span><span class="nd">@ad245b0ff5c4</span><span class="p">:</span><span class="o">/</span><span class="n">app</span><span class="c1">#</span>
 </pre></div>
 </div>
 <p>Now all you have to do is navigate to the python example project of your liking and run the scripts just like you would normally.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>examples/train-predict-MNIST<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python<span class="w"> </span>main.py
+</pre></div>
+</div>
 </section>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
