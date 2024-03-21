@@ -33,7 +33,7 @@ Now all you have to do is navigate to the python example project of your liking 
 
 .. code-block:: bash
 
-  cd examples/train-predict-MNIST && python main.py
+  cd examples/train-predict-MNIST && mkdir dataset && python main.py
 
 Installation
 ------------
