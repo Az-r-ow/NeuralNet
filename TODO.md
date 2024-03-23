@@ -1,6 +1,5 @@
 ## TODOS :
 
-- [ ] Docker image for quick start
 - [ ] Implement batch norm
 - [ ] Parallelize operations
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
@@ -9,13 +8,15 @@
 
 ## IN PROGRESS :
 
-- [ ] CI versioning
+- [ ] Interactive Python example
 - [ ] Python tests
 - [ ] Optimize `Catch2`'s build
 - [ ] Add gradient clipping
 
 ## DONE :
 
+- [x] CI versioning
+- [x] Docker image for quick start
 - [x] Setup `clang-format`
 - [x] Implement early stopping
 - [x] Update README to include more information about the project

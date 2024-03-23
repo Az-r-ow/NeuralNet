@@ -2,6 +2,12 @@ import numpy as np
 from halo import Halo
 import os, sys, cv2, requests
 
+SCALE = 1 # scale the ui
+
+# scale function
+def s(unit):
+  return unit * SCALE
+
 def load_data(path):
     """
     Load the data from path to .npz file 
@@ -64,7 +70,7 @@ def add_module_path_to_sys_path(file):
     # Getting the path to the .so file 
     script_dir = os.path.dirname(os.path.abspath(file))
 
-    so_dir = os.path.join(script_dir, "..", "..", "build")
+    so_dir = os.path.join(script_dir, "..", "..", "..", "build")
 
     # Adding the path to the build dir to the sys.path
     sys.path.append(so_dir)
@@ -132,3 +138,10 @@ def find_highest_indexes_in_matrix(matrix):
     highest_indexes = np.argmax(matrix, axis=1)
 
     return highest_indexes
+
+COLORS = {
+    "black": (0, 0, 0),
+    "white": (255, 255, 255),
+    "red": (255, 0, 0),
+    "green": (0, 128, 0)
+}

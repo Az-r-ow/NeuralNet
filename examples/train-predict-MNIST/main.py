@@ -8,7 +8,7 @@
 
 import sys, random
 import numpy as np
-from utils import *
+from helpers.utils import *
 from halo import Halo
 
 NUM_TRAININGS = 10000
