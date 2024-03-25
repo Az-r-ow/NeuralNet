@@ -55,6 +55,8 @@ def handle_mouse_motion(context):
       pygame.draw.circle(context["ui_elements"]["drawing_surface"], erasing_color, pos, s(10))
 
 def handle_quit(context):
+  # Remove sys.path modification
+  sys.path.remove(so_dir)
   pygame.quit()
   sys.exit()
   
