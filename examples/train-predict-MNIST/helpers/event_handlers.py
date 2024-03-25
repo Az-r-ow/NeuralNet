@@ -25,8 +25,10 @@ def handle_ui_button_pressed(context):
     normalized_image = normalize_img(numpy.transpose(grayscale_image))
     prediction = find_highest_indexes_in_matrix(network.predict([normalized_image]))
     context["ui_elements"]["guess_text"].append_html_text(f"I'm guessing : {prediction[0]}<br>")
+  if context["event"].ui_element == context["ui_elements"]["learn_button"]:
+    print("I'm learning")
   return
-  
+
 def handle_mouse_button_down(context):
   global drawing, erasing 
   if context["event"].button == 1: # Left click
