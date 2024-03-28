@@ -1,0 +1,7 @@
+services:
+  python-example:
+    build:
+      context: .
+      dockerfile: .devops/python.Dockerfile
+    volumes:
+      - ./examples/train-predict-MNIST:/app/examples/train-predict-MNIST

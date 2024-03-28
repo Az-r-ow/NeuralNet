@@ -4,7 +4,7 @@ COPY . /app
 
 WORKDIR /app
 
-RUN git submodule init && git submodule update
+RUN git init && git submodule init && git submodule update
 
 # Install cmake (necessary for building shared object)
 RUN apt-get update && \
