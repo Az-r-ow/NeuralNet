@@ -408,7 +408,7 @@
 <span class="sig-name descname"><span class="pre">train</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#NeuralNetPy.models.Network.train" title="Link to this definition">#</a></dt>
 <dd><p>Overloaded function.</p>
 <ol class="arabic">
-<li><p>train(self: NeuralNetPy.models.Network, arg0: List[List[float]], arg1: List[float], arg2: int, arg3: List[NeuralNetPy.callbacks.Callback]) -&gt; float</p>
+<li><p>train(self: NeuralNetPy.models.Network, inputs: List[List[float]], targets: List[float], epochs: int, callbacks: List[NeuralNetPy.callbacks.Callback] = [], progBar: bool = True) -&gt; float</p>
 <blockquote>
 <div><p>Train the network by passing it 2 dimensional inputs (vectors).</p>
 <dl class="field-list simple">
@@ -435,6 +435,12 @@
 </dd>
 <dt class="field-even">type callbacks<span class="colon">:</span></dt>
 <dd class="field-even"><p>list[Callback]</p>
+</dd>
+<dt class="field-odd">param progBar<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether or not to enable the progress bar</p>
+</dd>
+<dt class="field-even">type progBar<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
 </dd>
 <dt class="field-odd">return<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The average loss throughout the training</p>
@@ -466,7 +472,7 @@
 </div>
 </div></blockquote>
 </li>
-<li><p>train(self: NeuralNetPy.models.Network, arg0: List[List[List[float]]], arg1: List[float], arg2: int, arg3: List[NeuralNetPy.callbacks.Callback]) -&gt; float</p>
+<li><p>train(self: NeuralNetPy.models.Network, inputs: List[List[List[float]]], targets: List[float], epochs: int, callbacks: List[NeuralNetPy.callbacks.Callback] = [], progBar: bool = True) -&gt; float</p>
 <blockquote>
 <div><p>Train the network by passing it a list of 3 dimensional inputs (matrices).</p>
 <dl class="field-list simple">
@@ -494,6 +500,12 @@
 <dt class="field-even">type callbacks<span class="colon">:</span></dt>
 <dd class="field-even"><p>list[Callback]</p>
 </dd>
+<dt class="field-odd">param progBar<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether or not to enable the progress bar</p>
+</dd>
+<dt class="field-even">type progBar<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
 <dt class="field-odd">return<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The average loss throughout the training</p>
 </dd>
@@ -503,7 +515,7 @@
 </dl>
 </div></blockquote>
 </li>
-<li><p>train(self: NeuralNetPy.models.Network, arg0: NeuralNetPy.TrainingData2dI, arg1: int, arg2: List[NeuralNetPy.callbacks.Callback]) -&gt; float</p>
+<li><p>train(self: NeuralNetPy.models.Network, trainingData: NeuralNetPy.TrainingData2dI, epochs: int, callbacks: List[NeuralNetPy.callbacks.Callback] = [], progBar: bool = True) -&gt; float</p>
 <blockquote>
 <div><p>Train the network by passing it a <code class="docutils literal notranslate"><span class="pre">TrainingData2dI</span></code> object.</p>
 <dl class="field-list simple">
@@ -525,6 +537,12 @@
 <dt class="field-even">type callbacks<span class="colon">:</span></dt>
 <dd class="field-even"><p>list[Callback]</p>
 </dd>
+<dt class="field-odd">param progBar<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether or not to enable the progress bar</p>
+</dd>
+<dt class="field-even">type progBar<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
+</dd>
 <dt class="field-odd">return<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The average loss throughout the training</p>
 </dd>
@@ -534,7 +552,7 @@
 </dl>
 </div></blockquote>
 </li>
-<li><p>train(self: NeuralNetPy.models.Network, arg0: NeuralNetPy.TrainingData3dI, arg1: int, arg2: List[NeuralNetPy.callbacks.Callback]) -&gt; float</p>
+<li><p>train(self: NeuralNetPy.models.Network, trainingData: NeuralNetPy.TrainingData3dI, epochs: int, callbacks: List[NeuralNetPy.callbacks.Callback] = [], progBar: bool = True) -&gt; float</p>
 <blockquote>
 <div><p>Train the network by passing it a <code class="docutils literal notranslate"><span class="pre">TrainingData3dI</span></code> object.</p>
 <dl class="field-list simple">
@@ -555,6 +573,12 @@
 </dd>
 <dt class="field-even">type callbacks<span class="colon">:</span></dt>
 <dd class="field-even"><p>list[Callback]</p>
+</dd>
+<dt class="field-odd">param progBar<span class="colon">:</span></dt>
+<dd class="field-odd"><p>Whether or not to enable the progress bar</p>
+</dd>
+<dt class="field-even">type progBar<span class="colon">:</span></dt>
+<dd class="field-even"><p>bool</p>
 </dd>
 <dt class="field-odd">return<span class="colon">:</span></dt>
 <dd class="field-odd"><p>The average loss throughout the training</p>

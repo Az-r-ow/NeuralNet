@@ -7,7 +7,7 @@ Quick Start
 Requirements :
 - `Docker`
 
-Start by creating the python image : 
+Start by building the python image : 
 
 .. code-block:: bash
 
@@ -30,6 +30,7 @@ To know if you're in you should see a change in the cli's prompt :
   root@ad245b0ff5c4:/app#
 
 Now all you have to do is navigate to the python example project of your liking and run the scripts just like you would normally.
+The following example is for running the MNIST example which consists of downloading the handwritten digits dataset. Then, creating a Neural Network model and training it on the dataset.
 
 .. code-block:: bash
 
