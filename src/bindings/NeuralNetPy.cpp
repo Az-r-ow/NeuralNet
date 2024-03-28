@@ -417,6 +417,10 @@ PYBIND11_MODULE(NeuralNetPy, m) {
            static_cast<double (Network::*)(
                std::vector<std::vector<double>>, std::vector<double>, int,
                const std::vector<std::shared_ptr<Callback>>)>(&Network::train),
+               py::arg("inputs"),
+               py::arg("targets"),
+               py::arg("epochs"),
+               py::arg("callbacks") = std::vector<std::shared_ptr<Callback>>(),
            R"pbdoc(
             Train the network by passing it 2 dimensional inputs (vectors).
 
@@ -458,6 +462,10 @@ PYBIND11_MODULE(NeuralNetPy, m) {
                std::vector<std::vector<std::vector<double>>>,
                std::vector<double>, int,
                const std::vector<std::shared_ptr<Callback>>)>(&Network::train),
+               py::arg("inputs"),
+               py::arg("targets"),
+               py::arg("epochs"),
+               py::arg("callbacks") = std::vector<std::shared_ptr<Callback>>(),
            R"pbdoc(
         Train the network by passing it a list of 3 dimensional inputs (matrices).
 
