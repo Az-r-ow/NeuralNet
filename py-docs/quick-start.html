@@ -6,7 +6,7 @@
 <link rel="index" title="Index" href="genindex.html" /><link rel="search" title="Search" href="search.html" /><link rel="next" title="NeuralNetPy" href="NeuralNetPy.html" /><link rel="prev" title="Welcome to NeuralNetPy’s documentation!" href="index.html" />
 
     <!-- Generated with Sphinx 7.2.6 and Furo 2024.01.29 -->
-        <title>Usage - NeuralNetPy documentation</title>
+        <title>Quick Start - NeuralNetPy documentation</title>
       <link rel="stylesheet" type="text/css" href="_static/pygments.css?v=a746c00c" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo.css?v=135e06be" />
     <link rel="stylesheet" type="text/css" href="_static/styles/furo-extensions.css?v=36a5483c" />
@@ -156,7 +156,7 @@
 <div id="searchbox"></div><div class="sidebar-scroll"><div class="sidebar-tree">
   <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Usage</a></li>
+<li class="toctree-l1 current current-page"><a class="current reference internal" href="#">Quick Start</a></li>
 <li class="toctree-l1 has-children"><a class="reference internal" href="NeuralNetPy.html">NeuralNetPy</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" role="switch" type="checkbox"/><label for="toctree-checkbox-1"><div class="visually-hidden">Toggle navigation of NeuralNetPy</div><i class="icon"><svg><use href="#svg-arrow-right"></use></svg></i></label><ul>
 <li class="toctree-l2"><a class="reference internal" href="submodules/callbacks.html">Callbacks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="submodules/callbacks.html#NeuralNetPy.callbacks.CSVLogger"><code class="docutils literal notranslate"><span class="pre">CSVLogger</span></code></a></li>
@@ -207,23 +207,20 @@
           </label>
         </div>
         <article role="main">
-          <section id="usage">
-<h1>Usage<a class="headerlink" href="#usage" title="Link to this heading">#</a></h1>
-<section id="quick-start">
-<h2>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h2>
+          <section id="quick-start">
+<h1>Quick Start<a class="headerlink" href="#quick-start" title="Link to this heading">#</a></h1>
 <p>Requirements :
 - <cite>Docker</cite></p>
-<p>Start by building the python image :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>.<span class="w"> </span>-t<span class="w"> </span>python-neuralnet<span class="w"> </span>-f<span class="w"> </span>.devops/python.Dockerfile
+<p>Start by building the python image with <cite>docker compose</cite> :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>up
 </pre></div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>We’re assuming that you’re running the commands from the root of the project.
-Otherwise you’d have to adjust the paths accordingly.</p>
+<p>We’re assuming that you’re running the commands from the root of the project.</p>
 </div>
-<p>Access the docker container which will act as your working environment :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>python-neuralnet
+<p>Access the docker service which will act as your working environment :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker-compose<span class="w"> </span>run<span class="w"> </span>python-example
 </pre></div>
 </div>
 <p>To know if you’re in you should see a change in the cli’s prompt :</p>
@@ -235,7 +232,59 @@ The following example is for running the MNIST example which consists of downloa
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span><span class="w"> </span>examples/train-predict-MNIST<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>mkdir<span class="w"> </span>dataset<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>python<span class="w"> </span>main.py
 </pre></div>
 </div>
-</section>
+<p>If you look at the <cite>main.py</cite> file, you’ll notice :</p>
+<ul>
+<li><p>Fetching the MNIST handwritten digits dataset
+.. code-block:: python</p>
+<blockquote>
+<div><dl class="simple">
+<dt>if not file_exists(MNIST_DATASET_FILE):</dt><dd><p>print(“Mnist dataset not found”)
+get_MNIST_dataset(MNIST_DATASET_FILE)</p>
+</dd>
+</dl>
+</div></blockquote>
+</li>
+<li><p>Initiating and composing a Neural Network
+.. code-block:: python</p>
+<blockquote>
+<div><p>network = NNP.models.Network()</p>
+<p>network.addLayer(NNP.layers.Flatten((28, 28)))
+network.addLayer(NNP.layers.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+network.addLayer(NNP.layers.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))</p>
+<p># Setting up the networks parameters
+network.setup(optimizer=NNP.optimizers.Adam(0.01), loss=NNP.LOSS.MCE)</p>
+</div></blockquote>
+</li>
+<li><p>Formatting and normalizing the data and then storing it in a <cite>TrainingData3dI</cite> object. Which simplifies batching.
+.. code-block:: python</p>
+<blockquote>
+<div><p># preparing the training data
+f_x_train = [normalize_img(x) for x in x_train]</p>
+<p>trainingData = NNP.TrainingData3dI(f_x_train[:NUM_TRAININGS], y_train[:NUM_TRAININGS])</p>
+<p>trainingData.batch(128) # Creating batches of 128 inputs</p>
+</div></blockquote>
+</li>
+<li><p>Training the data</p></li>
+<li><p>Computing the accuracy</p></li>
+<li><p>Serializing the trained model and saving it in a binary format
+.. code-block:: python</p>
+<blockquote>
+<div><p># Saving the trained model in a bin file
+NNP.models.Model.save_to_file(‘./model.bin’, network)</p>
+<p>saved_model = NNP.models.Network()</p>
+</div></blockquote>
+</li>
+<li><p>Loading the model into a new instance of <cite>Network</cite> from the file again (simply for showcase)
+.. code-block:: python</p>
+<blockquote>
+<div><p># Saving the trained model in a bin file
+NNP.models.Model.save_to_file(‘./model.bin’, network)</p>
+<p>saved_model = NNP.models.Network()</p>
+<p>NNP.models.Model.load_from_file(‘./model.bin’, saved_model)</p>
+</div></blockquote>
+</li>
+<li><p>Testing the model with the <cite>test_data</cite></p></li>
+</ul>
 <section id="installation">
 <h2>Installation<a class="headerlink" href="#installation" title="Link to this heading">#</a></h2>
 <div class="admonition warning">
@@ -313,8 +362,7 @@ The following example is for running the MNIST example which consists of downloa
         <div class="toc-tree-container">
           <div class="toc-tree">
             <ul>
-<li><a class="reference internal" href="#">Usage</a><ul>
-<li><a class="reference internal" href="#quick-start">Quick Start</a></li>
+<li><a class="reference internal" href="#">Quick Start</a><ul>
 <li><a class="reference internal" href="#installation">Installation</a></li>
 </ul>
 </li>

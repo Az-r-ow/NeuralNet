@@ -10,7 +10,7 @@ Welcome to NeuralNetPy's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   usage
+   quick-start
    NeuralNetPy
 
 Indices and tables
