@@ -416,11 +416,11 @@ PYBIND11_MODULE(NeuralNetPy, m) {
       .def("train",
            static_cast<double (Network::*)(
                std::vector<std::vector<double>>, std::vector<double>, int,
-               const std::vector<std::shared_ptr<Callback>>)>(&Network::train),
-               py::arg("inputs"),
-               py::arg("targets"),
-               py::arg("epochs"),
-               py::arg("callbacks") = std::vector<std::shared_ptr<Callback>>(),
+               const std::vector<std::shared_ptr<Callback>>, bool)>(
+               &Network::train),
+           py::arg("inputs"), py::arg("targets"), py::arg("epochs"),
+           py::arg("callbacks") = std::vector<std::shared_ptr<Callback>>(),
+           py::arg("progBar") = true,
            R"pbdoc(
             Train the network by passing it 2 dimensional inputs (vectors).
 
@@ -432,6 +432,8 @@ PYBIND11_MODULE(NeuralNetPy, m) {
             :type epochs: int
             :param callbacks: A list of callbacks to be used during the training
             :type callbacks: list[Callback]
+            :param progBar: Whether or not to enable the progress bar
+            :type progBar: bool
             :return: The average loss throughout the training
             :rtype: float
 
@@ -461,11 +463,11 @@ PYBIND11_MODULE(NeuralNetPy, m) {
            static_cast<double (Network::*)(
                std::vector<std::vector<std::vector<double>>>,
                std::vector<double>, int,
-               const std::vector<std::shared_ptr<Callback>>)>(&Network::train),
-               py::arg("inputs"),
-               py::arg("targets"),
-               py::arg("epochs"),
-               py::arg("callbacks") = std::vector<std::shared_ptr<Callback>>(),
+               const std::vector<std::shared_ptr<Callback>>, bool)>(
+               &Network::train),
+           py::arg("inputs"), py::arg("targets"), py::arg("epochs"),
+           py::arg("callbacks") = std::vector<std::shared_ptr<Callback>>(),
+           py::arg("progBar") = true,
            R"pbdoc(
         Train the network by passing it a list of 3 dimensional inputs (matrices).
 
@@ -477,6 +479,8 @@ PYBIND11_MODULE(NeuralNetPy, m) {
         :type epochs: int
         :param callbacks: A list of callbacks to be used during the training
         :type callbacks: list[Callback]
+        :param progBar: Whether or not to enable the progress bar
+        :type progBar: bool
         :return: The average loss throughout the training
         :rtype: float
 
@@ -512,8 +516,11 @@ PYBIND11_MODULE(NeuralNetPy, m) {
            static_cast<double (Network::*)(
                TrainingData<std::vector<std::vector<double>>,
                             std::vector<double>>,
-               int, const std::vector<std::shared_ptr<Callback>>)>(
+               int, const std::vector<std::shared_ptr<Callback>>, bool)>(
                &Network::train),
+           py::arg("trainingData"), py::arg("epochs"),
+           py::arg("callbacks") = std::vector<std::shared_ptr<Callback>>(),
+           py::arg("progBar") = true,
            R"pbdoc(
         Train the network by passing it a ``TrainingData2dI`` object.
 
@@ -523,6 +530,8 @@ PYBIND11_MODULE(NeuralNetPy, m) {
         :type epochs: int
         :param callbacks: A list of callbacks to be used during the training
         :type callbacks: list[Callback]
+        :param progBar: Whether or not to enable the progress bar
+        :type progBar: bool
         :return: The average loss throughout the training
         :rtype: float
 
@@ -557,8 +566,11 @@ PYBIND11_MODULE(NeuralNetPy, m) {
            static_cast<double (Network::*)(
                TrainingData<std::vector<std::vector<std::vector<double>>>,
                             std::vector<double>>,
-               int, const std::vector<std::shared_ptr<Callback>>)>(
+               int, const std::vector<std::shared_ptr<Callback>>, bool)>(
                &Network::train),
+           py::arg("trainingData"), py::arg("epochs"),
+           py::arg("callbacks") = std::vector<std::shared_ptr<Callback>>(),
+           py::arg("progBar") = true,
            R"pbdoc(
         Train the network by passing it a ``TrainingData3dI`` object.
 
@@ -568,6 +580,8 @@ PYBIND11_MODULE(NeuralNetPy, m) {
         :type epochs: int
         :param callbacks: A list of callbacks to be used during the training
         :type callbacks: list[Callback]
+        :param progBar: Whether or not to enable the progress bar
+        :type progBar: bool
         :return: The average loss throughout the training
         :rtype: float
 
