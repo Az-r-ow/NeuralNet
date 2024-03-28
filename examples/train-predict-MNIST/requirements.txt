@@ -3,3 +3,5 @@ numpy
 matplotlib
 halo
 opencv-python
+pygame
+pygame_gui

@@ -85,12 +85,15 @@ class Network : public Model {
    * @param epochs
    * @param callbacks A vector of `Callback` that will be called during training
    * stages
+   * @param progBar Ouput a progress bar for the training process . Default:
+   * `true`
    *
    * @return The last training's loss
    */
   double train(std::vector<std::vector<double>> inputs,
                std::vector<double> labels, int epochs = 1,
-               const std::vector<std::shared_ptr<Callback>> callbacks = {});
+               const std::vector<std::shared_ptr<Callback>> callbacks = {},
+               bool progBar = true);
 
   /**
    * @brief This method will Train the model with the given inputs and labels
@@ -100,12 +103,15 @@ class Network : public Model {
    * @param epochs
    * @param callbacks A vector of `Callback` that will be called during training
    * stages
+   * @param progBar Whether to output a progress bar for the training process.
+   * Default: `true`
    *
    * @return The last training's loss
    */
   double train(std::vector<std::vector<std::vector<double>>> inputs,
                std::vector<double> labels, int epochs = 1,
-               const std::vector<std::shared_ptr<Callback>> callbacks = {});
+               const std::vector<std::shared_ptr<Callback>> callbacks = {},
+               bool progBar = true);
 
   /**
    * @brief This method will train the model with the given TrainingData
@@ -114,6 +120,8 @@ class Network : public Model {
    * @param epochs
    * @param callbacks A vector of `Callback` that will be called during training
    * stages
+   * @param progBar Whether to output a progress bar for the training
+   * process. Default: `true`
    *
    * @return The last training's loss
    */
@@ -121,7 +129,8 @@ class Network : public Model {
       TrainingData<std::vector<std::vector<double>>, std::vector<double>>
           trainingData,
       int epochs = 1,
-      const std::vector<std::shared_ptr<Callback>> callbacks = {});
+      const std::vector<std::shared_ptr<Callback>> callbacks = {},
+      bool progBar = true);
 
   /**
    * @brief This method will train the model with the given TrainingData
@@ -130,6 +139,8 @@ class Network : public Model {
    * @param epochs
    * @param callbacks A vector of `Callback` that will be called during training
    * stages
+   * @param progBar Whether to output a progress bar for the training process.
+   * Default: `true`
    *
    * @return The last training's loss
    */
@@ -137,7 +148,8 @@ class Network : public Model {
                             std::vector<double>>
                    trainingData,
                int epochs = 1,
-               const std::vector<std::shared_ptr<Callback>> callbacks = {});
+               const std::vector<std::shared_ptr<Callback>> callbacks = {},
+               bool progBar = true);
 
   /**
    * @brief This model will try to make predictions based off the inputs passed
@@ -167,7 +179,7 @@ class Network : public Model {
   double loss = 0, accuracy = 0;
   std::vector<std::shared_ptr<Layer>> layers;
   LOSS lossFunc;  // Storing the loss function for serialization
-  bool debugMode = false;
+  bool progBar = true;
   double (*cmpLoss)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
   Eigen::MatrixXd (*cmpLossGrad)(const Eigen::MatrixXd &,
                                  const Eigen::MatrixXd &);

@@ -8,7 +8,7 @@
 
 import sys, random
 import numpy as np
-from utils import *
+from helpers.utils import *
 from halo import Halo
 
 NUM_TRAININGS = 10000
@@ -35,16 +35,16 @@ network.addLayer(NNP.layers.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
 network.addLayer(NNP.layers.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
 # Setting up the networks parameters
-network.setup(optimizer=NNP.optimizers.Adam(0.02), loss=NNP.LOSS.MCE)
+network.setup(optimizer=NNP.optimizers.Adam(0.01), loss=NNP.LOSS.MCE)
 
-# # combining the data with the labels for later shuffling 
-# combined = list(zip(x_train, y_train))
+# combining the data with the labels for later shuffling 
+combined = list(zip(x_train, y_train))
 
-# # shuffling the combined list 
-# random.shuffle(combined)
+# shuffling the combined list 
+random.shuffle(combined)
 
-# # separating them 
-# x_train, y_train = zip(*combined)
+# separating them 
+x_train, y_train = zip(*combined)
 
 # preparing the training data
 f_x_train = [normalize_img(x) for x in x_train]
@@ -53,9 +53,9 @@ trainingData = NNP.TrainingData3dI(f_x_train[:NUM_TRAININGS], y_train[:NUM_TRAIN
 
 trainingData.batch(128)
 
-callbacks = [NNP.callbacks.EarlyStopping("LOSS", 0.1, 1), NNP.callbacks.CSVLogger("training.csv")]
+callbacks = [NNP.callbacks.EarlyStopping("LOSS", 0.01, 1), NNP.callbacks.CSVLogger("training.csv")]
 
-network.train(trainingData, 3, callbacks)
+network.train(trainingData, 5, callbacks)
 
 f_x_test = [normalize_img(x) for x in x_test]
 

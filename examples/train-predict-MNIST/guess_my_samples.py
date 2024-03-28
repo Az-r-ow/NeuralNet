@@ -3,7 +3,7 @@
   - Load the previously trained model
 """
 import sys, os , requests, random
-from utils import * 
+from helpers.utils import * 
 
 # Adding the module path to the sys path 
 so_dir = add_module_path_to_sys_path(__file__)
