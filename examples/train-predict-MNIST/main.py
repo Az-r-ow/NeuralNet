@@ -11,7 +11,7 @@ import numpy as np
 from helpers.utils import *
 from halo import Halo
 
-NUM_TRAININGS = 60000
+NUM_TRAININGS = 10000
 NUM_PREDICTIONS = 1000
 MNIST_DATASET_FILE = "./dataset/mnist.npz"
 
@@ -35,7 +35,7 @@ network.addLayer(NNP.layers.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
 network.addLayer(NNP.layers.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
 # Setting up the networks parameters
-network.setup(optimizer=NNP.optimizers.Adam(0.001), loss=NNP.LOSS.MCE)
+network.setup(optimizer=NNP.optimizers.Adam(0.01), loss=NNP.LOSS.MCE)
 
 # combining the data with the labels for later shuffling 
 combined = list(zip(x_train, y_train))

@@ -8,6 +8,8 @@
 
 ## IN PROGRESS :
 
+- [ ] Add default arguments to python bindings
+- [ ] Add verbose argument for progess bar
 - [ ] Interactive Python example
 - [ ] Python tests
 - [ ] Optimize `Catch2`'s build
