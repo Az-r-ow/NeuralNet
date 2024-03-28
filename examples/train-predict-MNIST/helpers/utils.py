@@ -2,6 +2,12 @@ import numpy as np
 from halo import Halo
 import os, sys, cv2, requests
 
+SCALE = 1 # scale the ui
+
+# scale function
+def s(unit):
+  return unit * SCALE
+
 def load_data(path):
     """
     Load the data from path to .npz file 
@@ -60,16 +66,33 @@ def get_accuracy(predictions, labels):
         correct += 1 if predictions[i] == labels[i]  else 0
     return (correct / n, n, correct)
 
-def add_module_path_to_sys_path(file):
-    # Getting the path to the .so file 
-    script_dir = os.path.dirname(os.path.abspath(file))
-
-    so_dir = os.path.join(script_dir, "..", "..", "build")
-
-    # Adding the path to the build dir to the sys.path
-    sys.path.append(so_dir)
+def add_module_path_to_sys_path(current_path):
+  """
+    Finds the 'build' folder located at the root of the project and adds it to syspath
     
-    return so_dir
+    Args: 
+      - current_path: str, the absolute path of the current file
+    
+    Returns:
+      - The absolute path of the 'build' folder if found, otherwise None.
+  """
+  # Getting the absolute path of the current file
+  current_path = os.path.abspath(current_path)
+  
+  # split the path into parts
+  path_parts = current_path.split(os.sep)
+  
+  # Iterate backwards to find the project root
+  for i in range(len(path_parts), 0, -1):
+    check_path = os.sep.join(path_parts[:i])
+    
+    # Check if build directory exists at the current level
+    build_path = os.path.join(check_path, 'build')
+    if os.path.isdir(build_path):
+      sys.path.append(build_path)
+      return build_path
+    
+  raise "Build folder not found"
 
 def file_exists(file_name):
     """
@@ -132,3 +155,10 @@ def find_highest_indexes_in_matrix(matrix):
     highest_indexes = np.argmax(matrix, axis=1)
 
     return highest_indexes
+
+COLORS = {
+    "black": (0, 0, 0),
+    "white": (255, 255, 255),
+    "red": (255, 0, 0),
+    "green": (0, 128, 0)
+}
