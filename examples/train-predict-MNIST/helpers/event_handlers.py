@@ -36,30 +36,26 @@ def get_drawing(context):
 
 
 def handle_ui_button_pressed(context):
-  if context["event"].ui_element == context["ui_elements"]["guess_button"]:
+  event, ui_elements = context["event"], context["ui_elements"]
+  
+  if event.ui_element == ui_elements["guess_button"]:
     normalized_image = get_drawing(context)
     prediction = find_highest_indexes_in_matrix(network.predict([normalized_image]))
-    context["ui_elements"]["guess_text"].append_html_text(f"I'm guessing : {prediction[0]}<br>")
+    ui_elements["guess_text"].append_html_text(f"I'm guessing : {prediction[0]}<br>")
 
-  if context["event"].ui_element == context["ui_elements"]["learn_button"]:
+  if event.ui_element == ui_elements["learn_button"]:
     normalized_image = get_drawing(context)
-    target = float(context["ui_elements"]["dropdown"].selected_option)
-    loss = network.train([normalized_image], [target], 1)
-    context["ui_elements"]["guess_text"].append_html_text(f"I'm learning that it's a {int(target)}<br>loss : {loss}")
+    target = float(ui_elements["dropdown"].selected_option)
+    loss = network.train([normalized_image], [target], 1, progBar=False)
+    ui_elements["guess_text"].append_html_text(f"I'm learning that it's a {int(target)}<br>loss : {loss}")
 
-  if context["event"].ui_element == context["ui_elements"]["dropdown"]:
-    print("dropdown has been clicked")
-
-  if context["event"].ui_element == context["ui_elements"]["clear_button"]:
-    context["ui_elements"]["drawing_surface"].fill(erasing_color)
-  return
+  if event.ui_element == ui_elements["clear_button"]:
+    ui_elements["drawing_surface"].fill(erasing_color)
 
 def handle_dropdown_change(context):
   event = context['event']
   if event.ui_element == context["ui_elements"]["dropdown"]:
     print("Selected Option ", event.text)
-    context["ui_elements"]["dropdown"].close = True
-  return
 
 def handle_mouse_button_down(context):
   global drawing, erasing 

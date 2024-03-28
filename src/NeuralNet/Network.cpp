@@ -53,7 +53,9 @@ std::shared_ptr<Layer> Network::getOutputLayer() const {
 
 double Network::train(std::vector<std::vector<double>> inputs,
                       std::vector<double> labels, int epochs,
-                      std::vector<std::shared_ptr<Callback>> callbacks) {
+                      std::vector<std::shared_ptr<Callback>> callbacks,
+                      bool progBar) {
+  this->progBar = progBar;
   try {
     return onlineTraining(inputs, labels, epochs, callbacks);
   } catch (const std::exception &e) {
@@ -65,7 +67,9 @@ double Network::train(std::vector<std::vector<double>> inputs,
 
 double Network::train(std::vector<std::vector<std::vector<double>>> inputs,
                       std::vector<double> labels, int epochs,
-                      std::vector<std::shared_ptr<Callback>> callbacks) {
+                      std::vector<std::shared_ptr<Callback>> callbacks,
+                      bool progBar) {
+  this->progBar = progBar;
   try {
     return onlineTraining(inputs, labels, epochs, callbacks);
   } catch (const std::exception &e) {
@@ -79,7 +83,9 @@ double Network::train(std::vector<std::vector<std::vector<double>>> inputs,
 double Network::train(
     TrainingData<std::vector<std::vector<double>>, std::vector<double>>
         trainingData,
-    int epochs, std::vector<std::shared_ptr<Callback>> callbacks) {
+    int epochs, std::vector<std::shared_ptr<Callback>> callbacks,
+    bool progBar) {
+  this->progBar = progBar;
   try {
     return this->trainer(trainingData, epochs, callbacks);
   } catch (const std::exception &e) {
@@ -93,7 +99,9 @@ double Network::train(
     TrainingData<std::vector<std::vector<std::vector<double>>>,
                  std::vector<double>>
         trainingData,
-    int epochs, std::vector<std::shared_ptr<Callback>> callbacks) {
+    int epochs, std::vector<std::shared_ptr<Callback>> callbacks,
+    bool progBar) {
+  this->progBar = progBar;
   try {
     return this->trainer(trainingData, epochs, callbacks);
   } catch (const std::exception &e) {
@@ -134,8 +142,9 @@ double Network::miniBatchTraining(
       accuracy = computeAccuracy(o, y);
       sumLoss += loss;
       this->backProp(o, y);
-      g.printWithLAndA(loss, accuracy);
       trainingCheckpoint("onBatchEnd", callbacks);
+      if (!this->progBar) continue;  // Skip when disabled
+      g.printWithLAndA(loss, accuracy);
     }
     trainingCheckpoint("onEpochEnd", callbacks);
   }
@@ -165,8 +174,9 @@ double Network::batchTraining(
     sumLoss += loss;
 
     this->backProp(o, y);
-    g.printWithLAndA(loss, accuracy);
     trainingCheckpoint("onEpochEnd", callbacks);
+    if (!this->progBar) continue;  // Skip when disabled
+    g.printWithLAndA(loss, accuracy);
   }
 
   trainingCheckpoint("onTrainEnd", callbacks);
@@ -195,6 +205,7 @@ double Network::onlineTraining(
       sumLoss += loss;
       tCorrect += computeAccuracy(o, y);
       this->backProp(o, y);
+      if (!this->progBar) continue;  // Skip when disabled
       tg.printWithLoss(loss);
     }
     // Computing metrics for the logs
