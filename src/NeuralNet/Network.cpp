@@ -18,8 +18,8 @@ void Network::addLayer(std::shared_ptr<Layer> &layer) {
   size_t numLayers = this->layers.size();
   // Init layer with right amount of weights
   if (numLayers > 0) {
-    std::shared_ptr<Layer> prevLayer = this->layers[this->layers.size() - 1];
-    layer->init(prevLayer->getNumNeurons());
+    const Layer &prevLayer = *this->layers[this->layers.size() - 1];
+    layer->init(prevLayer.getNumNeurons());
   }
 
   this->layers.push_back(layer);
@@ -272,24 +272,30 @@ void Network::backProp(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y) {
   int m = beta.rows();
 
   for (size_t i = this->layers.size(); --i > 0;) {
-    std::shared_ptr<Layer> cLayer = this->layers[i];
-    std::shared_ptr<Layer> nLayer = this->layers[i - 1];
+    Layer &cLayer = *this->layers[i];
+    Layer &nLayer = *this->layers[i - 1];
+
+    Dense *cDense = dynamic_cast<Dense *>(&cLayer);
+    Dense *nDense = dynamic_cast<Dense *>(&nLayer);
+
+    if (!cDense || !nDense) continue;
+
     // a'(L)
-    Eigen::MatrixXd aDer = cLayer->diff(cLayer->outputs);
+    Eigen::MatrixXd aDer = cDense->diff(cDense->outputs);
 
     // a(L - 1) . a'(L)
     Eigen::MatrixXd delta = beta.array() * aDer.array();
 
-    Eigen::MatrixXd gradW = (1.0 / m) * (nLayer->outputs.transpose() * delta);
+    Eigen::MatrixXd gradW = (1.0 / m) * (nDense->outputs.transpose() * delta);
 
     Eigen::MatrixXd gradB = (1.0 / m) * delta.colwise().sum();
 
     // dL/dA(l - 1)
-    beta = delta * cLayer->weights.transpose();
+    beta = delta * cDense->weights.transpose();
 
     // updating weights and biases
-    this->optimizer->updateWeights(cLayer->weights, gradW);
-    this->optimizer->updateBiases(cLayer->biases, gradB);
+    this->optimizer->updateWeights(cDense->weights, gradW);
+    this->optimizer->updateBiases(cDense->biases, gradB);
   }
 }
 

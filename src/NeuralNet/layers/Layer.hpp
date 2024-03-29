@@ -21,41 +21,13 @@
 
 namespace NeuralNet {
 // Should be updated when a new layer type is added
-enum class LayerType { DEFAULT, DENSE, FLATTEN };
+enum class LayerType { DEFAULT, DENSE, FLATTEN, DROPOUT };
 
 class Layer {
   friend class Network;
 
  public:
-  Layer(int nNeurons, ACTIVATION activation = ACTIVATION::SIGMOID,
-        WEIGHT_INIT weightInit = WEIGHT_INIT::RANDOM, int bias = 0) {
-    this->bias = bias;
-    this->nNeurons = nNeurons;
-    this->weightInit = weightInit;
-    this->activation = activation;
-    this->setActivation(activation);
-  };
-
-  /**
-   * @brief This method get the number of neurons actually in the layer
-   *
-   * @return The number of neurons in the layer
-   */
-  int getNumNeurons() const { return nNeurons; };
-
-  /**
-   * @brief This method gets the layer's weights
-   *
-   * @return an Eigen::MatrixXd  representing the weights
-   */
-  Eigen::MatrixXd getWeights() const { return weights; }
-
-  /**
-   * @brief Return the biases of the layer
-   *
-   * @return an Eigen::Matrix representing the biases
-   */
-  Eigen::MatrixXd getBiases() const { return biases; }
+  Layer(){};
 
   /**
    * @brief This method get the layer's outputs
@@ -65,12 +37,11 @@ class Layer {
   Eigen::MatrixXd getOutputs() const { return outputs; };
 
   /**
-   * @brief Method to print layer's weights
+   * @brief This method get the number of neurons actually in the layer
+   *
+   * @return The number of neurons in the layer
    */
-  void printWeights() {
-    std::cout << this->weights << "\n";
-    return;
-  };
+  int getNumNeurons() const { return nNeurons; };
 
   /**
    * @brief Method to print layer's outputs
@@ -80,62 +51,70 @@ class Layer {
     return;
   };
 
-  ~Layer(){};
+  /**
+   * Returns the layer type as string
+   *
+   * @note Returns "Base" for base class `Layer` and "Unknown" if no type
+   * specified.
+   */
+  const std::string typeStr() {
+    static const std::map<LayerType, std::string> typeMap = {
+        {LayerType::DEFAULT, "Base"},
+        {LayerType::DENSE, "Dense"},
+        {LayerType::FLATTEN, "Flatten"},
+        {LayerType::DROPOUT, "Dropout"}};
+
+    auto it = typeMap.find(this->type);
+    if (it != typeMap.end()) return it->second;
+
+    return "Unknown";
+  };
+
+  virtual ~Layer(){};
 
  private:
   // non-public serialization
   friend class cereal::access;
 
-  double bias;
-  Eigen::MatrixXd biases;
-  WEIGHT_INIT weightInit;
+  // Necessary function for serializing Layer
+  template <class Archive>
+  void save(Archive &archive) const {
+    archive(outputs, type);
+  };
+
+  template <class Archive>
+  void load(Archive &archive) {
+    archive(outputs, type);
+  }
+
+ protected:
+  int nNeurons;
   Eigen::MatrixXd outputs;
-  Eigen::MatrixXd weights;
-  Eigen::MatrixXd cachedWeights;
-  Eigen::MatrixXd cachedBiases;
-  ACTIVATION activation;
-  Eigen::MatrixXd (*activate)(const Eigen::MatrixXd &);
-  Eigen::MatrixXd (*diff)(const Eigen::MatrixXd &);
+  LayerType type = LayerType::DEFAULT;
 
   /**
-   * This function will be used to properly initialize the Layer
-   * It's being done like this because of the number of neurons of the previous
-   * layer that's unkown prior
+   * @param outputs the outputs to store
    */
-  void init(int numRows) {
-    // First and foremost init the biases and the outputs
-    double mean = 0, stddev = 0;
-    this->weights = Eigen::MatrixXd::Zero(numRows, nNeurons);
+  void setOutputs(Eigen::MatrixXd outputs)  // used for the Flatten Layer
+  {
+    this->outputs = outputs;
+  };
 
-    // This is going to be used for testing
-    if (this->weightInit == WEIGHT_INIT::CONSTANT) {
-      this->weights = Eigen::MatrixXd::Constant(numRows, nNeurons, 1);
-      return;
-    }
-
-    // calculate mean and stddev based on init algo
-    switch (this->weightInit) {
-      case WEIGHT_INIT::GLOROT:
-        // sqrt(fan_avg)
-        stddev = sqrt(static_cast<double>(2) / (numRows + nNeurons));
-        break;
-      case WEIGHT_INIT::HE:
-        // sqrt(2/fan_in)
-        stddev = sqrt(2.0 / numRows);
-        break;
-      case WEIGHT_INIT::LECUN:
-        // sqrt(1/fan_in)
-        stddev = sqrt(1.0 / numRows);
-        break;
-      default:
-        break;
-    }
-
-    // Init the weights
-    this->weightInit == WEIGHT_INIT::RANDOM
-        ? randomWeightInit(&(this->weights), -1, 1)
-        : randomDistMatrixInit(&(this->weights), mean, stddev);
-  }
+  /**
+   * @brief This method is used to set the outputs of the layer
+   *
+   * @param outputs A vector of doubles representing the outputs of the layer
+   *
+   * @return void
+   *
+   * @note This method is used for the input layer (the first layer of the
+   * network)
+   */
+  void setOutputs(std::vector<double> outputs) {
+    assert(outputs.size() == nNeurons);
+    this->outputs =
+        Eigen::MatrixXd ::Map(&outputs[0], this->getNumNeurons(), 1);
+  };
 
   /**
    * @brief This method is used to feed the inputs to the layer
@@ -155,18 +134,7 @@ class Layer {
    *
    * @return an Eigen::MatrixXd representing the outputs of the layer
    */
-  virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) {
-    // Layer is "input" layer
-    if (weights.rows() == 0) {
-      this->setOutputs(inputs);
-      return inputs;
-    }
-
-    inputs = inputs.cols() == weights.rows() ? inputs : inputs.transpose();
-
-    assert(inputs.cols() == weights.rows());
-    return this->computeOutputs(inputs);
-  };
+  virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) = 0;
 
   /**
    * @brief This method is used to feed the inputs to the layer
@@ -192,98 +160,18 @@ class Layer {
    * @return an Eigen::MatrixXd representing the computed outputs based on the
    * layer's parameters
    */
-  Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs) {
-    // Initialize the biases based on the input's size
-    if (biases.rows() == 0 && biases.cols() == 0) {
-      biases = Eigen::MatrixXd::Constant(1, nNeurons, bias);
-    }
-
-    // Weighted sum
-    Eigen::MatrixXd wSum = inputs * weights;
-
-    wSum.rowwise() += biases.row(0);
-
-    outputs = activate(wSum);
-    return outputs;
-  };
+  virtual Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs) = 0;
 
   /**
-   * @brief This method is used to set the activation function of the layer
-   *
-   * @param activation The activation function to be used
-   *
-   * @return void
+   * This function will be used to properly initialize the Layer
+   * It's being done like this because of the number of neurons of the previous
+   * layer that's unkown prior
    */
-  void setActivation(ACTIVATION activation) {
-    if (type == LayerType::FLATTEN) {
-      this->activate = Activation::activate;
-      this->diff = Activation::diff;
-      return;
-    }
+  virtual void init(int args){};
 
-    switch (activation) {
-      case ACTIVATION::SIGMOID:
-        this->activate = Sigmoid::activate;
-        this->diff = Sigmoid::diff;
-        break;
-      case ACTIVATION::RELU:
-        this->activate = Relu::activate;
-        this->diff = Relu::diff;
-        break;
-      case ACTIVATION::SOFTMAX:
-        this->activate = Softmax::activate;
-        this->diff = Softmax::diff;
-        break;
-      /**
-       * Add cases as I add activations
-       */
-      default:
-        assert(false && "Activation not defined");
-    }
-
-    return;
-  };
-
-  // Necessary function for serializing Layer
-  template <class Archive>
-  void save(Archive &archive) const {
-    archive(nNeurons, weights, outputs, biases, activation, type);
-  };
-
-  template <class Archive>
-  void load(Archive &archive) {
-    archive(nNeurons, weights, outputs, biases, activation, type);
-    setActivation(activation);
-  }
-
- protected:
-  Layer(){};  // Necessary for serialization
   Layer(std::tuple<int, int> inputShape)
       : nNeurons(std::get<0>(inputShape) *
                  std::get<1>(inputShape)){};  // Used in Flatten layer
-
-  int nNeurons;  // Number of neurons
-  LayerType type = LayerType::DEFAULT;
-
-  /**
-   * @brief This method is used to set the outputs of the layer
-   *
-   * @param outputs A vector of doubles representing the outputs of the layer
-   *
-   * @return void
-   *
-   * @note This method is used for the input layer (the first layer of the
-   * network)
-   */
-  void setOutputs(std::vector<double> outputs) {
-    assert(outputs.size() == nNeurons);
-    this->outputs =
-        Eigen::MatrixXd ::Map(&outputs[0], this->getNumNeurons(), 1);
-  };
-  void setOutputs(Eigen::MatrixXd outputs)  // used for the Flatten Layer
-  {
-    this->outputs = outputs;
-  };
 };
 }  // namespace NeuralNet
 

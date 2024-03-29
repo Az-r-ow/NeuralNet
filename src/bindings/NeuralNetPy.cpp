@@ -119,12 +119,7 @@ PYBIND11_MODULE(NeuralNetPy, m) {
           :recursive:
     )pbdoc");
 
-  py::class_<Layer, std::shared_ptr<Layer>>(layers_m, "Layer")
-      .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(), py::arg("nNeurons"),
-           py::arg("activationFunc") = ACTIVATION::SIGMOID,
-           py::arg("weightInit") = WEIGHT_INIT::RANDOM, py::arg("bias") = 0,
-           "This is a simple test")
-      .def("getNumNeurons", &Layer::getNumNeurons);
+  py::class_<Layer, std::shared_ptr<Layer>>(layers_m, "Layer");
 
   py::class_<Dense, Layer, std::shared_ptr<Dense>>(layers_m, "Dense", R"pbdoc(
         Initializes a ``Dense`` layer, which is the backbone of a Neural Network.
@@ -166,7 +161,6 @@ PYBIND11_MODULE(NeuralNetPy, m) {
       )pbdoc")
       .def(py::init<std::tuple<int, int>>(), py::arg("inputShape"));
 
-  py::bind_vector<std::vector<std::shared_ptr<Layer>>>(layers_m, "VectorLayer");
   py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(layers_m,
                                                          "VectorFlatten");
   py::bind_vector<std::vector<std::shared_ptr<Dense>>>(layers_m, "VectorDense");

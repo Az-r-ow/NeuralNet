@@ -3,20 +3,20 @@
 - [ ] Implement batch norm
 - [ ] Parallelize operations
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
-- [ ] Implement a dropout
 - [ ] Add macos arm runner when available
 
 ## IN PROGRESS :
 
+- [ ] Implement dropout
+- [ ] Add gradient clipping
 - [ ] Add default arguments to python bindings
-- [ ] Add verbose argument for progess bar
 - [ ] Interactive Python example
 - [ ] Python tests
 - [ ] Optimize `Catch2`'s build
-- [ ] Add gradient clipping
 
 ## DONE :
 
+- [x] Add verbose argument for progess bar
 - [x] CI versioning
 - [x] Docker image for quick start
 - [x] Setup `clang-format`

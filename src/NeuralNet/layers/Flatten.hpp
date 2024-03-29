@@ -69,9 +69,19 @@ class Flatten : public Layer {
     ar(cereal::base_class<Layer>(this), inputShape);
   }
 
-  void feedInputs(std::vector<std::vector<std::vector<double>>> inputs) {
+  void feedInputs(
+      std::vector<std::vector<std::vector<double>>> inputs) override {
     Eigen::MatrixXd flattenedInputs = this->flatten(inputs);
     this->setOutputs(flattenedInputs);
+  };
+
+  Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) override {
+    this->setOutputs(inputs);
+    return outputs;
+  };
+
+  Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs) override {
+    return outputs;
   }
 };
 }  // namespace NeuralNet
