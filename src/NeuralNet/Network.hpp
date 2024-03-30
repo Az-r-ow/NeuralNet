@@ -325,7 +325,8 @@ class Network : public Model {
    */
   Eigen::MatrixXd forwardProp(Eigen::MatrixXd &inputs);
 
-  Eigen::MatrixXd feedForward(Eigen::MatrixXd inputs, int startIdx = 0);
+  Eigen::MatrixXd feedForward(Eigen::MatrixXd inputs, int startIdx = 0,
+                              bool training = false);
 
   /**
    * @brief This method will compute the loss and backpropagate it through the

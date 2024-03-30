@@ -231,12 +231,15 @@ Eigen::MatrixXd Network::predict(
 /**
  * Forward propagation
  */
-Eigen::MatrixXd Network::feedForward(Eigen::MatrixXd inputs, int startIdx) {
+Eigen::MatrixXd Network::feedForward(Eigen::MatrixXd inputs, int startIdx,
+                                     bool training) {
   assert(startIdx < this->layers.size());
   Eigen::MatrixXd prevLayerOutputs = inputs;
 
   for (int l = startIdx; l < this->layers.size(); l++) {
-    prevLayerOutputs = this->layers[l]->feedInputs(prevLayerOutputs);
+    std::shared_ptr<Layer> cLayer = this->layers[l];
+    if (cLayer->trainingOnly && !training) continue;
+    prevLayerOutputs = cLayer->feedInputs(prevLayerOutputs);
   }
 
   return prevLayerOutputs;

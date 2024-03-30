@@ -1,11 +1,13 @@
 #include <Eigen/Dense>
 #include <Network.hpp>
 #include <catch2/catch_test_macros.hpp>
+#include <filesystem>
 #include <utils/Functions.hpp>
 
 #include "test-macros.hpp"
 
 using namespace NeuralNet;
+namespace fs = std::filesystem;
 
 SCENARIO("Basic small network functions") {
   GIVEN("A small neural network") {
@@ -22,6 +24,9 @@ SCENARIO("Basic small network functions") {
     sn.addLayer(layer1);
     sn.addLayer(layer2);
 
+    REQUIRE(sn.getLayer(0)->typeStr() == "Dense");
+    REQUIRE(sn.getLayer(1)->typeStr() == "Dense");
+
     WHEN("Network trained") {
       std::vector<std::vector<double>> trainingInputs = {{1.0, 1.0}};
       std::vector<double> label = {1};
@@ -31,7 +36,7 @@ SCENARIO("Basic small network functions") {
 
       Eigen::MatrixXd preTrainWeights = denseLayer->getWeights();
 
-      sn.train(trainingInputs, label);
+      sn.train(trainingInputs, label, 1, {}, false);
 
       CHECK(denseLayer->getWeights() != preTrainWeights);
     }
@@ -140,7 +145,7 @@ SCENARIO("The network remains the same when trained with null inputs") {
       Eigen::MatrixXd preTrainW2 = dl3->getWeights();
 
       // Training with null weights and inputs
-      network.train(nullInputs, labels, 2);
+      network.train(nullInputs, labels, 2, {}, false);
 
       THEN("Outputs are 0") {
         Eigen::MatrixXd outputs = network.getOutputLayer()->getOutputs();
@@ -174,6 +179,13 @@ SCENARIO("The network updates the weights and biases as pre-calculated") {
   network.addLayer(hiddenLayer);
   network.addLayer(outputLayer);
 
+  // Storing some information to test serialization
+  int networkNumLayers = network.getNumLayers();
+  std::vector<std::string> layerTypes;
+  for (int i = 0; i < networkNumLayers; i++) {
+    layerTypes.push_back(network.getLayer(i)->typeStr());
+  }
+
   std::vector<std::vector<double>> inputs = {
       {0.7, 0.3, 0.1}, {0.5, 0.3, 0.1}, {1.0, 0.2, 0.4}, {-0.5, 0.3, -1}};
 
@@ -193,7 +205,7 @@ SCENARIO("The network updates the weights and biases as pre-calculated") {
 
   trainData.batch(2);
 
-  network.train(trainData);
+  network.train(trainData, 1, {}, false);
 
   std::shared_ptr<Dense> oLayer =
       std::dynamic_pointer_cast<Dense>(network.getLayer(2));
@@ -235,5 +247,34 @@ SCENARIO("The network updates the weights and biases as pre-calculated") {
         0.96141716, 0.98396999, 0.42418036, 0.54310411;
 
     CHECK_MATRIX_APPROX(predictions, expectedPredictions, EPSILON);
+  }
+
+  AND_THEN("The model serializes correctly") {
+    std::string filename = "test_model.bin";
+    Model::save_to_file(filename, network);
+
+    CHECK(fs::exists(filename));
+
+    Network newNetwork;
+
+    Model::load_from_file(filename, newNetwork);
+
+    int newNetworkNumLayers = newNetwork.getNumLayers();
+
+    REQUIRE(newNetworkNumLayers == networkNumLayers);
+
+    for (int i = 0; i < newNetworkNumLayers; i++) {
+      REQUIRE(newNetwork.getLayer(i)->typeStr() == layerTypes[i]);
+    }
+
+    CHECK_MATRIX_APPROX(
+        std::dynamic_pointer_cast<Dense>(newNetwork.getLayer(1))->getWeights(),
+        EWHL, EPSILON);
+    CHECK_MATRIX_APPROX(
+        std::dynamic_pointer_cast<Dense>(newNetwork.getLayer(2))->getWeights(),
+        EWOL, EPSILON);
+
+    // When successful delete bin file
+    fs::remove(filename);
   }
 }

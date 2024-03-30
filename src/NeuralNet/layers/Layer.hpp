@@ -91,6 +91,7 @@ class Layer {
   int nNeurons;
   Eigen::MatrixXd outputs;
   LayerType type = LayerType::DEFAULT;
+  bool trainingOnly = false;
 
   /**
    * @param outputs the outputs to store

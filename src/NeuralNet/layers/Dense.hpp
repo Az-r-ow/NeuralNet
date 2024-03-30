@@ -202,12 +202,6 @@ class Dense : public Layer {
 };
 }  // namespace NeuralNet
 
-// namespace cereal {
-// template <class Archive>
-// struct specialize<Archive, NeuralNet::Dense,
-//                   cereal::specialization::member_serialize> {};
-// }  // namespace cereal
-
 CEREAL_REGISTER_TYPE(NeuralNet::Dense);
 
 CEREAL_REGISTER_POLYMORPHIC_RELATION(NeuralNet::Layer, NeuralNet::Dense);
