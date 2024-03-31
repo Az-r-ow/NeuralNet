@@ -52,6 +52,41 @@ class Layer {
   };
 
   /**
+   * @brief This method is used to feed the inputs to the layer
+   *
+   * @param inputs A vector of doubles representing the inputs (features)
+   *
+   * @return an Eigen::MatrixXd representing the outputs of the layer
+   */
+  virtual Eigen::MatrixXd feedInputs(std::vector<double> inputs) {
+    return this->feedInputs(Eigen::MatrixXd::Map(&inputs[0], inputs.size(), 1));
+  };
+
+  /**
+   * @brief This method is used to feed the inputs to the layer
+   *
+   * @param inputs An Eigen::MatrixXd representing the inputs (features)
+   *
+   * @return an Eigen::MatrixXd representing the outputs of the layer
+   */
+  virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) = 0;
+
+  /**
+   * @brief This method is used to feed the inputs to the layer
+   *
+   * @param inputs A vector of vectors of doubles representing the inputs
+   * (features)
+   *
+   * @return void
+   */
+  virtual void feedInputs(
+      std::vector<std::vector<std::vector<double>>> inputs) {
+    assert(false &&
+           "Cannot feed 3d vectors, a Flatten layer could do it though");
+    return;
+  };
+
+  /**
    * Returns the layer type as string
    *
    * @note Returns "Base" for base class `Layer` and "Unknown" if no type
@@ -91,7 +126,7 @@ class Layer {
   int nNeurons;
   Eigen::MatrixXd outputs;
   LayerType type = LayerType::DEFAULT;
-  bool trainingOnly = false;
+  bool trainingOnly = false;  // If true skip during inferences
 
   /**
    * @param outputs the outputs to store
@@ -115,41 +150,6 @@ class Layer {
     assert(outputs.size() == nNeurons);
     this->outputs =
         Eigen::MatrixXd ::Map(&outputs[0], this->getNumNeurons(), 1);
-  };
-
-  /**
-   * @brief This method is used to feed the inputs to the layer
-   *
-   * @param inputs A vector of doubles representing the inputs (features)
-   *
-   * @return an Eigen::MatrixXd representing the outputs of the layer
-   */
-  virtual Eigen::MatrixXd feedInputs(std::vector<double> inputs) {
-    return this->feedInputs(Eigen::MatrixXd::Map(&inputs[0], inputs.size(), 1));
-  };
-
-  /**
-   * @brief This method is used to feed the inputs to the layer
-   *
-   * @param inputs An Eigen::MatrixXd representing the inputs (features)
-   *
-   * @return an Eigen::MatrixXd representing the outputs of the layer
-   */
-  virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) = 0;
-
-  /**
-   * @brief This method is used to feed the inputs to the layer
-   *
-   * @param inputs A vector of vectors of doubles representing the inputs
-   * (features)
-   *
-   * @return void
-   */
-  virtual void feedInputs(
-      std::vector<std::vector<std::vector<double>>> inputs) {
-    assert(false &&
-           "Cannot feed 3d vectors, a Flatten layer could do it though");
-    return;
   };
 
   /**

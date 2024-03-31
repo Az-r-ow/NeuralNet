@@ -49,6 +49,26 @@ class Dense : public Layer {
     return;
   };
 
+  /**
+   * @brief This method is used to feed the inputs to the layer
+   *
+   * @param inputs An Eigen::MatrixXd representing the inputs (features)
+   *
+   * @return an Eigen::MatrixXd representing the outputs of the layer
+   */
+  virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) override {
+    // Dense layer positioned as input layer
+    if (weights.rows() == 0 && weights.cols() == 0) {
+      setOutputs(inputs);
+      return inputs;
+    }
+
+    inputs = inputs.cols() == weights.rows() ? inputs : inputs.transpose();
+
+    assert(inputs.cols() == weights.rows());
+    return this->computeOutputs(inputs);
+  };
+
   ~Dense(){};
 
  private:
@@ -116,26 +136,6 @@ class Dense : public Layer {
         ? randomWeightInit(&(this->weights), -1, 1)
         : randomDistMatrixInit(&(this->weights), mean, stddev);
   }
-
-  /**
-   * @brief This method is used to feed the inputs to the layer
-   *
-   * @param inputs An Eigen::MatrixXd representing the inputs (features)
-   *
-   * @return an Eigen::MatrixXd representing the outputs of the layer
-   */
-  virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) override {
-    // Dense layer positioned as input layer
-    if (weights.rows() == 0 && weights.cols() == 0) {
-      setOutputs(inputs);
-      return inputs;
-    }
-
-    inputs = inputs.cols() == weights.rows() ? inputs : inputs.transpose();
-
-    assert(inputs.cols() == weights.rows());
-    return this->computeOutputs(inputs);
-  };
 
   /**
    * @brief This method is used to feed the inputs to the layer
