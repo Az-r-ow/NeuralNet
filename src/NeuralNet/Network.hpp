@@ -5,6 +5,7 @@
 #include <cereal/types/vector.hpp>
 #include <cstdlib>
 #include <memory>
+#include <variant>
 #include <vector>
 
 #include "Model.hpp"
@@ -12,6 +13,7 @@
 #include "data/Tensor.hpp"
 #include "data/TrainingData.hpp"
 #include "layers/Dense.hpp"
+#include "layers/Dropout.hpp"
 #include "layers/Flatten.hpp"
 #include "layers/Layer.hpp"
 #include "losses/losses.hpp"
@@ -178,7 +180,8 @@ class Network : public Model {
   int cEpoch = 0;  // Current epoch
   double loss = 0, accuracy = 0;
   std::vector<std::shared_ptr<Layer>> layers;
-  LOSS lossFunc;  // Storing the loss function for serialization
+  LOSS lossFunc =
+      LOSS::QUADRATIC;  // Storing the loss function for serialization
   bool progBar = true;
   double (*cmpLoss)(const Eigen::MatrixXd &, const Eigen::MatrixXd &);
   Eigen::MatrixXd (*cmpLossGrad)(const Eigen::MatrixXd &,
@@ -303,7 +306,8 @@ class Network : public Model {
    * @return The output of the network
    */
   Eigen::MatrixXd forwardProp(
-      std::vector<std::vector<std::vector<double>>> &inputs);
+      std::vector<std::vector<std::vector<double>>> &inputs,
+      bool training = false);
 
   /**
    * @brief This method will pass the inputs through the network and return an
@@ -313,7 +317,8 @@ class Network : public Model {
    *
    * @return The output of the network
    */
-  Eigen::MatrixXd forwardProp(std::vector<std::vector<double>> &inputs);
+  Eigen::MatrixXd forwardProp(std::vector<std::vector<double>> &inputs,
+                              bool training = false);
 
   /**
    * @brief This method will pass the inputs through the network and return an
@@ -323,7 +328,7 @@ class Network : public Model {
    *
    * @return The output of the network
    */
-  Eigen::MatrixXd forwardProp(Eigen::MatrixXd &inputs);
+  Eigen::MatrixXd forwardProp(Eigen::MatrixXd &inputs, bool training = false);
 
   Eigen::MatrixXd feedForward(Eigen::MatrixXd inputs, int startIdx = 0,
                               bool training = false);

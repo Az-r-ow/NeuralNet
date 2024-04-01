@@ -143,7 +143,24 @@ PYBIND11_MODULE(NeuralNetPy, m) {
       )pbdoc")
       .def(py::init<int, ACTIVATION, WEIGHT_INIT, int>(), py::arg("nNeurons"),
            py::arg("activationFunc") = ACTIVATION::SIGMOID,
-           py::arg("weightInit") = WEIGHT_INIT::RANDOM, py::arg("bias") = 0);
+           py::arg("weightInit") = WEIGHT_INIT::RANDOM, py::arg("bias") = 0)
+      .def("typeStr", &Flatten::typeStr, R"pbdoc(
+        Returns the type of the layer.
+      )pbdoc");
+
+  py::class_<Dropout, Layer, std::shared_ptr<Dropout>>(layers_m, "Dropout",
+                                                       R"pbdoc(
+    Initializes a ``Dropout`` layer, it's a layer that simply applies a dropout to the input.
+
+    :param rate: A float between 0 and 1. It represents the fraction of the inputs to drop.
+    :type rate: float32
+    :param seed: An integer used as random seed. If not provided a random seed will be generated.
+    :type seed: int
+  )pbdoc")
+      .def(py::init<float, int>(), py::arg("rate"), py::arg("seed") = 0)
+      .def("typeStr", &Flatten::typeStr, R"pbdoc(
+        Returns the type of the layer.
+      )pbdoc");
 
   py::class_<Flatten, Layer, std::shared_ptr<Flatten>>(layers_m, "Flatten",
                                                        R"pbdoc(
@@ -159,11 +176,16 @@ PYBIND11_MODULE(NeuralNetPy, m) {
 
                 layer = NNP.layers.Flatten((3, 3))
       )pbdoc")
-      .def(py::init<std::tuple<int, int>>(), py::arg("inputShape"));
+      .def(py::init<std::tuple<int, int>>(), py::arg("inputShape"))
+      .def("typeStr", &Flatten::typeStr, R"pbdoc(
+        Returns the type of the layer.
+      )pbdoc");
 
   py::bind_vector<std::vector<std::shared_ptr<Flatten>>>(layers_m,
                                                          "VectorFlatten");
   py::bind_vector<std::vector<std::shared_ptr<Dense>>>(layers_m, "VectorDense");
+  py::bind_vector<std::vector<std::shared_ptr<Dropout>>>(layers_m,
+                                                         "VectorDropout");
 
   py::module callbacks_m = m.def_submodule("callbacks", R"pbdoc(
       Callbacks

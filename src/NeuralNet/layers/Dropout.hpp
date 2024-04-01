@@ -16,9 +16,14 @@
 namespace NeuralNet {
 class Dropout : public Layer {
  public:
-  Dropout(double rate, unsigned int seed = 0) : rate(rate), seed(seed) {
+  float rate, scaleRate;
+  unsigned int seed;
+
+  Dropout(float rate, unsigned int seed = 0) : rate(rate), seed(seed) {
     assert(rate < 1 && rate > 0);
+    this->type = LayerType::DROPOUT;
     this->trainingOnly = true;  // Training only layer
+    this->scaleRate = 1 / rate;
   };
 
   /**
@@ -36,8 +41,7 @@ class Dropout : public Layer {
   // non-public serialization
   friend class cereal::access;
 
-  double rate;
-  unsigned int seed;
+  Dropout(){};  // Necessary for serialization
 
   template <class Archive>
   void serialize(Archive& ar) {
@@ -56,6 +60,11 @@ class Dropout : public Layer {
   };
 
  protected:
+  /**
+   * @param numNeurons Number of neurons of the previous layers
+   */
+  void init(int numNeurons) override { this->nNeurons = numNeurons; };
+
   /**
    * @brief Drop some of the inputs randomly at the given rate
    *
@@ -90,16 +99,16 @@ class Dropout : public Layer {
       inputs(std::get<0>(coord), std::get<1>(coord)) = 0;
     }
 
-    return inputs * (1.0 / rate);
+    return inputs * scaleRate;
   };
 };
 }  // namespace NeuralNet
 
-// namespace cereal {
-// template <class Archive>
-// struct specialize<Archive, NeuralNet::Dropout,
-//                   cereal::specialization::member_serialize> {};
-// }  // namespace cereal
+namespace cereal {
+template <class Archive>
+struct specialize<Archive, NeuralNet::Dropout,
+                  cereal::specialization::member_serialize> {};
+}  // namespace cereal
 
 CEREAL_REGISTER_TYPE(NeuralNet::Dropout);
 

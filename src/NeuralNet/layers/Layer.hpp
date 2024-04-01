@@ -114,12 +114,12 @@ class Layer {
   // Necessary function for serializing Layer
   template <class Archive>
   void save(Archive &archive) const {
-    archive(outputs, type);
+    archive(outputs, type, trainingOnly, nNeurons);
   };
 
   template <class Archive>
   void load(Archive &archive) {
-    archive(outputs, type);
+    archive(outputs, type, trainingOnly, nNeurons);
   }
 
  protected:

@@ -137,7 +137,8 @@ double Network::miniBatchTraining(
                                        {inputsSize, numOutputs});
 
       // computing outputs from forward propagation
-      Eigen::MatrixXd o = this->forwardProp(trainingData.inputs.batches[b]);
+      Eigen::MatrixXd o =
+          this->forwardProp(trainingData.inputs.batches[b], true);
       loss = this->cmpLoss(o, y) / inputsSize;
       accuracy = computeAccuracy(o, y);
       sumLoss += loss;
@@ -167,7 +168,7 @@ double Network::batchTraining(
   for (cEpoch = 0; cEpoch < epochs; cEpoch++) {
     trainingCheckpoint("onEpochBegin", callbacks);
     TrainingGauge g(1, 0, epochs, (cEpoch + 1));
-    Eigen::MatrixXd o = this->forwardProp(trainingData.inputs.data);
+    Eigen::MatrixXd o = this->forwardProp(trainingData.inputs.data, true);
 
     loss = this->cmpLoss(o, y);
     accuracy = computeAccuracy(o, y);
@@ -200,7 +201,7 @@ double Network::onlineTraining(
     trainingCheckpoint("onEpochBegin", callbacks);
     TrainingGauge tg(inputs.size(), 0, epochs, (cEpoch + 1));
     for (auto &input : inputs) {
-      Eigen::MatrixXd o = this->forwardProp(inputs);
+      Eigen::MatrixXd o = this->forwardProp(inputs, true);
       loss = this->cmpLoss(o, y);
       sumLoss += loss;
       tCorrect += computeAccuracy(o, y);
@@ -237,36 +238,37 @@ Eigen::MatrixXd Network::feedForward(Eigen::MatrixXd inputs, int startIdx,
   Eigen::MatrixXd prevLayerOutputs = inputs;
 
   for (int l = startIdx; l < this->layers.size(); l++) {
-    std::shared_ptr<Layer> cLayer = this->layers[l];
-    if (cLayer->trainingOnly && !training) continue;
-    prevLayerOutputs = cLayer->feedInputs(prevLayerOutputs);
+    Layer &cLayer = *this->layers[l];
+    if (cLayer.trainingOnly && !training) continue;
+    prevLayerOutputs = cLayer.feedInputs(prevLayerOutputs);
   }
 
   return prevLayerOutputs;
 }
 
 Eigen::MatrixXd Network::forwardProp(
-    std::vector<std::vector<std::vector<double>>> &inputs) {
+    std::vector<std::vector<std::vector<double>>> &inputs, bool training) {
   // Passing the inputs as outputs to the input layer
   this->layers[0]->feedInputs(inputs);
 
   Eigen::MatrixXd prevLayerOutputs = this->layers[0]->getOutputs();
 
-  return feedForward(prevLayerOutputs, 1);
+  return feedForward(prevLayerOutputs, 1, training);
 }
 
-Eigen::MatrixXd Network::forwardProp(std::vector<std::vector<double>> &inputs) {
+Eigen::MatrixXd Network::forwardProp(std::vector<std::vector<double>> &inputs,
+                                     bool training) {
   // Previous layer outputs
   Eigen::MatrixXd prevLayerO = vectorToMatrixXd(inputs);
 
-  return feedForward(prevLayerO);
+  return feedForward(prevLayerO, 0, training);
 }
 
-Eigen::MatrixXd Network::forwardProp(Eigen::MatrixXd &inputs) {
+Eigen::MatrixXd Network::forwardProp(Eigen::MatrixXd &inputs, bool training) {
   // Previous layer outputs
   Eigen::MatrixXd prevLayerO = inputs;
 
-  return feedForward(prevLayerO);
+  return feedForward(prevLayerO, 0, training);
 }
 
 void Network::backProp(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y) {
@@ -278,10 +280,20 @@ void Network::backProp(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y) {
     Layer &cLayer = *this->layers[i];
     Layer &nLayer = *this->layers[i - 1];
 
-    Dense *cDense = dynamic_cast<Dense *>(&cLayer);
-    Dense *nDense = dynamic_cast<Dense *>(&nLayer);
+    Eigen::MatrixXd nLayerOutputs = nLayer.getOutputs();
 
-    if (!cDense || !nDense) continue;
+    Dense *cDense = dynamic_cast<Dense *>(&cLayer);
+
+    if (!cDense || !nLayerOutputs.cols() || !nLayerOutputs.rows()) continue;
+
+    if (nLayer.type == LayerType::DROPOUT) {
+      // dropout layer
+      Dropout *doLayer = dynamic_cast<Dropout *>(&nLayer);
+
+      assert(doLayer);
+      // rescale outputs
+      nLayerOutputs /= doLayer->scaleRate;
+    }
 
     // a'(L)
     Eigen::MatrixXd aDer = cDense->diff(cDense->outputs);
@@ -289,7 +301,7 @@ void Network::backProp(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y) {
     // a(L - 1) . a'(L)
     Eigen::MatrixXd delta = beta.array() * aDer.array();
 
-    Eigen::MatrixXd gradW = (1.0 / m) * (nDense->outputs.transpose() * delta);
+    Eigen::MatrixXd gradW = (1.0 / m) * (nLayerOutputs.transpose() * delta);
 
     Eigen::MatrixXd gradB = (1.0 / m) * delta.colwise().sum();
 

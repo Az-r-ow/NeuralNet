@@ -278,3 +278,44 @@ SCENARIO("The network updates the weights and biases as pre-calculated") {
     fs::remove(filename);
   }
 }
+
+TEST_CASE("The model serializes the different types of layers correctly") {
+  Network network;
+
+  GIVEN("Three layers of different types") {
+    std::shared_ptr<Layer> layer1 =
+        std::make_shared<Flatten>(std::make_tuple(10, 10));
+    std::shared_ptr<Layer> layer2 = std::make_shared<Dropout>(0.5);
+    std::shared_ptr<Layer> layer3 = std::make_shared<Dense>(10);
+
+    network.addLayer(layer1);
+    network.addLayer(layer2);
+    network.addLayer(layer3);
+
+    WHEN("Serialized") {
+      std::string filename = "test_model.bin";
+      Model::save_to_file(filename, network);
+
+      AND_THEN("Un-serialized") {
+        Network newNetwork;
+
+        Model::load_from_file(filename, newNetwork);
+
+        REQUIRE(newNetwork.getNumLayers() == network.getNumLayers());
+
+        for (int i = 0; i < newNetwork.getNumLayers(); i++) {
+          CHECK(newNetwork.getLayer(i)->typeStr() ==
+                network.getLayer(i)->typeStr());
+        }
+
+        // Check if Dense layer weights remained the same
+        CHECK(std::dynamic_pointer_cast<Dense>(network.getLayer(2))
+                  ->getWeights() ==
+              std::dynamic_pointer_cast<Dense>(layer3)->getWeights());
+
+        // When successful delete bin file
+        fs::remove(filename);
+      }
+    }
+  }
+}
