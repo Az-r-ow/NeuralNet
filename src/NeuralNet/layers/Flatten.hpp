@@ -54,13 +54,22 @@ class Flatten : public Layer {
         flatInputs.data(), numRows, numCols);
   };
 
+  void feedInputs(
+      std::vector<std::vector<std::vector<double>>> inputs) override {
+    Eigen::MatrixXd flattenedInputs = flatten(inputs);
+    this->setOutputs(flattenedInputs);
+  };
+
+  Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) override {
+    this->setOutputs(inputs);
+    return outputs;
+  };
+
   ~Flatten(){};
 
  private:
   // non-public serialization
   friend class cereal::access;
-
-  Flatten(){};  // Necessary for serialization
 
   std::tuple<int, int> inputShape;
 
@@ -69,10 +78,11 @@ class Flatten : public Layer {
     ar(cereal::base_class<Layer>(this), inputShape);
   }
 
-  void feedInputs(std::vector<std::vector<std::vector<double>>> inputs) {
-    Eigen::MatrixXd flattenedInputs = this->flatten(inputs);
-    this->setOutputs(flattenedInputs);
+  Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs) override {
+    return outputs;
   }
+
+  Flatten(){};  // Necessary for serializations
 };
 }  // namespace NeuralNet
 

@@ -11,7 +11,7 @@ import numpy as np
 from helpers.utils import *
 from halo import Halo
 
-NUM_TRAININGS = 10000
+NUM_TRAININGS = 30000
 NUM_PREDICTIONS = 1000
 MNIST_DATASET_FILE = "./dataset/mnist.npz"
 
@@ -31,6 +31,7 @@ if not file_exists(MNIST_DATASET_FILE):
 network = NNP.models.Network()
 
 network.addLayer(NNP.layers.Flatten((28, 28)))
+network.addLayer(NNP.layers.Dropout(0.8))
 network.addLayer(NNP.layers.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
 network.addLayer(NNP.layers.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
@@ -53,9 +54,9 @@ trainingData = NNP.TrainingData3dI(f_x_train[:NUM_TRAININGS], y_train[:NUM_TRAIN
 
 trainingData.batch(128)
 
-callbacks = [NNP.callbacks.EarlyStopping("LOSS", 0.01, 1), NNP.callbacks.CSVLogger("training.csv")]
+callbacks = [NNP.callbacks.EarlyStopping("LOSS", 0.01), NNP.callbacks.CSVLogger("training.csv")]
 
-network.train(trainingData, 5, callbacks)
+network.train(trainingData, 10, callbacks)
 
 f_x_test = [normalize_img(x) for x in x_test]
 

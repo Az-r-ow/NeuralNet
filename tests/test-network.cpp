@@ -1,11 +1,13 @@
 #include <Eigen/Dense>
 #include <Network.hpp>
 #include <catch2/catch_test_macros.hpp>
+#include <filesystem>
 #include <utils/Functions.hpp>
 
 #include "test-macros.hpp"
 
 using namespace NeuralNet;
+namespace fs = std::filesystem;
 
 SCENARIO("Basic small network functions") {
   GIVEN("A small neural network") {
@@ -22,15 +24,21 @@ SCENARIO("Basic small network functions") {
     sn.addLayer(layer1);
     sn.addLayer(layer2);
 
+    REQUIRE(sn.getLayer(0)->typeStr() == "Dense");
+    REQUIRE(sn.getLayer(1)->typeStr() == "Dense");
+
     WHEN("Network trained") {
       std::vector<std::vector<double>> trainingInputs = {{1.0, 1.0}};
       std::vector<double> label = {1};
 
-      Eigen::MatrixXd preTrainWeights = sn.getLayer(1)->getWeights();
+      std::shared_ptr<Dense> denseLayer =
+          std::dynamic_pointer_cast<Dense>(sn.getLayer(1));
 
-      sn.train(trainingInputs, label);
+      Eigen::MatrixXd preTrainWeights = denseLayer->getWeights();
 
-      CHECK(sn.getLayer(1)->getWeights() != preTrainWeights);
+      sn.train(trainingInputs, label, 1, {}, false);
+
+      CHECK(denseLayer->getWeights() != preTrainWeights);
     }
   }
 }
@@ -46,11 +54,11 @@ SCENARIO("Layers are initialized correctly in the network") {
 
     WHEN("3 layers are added") {
       std::shared_ptr<Layer> layer1 =
-          std::make_shared<Layer>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+          std::make_shared<Dense>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
       std::shared_ptr<Layer> layer2 =
-          std::make_shared<Layer>(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+          std::make_shared<Dense>(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
       std::shared_ptr<Layer> layer3 =
-          std::make_shared<Layer>(1, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+          std::make_shared<Dense>(1, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
 
       network.addLayer(layer1);
       network.addLayer(layer2);
@@ -64,8 +72,15 @@ SCENARIO("Layers are initialized correctly in the network") {
       }
 
       THEN("Weights matrices have correct sizes") {
-        Eigen::MatrixXd weightsL2 = layer2->getWeights();
-        Eigen::MatrixXd weightsL3 = layer3->getWeights();
+        // dense layer 2
+        std::shared_ptr<Dense> dl2 =
+            std::dynamic_pointer_cast<Dense>(network.getLayer(1));
+        // dense layer 3
+        std::shared_ptr<Dense> dl3 =
+            std::dynamic_pointer_cast<Dense>(network.getLayer(2));
+
+        Eigen::MatrixXd weightsL2 = dl2->getWeights();
+        Eigen::MatrixXd weightsL3 = dl3->getWeights();
 
         /**
          * The number of rows should be equal to
@@ -81,8 +96,10 @@ SCENARIO("Layers are initialized correctly in the network") {
       }
 
       THEN("Weights are not initialized to 0") {
-        Eigen::MatrixXd weightsL2 = layer2->getWeights();
-        Eigen::MatrixXd weightsL3 = layer3->getWeights();
+        Eigen::MatrixXd weightsL2 =
+            std::dynamic_pointer_cast<Dense>(network.getLayer(1))->getWeights();
+        Eigen::MatrixXd weightsL3 =
+            std::dynamic_pointer_cast<Dense>(network.getLayer(2))->getWeights();
 
         REQUIRE(weightsL2 !=
                 Eigen::MatrixXd::Zero(weightsL2.rows(), weightsL2.cols()));
@@ -101,11 +118,11 @@ SCENARIO("The network remains the same when trained with null inputs") {
   network.setup(optimizer, LOSS::QUADRATIC);
 
   std::shared_ptr<Layer> inputLayer =
-      std::make_shared<Layer>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+      std::make_shared<Dense>(2, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
   std::shared_ptr<Layer> hiddenLayer =
-      std::make_shared<Layer>(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+      std::make_shared<Dense>(3, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
   std::shared_ptr<Layer> outputLayer =
-      std::make_shared<Layer>(1, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
+      std::make_shared<Dense>(1, ACTIVATION::RELU, WEIGHT_INIT::GLOROT);
 
   network.addLayer(inputLayer);
   network.addLayer(hiddenLayer);
@@ -118,12 +135,17 @@ SCENARIO("The network remains the same when trained with null inputs") {
       std::vector<std::vector<double>> nullInputs = {{0, 0}};
       std::vector<double> labels = {0};
 
+      std::shared_ptr<Dense> dl2 =
+          std::dynamic_pointer_cast<Dense>(network.getLayer(1));
+      std::shared_ptr<Dense> dl3 =
+          std::dynamic_pointer_cast<Dense>(network.getLayer(2));
+
       // caching the weights before training for later comparison
-      Eigen::MatrixXd preTrainW1 = network.getLayer(1)->getWeights();
-      Eigen::MatrixXd preTrainW2 = network.getLayer(2)->getWeights();
+      Eigen::MatrixXd preTrainW1 = dl2->getWeights();
+      Eigen::MatrixXd preTrainW2 = dl3->getWeights();
 
       // Training with null weights and inputs
-      network.train(nullInputs, labels, 2);
+      network.train(nullInputs, labels, 2, {}, false);
 
       THEN("Outputs are 0") {
         Eigen::MatrixXd outputs = network.getOutputLayer()->getOutputs();
@@ -133,8 +155,8 @@ SCENARIO("The network remains the same when trained with null inputs") {
       }
 
       AND_THEN("The weights remain the same") {
-        CHECK(network.getLayer(1)->getWeights() == preTrainW1);
-        CHECK(network.getLayer(2)->getWeights() == preTrainW2);
+        CHECK(dl2->getWeights() == preTrainW1);
+        CHECK(dl3->getWeights() == preTrainW2);
       }
     }
   }
@@ -147,15 +169,22 @@ SCENARIO("The network updates the weights and biases as pre-calculated") {
   network.setup(sgdOptimizer, LOSS::QUADRATIC);
 
   std::shared_ptr<Layer> inputLayer =
-      std::make_shared<Layer>(3, ACTIVATION::RELU);
+      std::make_shared<Dense>(3, ACTIVATION::RELU);
   std::shared_ptr<Layer> hiddenLayer =
-      std::make_shared<Layer>(3, ACTIVATION::RELU, WEIGHT_INIT::CONSTANT);
+      std::make_shared<Dense>(3, ACTIVATION::RELU, WEIGHT_INIT::CONSTANT);
   std::shared_ptr<Layer> outputLayer =
-      std::make_shared<Layer>(2, ACTIVATION::SIGMOID, WEIGHT_INIT::CONSTANT);
+      std::make_shared<Dense>(2, ACTIVATION::SIGMOID, WEIGHT_INIT::CONSTANT);
 
   network.addLayer(inputLayer);
   network.addLayer(hiddenLayer);
   network.addLayer(outputLayer);
+
+  // Storing some information to test serialization
+  int networkNumLayers = network.getNumLayers();
+  std::vector<std::string> layerTypes;
+  for (int i = 0; i < networkNumLayers; i++) {
+    layerTypes.push_back(network.getLayer(i)->typeStr());
+  }
 
   std::vector<std::vector<double>> inputs = {
       {0.7, 0.3, 0.1}, {0.5, 0.3, 0.1}, {1.0, 0.2, 0.4}, {-0.5, 0.3, -1}};
@@ -176,10 +205,12 @@ SCENARIO("The network updates the weights and biases as pre-calculated") {
 
   trainData.batch(2);
 
-  network.train(trainData);
+  network.train(trainData, 1, {}, false);
 
-  std::shared_ptr<Layer> oLayer = network.getLayer(2);
-  std::shared_ptr<Layer> hLayer = network.getLayer(1);
+  std::shared_ptr<Dense> oLayer =
+      std::dynamic_pointer_cast<Dense>(network.getLayer(2));
+  std::shared_ptr<Dense> hLayer =
+      std::dynamic_pointer_cast<Dense>(network.getLayer(1));
 
   // Expected Weights Hidden Layer
   Eigen::MatrixXd EWHL(3, 3);
@@ -216,5 +247,75 @@ SCENARIO("The network updates the weights and biases as pre-calculated") {
         0.96141716, 0.98396999, 0.42418036, 0.54310411;
 
     CHECK_MATRIX_APPROX(predictions, expectedPredictions, EPSILON);
+  }
+
+  AND_THEN("The model serializes correctly") {
+    std::string filename = "test_model.bin";
+    Model::save_to_file(filename, network);
+
+    CHECK(fs::exists(filename));
+
+    Network newNetwork;
+
+    Model::load_from_file(filename, newNetwork);
+
+    int newNetworkNumLayers = newNetwork.getNumLayers();
+
+    REQUIRE(newNetworkNumLayers == networkNumLayers);
+
+    for (int i = 0; i < newNetworkNumLayers; i++) {
+      REQUIRE(newNetwork.getLayer(i)->typeStr() == layerTypes[i]);
+    }
+
+    CHECK_MATRIX_APPROX(
+        std::dynamic_pointer_cast<Dense>(newNetwork.getLayer(1))->getWeights(),
+        EWHL, EPSILON);
+    CHECK_MATRIX_APPROX(
+        std::dynamic_pointer_cast<Dense>(newNetwork.getLayer(2))->getWeights(),
+        EWOL, EPSILON);
+
+    // When successful delete bin file
+    fs::remove(filename);
+  }
+}
+
+TEST_CASE("The model serializes the different types of layers correctly") {
+  Network network;
+
+  GIVEN("Three layers of different types") {
+    std::shared_ptr<Layer> layer1 =
+        std::make_shared<Flatten>(std::make_tuple(10, 10));
+    std::shared_ptr<Layer> layer2 = std::make_shared<Dropout>(0.5);
+    std::shared_ptr<Layer> layer3 = std::make_shared<Dense>(10);
+
+    network.addLayer(layer1);
+    network.addLayer(layer2);
+    network.addLayer(layer3);
+
+    WHEN("Serialized") {
+      std::string filename = "test_model.bin";
+      Model::save_to_file(filename, network);
+
+      AND_THEN("Un-serialized") {
+        Network newNetwork;
+
+        Model::load_from_file(filename, newNetwork);
+
+        REQUIRE(newNetwork.getNumLayers() == network.getNumLayers());
+
+        for (int i = 0; i < newNetwork.getNumLayers(); i++) {
+          CHECK(newNetwork.getLayer(i)->typeStr() ==
+                network.getLayer(i)->typeStr());
+        }
+
+        // Check if Dense layer weights remained the same
+        CHECK(std::dynamic_pointer_cast<Dense>(network.getLayer(2))
+                  ->getWeights() ==
+              std::dynamic_pointer_cast<Dense>(layer3)->getWeights());
+
+        // When successful delete bin file
+        fs::remove(filename);
+      }
+    }
   }
 }

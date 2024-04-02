@@ -12,7 +12,7 @@ network = NNP.models.Network()
 
 NNP.models.Model.load_from_file("model.bin", network)
 
-network.setup(optimizer=NNP.optimizers.SGD(0.001), loss=NNP.LOSS.MCE)
+network.setup(optimizer=NNP.optimizers.SGD(0.1), loss=NNP.LOSS.MCE)
 
 drawing = False # Track drawing
 erasing = False # Track erasing
@@ -47,7 +47,7 @@ def handle_ui_button_pressed(context):
     normalized_image = get_drawing(context)
     target = float(ui_elements["dropdown"].selected_option)
     loss = network.train([normalized_image], [target], 1, progBar=False)
-    ui_elements["guess_text"].append_html_text(f"I'm learning that it's a {int(target)}<br>loss : {loss}")
+    ui_elements["guess_text"].append_html_text(f"I'm learning that it's a {int(target)}<br>loss : {loss:.3f}")
 
   if event.ui_element == ui_elements["clear_button"]:
     ui_elements["drawing_surface"].fill(erasing_color)
