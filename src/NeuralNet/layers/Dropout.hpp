@@ -19,11 +19,20 @@ class Dropout : public Layer {
   float rate, scaleRate;
   unsigned int seed;
 
+  /**
+   * @brief The Dropout layer randomly sets input units to 0 with a frequency of
+   * rate at each step during training time, which helps prevent overfitting.
+   * Inputs not set to 0 are scaled up by 1 / (1 - rate) such that the sum over
+   * all inputs is unchanged.
+   *
+   * @param rate Frequency of units set to 0
+   * @param seed An integer to use as a random seed
+   */
   Dropout(float rate, unsigned int seed = 0) : rate(rate), seed(seed) {
     assert(rate < 1 && rate > 0);
     this->type = LayerType::DROPOUT;
     this->trainingOnly = true;  // Training only layer
-    this->scaleRate = 1 / rate;
+    this->scaleRate = 1.0 / (1.0 - rate);
   };
 
   /**
@@ -38,6 +47,8 @@ class Dropout : public Layer {
   };
 
  private:
+  std::vector<std::tuple<int, int>> coordinates;
+
   // non-public serialization
   friend class cereal::access;
 
@@ -75,19 +86,24 @@ class Dropout : public Layer {
   Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs) override {
     int rows = inputs.rows();
     int cols = inputs.cols();
+    int numCoord = rows * cols;  // Number of coordinates
 
     seed = getSeed();
     std::mt19937 gen(seed);
-    const int num_zeros = static_cast<int>(rows * cols * rate);
+    const int num_zeros = static_cast<int>(numCoord * (1.0 - rate));
 
-    std::vector<std::tuple<int, int>> coordinates, randCoordinates;
+    std::vector<std::tuple<int, int>> randCoordinates;
 
     randCoordinates.reserve(num_zeros);
-    coordinates.reserve(rows * cols);
 
-    for (int i = 0; i < rows; i++) {
-      for (int j = 0; j < cols; j++) {
-        coordinates.emplace_back(std::make_tuple(i, j));
+    if (!coordinates.size() || coordinates.size() != (numCoord)) {
+      coordinates.clear();
+      coordinates.reserve(numCoord);
+
+      for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+          coordinates.emplace_back(std::make_tuple(i, j));
+        }
       }
     }
 

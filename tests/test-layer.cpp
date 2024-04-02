@@ -40,7 +40,8 @@ TEST_CASE("Dropout layer", "[layer]") {
       }
     }
 
-    REQUIRE(count == static_cast<int>(rate * inputs.rows() * inputs.cols()));
+    REQUIRE(count ==
+            static_cast<int>((1 - rate) * inputs.rows() * inputs.cols()));
 
     // Test scale factor
     CHECK(inputs.sum() == outputs.sum());

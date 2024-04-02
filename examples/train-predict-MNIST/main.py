@@ -31,7 +31,7 @@ if not file_exists(MNIST_DATASET_FILE):
 network = NNP.models.Network()
 
 network.addLayer(NNP.layers.Flatten((28, 28)))
-network.addLayer(NNP.layers.Dropout(0.5))
+network.addLayer(NNP.layers.Dropout(0.8))
 network.addLayer(NNP.layers.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
 network.addLayer(NNP.layers.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
 
