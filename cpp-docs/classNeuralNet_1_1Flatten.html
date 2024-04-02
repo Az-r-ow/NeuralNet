@@ -100,30 +100,28 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a715f3cb27e42842f4ac5fd10c67f3028" id="r_a715f3cb27e42842f4ac5fd10c67f3028"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a715f3cb27e42842f4ac5fd10c67f3028">flatten</a> (std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs)</td></tr>
 <tr class="memdesc:a715f3cb27e42842f4ac5fd10c67f3028"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method flattens a 3D vector into a 2D Eigen::MatrixXd.  <br /></td></tr>
 <tr class="separator:a715f3cb27e42842f4ac5fd10c67f3028"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abedde3bbbc6554d81dc4ef3d5be73080" id="r_abedde3bbbc6554d81dc4ef3d5be73080"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abedde3bbbc6554d81dc4ef3d5be73080">feedInputs</a> (std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs) override</td></tr>
+<tr class="memdesc:abedde3bbbc6554d81dc4ef3d5be73080"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to feed the inputs to the layer.  <br /></td></tr>
+<tr class="separator:abedde3bbbc6554d81dc4ef3d5be73080"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab583a33c11f84cf0e91eef74db8277ec" id="r_ab583a33c11f84cf0e91eef74db8277ec"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab583a33c11f84cf0e91eef74db8277ec">feedInputs</a> (Eigen::MatrixXd inputs) override</td></tr>
+<tr class="memdesc:ab583a33c11f84cf0e91eef74db8277ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to feed the inputs to the layer.  <br /></td></tr>
+<tr class="separator:ab583a33c11f84cf0e91eef74db8277ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classNeuralNet_1_1Layer"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classNeuralNet_1_1Layer')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classNeuralNet_1_1Layer.html">NeuralNet::Layer</a></td></tr>
-<tr class="memitem:ac26663d66df5dad5989268d7cb8138fc inherit pub_methods_classNeuralNet_1_1Layer" id="r_ac26663d66df5dad5989268d7cb8138fc"><td class="memItemLeft" align="right" valign="top">
-&#160;</td><td class="memItemRight" valign="bottom"><b>Layer</b> (int nNeurons, ACTIVATION activation=ACTIVATION::SIGMOID, WEIGHT_INIT weightInit=WEIGHT_INIT::RANDOM, int bias=0)</td></tr>
-<tr class="separator:ac26663d66df5dad5989268d7cb8138fc inherit pub_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa59ddacc5796712e5061ed055833fde inherit pub_methods_classNeuralNet_1_1Layer" id="r_afa59ddacc5796712e5061ed055833fde"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNeuralNet_1_1Layer.html#afa59ddacc5796712e5061ed055833fde">getNumNeurons</a> () const</td></tr>
-<tr class="memdesc:afa59ddacc5796712e5061ed055833fde inherit pub_methods_classNeuralNet_1_1Layer"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method get the number of neurons actually in the layer.  <br /></td></tr>
-<tr class="separator:afa59ddacc5796712e5061ed055833fde inherit pub_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6448e3a5415b1ea351ca22fa2b895a0 inherit pub_methods_classNeuralNet_1_1Layer" id="r_ac6448e3a5415b1ea351ca22fa2b895a0"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNeuralNet_1_1Layer.html#ac6448e3a5415b1ea351ca22fa2b895a0">getWeights</a> () const</td></tr>
-<tr class="memdesc:ac6448e3a5415b1ea351ca22fa2b895a0 inherit pub_methods_classNeuralNet_1_1Layer"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method gets the layer's weights.  <br /></td></tr>
-<tr class="separator:ac6448e3a5415b1ea351ca22fa2b895a0 inherit pub_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a296c21f474dbe7fc2926a5e0b7ab87aa inherit pub_methods_classNeuralNet_1_1Layer" id="r_a296c21f474dbe7fc2926a5e0b7ab87aa"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNeuralNet_1_1Layer.html#a296c21f474dbe7fc2926a5e0b7ab87aa">getBiases</a> () const</td></tr>
-<tr class="memdesc:a296c21f474dbe7fc2926a5e0b7ab87aa inherit pub_methods_classNeuralNet_1_1Layer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the biases of the layer.  <br /></td></tr>
-<tr class="separator:a296c21f474dbe7fc2926a5e0b7ab87aa inherit pub_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b86e971a93bed55690ecf1840207c34 inherit pub_methods_classNeuralNet_1_1Layer" id="r_a1b86e971a93bed55690ecf1840207c34"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNeuralNet_1_1Layer.html#a1b86e971a93bed55690ecf1840207c34">getOutputs</a> () const</td></tr>
 <tr class="memdesc:a1b86e971a93bed55690ecf1840207c34 inherit pub_methods_classNeuralNet_1_1Layer"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method get the layer's outputs.  <br /></td></tr>
 <tr class="separator:a1b86e971a93bed55690ecf1840207c34 inherit pub_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e41c0fcc3f9e8fdf2ce506547670846 inherit pub_methods_classNeuralNet_1_1Layer" id="r_a7e41c0fcc3f9e8fdf2ce506547670846"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>printWeights</b> ()</td></tr>
-<tr class="memdesc:a7e41c0fcc3f9e8fdf2ce506547670846 inherit pub_methods_classNeuralNet_1_1Layer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to print layer's weights. <br /></td></tr>
-<tr class="separator:a7e41c0fcc3f9e8fdf2ce506547670846 inherit pub_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa59ddacc5796712e5061ed055833fde inherit pub_methods_classNeuralNet_1_1Layer" id="r_afa59ddacc5796712e5061ed055833fde"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNeuralNet_1_1Layer.html#afa59ddacc5796712e5061ed055833fde">getNumNeurons</a> () const</td></tr>
+<tr class="memdesc:afa59ddacc5796712e5061ed055833fde inherit pub_methods_classNeuralNet_1_1Layer"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method get the number of neurons actually in the layer.  <br /></td></tr>
+<tr class="separator:afa59ddacc5796712e5061ed055833fde inherit pub_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2b004ab5c1bb057f4ca568b55a47ef4 inherit pub_methods_classNeuralNet_1_1Layer" id="r_ab2b004ab5c1bb057f4ca568b55a47ef4"><td class="memItemLeft" align="right" valign="top">
 void&#160;</td><td class="memItemRight" valign="bottom"><b>printOutputs</b> ()</td></tr>
 <tr class="memdesc:ab2b004ab5c1bb057f4ca568b55a47ef4 inherit pub_methods_classNeuralNet_1_1Layer"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to print layer's outputs. <br /></td></tr>
 <tr class="separator:ab2b004ab5c1bb057f4ca568b55a47ef4 inherit pub_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0835d41c22cb4d79472b7d9e2ee6e4e2 inherit pub_methods_classNeuralNet_1_1Layer" id="r_a0835d41c22cb4d79472b7d9e2ee6e4e2"><td class="memItemLeft" align="right" valign="top">virtual Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNeuralNet_1_1Layer.html#a0835d41c22cb4d79472b7d9e2ee6e4e2">feedInputs</a> (std::vector&lt; double &gt; inputs)</td></tr>
+<tr class="memdesc:a0835d41c22cb4d79472b7d9e2ee6e4e2 inherit pub_methods_classNeuralNet_1_1Layer"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to feed the inputs to the layer.  <br /></td></tr>
+<tr class="separator:a0835d41c22cb4d79472b7d9e2ee6e4e2 inherit pub_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63cab3305764efae2d89ac8b63e05709 inherit pub_methods_classNeuralNet_1_1Layer" id="r_a63cab3305764efae2d89ac8b63e05709"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNeuralNet_1_1Layer.html#a63cab3305764efae2d89ac8b63e05709">typeStr</a> ()</td></tr>
+<tr class="separator:a63cab3305764efae2d89ac8b63e05709 inherit pub_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -134,22 +132,29 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>cereal::access</b></
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_methods_classNeuralNet_1_1Layer"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classNeuralNet_1_1Layer')"><img src="closed.png" alt="-"/>&#160;Protected Member Functions inherited from <a class="el" href="classNeuralNet_1_1Layer.html">NeuralNet::Layer</a></td></tr>
-<tr class="memitem:aa282e671021b0c1ed1d8315e09d2f692 inherit pro_methods_classNeuralNet_1_1Layer" id="r_aa282e671021b0c1ed1d8315e09d2f692"><td class="memItemLeft" align="right" valign="top">
-&#160;</td><td class="memItemRight" valign="bottom"><b>Layer</b> (std::tuple&lt; int, int &gt; inputShape)</td></tr>
-<tr class="separator:aa282e671021b0c1ed1d8315e09d2f692 inherit pro_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e920aa864e5000e701caa71a3506dff inherit pro_methods_classNeuralNet_1_1Layer" id="r_a5e920aa864e5000e701caa71a3506dff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNeuralNet_1_1Layer.html#a5e920aa864e5000e701caa71a3506dff">setOutputs</a> (Eigen::MatrixXd outputs)</td></tr>
+<tr class="separator:a5e920aa864e5000e701caa71a3506dff inherit pro_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae81f8d543115f7be083f2a57d9baa551 inherit pro_methods_classNeuralNet_1_1Layer" id="r_ae81f8d543115f7be083f2a57d9baa551"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNeuralNet_1_1Layer.html#ae81f8d543115f7be083f2a57d9baa551">setOutputs</a> (std::vector&lt; double &gt; outputs)</td></tr>
 <tr class="memdesc:ae81f8d543115f7be083f2a57d9baa551 inherit pro_methods_classNeuralNet_1_1Layer"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to set the outputs of the layer.  <br /></td></tr>
 <tr class="separator:ae81f8d543115f7be083f2a57d9baa551 inherit pro_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e920aa864e5000e701caa71a3506dff inherit pro_methods_classNeuralNet_1_1Layer" id="r_a5e920aa864e5000e701caa71a3506dff"><td class="memItemLeft" align="right" valign="top">
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setOutputs</b> (Eigen::MatrixXd outputs)</td></tr>
-<tr class="separator:a5e920aa864e5000e701caa71a3506dff inherit pro_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1a77b0a4bbdad60da1979e0f2c3d6d4 inherit pro_methods_classNeuralNet_1_1Layer" id="r_af1a77b0a4bbdad60da1979e0f2c3d6d4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classNeuralNet_1_1Layer.html#af1a77b0a4bbdad60da1979e0f2c3d6d4">init</a> (int args)</td></tr>
+<tr class="separator:af1a77b0a4bbdad60da1979e0f2c3d6d4 inherit pro_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa282e671021b0c1ed1d8315e09d2f692 inherit pro_methods_classNeuralNet_1_1Layer" id="r_aa282e671021b0c1ed1d8315e09d2f692"><td class="memItemLeft" align="right" valign="top">
+&#160;</td><td class="memItemRight" valign="bottom"><b>Layer</b> (std::tuple&lt; int, int &gt; inputShape)</td></tr>
+<tr class="separator:aa282e671021b0c1ed1d8315e09d2f692 inherit pro_methods_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_attribs_classNeuralNet_1_1Layer"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_attribs_classNeuralNet_1_1Layer')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classNeuralNet_1_1Layer.html">NeuralNet::Layer</a></td></tr>
 <tr class="memitem:ade725b2b3049543da3e86534538f50e8 inherit pro_attribs_classNeuralNet_1_1Layer" id="r_ade725b2b3049543da3e86534538f50e8"><td class="memItemLeft" align="right" valign="top">
 int&#160;</td><td class="memItemRight" valign="bottom"><b>nNeurons</b></td></tr>
 <tr class="separator:ade725b2b3049543da3e86534538f50e8 inherit pro_attribs_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ac2ab1d452583fe7e812c8852575c57 inherit pro_attribs_classNeuralNet_1_1Layer" id="r_a6ac2ab1d452583fe7e812c8852575c57"><td class="memItemLeft" align="right" valign="top">
+Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><b>outputs</b></td></tr>
+<tr class="separator:a6ac2ab1d452583fe7e812c8852575c57 inherit pro_attribs_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0d69db8e7945e5084d00b618907e372 inherit pro_attribs_classNeuralNet_1_1Layer" id="r_ab0d69db8e7945e5084d00b618907e372"><td class="memItemLeft" align="right" valign="top">
 LayerType&#160;</td><td class="memItemRight" valign="bottom"><b>type</b> = LayerType::DEFAULT</td></tr>
 <tr class="separator:ab0d69db8e7945e5084d00b618907e372 inherit pro_attribs_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4404be7eddcc0d858ab503bf09d4757f inherit pro_attribs_classNeuralNet_1_1Layer" id="r_a4404be7eddcc0d858ab503bf09d4757f"><td class="memItemLeft" align="right" valign="top">
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>trainingOnly</b> = false</td></tr>
+<tr class="separator:a4404be7eddcc0d858ab503bf09d4757f inherit pro_attribs_classNeuralNet_1_1Layer"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a58993cf3bbad91fb4f3dc4570278e82c" name="a58993cf3bbad91fb4f3dc4570278e82c"></a>
@@ -187,6 +192,78 @@ LayerType&#160;</td><td class="memItemRight" valign="bottom"><b>type</b> = Layer
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="ab583a33c11f84cf0e91eef74db8277ec" name="ab583a33c11f84cf0e91eef74db8277ec"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab583a33c11f84cf0e91eef74db8277ec">&#9670;&#160;</a></span>feedInputs() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">Eigen::MatrixXd NeuralNet::Flatten::feedInputs </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::MatrixXd</td>          <td class="paramname"><span class="paramname"><em>inputs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This method is used to feed the inputs to the layer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputs</td><td>An Eigen::MatrixXd representing the inputs (features)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an Eigen::MatrixXd representing the outputs of the layer </dd></dl>
+
+<p>Implements <a class="el" href="classNeuralNet_1_1Layer.html#a4f6f4c83f490c1166062b37a7f02b1b6">NeuralNet::Layer</a>.</p>
+
+</div>
+</div>
+<a id="abedde3bbbc6554d81dc4ef3d5be73080" name="abedde3bbbc6554d81dc4ef3d5be73080"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abedde3bbbc6554d81dc4ef3d5be73080">&#9670;&#160;</a></span>feedInputs() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NeuralNet::Flatten::feedInputs </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>inputs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This method is used to feed the inputs to the layer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputs</td><td>A vector of vectors of doubles representing the inputs (features)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+<p>Reimplemented from <a class="el" href="classNeuralNet_1_1Layer.html#a5409abfbf3077969eed22a2f9d98f012">NeuralNet::Layer</a>.</p>
+
+</div>
+</div>
 <a id="a715f3cb27e42842f4ac5fd10c67f3028" name="a715f3cb27e42842f4ac5fd10c67f3028"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a715f3cb27e42842f4ac5fd10c67f3028">&#9670;&#160;</a></span>flatten()</h2>
 

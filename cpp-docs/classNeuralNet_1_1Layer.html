@@ -81,7 +81,7 @@ $(function() {
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classNeuralNet_1_1Layer-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">NeuralNet::Layer Class Reference</div></div>
+  <div class="headertitle"><div class="title">NeuralNet::Layer Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
@@ -90,57 +90,66 @@ Inheritance diagram for NeuralNet::Layer:</div>
  <div class="center">
   <img src="classNeuralNet_1_1Layer.png" usemap="#NeuralNet::Layer_map" alt=""/>
   <map id="NeuralNet::Layer_map" name="NeuralNet::Layer_map">
-<area href="classNeuralNet_1_1Dense.html" alt="NeuralNet::Dense" shape="rect" coords="0,56,113,80"/>
-<area href="classNeuralNet_1_1Flatten.html" alt="NeuralNet::Flatten" shape="rect" coords="123,56,236,80"/>
+<area href="classNeuralNet_1_1Dense.html" alt="NeuralNet::Dense" shape="rect" coords="0,56,120,80"/>
+<area href="classNeuralNet_1_1Dropout.html" alt="NeuralNet::Dropout" shape="rect" coords="130,56,250,80"/>
+<area href="classNeuralNet_1_1Flatten.html" alt="NeuralNet::Flatten" shape="rect" coords="260,56,380,80"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac26663d66df5dad5989268d7cb8138fc" id="r_ac26663d66df5dad5989268d7cb8138fc"><td class="memItemLeft" align="right" valign="top"><a id="ac26663d66df5dad5989268d7cb8138fc" name="ac26663d66df5dad5989268d7cb8138fc"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Layer</b> (int nNeurons, ACTIVATION activation=ACTIVATION::SIGMOID, WEIGHT_INIT weightInit=WEIGHT_INIT::RANDOM, int bias=0)</td></tr>
-<tr class="separator:ac26663d66df5dad5989268d7cb8138fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afa59ddacc5796712e5061ed055833fde" id="r_afa59ddacc5796712e5061ed055833fde"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa59ddacc5796712e5061ed055833fde">getNumNeurons</a> () const</td></tr>
-<tr class="memdesc:afa59ddacc5796712e5061ed055833fde"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method get the number of neurons actually in the layer.  <br /></td></tr>
-<tr class="separator:afa59ddacc5796712e5061ed055833fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6448e3a5415b1ea351ca22fa2b895a0" id="r_ac6448e3a5415b1ea351ca22fa2b895a0"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac6448e3a5415b1ea351ca22fa2b895a0">getWeights</a> () const</td></tr>
-<tr class="memdesc:ac6448e3a5415b1ea351ca22fa2b895a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method gets the layer's weights.  <br /></td></tr>
-<tr class="separator:ac6448e3a5415b1ea351ca22fa2b895a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a296c21f474dbe7fc2926a5e0b7ab87aa" id="r_a296c21f474dbe7fc2926a5e0b7ab87aa"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a296c21f474dbe7fc2926a5e0b7ab87aa">getBiases</a> () const</td></tr>
-<tr class="memdesc:a296c21f474dbe7fc2926a5e0b7ab87aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Return the biases of the layer.  <br /></td></tr>
-<tr class="separator:a296c21f474dbe7fc2926a5e0b7ab87aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1b86e971a93bed55690ecf1840207c34" id="r_a1b86e971a93bed55690ecf1840207c34"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1b86e971a93bed55690ecf1840207c34">getOutputs</a> () const</td></tr>
 <tr class="memdesc:a1b86e971a93bed55690ecf1840207c34"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method get the layer's outputs.  <br /></td></tr>
 <tr class="separator:a1b86e971a93bed55690ecf1840207c34"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7e41c0fcc3f9e8fdf2ce506547670846" id="r_a7e41c0fcc3f9e8fdf2ce506547670846"><td class="memItemLeft" align="right" valign="top"><a id="a7e41c0fcc3f9e8fdf2ce506547670846" name="a7e41c0fcc3f9e8fdf2ce506547670846"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>printWeights</b> ()</td></tr>
-<tr class="memdesc:a7e41c0fcc3f9e8fdf2ce506547670846"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to print layer's weights. <br /></td></tr>
-<tr class="separator:a7e41c0fcc3f9e8fdf2ce506547670846"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afa59ddacc5796712e5061ed055833fde" id="r_afa59ddacc5796712e5061ed055833fde"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa59ddacc5796712e5061ed055833fde">getNumNeurons</a> () const</td></tr>
+<tr class="memdesc:afa59ddacc5796712e5061ed055833fde"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method get the number of neurons actually in the layer.  <br /></td></tr>
+<tr class="separator:afa59ddacc5796712e5061ed055833fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2b004ab5c1bb057f4ca568b55a47ef4" id="r_ab2b004ab5c1bb057f4ca568b55a47ef4"><td class="memItemLeft" align="right" valign="top"><a id="ab2b004ab5c1bb057f4ca568b55a47ef4" name="ab2b004ab5c1bb057f4ca568b55a47ef4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>printOutputs</b> ()</td></tr>
 <tr class="memdesc:ab2b004ab5c1bb057f4ca568b55a47ef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to print layer's outputs. <br /></td></tr>
 <tr class="separator:ab2b004ab5c1bb057f4ca568b55a47ef4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0835d41c22cb4d79472b7d9e2ee6e4e2" id="r_a0835d41c22cb4d79472b7d9e2ee6e4e2"><td class="memItemLeft" align="right" valign="top">virtual Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0835d41c22cb4d79472b7d9e2ee6e4e2">feedInputs</a> (std::vector&lt; double &gt; inputs)</td></tr>
+<tr class="memdesc:a0835d41c22cb4d79472b7d9e2ee6e4e2"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to feed the inputs to the layer.  <br /></td></tr>
+<tr class="separator:a0835d41c22cb4d79472b7d9e2ee6e4e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f6f4c83f490c1166062b37a7f02b1b6" id="r_a4f6f4c83f490c1166062b37a7f02b1b6"><td class="memItemLeft" align="right" valign="top">virtual Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4f6f4c83f490c1166062b37a7f02b1b6">feedInputs</a> (Eigen::MatrixXd inputs)=0</td></tr>
+<tr class="memdesc:a4f6f4c83f490c1166062b37a7f02b1b6"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to feed the inputs to the layer.  <br /></td></tr>
+<tr class="separator:a4f6f4c83f490c1166062b37a7f02b1b6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5409abfbf3077969eed22a2f9d98f012" id="r_a5409abfbf3077969eed22a2f9d98f012"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5409abfbf3077969eed22a2f9d98f012">feedInputs</a> (std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs)</td></tr>
+<tr class="memdesc:a5409abfbf3077969eed22a2f9d98f012"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to feed the inputs to the layer.  <br /></td></tr>
+<tr class="separator:a5409abfbf3077969eed22a2f9d98f012"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a63cab3305764efae2d89ac8b63e05709" id="r_a63cab3305764efae2d89ac8b63e05709"><td class="memItemLeft" align="right" valign="top">const std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a63cab3305764efae2d89ac8b63e05709">typeStr</a> ()</td></tr>
+<tr class="separator:a63cab3305764efae2d89ac8b63e05709"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
-<tr class="memitem:aa282e671021b0c1ed1d8315e09d2f692" id="r_aa282e671021b0c1ed1d8315e09d2f692"><td class="memItemLeft" align="right" valign="top"><a id="aa282e671021b0c1ed1d8315e09d2f692" name="aa282e671021b0c1ed1d8315e09d2f692"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>Layer</b> (std::tuple&lt; int, int &gt; inputShape)</td></tr>
-<tr class="separator:aa282e671021b0c1ed1d8315e09d2f692"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5e920aa864e5000e701caa71a3506dff" id="r_a5e920aa864e5000e701caa71a3506dff"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5e920aa864e5000e701caa71a3506dff">setOutputs</a> (Eigen::MatrixXd outputs)</td></tr>
+<tr class="separator:a5e920aa864e5000e701caa71a3506dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae81f8d543115f7be083f2a57d9baa551" id="r_ae81f8d543115f7be083f2a57d9baa551"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae81f8d543115f7be083f2a57d9baa551">setOutputs</a> (std::vector&lt; double &gt; outputs)</td></tr>
 <tr class="memdesc:ae81f8d543115f7be083f2a57d9baa551"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to set the outputs of the layer.  <br /></td></tr>
 <tr class="separator:ae81f8d543115f7be083f2a57d9baa551"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5e920aa864e5000e701caa71a3506dff" id="r_a5e920aa864e5000e701caa71a3506dff"><td class="memItemLeft" align="right" valign="top"><a id="a5e920aa864e5000e701caa71a3506dff" name="a5e920aa864e5000e701caa71a3506dff"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><b>setOutputs</b> (Eigen::MatrixXd outputs)</td></tr>
-<tr class="separator:a5e920aa864e5000e701caa71a3506dff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a367e6049fe08bffa6f27b7d4bcd9ce05" id="r_a367e6049fe08bffa6f27b7d4bcd9ce05"><td class="memItemLeft" align="right" valign="top">virtual Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a367e6049fe08bffa6f27b7d4bcd9ce05">computeOutputs</a> (Eigen::MatrixXd inputs)=0</td></tr>
+<tr class="memdesc:a367e6049fe08bffa6f27b7d4bcd9ce05"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is used to feed the inputs to the layer.  <br /></td></tr>
+<tr class="separator:a367e6049fe08bffa6f27b7d4bcd9ce05"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af1a77b0a4bbdad60da1979e0f2c3d6d4" id="r_af1a77b0a4bbdad60da1979e0f2c3d6d4"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af1a77b0a4bbdad60da1979e0f2c3d6d4">init</a> (int args)</td></tr>
+<tr class="separator:af1a77b0a4bbdad60da1979e0f2c3d6d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa282e671021b0c1ed1d8315e09d2f692" id="r_aa282e671021b0c1ed1d8315e09d2f692"><td class="memItemLeft" align="right" valign="top"><a id="aa282e671021b0c1ed1d8315e09d2f692" name="aa282e671021b0c1ed1d8315e09d2f692"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>Layer</b> (std::tuple&lt; int, int &gt; inputShape)</td></tr>
+<tr class="separator:aa282e671021b0c1ed1d8315e09d2f692"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr class="memitem:ade725b2b3049543da3e86534538f50e8" id="r_ade725b2b3049543da3e86534538f50e8"><td class="memItemLeft" align="right" valign="top"><a id="ade725b2b3049543da3e86534538f50e8" name="ade725b2b3049543da3e86534538f50e8"></a>
 int&#160;</td><td class="memItemRight" valign="bottom"><b>nNeurons</b></td></tr>
 <tr class="separator:ade725b2b3049543da3e86534538f50e8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6ac2ab1d452583fe7e812c8852575c57" id="r_a6ac2ab1d452583fe7e812c8852575c57"><td class="memItemLeft" align="right" valign="top"><a id="a6ac2ab1d452583fe7e812c8852575c57" name="a6ac2ab1d452583fe7e812c8852575c57"></a>
+Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><b>outputs</b></td></tr>
+<tr class="separator:a6ac2ab1d452583fe7e812c8852575c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab0d69db8e7945e5084d00b618907e372" id="r_ab0d69db8e7945e5084d00b618907e372"><td class="memItemLeft" align="right" valign="top"><a id="ab0d69db8e7945e5084d00b618907e372" name="ab0d69db8e7945e5084d00b618907e372"></a>
 LayerType&#160;</td><td class="memItemRight" valign="bottom"><b>type</b> = LayerType::DEFAULT</td></tr>
 <tr class="separator:ab0d69db8e7945e5084d00b618907e372"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4404be7eddcc0d858ab503bf09d4757f" id="r_a4404be7eddcc0d858ab503bf09d4757f"><td class="memItemLeft" align="right" valign="top"><a id="a4404be7eddcc0d858ab503bf09d4757f" name="a4404be7eddcc0d858ab503bf09d4757f"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><b>trainingOnly</b> = false</td></tr>
+<tr class="separator:a4404be7eddcc0d858ab503bf09d4757f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -152,8 +161,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>cereal::access</b></
 <tr class="separator:ab2f44cbb59a08132f4c843e5225bba0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a296c21f474dbe7fc2926a5e0b7ab87aa" name="a296c21f474dbe7fc2926a5e0b7ab87aa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a296c21f474dbe7fc2926a5e0b7ab87aa">&#9670;&#160;</a></span>getBiases()</h2>
+<a id="a367e6049fe08bffa6f27b7d4bcd9ce05" name="a367e6049fe08bffa6f27b7d4bcd9ce05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a367e6049fe08bffa6f27b7d4bcd9ce05">&#9670;&#160;</a></span>computeOutputs()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -162,21 +171,135 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>cereal::access</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::MatrixXd NeuralNet::Layer::getBiases </td>
+          <td class="memname">virtual Eigen::MatrixXd NeuralNet::Layer::computeOutputs </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">Eigen::MatrixXd</td>          <td class="paramname"><span class="paramname"><em>inputs</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">protected</span><span class="mlabel">pure virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
 
-<p>Return the biases of the layer. </p>
-<dl class="section return"><dt>Returns</dt><dd>an Eigen::Matrix representing the biases </dd></dl>
+<p>This method is used to feed the inputs to the layer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputs</td><td>A vector of vectors of doubles representing the inputs (features)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an Eigen::MatrixXd representing the computed outputs based on the layer's parameters </dd></dl>
+
+<p>Implemented in <a class="el" href="classNeuralNet_1_1Dropout.html#a1157d66873ebfeb95033505ac1de61fb">NeuralNet::Dropout</a>.</p>
+
+</div>
+</div>
+<a id="a4f6f4c83f490c1166062b37a7f02b1b6" name="a4f6f4c83f490c1166062b37a7f02b1b6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f6f4c83f490c1166062b37a7f02b1b6">&#9670;&#160;</a></span>feedInputs() <span class="overload">[1/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Eigen::MatrixXd NeuralNet::Layer::feedInputs </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::MatrixXd</td>          <td class="paramname"><span class="paramname"><em>inputs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This method is used to feed the inputs to the layer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputs</td><td>An Eigen::MatrixXd representing the inputs (features)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an Eigen::MatrixXd representing the outputs of the layer </dd></dl>
+
+<p>Implemented in <a class="el" href="classNeuralNet_1_1Dense.html#ab11fd1d8871f7c3692fe50b6e67c18d7">NeuralNet::Dense</a>, <a class="el" href="classNeuralNet_1_1Dropout.html#a9dc59366393153f082a0ea9f8a46be7e">NeuralNet::Dropout</a>, and <a class="el" href="classNeuralNet_1_1Flatten.html#ab583a33c11f84cf0e91eef74db8277ec">NeuralNet::Flatten</a>.</p>
+
+</div>
+</div>
+<a id="a0835d41c22cb4d79472b7d9e2ee6e4e2" name="a0835d41c22cb4d79472b7d9e2ee6e4e2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0835d41c22cb4d79472b7d9e2ee6e4e2">&#9670;&#160;</a></span>feedInputs() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual Eigen::MatrixXd NeuralNet::Layer::feedInputs </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; double &gt;</td>          <td class="paramname"><span class="paramname"><em>inputs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This method is used to feed the inputs to the layer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputs</td><td>A vector of doubles representing the inputs (features)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>an Eigen::MatrixXd representing the outputs of the layer </dd></dl>
+
+</div>
+</div>
+<a id="a5409abfbf3077969eed22a2f9d98f012" name="a5409abfbf3077969eed22a2f9d98f012"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5409abfbf3077969eed22a2f9d98f012">&#9670;&#160;</a></span>feedInputs() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void NeuralNet::Layer::feedInputs </td>
+          <td>(</td>
+          <td class="paramtype">std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt;</td>          <td class="paramname"><span class="paramname"><em>inputs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>This method is used to feed the inputs to the layer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">inputs</td><td>A vector of vectors of doubles representing the inputs (features)</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>void </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classNeuralNet_1_1Flatten.html#abedde3bbbc6554d81dc4ef3d5be73080">NeuralNet::Flatten</a>.</p>
 
 </div>
 </div>
@@ -236,8 +359,8 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>cereal::access</b></
 
 </div>
 </div>
-<a id="ac6448e3a5415b1ea351ca22fa2b895a0" name="ac6448e3a5415b1ea351ca22fa2b895a0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac6448e3a5415b1ea351ca22fa2b895a0">&#9670;&#160;</a></span>getWeights()</h2>
+<a id="af1a77b0a4bbdad60da1979e0f2c3d6d4" name="af1a77b0a4bbdad60da1979e0f2c3d6d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af1a77b0a4bbdad60da1979e0f2c3d6d4">&#9670;&#160;</a></span>init()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -246,26 +369,57 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>cereal::access</b></
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">Eigen::MatrixXd NeuralNet::Layer::getWeights </td>
+          <td class="memname">virtual void NeuralNet::Layer::init </td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"></span></td><td>)</td>
-          <td> const</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>args</em></span></td><td>)</td>
+          <td></td>
         </tr>
       </table>
   </td>
   <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span><span class="mlabel">virtual</span></span>  </td>
   </tr>
 </table>
 </div><div class="memdoc">
+<p>This function will be used to properly initialize the <a class="el" href="classNeuralNet_1_1Layer.html">Layer</a> It's being done like this because of the number of neurons of the previous layer that's unkown prior </p>
 
-<p>This method gets the layer's weights. </p>
-<dl class="section return"><dt>Returns</dt><dd>an Eigen::MatrixXd representing the weights </dd></dl>
+<p>Reimplemented in <a class="el" href="classNeuralNet_1_1Dropout.html#a1fd92d6e6e9fbe6e38812929bedfdff1">NeuralNet::Dropout</a>.</p>
+
+</div>
+</div>
+<a id="a5e920aa864e5000e701caa71a3506dff" name="a5e920aa864e5000e701caa71a3506dff"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5e920aa864e5000e701caa71a3506dff">&#9670;&#160;</a></span>setOutputs() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void NeuralNet::Layer::setOutputs </td>
+          <td>(</td>
+          <td class="paramtype">Eigen::MatrixXd</td>          <td class="paramname"><span class="paramname"><em>outputs</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">protected</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">outputs</td><td>the outputs to store </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
 <a id="ae81f8d543115f7be083f2a57d9baa551" name="ae81f8d543115f7be083f2a57d9baa551"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae81f8d543115f7be083f2a57d9baa551">&#9670;&#160;</a></span>setOutputs()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae81f8d543115f7be083f2a57d9baa551">&#9670;&#160;</a></span>setOutputs() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -296,6 +450,33 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>cereal::access</b></
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>void</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>This method is used for the input layer (the first layer of the network) </dd></dl>
+
+</div>
+</div>
+<a id="a63cab3305764efae2d89ac8b63e05709" name="a63cab3305764efae2d89ac8b63e05709"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a63cab3305764efae2d89ac8b63e05709">&#9670;&#160;</a></span>typeStr()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">const std::string NeuralNet::Layer::typeStr </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<p>Returns the layer type as string</p>
+<dl class="section note"><dt>Note</dt><dd>Returns "Base" for base class <code><a class="el" href="classNeuralNet_1_1Layer.html">Layer</a></code> and "Unknown" if no type specified. </dd></dl>
 
 </div>
 </div>

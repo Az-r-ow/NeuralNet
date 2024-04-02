@@ -1,5 +1,6 @@
 var searchData=
 [
-  ['flatten_0',['Flatten',['../classNeuralNet_1_1Flatten.html#a58993cf3bbad91fb4f3dc4570278e82c',1,'NeuralNet::Flatten']]],
-  ['flatten_1',['flatten',['../classNeuralNet_1_1Flatten.html#a715f3cb27e42842f4ac5fd10c67f3028',1,'NeuralNet::Flatten']]]
+  ['feedinputs_0',['feedInputs',['../classNeuralNet_1_1Dense.html#ab11fd1d8871f7c3692fe50b6e67c18d7',1,'NeuralNet::Dense::feedInputs()'],['../classNeuralNet_1_1Dropout.html#a9dc59366393153f082a0ea9f8a46be7e',1,'NeuralNet::Dropout::feedInputs()'],['../classNeuralNet_1_1Flatten.html#abedde3bbbc6554d81dc4ef3d5be73080',1,'NeuralNet::Flatten::feedInputs(std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs) override'],['../classNeuralNet_1_1Flatten.html#ab583a33c11f84cf0e91eef74db8277ec',1,'NeuralNet::Flatten::feedInputs(Eigen::MatrixXd inputs) override'],['../classNeuralNet_1_1Layer.html#a0835d41c22cb4d79472b7d9e2ee6e4e2',1,'NeuralNet::Layer::feedInputs(std::vector&lt; double &gt; inputs)'],['../classNeuralNet_1_1Layer.html#a4f6f4c83f490c1166062b37a7f02b1b6',1,'NeuralNet::Layer::feedInputs(Eigen::MatrixXd inputs)=0'],['../classNeuralNet_1_1Layer.html#a5409abfbf3077969eed22a2f9d98f012',1,'NeuralNet::Layer::feedInputs(std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs)']]],
+  ['flatten_1',['Flatten',['../classNeuralNet_1_1Flatten.html#a58993cf3bbad91fb4f3dc4570278e82c',1,'NeuralNet::Flatten']]],
+  ['flatten_2',['flatten',['../classNeuralNet_1_1Flatten.html#a715f3cb27e42842f4ac5fd10c67f3028',1,'NeuralNet::Flatten']]]
 ];

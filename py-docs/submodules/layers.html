@@ -167,6 +167,7 @@
 <li class="toctree-l2"><a class="reference internal" href="optimizers.html#NeuralNetPy.optimizers.SGD"><code class="docutils literal notranslate"><span class="pre">SGD</span></code></a></li>
 <li class="toctree-l2 current current-page"><a class="current reference internal" href="#">Layers</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#NeuralNetPy.layers.Dense"><code class="docutils literal notranslate"><span class="pre">Dense</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#NeuralNetPy.layers.Dropout"><code class="docutils literal notranslate"><span class="pre">Dropout</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="#NeuralNetPy.layers.Flatten"><code class="docutils literal notranslate"><span class="pre">Flatten</span></code></a></li>
 <li class="toctree-l2"><a class="reference internal" href="models.html">Models</a></li>
 <li class="toctree-l2"><a class="reference internal" href="models.html#NeuralNetPy.models.Model"><code class="docutils literal notranslate"><span class="pre">Model</span></code></a></li>
@@ -240,6 +241,33 @@
 </pre></div>
 </div>
 </div>
+<dl class="py method">
+<dt class="sig sig-object py" id="NeuralNetPy.layers.Dense.typeStr">
+<span class="sig-name descname"><span class="pre">typeStr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.layers.Dense" title="NeuralNetPy.layers.Dense"><span class="pre">NeuralNetPy.layers.Dense</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#NeuralNetPy.layers.Dense.typeStr" title="Link to this definition">#</a></dt>
+<dd><p>Returns the type of the layer.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="NeuralNetPy.layers.Dropout">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">NeuralNetPy.layers.</span></span><span class="sig-name descname"><span class="pre">Dropout</span></span><a class="headerlink" href="#NeuralNetPy.layers.Dropout" title="Link to this definition">#</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">Layer</span></code></p>
+<p>Initializes a <code class="docutils literal notranslate"><span class="pre">Dropout</span></code> layer, it’s a layer that simply applies a dropout to the input.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>rate</strong> (<em>float32</em>) – A float between 0 and 1. It represents the fraction of the inputs to drop.</p></li>
+<li><p><strong>seed</strong> (<em>int</em>) – An integer used as random seed. If not provided a random seed will be generated.</p></li>
+</ul>
+</dd>
+</dl>
+<dl class="py method">
+<dt class="sig sig-object py" id="NeuralNetPy.layers.Dropout.typeStr">
+<span class="sig-name descname"><span class="pre">typeStr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.layers.Dropout" title="NeuralNetPy.layers.Dropout"><span class="pre">NeuralNetPy.layers.Dropout</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#NeuralNetPy.layers.Dropout.typeStr" title="Link to this definition">#</a></dt>
+<dd><p>Returns the type of the layer.</p>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="py class">
@@ -260,6 +288,12 @@
 </pre></div>
 </div>
 </div>
+<dl class="py method">
+<dt class="sig sig-object py" id="NeuralNetPy.layers.Flatten.typeStr">
+<span class="sig-name descname"><span class="pre">typeStr</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">self</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><a class="reference internal" href="#NeuralNetPy.layers.Flatten" title="NeuralNetPy.layers.Flatten"><span class="pre">NeuralNetPy.layers.Flatten</span></a></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#NeuralNetPy.layers.Flatten.typeStr" title="Link to this definition">#</a></dt>
+<dd><p>Returns the type of the layer.</p>
+</dd></dl>
+
 </dd></dl>
 
 
