@@ -330,21 +330,9 @@ void Network::trainingCheckpoint(
     std::vector<std::shared_ptr<Callback>> callbacks) {
   if (callbacks.size() == 0) return;
 
-  std::unordered_map<std::string, double> logs = getLogs();
-
   for (std::shared_ptr<Callback> callback : callbacks) {
-    Callback::callMethod(callback, checkpointName, logs);
+    Callback::callMethod(callback, checkpointName, *this);
   }
-}
-
-std::unordered_map<std::string, double> Network::getLogs() {
-  std::unordered_map<std::string, double> logs;
-
-  logs["LOSS"] = loss;
-  logs["ACCURACY"] = accuracy;
-  logs["EPOCH"] = cEpoch;
-
-  return logs;
 }
 
 /**
