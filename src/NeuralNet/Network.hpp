@@ -22,6 +22,7 @@
 #include "utils/Formatters.hpp"
 #include "utils/Functions.hpp"
 #include "utils/Gauge.hpp"
+#include "utils/Variants.hpp"
 
 namespace NeuralNet {
 class Layer;
@@ -171,14 +172,40 @@ class Network : public Model {
    */
   Eigen::MatrixXd predict(std::vector<std::vector<std::vector<double>>> inputs);
 
+  /**
+   * @brief Save the current model to a binary file
+   *
+   * @param filename the name of the file in which to save the model params
+   */
+  void to_file(const std::string &filename) override {
+    // Serializing model to a binary file
+    std::ofstream file(filename, std::ios::binary);
+    cereal::BinaryOutputArchive archive(file);
+    archive(*this);
+  }
+
+  /**
+   * @brief Load a model's params from a file
+   *
+   * @param filename the name of the from which to load the model params
+   */
+  void from_file(const std::string &filename) override {
+    // Making sure the file exists and is binary
+    assert(fileExistsWithExtension(filename, ".bin") &&
+           "The file doesn't exists or is not binary '.bin'");
+
+    // Deserializing the model from the binary file
+    std::ifstream file(filename, std::ios::binary);
+    cereal::BinaryInputArchive archive(file);
+    archive(*this);
+  }
+
   ~Network();
 
  private:
   // non-public serialization
   friend class cereal::access;
 
-  int cEpoch = 0;  // Current epoch
-  double loss = 0, accuracy = 0;
   std::vector<std::shared_ptr<Layer>> layers;
   LOSS lossFunc =
       LOSS::QUADRATIC;  // Storing the loss function for serialization
@@ -190,13 +217,13 @@ class Network : public Model {
 
   template <class Archive>
   void save(Archive &archive) const {
-    archive(layers, lossFunc);
+    archive(cereal::base_class<Model>(this), layers, lossFunc);
     archive.serializeDeferments();
   };
 
   template <class Archive>
   void load(Archive &archive) {
-    archive(layers, lossFunc);
+    archive(cereal::base_class<Model>(this), layers, lossFunc);
     setLoss(lossFunc);
   }
 
@@ -366,13 +393,6 @@ class Network : public Model {
   double computeAccuracy(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y);
 
   /**
-   * @brief This method will fetch the logs and return them
-   *
-   * @return A map of useful logs
-   */
-  std::unordered_map<std::string, double> getLogs();
-
-  /**
    * @brief This method will update the optimizer's setup
    *
    * @param numLayers The number of layers in the network
@@ -380,3 +400,7 @@ class Network : public Model {
   void updateOptimizerSetup(size_t numLayers);
 };
 }  // namespace NeuralNet
+
+CEREAL_REGISTER_TYPE(NeuralNet::Network);
+
+CEREAL_REGISTER_POLYMORPHIC_RELATION(NeuralNet::Model, NeuralNet::Network);

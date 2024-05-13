@@ -14,17 +14,17 @@ class CSVLogger : public Callback {
   /**
    * @brief CSVLogger is a `Callback` that streams epoch results to a csv file
    *
-   * @param filename The name of the csv file
+   * @param filepath The name of the csv file
    * @param separator The separator used in the csv file (default: ",")
    */
-  CSVLogger(const std::string &filename, const std::string &separator = ",") {
-    assert(fileHasExtension(filename, ".csv") &&
-           "Filename must have .csv extension");
-    this->filename = filename;
+  CSVLogger(const std::string &filepath, const std::string &separator = ",") {
+    assert(fileHasExtension(filepath, ".csv") &&
+           "filepath must have .csv extension");
+    this->filepath = filepath;
     this->separator = separator;
   };
 
-  void onEpochBegin(std::unordered_map<std::string, double> logs) override{};
+  void onEpochBegin(Model &model) override {};
 
   /**
    * @brief This method will be called at the end of each epoch
@@ -34,14 +34,20 @@ class CSVLogger : public Callback {
    *
    * @param logs The logs of the current epoch
    */
-  void onEpochEnd(std::unordered_map<std::string, double> logs) override {
+  void onEpochEnd(Model &model) override {
+    std::unordered_map<std::string, Logs> logs = getLogs(model);
     std::vector<double> row;
 
     row.reserve(logs.size());
 
-    std::transform(
-        logs.begin(), logs.end(), std::back_inserter(row),
-        [](const auto &log) { return static_cast<double>(log.second); });
+    std::transform(logs.begin(), logs.end(), std::back_inserter(row),
+                   [](const auto &log) {
+                     const auto &value = log.second;
+                     if (std::holds_alternative<int>(value)) {
+                       return static_cast<double>(std::get<int>(value));
+                     }
+                     return std::get<double>(value);
+                   });
 
     data.push_back(row);
   };
@@ -53,10 +59,15 @@ class CSVLogger : public Callback {
    *
    * @param logs The logs of the current epoch
    */
-  void onTrainBegin(std::unordered_map<std::string, double> logs) override {
+  void onTrainBegin(Model &model) override {
+    std::unordered_map<std::string, Logs> logs = getLogs(model);
     // Initializing the headers with the logs keys
     for (const auto &log : logs) {
-      headers.push_back(log.first);
+      const auto &value = log.second;
+      if (std::holds_alternative<int>(value) ||
+          std::holds_alternative<double>(value)) {
+        headers.push_back(log.first);
+      }
     };
   };
 
@@ -67,8 +78,8 @@ class CSVLogger : public Callback {
    *
    * @param logs The logs of the current epoch
    */
-  void onTrainEnd(std::unordered_map<std::string, double> logs) override {
-    std::ofstream file(filename);
+  void onTrainEnd(Model &model) override {
+    std::ofstream file(filepath);
 
     if (!file.is_open()) {
       throw std::runtime_error("Couldn't open csv file");
@@ -82,11 +93,11 @@ class CSVLogger : public Callback {
     file.close();
   };
 
-  void onBatchBegin(std::unordered_map<std::string, double> logs) override{};
-  void onBatchEnd(std::unordered_map<std::string, double> logs) override{};
+  void onBatchBegin(Model &model) override {};
+  void onBatchEnd(Model &model) override {};
 
  private:
-  std::string filename;
+  std::string filepath;
   std::string separator;
   std::vector<std::string> headers;
   std::vector<std::vector<double>> data;

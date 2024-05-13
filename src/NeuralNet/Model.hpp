@@ -1,7 +1,11 @@
 #pragma once
 
+#include <cereal/access.hpp>
 #include <cereal/archives/binary.hpp>
-#include <cereal/cereal.hpp>
+#include <cereal/archives/portable_binary.hpp>
+#include <cereal/types/base_class.hpp>
+#include <cereal/types/common.hpp>
+#include <cereal/types/polymorphic.hpp>
 #include <csignal>
 #include <fstream>
 #include <string>
@@ -53,7 +57,31 @@ class Model {
     archive(model);
   };
 
+  virtual void to_file(const std::string &filename) = 0;
+  virtual void from_file(const std::string &filename) = 0;
+
+  // Declare at least one virtual function
+  virtual ~Model() = default;
+
+ private:
+  friend class cereal::access;
+
+  // Serialization function
+  template <class Archive>
+  void save(Archive &archive) const {
+    archive(loss, accuracy);
+  };
+
+  template <class Archive>
+  void load(Archive &archive) {
+    archive(loss, accuracy);
+  };
+
  protected:
+  friend class Callback;
+  int cEpoch = 0;  // Current epoch
+  double loss = 0, accuracy = 0;
+
   void registerSignals() const {
     // Registering signals
     signal(SIGINT, signalHandler);
@@ -61,3 +89,5 @@ class Model {
   }
 };
 }  // namespace NeuralNet
+
+CEREAL_REGISTER_TYPE(NeuralNet::Model);

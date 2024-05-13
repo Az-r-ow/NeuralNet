@@ -86,6 +86,46 @@ inline bool fileHasExtension(const std::string &filePath,
   return file.has_extension() && file.extension() == extension;
 }
 
+/**
+ * @brief Check if a folder exists or not based on its path
+ *
+ * @param folderPath The path to the folder
+ *
+ * @return Returns `true` if the folder exists
+ */
+inline bool folderExists(const std::string &folderPath) {
+  return fs::exists(folderPath) && fs::is_directory(folderPath);
+}
+
+/**
+ * @brief Generates a file path from folder path and fileName
+ *
+ * @param folderPath The path to the folder
+ * @param fileName The name of the file
+ *
+ * @return Returns the filepath with the given arguments
+ */
+inline std::string constructFilePath(const std::string &folderPath,
+                                     const std::string &fileName) {
+  std::string filepath;
+
+// Running on windows
+#ifdef _WIN32
+  if (!folderPath.empty() && folderPath.back() != "\\")
+    filepath = folderPath + "\\";
+  else
+    filepath = folderPath;
+#else
+  // Not running on Windows
+  if (!folderPath.empty() && folderPath.back() != '/')
+    filepath = folderPath + "/";
+  else
+    filepath = folderPath;
+#endif
+
+  return filepath + fileName;
+};
+
 /* MATHEMATICAL FUNCTIONS */
 
 /**

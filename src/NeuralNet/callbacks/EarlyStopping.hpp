@@ -22,7 +22,7 @@ class EarlyStopping : public Callback {
    * @param patience Number of epochs with no improvement after which training
    * will be stopped. (default: 0)
    */
-  EarlyStopping(const std::string &metric = "LOSS", double minDelta = 0,
+  EarlyStopping(const std::string& metric = "LOSS", double minDelta = 0,
                 int patience = 0) {
     checkMetric(metric, metrics);
     this->metric = metric;
@@ -30,7 +30,7 @@ class EarlyStopping : public Callback {
     this->patience = patience;
   };
 
-  void onEpochBegin(std::unordered_map<std::string, double> logs) override{};
+  void onEpochBegin(Model& model) override{};
 
   /**
    * @brief This method will be called at the end of each epoch
@@ -43,12 +43,13 @@ class EarlyStopping : public Callback {
    * @warning The order of the logs should be the same as the order of the
    * metrics.
    */
-  void onEpochEnd(std::unordered_map<std::string, double> logs) override {
+  void onEpochEnd(Model& model) override {
+    std::unordered_map<std::string, Logs> logs = getLogs(model);
     auto it = logs.find(metric);
 
     if (it == logs.end()) throw std::invalid_argument("Metric not found");
 
-    double currentMetric = it->second;
+    double currentMetric = std::get<double>(it->second);
 
     if (previousMetric == 0) {
       previousMetric = currentMetric;
@@ -63,10 +64,10 @@ class EarlyStopping : public Callback {
     if (patience < 0) throw std::runtime_error("Early stopping");
   };
 
-  void onTrainBegin(std::unordered_map<std::string, double> logs) override{};
-  void onTrainEnd(std::unordered_map<std::string, double> logs) override{};
-  void onBatchBegin(std::unordered_map<std::string, double> logs) override{};
-  void onBatchEnd(std::unordered_map<std::string, double> logs) override{};
+  void onTrainBegin(Model& model) override{};
+  void onTrainEnd(Model& model) override{};
+  void onBatchBegin(Model& model) override{};
+  void onBatchEnd(Model& model) override{};
 
   ~EarlyStopping() override = default;
 
