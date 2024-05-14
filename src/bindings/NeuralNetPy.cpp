@@ -17,6 +17,7 @@
 #include "callbacks/CSVLogger.hpp"
 #include "callbacks/Callback.hpp"
 #include "callbacks/EarlyStopping.hpp"
+#include "callbacks/ModelCheckpoint.hpp"
 #include "layers/Dense.hpp"
 #include "layers/Flatten.hpp"
 #include "layers/Layer.hpp"
@@ -220,7 +221,7 @@ PYBIND11_MODULE(NeuralNetPy, m) {
           .. code-block:: python
               :caption: Example
 
-              network.train(inputs, labels, 100, [NNP.callbacks.EarlyStopping("loss", 0.01, 10)])
+              network.train(X, y, 100, [NNP.callbacks.EarlyStopping("loss", 0.01, 10)])
       )pbdoc")
       .def(py::init<std::string, double, int>(), py::arg("metric") = "LOSS",
            py::arg("minDelta") = 0.01, py::arg("patience") = 0);
@@ -237,6 +238,30 @@ PYBIND11_MODULE(NeuralNetPy, m) {
       )pbdoc")
       .def(py::init<std::string, std::string>(), py::arg("filename"),
            py::arg("separator") = ",");
+
+  py::class_<ModelCheckpoint, Callback, std::shared_ptr<ModelCheckpoint>>(
+      callbacks_m, "ModelCheckpoint", R"pbdoc(
+      ``ModelCheckpoint`` callback is used in parallel of training `model.train` to save a model (it's parameters) in a checkpoint file at a given interval.
+
+      A couple of options provided by the callbacks are : 
+      * ``saveBestOnly`` If activated will save the "best" model (which is deduced automatically).
+      * ``numEpochs`` Number of epoch intervals between checkpoints (only valid if ``saveBestOnly`` is ``False``)
+      
+      Params
+      ======
+
+      :param folderPath: The path to the folder in which to save the checkpoints.
+      :type folderPath: str
+      :param saveBestOnly: Whether to save the best checkpoint or each one of them (default: ``True``)
+      :type saveBestOnly: bool
+      :param numEpochs: The number of epochs interval between checkpoints
+      :type numEpochs: int
+      :param verbose: Verbose output (default: False)
+      :type verbose: bool
+    )pbdoc")
+      .def(py::init<std::string, bool, int, bool>(), py::arg("folderPath"),
+           py::arg("saveBestOnly") = true, py::arg("numEpochs") = 1,
+           py::arg("verbose") = false);
 
   py::bind_vector<std::vector<std::shared_ptr<Callback>>>(callbacks_m,
                                                           "VectorCallback");

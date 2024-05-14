@@ -51,13 +51,13 @@ std::shared_ptr<Layer> Network::getOutputLayer() const {
   return this->layers[this->layers.size() - 1];
 }
 
-double Network::train(std::vector<std::vector<double>> inputs,
-                      std::vector<double> labels, int epochs,
+double Network::train(std::vector<std::vector<double>> X, std::vector<double> y,
+                      int epochs,
                       std::vector<std::shared_ptr<Callback>> callbacks,
                       bool progBar) {
   this->progBar = progBar;
   try {
-    return onlineTraining(inputs, labels, epochs, callbacks);
+    return onlineTraining(X, y, epochs, callbacks);
   } catch (const std::exception &e) {
     trainingCheckpoint("onTrainEnd", callbacks);
     std::cerr << "Training Interrupted : " << e.what() << '\n';
@@ -65,13 +65,13 @@ double Network::train(std::vector<std::vector<double>> inputs,
   }
 }
 
-double Network::train(std::vector<std::vector<std::vector<double>>> inputs,
-                      std::vector<double> labels, int epochs,
+double Network::train(std::vector<std::vector<std::vector<double>>> X,
+                      std::vector<double> y, int epochs,
                       std::vector<std::shared_ptr<Callback>> callbacks,
                       bool progBar) {
   this->progBar = progBar;
   try {
-    return onlineTraining(inputs, labels, epochs, callbacks);
+    return onlineTraining(X, y, epochs, callbacks);
   } catch (const std::exception &e) {
     trainingCheckpoint("onTrainEnd", callbacks);  // wrap up callbacks
     std::cerr << "Training Interrupted : " << e.what() << '\n';
@@ -330,21 +330,9 @@ void Network::trainingCheckpoint(
     std::vector<std::shared_ptr<Callback>> callbacks) {
   if (callbacks.size() == 0) return;
 
-  std::unordered_map<std::string, double> logs = getLogs();
-
   for (std::shared_ptr<Callback> callback : callbacks) {
-    Callback::callMethod(callback, checkpointName, logs);
+    Callback::callMethod(callback, checkpointName, *this);
   }
-}
-
-std::unordered_map<std::string, double> Network::getLogs() {
-  std::unordered_map<std::string, double> logs;
-
-  logs["LOSS"] = loss;
-  logs["ACCURACY"] = accuracy;
-  logs["EPOCH"] = cEpoch;
-
-  return logs;
 }
 
 /**

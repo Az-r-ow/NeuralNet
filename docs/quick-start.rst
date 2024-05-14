@@ -42,46 +42,50 @@ If you look at the `main.py` file, you'll notice :
       get_MNIST_dataset(MNIST_DATASET_FILE)
 
 - Initiating and composing a Neural Network 
-  .. code-block:: python 
 
-    network = NNP.models.Network()
+.. code-block:: python 
 
-    network.addLayer(NNP.layers.Flatten((28, 28)))
-    network.addLayer(NNP.layers.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
-    network.addLayer(NNP.layers.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
+  network = NNP.models.Network()
 
-    # Setting up the networks parameters
-    network.setup(optimizer=NNP.optimizers.Adam(0.01), loss=NNP.LOSS.MCE)
+  network.addLayer(NNP.layers.Flatten((28, 28)))
+  network.addLayer(NNP.layers.Dense(128, NNP.ACTIVATION.RELU, NNP.WEIGHT_INIT.HE))
+  network.addLayer(NNP.layers.Dense(10, NNP.ACTIVATION.SOFTMAX, NNP.WEIGHT_INIT.LECUN))
+
+  # Setting up the networks parameters
+  network.setup(optimizer=NNP.optimizers.Adam(0.01), loss=NNP.LOSS.MCE)
 
 - Formatting and normalizing the data and then storing it in a `TrainingData3dI` object. Which simplifies batching. 
-  .. code-block:: python
+  
+.. code-block:: python
 
-    # preparing the training data
-    f_x_train = [normalize_img(x) for x in x_train]
+  # preparing the training data
+  f_x_train = [normalize_img(x) for x in x_train]
 
-    trainingData = NNP.TrainingData3dI(f_x_train[:NUM_TRAININGS], y_train[:NUM_TRAININGS])
+  trainingData = NNP.TrainingData3dI(f_x_train[:NUM_TRAININGS], y_train[:NUM_TRAININGS])
 
-    trainingData.batch(128) # Creating batches of 128 inputs
+  trainingData.batch(128) # Creating batches of 128 inputs
 
 - Training the data
 - Computing the accuracy 
 - Serializing the trained model and saving it in a binary format
-  .. code-block:: python
 
-    # Saving the trained model in a bin file
-    NNP.models.Model.save_to_file('./model.bin', network)
+.. code-block:: python
 
-    saved_model = NNP.models.Network()
+  # Saving the trained model in a bin file
+  NNP.models.Model.save_to_file('./model.bin', network)
+
+  saved_model = NNP.models.Network()
 
 - Loading the model into a new instance of `Network` from the file again (simply for showcase)
-  .. code-block:: python
+  
+.. code-block:: python
 
-    # Saving the trained model in a bin file
-    NNP.models.Model.save_to_file('./model.bin', network)
+  # Saving the trained model in a bin file
+  NNP.models.Model.save_to_file('./model.bin', network)
 
-    saved_model = NNP.models.Network()
+  saved_model = NNP.models.Network()
 
-    NNP.models.Model.load_from_file('./model.bin', saved_model)
+  NNP.models.Model.load_from_file('./model.bin', saved_model)
 
 - Testing the model with the `test_data`
 

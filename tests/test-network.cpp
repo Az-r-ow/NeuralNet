@@ -1,8 +1,10 @@
 #include <Eigen/Dense>
 #include <Network.hpp>
+#include <callbacks/ModelCheckpoint.hpp>
 #include <catch2/catch_test_macros.hpp>
 #include <filesystem>
 #include <utils/Functions.hpp>
+#include <utils/Variants.hpp>
 
 #include "test-macros.hpp"
 
@@ -205,7 +207,16 @@ SCENARIO("The network updates the weights and biases as pre-calculated") {
 
   trainData.batch(2);
 
-  network.train(trainData, 1, {}, false);
+  std::vector<std::shared_ptr<Callback>> callbacks = {
+      std::make_shared<ModelCheckpoint>("./", false, 1, true)};
+
+  network.train(trainData, 1, callbacks, false);
+
+  Network checkpoint;
+
+  Model::load_from_file("checkpoint-0.bin", checkpoint);
+
+  REQUIRE(checkpoint.getNumLayers() == network.getNumLayers());
 
   std::shared_ptr<Dense> oLayer =
       std::dynamic_pointer_cast<Dense>(network.getLayer(2));

@@ -168,7 +168,7 @@ class Layer {
    * It's being done like this because of the number of neurons of the previous
    * layer that's unkown prior
    */
-  virtual void init(int args){};
+  virtual void init(int args) {};
 
   Layer(std::tuple<int, int> inputShape)
       : nNeurons(std::get<0>(inputShape) *

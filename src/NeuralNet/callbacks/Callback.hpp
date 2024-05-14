@@ -9,16 +9,21 @@
 #include <variant>
 #include <vector>
 
+#include "Model.hpp"
+#include "utils/Variants.hpp"
+
 namespace NeuralNet {
+
+class Model;
 
 class Callback {
  public:
-  virtual void onTrainBegin(std::unordered_map<std::string, double> logs) = 0;
-  virtual void onTrainEnd(std::unordered_map<std::string, double> logs) = 0;
-  virtual void onEpochBegin(std::unordered_map<std::string, double> logs) = 0;
-  virtual void onEpochEnd(std::unordered_map<std::string, double> logs) = 0;
-  virtual void onBatchBegin(std::unordered_map<std::string, double> logs) = 0;
-  virtual void onBatchEnd(std::unordered_map<std::string, double> logs) = 0;
+  virtual void onTrainBegin(Model &model) = 0;
+  virtual void onTrainEnd(Model &model) = 0;
+  virtual void onEpochBegin(Model &model) = 0;
+  virtual void onEpochEnd(Model &model) = 0;
+  virtual void onBatchBegin(Model &model) = 0;
+  virtual void onBatchEnd(Model &model) = 0;
 
   virtual ~Callback() = default;
 
@@ -36,42 +41,38 @@ class Callback {
    */
   template <typename T>
   static void callMethod(std::shared_ptr<T> callback,
-                         const std::string &methodName,
-                         std::unordered_map<std::string, double> logs) {
-    static const std::unordered_map<
-        std::string,
-        std::function<void(T *, std::unordered_map<std::string, double>)>>
-        methods = {
-            {"onTrainBegin",
-             [](T *callback, std::unordered_map<std::string, double> logs) {
-               return callback->onTrainBegin(logs);
-             }},
-            {"onTrainEnd",
-             [](T *callback, std::unordered_map<std::string, double> logs) {
-               return callback->onTrainEnd(logs);
-             }},
-            {"onEpochBegin",
-             [](T *callback, std::unordered_map<std::string, double> logs) {
-               return callback->onEpochBegin(logs);
-             }},
-            {"onEpochEnd",
-             [](T *callback, std::unordered_map<std::string, double> logs) {
-               return callback->onEpochEnd(logs);
-             }},
-            {"onBatchBegin",
-             [](T *callback, std::unordered_map<std::string, double> logs) {
-               return callback->onBatchBegin(logs);
-             }},
-            {"onBatchEnd",
-             [](T *callback, std::unordered_map<std::string, double> logs) {
-               return callback->onBatchEnd(logs);
-             }}};
+                         const std::string &methodName, Model &model) {
+    static const std::unordered_map<std::string,
+                                    std::function<void(T *, Model &)>>
+        methods = {{"onTrainBegin",
+                    [](T *callback, Model &model) {
+                      return callback->onTrainBegin(model);
+                    }},
+                   {"onTrainEnd",
+                    [](T *callback, Model &model) {
+                      return callback->onTrainEnd(model);
+                    }},
+                   {"onEpochBegin",
+                    [](T *callback, Model &model) {
+                      return callback->onEpochBegin(model);
+                    }},
+                   {"onEpochEnd",
+                    [](T *callback, Model &model) {
+                      return callback->onEpochEnd(model);
+                    }},
+                   {"onBatchBegin",
+                    [](T *callback, Model &model) {
+                      return callback->onBatchBegin(model);
+                    }},
+                   {"onBatchEnd", [](T *callback, Model &model) {
+                      return callback->onBatchEnd(model);
+                    }}};
 
     auto it = methods.find(methodName);
 
     if (it == methods.end()) return;
 
-    it->second(callback.get(), logs);
+    it->second(callback.get(), model);
   }
 
  protected:
@@ -79,6 +80,16 @@ class Callback {
                           const std::vector<std::string> &metrics) {
     if (std::find(metrics.begin(), metrics.end(), metric) == metrics.end())
       throw std::invalid_argument("Metric not found");
+  };
+
+  static std::unordered_map<std::string, Logs> getLogs(Model &model) {
+    std::unordered_map<std::string, Logs> logs;
+
+    logs["EPOCH"] = model.cEpoch;
+    logs["ACCURACY"] = model.accuracy;
+    logs["LOSS"] = model.loss;
+
+    return logs;
   };
 };
 }  // namespace NeuralNet
