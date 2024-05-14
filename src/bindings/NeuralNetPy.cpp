@@ -67,7 +67,8 @@ PYBIND11_MODULE(NeuralNetPy, m) {
 
   py::enum_<LOSS>(m, "LOSS")
       .value("QUADRATIC", LOSS::QUADRATIC)
-      .value("MCE", LOSS::MCE);
+      .value("MCE", LOSS::MCE)
+      .value("BCE", LOSS::BCE);
 
   py::module optimizers_m = m.def_submodule("optimizers", R"pbdoc(
       Optimizers

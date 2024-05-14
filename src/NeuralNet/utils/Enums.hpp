@@ -17,6 +17,7 @@ enum class WEIGHT_INIT {
 
 enum class LOSS {
   MCE,  // Multi-class Cross Entropy
-  QUADRATIC
+  QUADRATIC,
+  BCE  // Binary Cross-Entropy
 };
 }  // namespace NeuralNet

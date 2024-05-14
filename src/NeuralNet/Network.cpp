@@ -35,6 +35,9 @@ void Network::setLoss(LOSS loss) {
       this->cmpLoss = MCE::cmpLoss;
       this->cmpLossGrad = MCE::cmpLossGrad;
       break;
+    case LOSS::BCE:
+      this->cmpLoss = BCE::cmpLoss;
+      this->cmpLossGrad = BCE::cmpLossGrad;
     default:
       assert(false && "Loss not defined");
       break;

@@ -5,5 +5,6 @@
 
 #pragma once
 
-#include "MCE.hpp"
+#include "BCE.hpp"  // Binary Cross-Entropy
+#include "MCE.hpp"  // Multiclass Cross-Entropy
 #include "Quadratic.hpp"
