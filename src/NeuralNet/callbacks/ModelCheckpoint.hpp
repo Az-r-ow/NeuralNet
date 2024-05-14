@@ -2,7 +2,7 @@
 
 #include <format>
 #include <memory>
-#include <type_traits>
+#include <typeinfo>
 
 #include "Callback.hpp"
 #include "Model.hpp"
@@ -34,9 +34,13 @@ class ModelCheckpoint : public Callback {
    * metrics.
    */
   void onEpochEnd(Model &model) override {
-    std::unordered_map<std::string, Logs> logs = getLogs(model);
+    logs = getLogs(model);
     int epoch = std::get<int>(logs.at("EPOCH"));
-    std::string filename = "checkpoint-" + std::to_string(epoch) + ".bin";
+    // to get the Model's name
+    const std::type_info &modelInfo = typeid(model);
+    std::string filename = formatCheckpointFilepath(modelInfo.name());
+
+    if ((epoch % numEpochs) != 0) return;
 
     if (saveBestOnly) {
       double currLoss = std::get<double>(logs.at("LOSS"));
@@ -47,12 +51,7 @@ class ModelCheckpoint : public Callback {
       // Save best model for later saving
       bestLoss = currLoss;
       bestAccuracy = currAccuracy;
-      bestModel = &model;
-      this->filename = filename;  // for later use onTrainEnd
-      return;
     }
-
-    if ((epoch % numEpochs) != 0) return;
 
     if (verbose) verboseOutput(filename);
 
@@ -60,13 +59,7 @@ class ModelCheckpoint : public Callback {
   };
 
   void onTrainBegin(Model &model) override {};
-
-  void onTrainEnd(Model &model) override {
-    if (!saveBestOnly) return;
-    if (verbose) verboseOutput(filename);
-    bestModel->to_file(filename);
-  };
-
+  void onTrainEnd(Model &model) override {};
   void onBatchBegin(Model &model) override {};
   void onBatchEnd(Model &model) override {};
 
@@ -76,11 +69,18 @@ class ModelCheckpoint : public Callback {
   std::string folderPath, filename;
   bool saveBestOnly, verbose;
   double bestLoss = 10, bestAccuracy = 0;
-  Model *bestModel = nullptr;
   int numEpochs, bestEpoch;
+  std::unordered_map<std::string, Logs> logs;
 
   void verboseOutput(const std::string filename) {
-    std::cout << "Saving model in file: " << filename << "\n";
+    std::cout << "Saving checkpoint in file: " << filename << "\n";
+  }
+
+  std::string formatCheckpointFilepath(const std::string &modelName) {
+    std::string checkpointId =
+        saveBestOnly ? "best" : std::to_string(std::get<int>(logs["EPOCH"]));
+    std::string fileName = modelName + "-checkpoint-" + checkpointId + ".bin";
+    return constructFilePath(folderPath, fileName);
   }
 };
 }  // namespace NeuralNet

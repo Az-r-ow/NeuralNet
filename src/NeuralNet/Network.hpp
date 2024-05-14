@@ -83,8 +83,8 @@ class Network : public Model {
   /**
    * @brief This method will Train the model with the given inputs and labels
    *
-   * @param inputs The inputs that will be passed to the model
-   * @param labels The labels that represent the expected outputs of the model
+   * @param X The inputs that will be passed to the model
+   * @param y The labels that represent the expected outputs of the model
    * @param epochs
    * @param callbacks A vector of `Callback` that will be called during training
    * stages
@@ -93,8 +93,8 @@ class Network : public Model {
    *
    * @return The last training's loss
    */
-  double train(std::vector<std::vector<double>> inputs,
-               std::vector<double> labels, int epochs = 1,
+  double train(std::vector<std::vector<double>> X, std::vector<double> y,
+               int epochs = 1,
                const std::vector<std::shared_ptr<Callback>> callbacks = {},
                bool progBar = true);
 
@@ -111,8 +111,8 @@ class Network : public Model {
    *
    * @return The last training's loss
    */
-  double train(std::vector<std::vector<std::vector<double>>> inputs,
-               std::vector<double> labels, int epochs = 1,
+  double train(std::vector<std::vector<std::vector<double>>> X,
+               std::vector<double> y, int epochs = 1,
                const std::vector<std::shared_ptr<Callback>> callbacks = {},
                bool progBar = true);
 
@@ -257,10 +257,7 @@ class Network : public Model {
    *
    * @tparam D1 The type of data passed
    * @tparam D2 The type of labels passed
-   * @param inputs A vector of inputs (features) of type D1
-   * @param labels A vector of labels (targets) of type D2. Each element in this
-   * vector corresponds to the label of the training example at the same index
-   * in the inputs vector.
+   * @param trainingData A `TrainingData` object
    * @param epochs An integer specifying the number of times the training
    * algorithm should iterate over the dataset.
    * @param callbacks A vector of `Callback` that will be called during training
@@ -281,10 +278,7 @@ class Network : public Model {
    *
    * @tparam D1 The type of data passed
    * @tparam D2 The type of labels passed
-   * @param inputs A vector of inputs (features) of type D1
-   * @param labels A vector of labels (targets) of type D2. Each element in this
-   * vector corresponds to the label of the training example at the same index
-   * in the inputs vector.
+   * @param trainingData A `TrainingData` object
    * @param epochs An integer specifying the number of times the training
    * algorithm should iterate over the dataset.
    * @param callbacks A vector of `Callback` that will be called during training
@@ -306,10 +300,7 @@ class Network : public Model {
    *
    * @tparam D1 The type of data passed
    * @tparam D2 The type of labels passed
-   * @param inputs A vector of inputs (features) of type D1
-   * @param labels A vector of labels (targets) of type D2. Each element in this
-   * vector corresponds to the label of the training example at the same index
-   * in the inputs vector.
+   * @param trainingData A `TrainingData` object
    * @param epochs An integer specifying the number of times the training
    * algorithm should iterate over the dataset.
    * @param callbacks A vector of `Callback` that will be called during training

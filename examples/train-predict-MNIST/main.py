@@ -54,7 +54,7 @@ trainingData = NNP.TrainingData3dI(f_x_train[:NUM_TRAININGS], y_train[:NUM_TRAIN
 
 trainingData.batch(128)
 
-callbacks = [NNP.callbacks.EarlyStopping("LOSS", 0.01), NNP.callbacks.CSVLogger("training.csv")]
+callbacks = [NNP.callbacks.EarlyStopping("LOSS", 0.01), NNP.callbacks.CSVLogger("training.csv"), NNP.callbacks.ModelCheckpoint("checkpoints", False, 2,verbose=True)]
 
 network.train(trainingData, 10, callbacks)
 
