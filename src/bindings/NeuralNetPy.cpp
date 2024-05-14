@@ -270,6 +270,8 @@ PYBIND11_MODULE(NeuralNetPy, m) {
       callbacks_m, "VectorEarlyStopping");
   py::bind_vector<std::vector<std::shared_ptr<CSVLogger>>>(callbacks_m,
                                                            "VectorCSVLogger");
+  py::bind_vector<std::vector<std::shared_ptr<ModelCheckpoint>>>(
+      callbacks_m, "VectorModelCheckpoint");
 
   // TrainingData with 2 dimensional inputs
   bindTrainingData<std::vector<std::vector<double>>, std::vector<double>>(

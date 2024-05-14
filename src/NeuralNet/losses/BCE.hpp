@@ -9,8 +9,8 @@ namespace NeuralNet {
 class BCE : public Loss {
  public:
   static double cmpLoss(const Eigen::MatrixXd &o, const Eigen::MatrixXd &y) {
-    Eigen::MatrixXd loss =
-        -(y.array() * o.array().log() + (1.0 - y.array()).log());
+    Eigen::MatrixXd loss = -(y.array() * o.array().log() +
+                             (1.0 - y.array()) * (1.0 - o.array()).log());
     return loss.sum();
   }
 
