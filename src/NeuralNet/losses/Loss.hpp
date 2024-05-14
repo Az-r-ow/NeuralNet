@@ -18,12 +18,12 @@ class Loss {
   /**
    * @brief This function computes the loss gradient w.r.t the outputs
    *
-   * @param o The outputs from the output layer
+   * @param yHat The outputs from the output layer
    * @param y The labels (expected vals)
    *
    * @return The current iteration's gradient
    */
-  static Eigen::MatrixXd cmpLossGrad(const Eigen::MatrixXd &o,
+  static Eigen::MatrixXd cmpLossGrad(const Eigen::MatrixXd &yHat,
                                      const Eigen::MatrixXd &y);
 };
 }  // namespace NeuralNet

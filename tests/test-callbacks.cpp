@@ -2,6 +2,7 @@
 #include <callbacks/Callback.hpp>
 #include <callbacks/EarlyStopping.hpp>
 #include <catch2/catch_test_macros.hpp>
+#include <catch2/matchers/catch_matchers.hpp>
 #include <utils/Variants.hpp>
 #include <vector>
 
@@ -11,7 +12,7 @@ TEST_CASE(
     "EarlyStopping callback throws exception when the metric is not found",
     "[callback]") {
   std::shared_ptr<Callback> earlyStopping =
-      std::make_shared<EarlyStopping>("LOSS", 0.1);
+      std::make_shared<EarlyStopping>("NOT_A_METRIC", 0.1);
 
   Network network;
 

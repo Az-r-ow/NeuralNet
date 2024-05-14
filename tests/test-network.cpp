@@ -214,7 +214,7 @@ SCENARIO("The network updates the weights and biases as pre-calculated") {
 
   Network checkpoint;
 
-  Model::load_from_file("checkpoint-0.bin", checkpoint);
+  Model::load_from_file("N9NeuralNet7NetworkE-checkpoint-0.bin", checkpoint);
 
   REQUIRE(checkpoint.getNumLayers() == network.getNumLayers());
 
