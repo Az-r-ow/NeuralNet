@@ -1,3 +1,4 @@
+#include <Network.hpp>
 #include <callbacks/Callback.hpp>
 #include <callbacks/EarlyStopping.hpp>
 #include <catch2/catch_test_macros.hpp>
@@ -6,34 +7,40 @@
 
 using namespace NeuralNet;
 
-// TEST_CASE(
-//     "EarlyStopping callback throws exception when the metric is not found",
-//     "[callback]") {
-//   std::shared_ptr<Callback> earlyStopping =
-//       std::make_shared<EarlyStopping>("LOSS", 0.1);
-//   std::unordered_map<std::string, Logs> logs;
-//   logs["LOSS_METRIC"] = 0.2;
+TEST_CASE(
+    "EarlyStopping callback throws exception when the metric is not found",
+    "[callback]") {
+  std::shared_ptr<Callback> earlyStopping =
+      std::make_shared<EarlyStopping>("LOSS", 0.1);
 
-//   REQUIRE_THROWS(Callback::callMethod(earlyStopping, "onEpochEnd", logs));
-// }
+  Network network;
 
-// TEST_CASE(
-//     "EarlyStopping callback throws exception when metric does not more than "
-//     "the given delta",
-//     "[callback]") {
-//   std::shared_ptr<Callback> earlyStopping =
-//       std::make_shared<EarlyStopping>("LOSS", 0.1);
-//   std::unordered_map<std::string, Logs> logs;
-//   logs["LOSS"] = 0.1;
-//   std::unordered_map<std::string, Logs> logs2;
-//   logs["LOSS"] = 0.2;
+  REQUIRE_THROWS(Callback::callMethod(earlyStopping, "onEpochEnd", network));
+}
 
-//   Callback::callMethod(earlyStopping, "onEpochEnd", logs);
-//   REQUIRE_THROWS(Callback::callMethod(earlyStopping, "onEpochEnd", logs2));
-// }
+TEST_CASE(
+    "EarlyStopping callback throws exception when metric does not vary more "
+    "than the given delta",
+    "[callback]") {
+  std::shared_ptr<Callback> earlyStopping =
+      std::make_shared<EarlyStopping>("LOSS", 0.1);
 
-// TEST_CASE("ModelCheckpoint saves the files on each checkpoint", "[callback]")
-// {
-//   std::shared_ptr<Callback> modelCheckpoint =
-//       std::make_shared<ModelCheckpoint>("./checkpoints", false);
-// }
+  Network network;
+
+  std::shared_ptr<Optimizer> optimizer = std::make_shared<SGD>(1);
+
+  network.setup(optimizer, LOSS::QUADRATIC);
+
+  std::shared_ptr<Layer> inputLayer = std::make_shared<Dense>(2);
+  std::shared_ptr<Layer> outputLayer = std::make_shared<Dense>(1);
+
+  network.addLayer(inputLayer);
+  network.addLayer(outputLayer);
+
+  std::vector<std::vector<double>> inputs = {{0, 0}};
+
+  network.train(inputs, {0}, 1, {}, false);
+
+  Callback::callMethod(earlyStopping, "onEpochEnd", network);
+  CHECK_THROWS(Callback::callMethod(earlyStopping, "onEpochEnd", network));
+}

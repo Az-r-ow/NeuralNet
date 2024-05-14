@@ -181,7 +181,6 @@ class Network : public Model {
     // Serializing model to a binary file
     std::ofstream file(filename, std::ios::binary);
     cereal::BinaryOutputArchive archive(file);
-    std::cout << "Saving model : ";
     archive(*this);
   }
 
