@@ -11,12 +11,7 @@ using namespace NeuralNet;
 TEST_CASE(
     "EarlyStopping callback throws exception when the metric is not found",
     "[callback]") {
-  std::shared_ptr<Callback> earlyStopping =
-      std::make_shared<EarlyStopping>("NOT_A_METRIC", 0.1);
-
-  Network network;
-
-  REQUIRE_THROWS(Callback::callMethod(earlyStopping, "onEpochEnd", network));
+  REQUIRE_THROWS(std::make_shared<EarlyStopping>("NOT_A_METRIC", 0.1));
 }
 
 TEST_CASE(
