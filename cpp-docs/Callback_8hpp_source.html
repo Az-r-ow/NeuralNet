@@ -94,73 +94,85 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;variant&gt;</span></div>
 <div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span><span class="preprocessor">#include &lt;vector&gt;</span></div>
 <div class="line"><a id="l00011" name="l00011"></a><span class="lineno">   11</span> </div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">namespace </span>NeuralNet {</div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span> </div>
-<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Callback.html">   14</a></span><span class="keyword">class </span><a class="code hl_class" href="classNeuralNet_1_1Callback.html">Callback</a> {</div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> <span class="keyword">public</span>:</div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> onTrainBegin(std::unordered_map&lt;std::string, double&gt; logs) = 0;</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> onTrainEnd(std::unordered_map&lt;std::string, double&gt; logs) = 0;</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> onEpochBegin(std::unordered_map&lt;std::string, double&gt; logs) = 0;</div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> onEpochEnd(std::unordered_map&lt;std::string, double&gt; logs) = 0;</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> onBatchBegin(std::unordered_map&lt;std::string, double&gt; logs) = 0;</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> onBatchEnd(std::unordered_map&lt;std::string, double&gt; logs) = 0;</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span> </div>
-<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keyword">virtual</span> <a class="code hl_class" href="classNeuralNet_1_1Callback.html">~Callback</a>() = <span class="keywordflow">default</span>;</div>
-<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span> </div>
-<div class="line"><a id="l00037" name="l00037"></a><span class="lineno">   37</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="foldopen" id="foldopen00038" data-start="{" data-end="}">
-<div class="line"><a id="l00038" name="l00038"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Callback.html#a6761a06a3d66bbdae329a2c2731d7eac">   38</a></span>  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1Callback.html#a6761a06a3d66bbdae329a2c2731d7eac">callMethod</a>(std::shared_ptr&lt;T&gt; callback,</div>
-<div class="line"><a id="l00039" name="l00039"></a><span class="lineno">   39</span>                         <span class="keyword">const</span> std::string &amp;methodName,</div>
-<div class="line"><a id="l00040" name="l00040"></a><span class="lineno">   40</span>                         std::unordered_map&lt;std::string, double&gt; logs) {</div>
-<div class="line"><a id="l00041" name="l00041"></a><span class="lineno">   41</span>    <span class="keyword">static</span> <span class="keyword">const</span> std::unordered_map&lt;</div>
-<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>        std::string,</div>
-<div class="line"><a id="l00043" name="l00043"></a><span class="lineno">   43</span>        std::function&lt;void(T *, std::unordered_map&lt;std::string, double&gt;)&gt;&gt;</div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>        methods = {</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>            {<span class="stringliteral">&quot;onTrainBegin&quot;</span>,</div>
-<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>             [](T *callback, std::unordered_map&lt;std::string, double&gt; logs) {</div>
-<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>               <span class="keywordflow">return</span> callback-&gt;onTrainBegin(logs);</div>
-<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>             }},</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>            {<span class="stringliteral">&quot;onTrainEnd&quot;</span>,</div>
-<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>             [](T *callback, std::unordered_map&lt;std::string, double&gt; logs) {</div>
-<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>               <span class="keywordflow">return</span> callback-&gt;onTrainEnd(logs);</div>
-<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>             }},</div>
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>            {<span class="stringliteral">&quot;onEpochBegin&quot;</span>,</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>             [](T *callback, std::unordered_map&lt;std::string, double&gt; logs) {</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>               <span class="keywordflow">return</span> callback-&gt;onEpochBegin(logs);</div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>             }},</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>            {<span class="stringliteral">&quot;onEpochEnd&quot;</span>,</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>             [](T *callback, std::unordered_map&lt;std::string, double&gt; logs) {</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>               <span class="keywordflow">return</span> callback-&gt;onEpochEnd(logs);</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>             }},</div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>            {<span class="stringliteral">&quot;onBatchBegin&quot;</span>,</div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>             [](T *callback, std::unordered_map&lt;std::string, double&gt; logs) {</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>               <span class="keywordflow">return</span> callback-&gt;onBatchBegin(logs);</div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>             }},</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>            {<span class="stringliteral">&quot;onBatchEnd&quot;</span>,</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>             [](T *callback, std::unordered_map&lt;std::string, double&gt; logs) {</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>               <span class="keywordflow">return</span> callback-&gt;onBatchEnd(logs);</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>             }}};</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span> </div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>    <span class="keyword">auto</span> it = methods.find(methodName);</div>
-<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
-<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>    <span class="keywordflow">if</span> (it == methods.end()) <span class="keywordflow">return</span>;</div>
-<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
-<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span>    it-&gt;second(callback.get(), logs);</div>
-<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>  }</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="preprocessor">#include &quot;Model.hpp&quot;</span></div>
+<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span><span class="preprocessor">#include &quot;utils/Variants.hpp&quot;</span></div>
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">namespace </span>NeuralNet {</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> </div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span><span class="keyword">class </span>Model;</div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
+<div class="foldopen" id="foldopen00019" data-start="{" data-end="};">
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Callback.html">   19</a></span><span class="keyword">class </span><a class="code hl_class" href="classNeuralNet_1_1Callback.html">Callback</a> {</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> <span class="keyword">public</span>:</div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> onTrainBegin(<a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) = 0;</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> onTrainEnd(<a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) = 0;</div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> onEpochBegin(<a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) = 0;</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno">   24</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> onEpochEnd(<a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) = 0;</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> onBatchBegin(<a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) = 0;</div>
+<div class="line"><a id="l00026" name="l00026"></a><span class="lineno">   26</span>  <span class="keyword">virtual</span> <span class="keywordtype">void</span> onBatchEnd(<a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) = 0;</div>
+<div class="line"><a id="l00027" name="l00027"></a><span class="lineno">   27</span> </div>
+<div class="line"><a id="l00028" name="l00028"></a><span class="lineno">   28</span>  <span class="keyword">virtual</span> <a class="code hl_class" href="classNeuralNet_1_1Callback.html">~Callback</a>() = <span class="keywordflow">default</span>;</div>
+<div class="line"><a id="l00029" name="l00029"></a><span class="lineno">   29</span> </div>
+<div class="line"><a id="l00042" name="l00042"></a><span class="lineno">   42</span>  <span class="keyword">template</span> &lt;<span class="keyword">typename</span> T&gt;</div>
+<div class="foldopen" id="foldopen00043" data-start="{" data-end="}">
+<div class="line"><a id="l00043" name="l00043"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Callback.html#a83beac16774d98e5abb669aea1abe69b">   43</a></span>  <span class="keyword">static</span> <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1Callback.html#a83beac16774d98e5abb669aea1abe69b">callMethod</a>(std::shared_ptr&lt;T&gt; callback,</div>
+<div class="line"><a id="l00044" name="l00044"></a><span class="lineno">   44</span>                         <span class="keyword">const</span> std::string &amp;methodName, <a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) {</div>
+<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span>    <span class="keyword">static</span> <span class="keyword">const</span> std::unordered_map&lt;std::string,</div>
+<div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span>                                    std::function&lt;void(T *, <a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;)&gt;&gt;</div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno">   47</span>        methods = {{<span class="stringliteral">&quot;onTrainBegin&quot;</span>,</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span>                    [](T *callback, <a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>                      <span class="keywordflow">return</span> callback-&gt;onTrainBegin(model);</div>
+<div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>                    }},</div>
+<div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>                   {<span class="stringliteral">&quot;onTrainEnd&quot;</span>,</div>
+<div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>                    [](T *callback, <a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) {</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno">   53</span>                      <span class="keywordflow">return</span> callback-&gt;onTrainEnd(model);</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                    }},</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>                   {<span class="stringliteral">&quot;onEpochBegin&quot;</span>,</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>                    [](T *callback, <a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) {</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>                      <span class="keywordflow">return</span> callback-&gt;onEpochBegin(model);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>                    }},</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>                   {<span class="stringliteral">&quot;onEpochEnd&quot;</span>,</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>                    [](T *callback, <a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) {</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>                      <span class="keywordflow">return</span> callback-&gt;onEpochEnd(model);</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>                    }},</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>                   {<span class="stringliteral">&quot;onBatchBegin&quot;</span>,</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>                    [](T *callback, <a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) {</div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>                      <span class="keywordflow">return</span> callback-&gt;onBatchBegin(model);</div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>                    }},</div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>                   {<span class="stringliteral">&quot;onBatchEnd&quot;</span>, [](T *callback, <a class="code hl_class" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>                      <span class="keywordflow">return</span> callback-&gt;onBatchEnd(model);</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>                    }}};</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>    <span class="keyword">auto</span> it = methods.find(methodName);</div>
+<div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span> </div>
+<div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span>    <span class="keywordflow">if</span> (it == methods.end()) <span class="keywordflow">return</span>;</div>
+<div class="line"><a id="l00074" name="l00074"></a><span class="lineno">   74</span> </div>
+<div class="line"><a id="l00075" name="l00075"></a><span class="lineno">   75</span>    it-&gt;second(callback.get(), model);</div>
+<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  }</div>
 </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span> </div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>  <span class="keyword">static</span> <span class="keywordtype">void</span> checkMetric(<span class="keyword">const</span> std::string &amp;metric,</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>                          <span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;metrics) {</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">if</span> (std::find(metrics.begin(), metrics.end(), metric) == metrics.end())</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>      <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;Metric not found&quot;</span>);</div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>  };</div>
-<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>};</div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span> </div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span> <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>  <span class="keyword">static</span> <span class="keywordtype">void</span> checkMetric(<span class="keyword">const</span> std::string &amp;metric,</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>                          <span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;metrics) {</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>    <span class="keywordflow">if</span> (std::find(metrics.begin(), metrics.end(), metric) == metrics.end())</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span>      <span class="keywordflow">throw</span> std::invalid_argument(<span class="stringliteral">&quot;Metric not found&quot;</span>);</div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span>  };</div>
+<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span> </div>
+<div class="line"><a id="l00085" name="l00085"></a><span class="lineno">   85</span>  <span class="keyword">static</span> std::unordered_map&lt;std::string, Logs&gt; getLogs(Model &amp;model) {</div>
+<div class="line"><a id="l00086" name="l00086"></a><span class="lineno">   86</span>    std::unordered_map&lt;std::string, Logs&gt; logs;</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    logs[<span class="stringliteral">&quot;EPOCH&quot;</span>] = model.cEpoch;</div>
+<div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    logs[<span class="stringliteral">&quot;ACCURACY&quot;</span>] = model.accuracy;</div>
+<div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    logs[<span class="stringliteral">&quot;LOSS&quot;</span>] = model.loss;</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">return</span> logs;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  };</div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>};</div>
 </div>
-<div class="line"><a id="l00084" name="l00084"></a><span class="lineno">   84</span>}  <span class="comment">// namespace NeuralNet</span></div>
-<div class="ttc" id="aclassNeuralNet_1_1Callback_html"><div class="ttname"><a href="classNeuralNet_1_1Callback.html">NeuralNet::Callback</a></div><div class="ttdef"><b>Definition</b> Callback.hpp:14</div></div>
-<div class="ttc" id="aclassNeuralNet_1_1Callback_html_a6761a06a3d66bbdae329a2c2731d7eac"><div class="ttname"><a href="classNeuralNet_1_1Callback.html#a6761a06a3d66bbdae329a2c2731d7eac">NeuralNet::Callback::callMethod</a></div><div class="ttdeci">static void callMethod(std::shared_ptr&lt; T &gt; callback, const std::string &amp;methodName, std::unordered_map&lt; std::string, double &gt; logs)</div><div class="ttdoc">Calls the method of the callback with the given logs.</div><div class="ttdef"><b>Definition</b> Callback.hpp:38</div></div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}  <span class="comment">// namespace NeuralNet</span></div>
+<div class="ttc" id="aclassNeuralNet_1_1Callback_html"><div class="ttname"><a href="classNeuralNet_1_1Callback.html">NeuralNet::Callback</a></div><div class="ttdef"><b>Definition</b> Callback.hpp:19</div></div>
+<div class="ttc" id="aclassNeuralNet_1_1Callback_html_a83beac16774d98e5abb669aea1abe69b"><div class="ttname"><a href="classNeuralNet_1_1Callback.html#a83beac16774d98e5abb669aea1abe69b">NeuralNet::Callback::callMethod</a></div><div class="ttdeci">static void callMethod(std::shared_ptr&lt; T &gt; callback, const std::string &amp;methodName, Model &amp;model)</div><div class="ttdoc">Calls the method of the callback with the given logs.</div><div class="ttdef"><b>Definition</b> Callback.hpp:43</div></div>
+<div class="ttc" id="aclassNeuralNet_1_1Model_html"><div class="ttname"><a href="classNeuralNet_1_1Model.html">NeuralNet::Model</a></div><div class="ttdef"><b>Definition</b> Model.hpp:17</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

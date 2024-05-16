@@ -76,10 +76,13 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#friends">Friends</a> &#124;
 <a href="classNeuralNet_1_1Model-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">NeuralNet::Model Class Reference</div></div>
+  <div class="headertitle"><div class="title">NeuralNet::Model Class Reference<span class="mlabels"><span class="mlabel">abstract</span></span></div></div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
@@ -92,6 +95,13 @@ Inheritance diagram for NeuralNet::Model:</div>
   </map>
 </div></div>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a540e48f6f1e5671447a4d7f3fedf9c74" id="r_a540e48f6f1e5671447a4d7f3fedf9c74"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a540e48f6f1e5671447a4d7f3fedf9c74">to_file</a> (const std::string &amp;filename)=0</td></tr>
+<tr class="separator:a540e48f6f1e5671447a4d7f3fedf9c74"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8f87f55b0374f17fd3695ee4f4accc75" id="r_a8f87f55b0374f17fd3695ee4f4accc75"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8f87f55b0374f17fd3695ee4f4accc75">from_file</a> (const std::string &amp;filename)=0</td></tr>
+<tr class="separator:a8f87f55b0374f17fd3695ee4f4accc75"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aa6bf6ea54a2427d3e328e3f4d8c7740f" id="r_aa6bf6ea54a2427d3e328e3f4d8c7740f"><td class="memTemplParams" colspan="2">template&lt;typename T , typename  = typename std::enable_if&lt;                            std::is_base_of&lt;Model, T&gt;::value&gt;::type&gt; </td></tr>
@@ -108,8 +118,56 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:aad6b7e776bb35ea3a9cd6a2e2f5039f7" id="r_aad6b7e776bb35ea3a9cd6a2e2f5039f7"><td class="memItemLeft" align="right" valign="top"><a id="aad6b7e776bb35ea3a9cd6a2e2f5039f7" name="aad6b7e776bb35ea3a9cd6a2e2f5039f7"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>registerSignals</b> () const</td></tr>
 <tr class="separator:aad6b7e776bb35ea3a9cd6a2e2f5039f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pro-attribs" name="pro-attribs"></a>
+Protected Attributes</h2></td></tr>
+<tr class="memitem:a4d496eee8f61ffb29684404f5d7b29ab" id="r_a4d496eee8f61ffb29684404f5d7b29ab"><td class="memItemLeft" align="right" valign="top"><a id="a4d496eee8f61ffb29684404f5d7b29ab" name="a4d496eee8f61ffb29684404f5d7b29ab"></a>
+int&#160;</td><td class="memItemRight" valign="bottom"><b>cEpoch</b> = 0</td></tr>
+<tr class="separator:a4d496eee8f61ffb29684404f5d7b29ab"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fc5885d271fc85d67c8b8ea8bbe6251" id="r_a6fc5885d271fc85d67c8b8ea8bbe6251"><td class="memItemLeft" align="right" valign="top"><a id="a6fc5885d271fc85d67c8b8ea8bbe6251" name="a6fc5885d271fc85d67c8b8ea8bbe6251"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>loss</b> = 0</td></tr>
+<tr class="separator:a6fc5885d271fc85d67c8b8ea8bbe6251"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14de3a425432b97b3abcc3a3a9c6e008" id="r_a14de3a425432b97b3abcc3a3a9c6e008"><td class="memItemLeft" align="right" valign="top"><a id="a14de3a425432b97b3abcc3a3a9c6e008" name="a14de3a425432b97b3abcc3a3a9c6e008"></a>
+double&#160;</td><td class="memItemRight" valign="bottom"><b>accuracy</b> = 0</td></tr>
+<tr class="separator:a14de3a425432b97b3abcc3a3a9c6e008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ab2f44cbb59a08132f4c843e5225bba0e" id="r_ab2f44cbb59a08132f4c843e5225bba0e"><td class="memItemLeft" align="right" valign="top"><a id="ab2f44cbb59a08132f4c843e5225bba0e" name="ab2f44cbb59a08132f4c843e5225bba0e"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>cereal::access</b></td></tr>
+<tr class="separator:ab2f44cbb59a08132f4c843e5225bba0e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a8365dbfb71b5c0498cbce512ec14e59e" id="r_a8365dbfb71b5c0498cbce512ec14e59e"><td class="memItemLeft" align="right" valign="top"><a id="a8365dbfb71b5c0498cbce512ec14e59e" name="a8365dbfb71b5c0498cbce512ec14e59e"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>Callback</b></td></tr>
+<tr class="separator:a8365dbfb71b5c0498cbce512ec14e59e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Member Function Documentation</h2>
+<a id="a8f87f55b0374f17fd3695ee4f4accc75" name="a8f87f55b0374f17fd3695ee4f4accc75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8f87f55b0374f17fd3695ee4f4accc75">&#9670;&#160;</a></span>from_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void NeuralNet::Model::from_file </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>filename</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classNeuralNet_1_1Network.html#abf50f5dfef528dd4bc7542f562e1963d">NeuralNet::Network</a>.</p>
+
+</div>
+</div>
 <a id="ae2248524f9f678322c2686f7e4a52d50" name="ae2248524f9f678322c2686f7e4a52d50"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae2248524f9f678322c2686f7e4a52d50">&#9670;&#160;</a></span>load_from_file()</h2>
 
@@ -188,6 +246,33 @@ template&lt;typename T , typename  = typename std::enable_if&lt;                
   </table>
   </dd>
 </dl>
+
+</div>
+</div>
+<a id="a540e48f6f1e5671447a4d7f3fedf9c74" name="a540e48f6f1e5671447a4d7f3fedf9c74"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a540e48f6f1e5671447a4d7f3fedf9c74">&#9670;&#160;</a></span>to_file()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual void NeuralNet::Model::to_file </td>
+          <td>(</td>
+          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>filename</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Implemented in <a class="el" href="classNeuralNet_1_1Network.html#af9ebd70431888121269b92d06621135e">NeuralNet::Network</a>.</p>
 
 </div>
 </div>

@@ -96,31 +96,34 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ac3cf6d35c5de4ba607b9d1adac6a1946" id="r_ac3cf6d35c5de4ba607b9d1adac6a1946"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac3cf6d35c5de4ba607b9d1adac6a1946">EarlyStopping</a> (const std::string &amp;metric=&quot;LOSS&quot;, double minDelta=0, int patience=0)</td></tr>
 <tr class="memdesc:ac3cf6d35c5de4ba607b9d1adac6a1946"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classNeuralNet_1_1EarlyStopping.html">EarlyStopping</a> is a <code><a class="el" href="classNeuralNet_1_1Callback.html">Callback</a></code> that stops training when a monitored metric has stopped improving.  <br /></td></tr>
 <tr class="separator:ac3cf6d35c5de4ba607b9d1adac6a1946"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa9a2a3f08291e4e288f18f39d3e40c59" id="r_aa9a2a3f08291e4e288f18f39d3e40c59"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa9a2a3f08291e4e288f18f39d3e40c59">onEpochBegin</a> (std::unordered_map&lt; std::string, double &gt; logs) override</td></tr>
-<tr class="separator:aa9a2a3f08291e4e288f18f39d3e40c59"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac0bca125e441527cd8a61b670ceaebf5" id="r_ac0bca125e441527cd8a61b670ceaebf5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac0bca125e441527cd8a61b670ceaebf5">onEpochEnd</a> (std::unordered_map&lt; std::string, double &gt; logs) override</td></tr>
-<tr class="memdesc:ac0bca125e441527cd8a61b670ceaebf5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be called at the end of each epoch.  <br /></td></tr>
-<tr class="separator:ac0bca125e441527cd8a61b670ceaebf5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aafc535f3a94c66315f17891b63207525" id="r_aafc535f3a94c66315f17891b63207525"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aafc535f3a94c66315f17891b63207525">onTrainBegin</a> (std::unordered_map&lt; std::string, double &gt; logs) override</td></tr>
-<tr class="separator:aafc535f3a94c66315f17891b63207525"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a270d77cb4dcc966018269644a56d167a" id="r_a270d77cb4dcc966018269644a56d167a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a270d77cb4dcc966018269644a56d167a">onTrainEnd</a> (std::unordered_map&lt; std::string, double &gt; logs) override</td></tr>
-<tr class="separator:a270d77cb4dcc966018269644a56d167a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e2b2177c8dc1db2f38a1765d269d3ca" id="r_a8e2b2177c8dc1db2f38a1765d269d3ca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8e2b2177c8dc1db2f38a1765d269d3ca">onBatchBegin</a> (std::unordered_map&lt; std::string, double &gt; logs) override</td></tr>
-<tr class="separator:a8e2b2177c8dc1db2f38a1765d269d3ca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a19998910a8485ae13732020551fc524a" id="r_a19998910a8485ae13732020551fc524a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a19998910a8485ae13732020551fc524a">onBatchEnd</a> (std::unordered_map&lt; std::string, double &gt; logs) override</td></tr>
-<tr class="separator:a19998910a8485ae13732020551fc524a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8ae9555d33171e7c1c367a7ac52a07a" id="r_ac8ae9555d33171e7c1c367a7ac52a07a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac8ae9555d33171e7c1c367a7ac52a07a">onEpochBegin</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
+<tr class="separator:ac8ae9555d33171e7c1c367a7ac52a07a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a99b2b3711cb93f313e4e85ddc1d90f4a" id="r_a99b2b3711cb93f313e4e85ddc1d90f4a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a99b2b3711cb93f313e4e85ddc1d90f4a">onEpochEnd</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
+<tr class="memdesc:a99b2b3711cb93f313e4e85ddc1d90f4a"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be called at the end of each epoch.  <br /></td></tr>
+<tr class="separator:a99b2b3711cb93f313e4e85ddc1d90f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2adb5adfe52503023c58f320e021aa92" id="r_a2adb5adfe52503023c58f320e021aa92"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2adb5adfe52503023c58f320e021aa92">onTrainBegin</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
+<tr class="separator:a2adb5adfe52503023c58f320e021aa92"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade8b16ed17168b0704cd2f4212893d13" id="r_ade8b16ed17168b0704cd2f4212893d13"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ade8b16ed17168b0704cd2f4212893d13">onTrainEnd</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
+<tr class="separator:ade8b16ed17168b0704cd2f4212893d13"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a55038ba6b0708b20edbad8b054faa4b9" id="r_a55038ba6b0708b20edbad8b054faa4b9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a55038ba6b0708b20edbad8b054faa4b9">onBatchBegin</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
+<tr class="separator:a55038ba6b0708b20edbad8b054faa4b9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f81763cac8daad8fbb3f62db00f3aa1" id="r_a7f81763cac8daad8fbb3f62db00f3aa1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f81763cac8daad8fbb3f62db00f3aa1">onBatchEnd</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
+<tr class="separator:a7f81763cac8daad8fbb3f62db00f3aa1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_methods_classNeuralNet_1_1Callback"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_classNeuralNet_1_1Callback')"><img src="closed.png" alt="-"/>&#160;Static Public Member Functions inherited from <a class="el" href="classNeuralNet_1_1Callback.html">NeuralNet::Callback</a></td></tr>
-<tr class="memitem:a6761a06a3d66bbdae329a2c2731d7eac inherit pub_static_methods_classNeuralNet_1_1Callback" id="r_a6761a06a3d66bbdae329a2c2731d7eac"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
-<tr class="memitem:a6761a06a3d66bbdae329a2c2731d7eac inherit pub_static_methods_classNeuralNet_1_1Callback"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classNeuralNet_1_1Callback.html#a6761a06a3d66bbdae329a2c2731d7eac">callMethod</a> (std::shared_ptr&lt; T &gt; callback, const std::string &amp;methodName, std::unordered_map&lt; std::string, double &gt; logs)</td></tr>
-<tr class="memdesc:a6761a06a3d66bbdae329a2c2731d7eac inherit pub_static_methods_classNeuralNet_1_1Callback"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the method of the callback with the given logs.  <br /></td></tr>
-<tr class="separator:a6761a06a3d66bbdae329a2c2731d7eac inherit pub_static_methods_classNeuralNet_1_1Callback"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a83beac16774d98e5abb669aea1abe69b inherit pub_static_methods_classNeuralNet_1_1Callback" id="r_a83beac16774d98e5abb669aea1abe69b"><td class="memTemplParams" colspan="2">template&lt;typename T &gt; </td></tr>
+<tr class="memitem:a83beac16774d98e5abb669aea1abe69b inherit pub_static_methods_classNeuralNet_1_1Callback"><td class="memTemplItemLeft" align="right" valign="top">static void&#160;</td><td class="memTemplItemRight" valign="bottom"><a class="el" href="classNeuralNet_1_1Callback.html#a83beac16774d98e5abb669aea1abe69b">callMethod</a> (std::shared_ptr&lt; T &gt; callback, const std::string &amp;methodName, <a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model)</td></tr>
+<tr class="memdesc:a83beac16774d98e5abb669aea1abe69b inherit pub_static_methods_classNeuralNet_1_1Callback"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calls the method of the callback with the given logs.  <br /></td></tr>
+<tr class="separator:a83beac16774d98e5abb669aea1abe69b inherit pub_static_methods_classNeuralNet_1_1Callback"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pro_static_methods_classNeuralNet_1_1Callback"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_static_methods_classNeuralNet_1_1Callback')"><img src="closed.png" alt="-"/>&#160;Static Protected Member Functions inherited from <a class="el" href="classNeuralNet_1_1Callback.html">NeuralNet::Callback</a></td></tr>
 <tr class="memitem:ad810e1205fb2679eb81495f3b4d941c5 inherit pro_static_methods_classNeuralNet_1_1Callback" id="r_ad810e1205fb2679eb81495f3b4d941c5"><td class="memItemLeft" align="right" valign="top">
 static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b> (const std::string &amp;metric, const std::vector&lt; std::string &gt; &amp;metrics)</td></tr>
 <tr class="separator:ad810e1205fb2679eb81495f3b4d941c5 inherit pro_static_methods_classNeuralNet_1_1Callback"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aace540bbc559738b344f9f3ac35deb7e inherit pro_static_methods_classNeuralNet_1_1Callback" id="r_aace540bbc559738b344f9f3ac35deb7e"><td class="memItemLeft" align="right" valign="top">
+static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getLogs</b> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model)</td></tr>
+<tr class="separator:aace540bbc559738b344f9f3ac35deb7e inherit pro_static_methods_classNeuralNet_1_1Callback"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ac3cf6d35c5de4ba607b9d1adac6a1946" name="ac3cf6d35c5de4ba607b9d1adac6a1946"></a>
@@ -168,8 +171,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8e2b2177c8dc1db2f38a1765d269d3ca" name="a8e2b2177c8dc1db2f38a1765d269d3ca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e2b2177c8dc1db2f38a1765d269d3ca">&#9670;&#160;</a></span>onBatchBegin()</h2>
+<a id="a55038ba6b0708b20edbad8b054faa4b9" name="a55038ba6b0708b20edbad8b054faa4b9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a55038ba6b0708b20edbad8b054faa4b9">&#9670;&#160;</a></span>onBatchBegin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +183,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
         <tr>
           <td class="memname">void NeuralNet::EarlyStopping::onBatchBegin </td>
           <td>(</td>
-          <td class="paramtype">std::unordered_map&lt; std::string, double &gt;</td>          <td class="paramname"><span class="paramname"><em>logs</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -195,8 +198,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
 
 </div>
 </div>
-<a id="a19998910a8485ae13732020551fc524a" name="a19998910a8485ae13732020551fc524a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19998910a8485ae13732020551fc524a">&#9670;&#160;</a></span>onBatchEnd()</h2>
+<a id="a7f81763cac8daad8fbb3f62db00f3aa1" name="a7f81763cac8daad8fbb3f62db00f3aa1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f81763cac8daad8fbb3f62db00f3aa1">&#9670;&#160;</a></span>onBatchEnd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -207,7 +210,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
         <tr>
           <td class="memname">void NeuralNet::EarlyStopping::onBatchEnd </td>
           <td>(</td>
-          <td class="paramtype">std::unordered_map&lt; std::string, double &gt;</td>          <td class="paramname"><span class="paramname"><em>logs</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -222,8 +225,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
 
 </div>
 </div>
-<a id="aa9a2a3f08291e4e288f18f39d3e40c59" name="aa9a2a3f08291e4e288f18f39d3e40c59"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa9a2a3f08291e4e288f18f39d3e40c59">&#9670;&#160;</a></span>onEpochBegin()</h2>
+<a id="ac8ae9555d33171e7c1c367a7ac52a07a" name="ac8ae9555d33171e7c1c367a7ac52a07a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8ae9555d33171e7c1c367a7ac52a07a">&#9670;&#160;</a></span>onEpochBegin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -234,7 +237,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
         <tr>
           <td class="memname">void NeuralNet::EarlyStopping::onEpochBegin </td>
           <td>(</td>
-          <td class="paramtype">std::unordered_map&lt; std::string, double &gt;</td>          <td class="paramname"><span class="paramname"><em>logs</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -249,8 +252,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
 
 </div>
 </div>
-<a id="ac0bca125e441527cd8a61b670ceaebf5" name="ac0bca125e441527cd8a61b670ceaebf5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac0bca125e441527cd8a61b670ceaebf5">&#9670;&#160;</a></span>onEpochEnd()</h2>
+<a id="a99b2b3711cb93f313e4e85ddc1d90f4a" name="a99b2b3711cb93f313e4e85ddc1d90f4a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a99b2b3711cb93f313e4e85ddc1d90f4a">&#9670;&#160;</a></span>onEpochEnd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -261,7 +264,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
         <tr>
           <td class="memname">void NeuralNet::EarlyStopping::onEpochEnd </td>
           <td>(</td>
-          <td class="paramtype">std::unordered_map&lt; std::string, double &gt;</td>          <td class="paramname"><span class="paramname"><em>logs</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -287,8 +290,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
 
 </div>
 </div>
-<a id="aafc535f3a94c66315f17891b63207525" name="aafc535f3a94c66315f17891b63207525"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aafc535f3a94c66315f17891b63207525">&#9670;&#160;</a></span>onTrainBegin()</h2>
+<a id="a2adb5adfe52503023c58f320e021aa92" name="a2adb5adfe52503023c58f320e021aa92"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2adb5adfe52503023c58f320e021aa92">&#9670;&#160;</a></span>onTrainBegin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -299,7 +302,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
         <tr>
           <td class="memname">void NeuralNet::EarlyStopping::onTrainBegin </td>
           <td>(</td>
-          <td class="paramtype">std::unordered_map&lt; std::string, double &gt;</td>          <td class="paramname"><span class="paramname"><em>logs</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -314,8 +317,8 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
 
 </div>
 </div>
-<a id="a270d77cb4dcc966018269644a56d167a" name="a270d77cb4dcc966018269644a56d167a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a270d77cb4dcc966018269644a56d167a">&#9670;&#160;</a></span>onTrainEnd()</h2>
+<a id="ade8b16ed17168b0704cd2f4212893d13" name="ade8b16ed17168b0704cd2f4212893d13"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade8b16ed17168b0704cd2f4212893d13">&#9670;&#160;</a></span>onTrainEnd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -326,7 +329,7 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
         <tr>
           <td class="memname">void NeuralNet::EarlyStopping::onTrainEnd </td>
           <td>(</td>
-          <td class="paramtype">std::unordered_map&lt; std::string, double &gt;</td>          <td class="paramname"><span class="paramname"><em>logs</em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

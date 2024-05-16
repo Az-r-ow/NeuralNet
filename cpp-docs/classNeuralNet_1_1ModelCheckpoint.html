@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.10.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>NeuralNet: NeuralNet::CSVLogger Class Reference</title>
+<title>NeuralNet: NeuralNet::ModelCheckpoint Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -71,46 +71,44 @@ $(function() {
 
 <div id="nav-path" class="navpath">
   <ul>
-<li class="navelem"><b>NeuralNet</b></li><li class="navelem"><a class="el" href="classNeuralNet_1_1CSVLogger.html">CSVLogger</a></li>  </ul>
+<li class="navelem"><b>NeuralNet</b></li><li class="navelem"><a class="el" href="classNeuralNet_1_1ModelCheckpoint.html">ModelCheckpoint</a></li>  </ul>
 </div>
 </div><!-- top -->
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="classNeuralNet_1_1CSVLogger-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">NeuralNet::CSVLogger Class Reference</div></div>
+<a href="classNeuralNet_1_1ModelCheckpoint-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">NeuralNet::ModelCheckpoint Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <div class="dynheader">
-Inheritance diagram for NeuralNet::CSVLogger:</div>
+Inheritance diagram for NeuralNet::ModelCheckpoint:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="classNeuralNet_1_1CSVLogger.png" usemap="#NeuralNet::CSVLogger_map" alt=""/>
-  <map id="NeuralNet::CSVLogger_map" name="NeuralNet::CSVLogger_map">
-<area href="classNeuralNet_1_1Callback.html" alt="NeuralNet::Callback" shape="rect" coords="0,0,141,24"/>
+  <img src="classNeuralNet_1_1ModelCheckpoint.png" usemap="#NeuralNet::ModelCheckpoint_map" alt=""/>
+  <map id="NeuralNet::ModelCheckpoint_map" name="NeuralNet::ModelCheckpoint_map">
+<area href="classNeuralNet_1_1Callback.html" alt="NeuralNet::Callback" shape="rect" coords="0,0,173,24"/>
   </map>
 </div></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:aeb37ebb09fc02b299316c4e1ccd8cce5" id="r_aeb37ebb09fc02b299316c4e1ccd8cce5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb37ebb09fc02b299316c4e1ccd8cce5">CSVLogger</a> (const std::string &amp;filepath, const std::string &amp;separator=&quot;,&quot;)</td></tr>
-<tr class="memdesc:aeb37ebb09fc02b299316c4e1ccd8cce5"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classNeuralNet_1_1CSVLogger.html">CSVLogger</a> is a <code><a class="el" href="classNeuralNet_1_1Callback.html">Callback</a></code> that streams epoch results to a csv file.  <br /></td></tr>
-<tr class="separator:aeb37ebb09fc02b299316c4e1ccd8cce5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac9e66b44df80130c796840e89ba35af3" id="r_ac9e66b44df80130c796840e89ba35af3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac9e66b44df80130c796840e89ba35af3">onEpochBegin</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
-<tr class="separator:ac9e66b44df80130c796840e89ba35af3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02f77299556b3efe93f98219dfe4b018" id="r_a02f77299556b3efe93f98219dfe4b018"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a02f77299556b3efe93f98219dfe4b018">onEpochEnd</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
-<tr class="memdesc:a02f77299556b3efe93f98219dfe4b018"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be called at the end of each epoch.  <br /></td></tr>
-<tr class="separator:a02f77299556b3efe93f98219dfe4b018"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af80912ca59867a36b184612a4d3f83a9" id="r_af80912ca59867a36b184612a4d3f83a9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af80912ca59867a36b184612a4d3f83a9">onTrainBegin</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
-<tr class="memdesc:af80912ca59867a36b184612a4d3f83a9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be called at the beginning of the training.  <br /></td></tr>
-<tr class="separator:af80912ca59867a36b184612a4d3f83a9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a47f21d819a4100d73c6875efb249becf" id="r_a47f21d819a4100d73c6875efb249becf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a47f21d819a4100d73c6875efb249becf">onTrainEnd</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
-<tr class="memdesc:a47f21d819a4100d73c6875efb249becf"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be called at the end of the training.  <br /></td></tr>
-<tr class="separator:a47f21d819a4100d73c6875efb249becf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af40e5910d2f19f07b590c8a09569f569" id="r_af40e5910d2f19f07b590c8a09569f569"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af40e5910d2f19f07b590c8a09569f569">onBatchBegin</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
-<tr class="separator:af40e5910d2f19f07b590c8a09569f569"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac492c8fe68ef6ddcdbfb1de8d7528c2a" id="r_ac492c8fe68ef6ddcdbfb1de8d7528c2a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac492c8fe68ef6ddcdbfb1de8d7528c2a">onBatchEnd</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
-<tr class="separator:ac492c8fe68ef6ddcdbfb1de8d7528c2a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf2606599c59d2a7bdb6212a45a58008" id="r_abf2606599c59d2a7bdb6212a45a58008"><td class="memItemLeft" align="right" valign="top"><a id="abf2606599c59d2a7bdb6212a45a58008" name="abf2606599c59d2a7bdb6212a45a58008"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><b>ModelCheckpoint</b> (const std::string &amp;folderPath, const bool saveBestOnly=true, const int numEpochs=1, const bool verbose=false)</td></tr>
+<tr class="separator:abf2606599c59d2a7bdb6212a45a58008"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7bff8c002d4723f9fe9309f31d7337bf" id="r_a7bff8c002d4723f9fe9309f31d7337bf"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7bff8c002d4723f9fe9309f31d7337bf">onEpochBegin</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
+<tr class="separator:a7bff8c002d4723f9fe9309f31d7337bf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae66ae9488834e84793156416d1586427" id="r_ae66ae9488834e84793156416d1586427"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae66ae9488834e84793156416d1586427">onEpochEnd</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
+<tr class="memdesc:ae66ae9488834e84793156416d1586427"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will be called at the end of each epoch.  <br /></td></tr>
+<tr class="separator:ae66ae9488834e84793156416d1586427"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af163434db4e20d964bb4161adde2eb9c" id="r_af163434db4e20d964bb4161adde2eb9c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af163434db4e20d964bb4161adde2eb9c">onTrainBegin</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
+<tr class="separator:af163434db4e20d964bb4161adde2eb9c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5ce189f16339f2be8311d3001d35442e" id="r_a5ce189f16339f2be8311d3001d35442e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5ce189f16339f2be8311d3001d35442e">onTrainEnd</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
+<tr class="separator:a5ce189f16339f2be8311d3001d35442e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a31ae36a8bc208bb04b9e3a1d42a284d4" id="r_a31ae36a8bc208bb04b9e3a1d42a284d4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a31ae36a8bc208bb04b9e3a1d42a284d4">onBatchBegin</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
+<tr class="separator:a31ae36a8bc208bb04b9e3a1d42a284d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a158318fe3b1489569ede64919dea4190" id="r_a158318fe3b1489569ede64919dea4190"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a158318fe3b1489569ede64919dea4190">onBatchEnd</a> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model) override</td></tr>
+<tr class="separator:a158318fe3b1489569ede64919dea4190"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
@@ -127,48 +125,9 @@ static void&#160;</td><td class="memItemRight" valign="bottom"><b>checkMetric</b
 static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getLogs</b> (<a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;model)</td></tr>
 <tr class="separator:aace540bbc559738b344f9f3ac35deb7e inherit pro_static_methods_classNeuralNet_1_1Callback"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="aeb37ebb09fc02b299316c4e1ccd8cce5" name="aeb37ebb09fc02b299316c4e1ccd8cce5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeb37ebb09fc02b299316c4e1ccd8cce5">&#9670;&#160;</a></span>CSVLogger()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">NeuralNet::CSVLogger::CSVLogger </td>
-          <td>(</td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>filepath</em>, </span></td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>separator</em><span class="paramdefsep"> = </span><span class="paramdefval">&quot;,&quot;</span></span>&#160;)</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p><a class="el" href="classNeuralNet_1_1CSVLogger.html">CSVLogger</a> is a <code><a class="el" href="classNeuralNet_1_1Callback.html">Callback</a></code> that streams epoch results to a csv file. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">filepath</td><td>The name of the csv file </td></tr>
-    <tr><td class="paramname">separator</td><td>The separator used in the csv file (default: ",") </td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="af40e5910d2f19f07b590c8a09569f569" name="af40e5910d2f19f07b590c8a09569f569"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af40e5910d2f19f07b590c8a09569f569">&#9670;&#160;</a></span>onBatchBegin()</h2>
+<a id="a31ae36a8bc208bb04b9e3a1d42a284d4" name="a31ae36a8bc208bb04b9e3a1d42a284d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a31ae36a8bc208bb04b9e3a1d42a284d4">&#9670;&#160;</a></span>onBatchBegin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -177,7 +136,7 @@ static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memIte
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void NeuralNet::CSVLogger::onBatchBegin </td>
+          <td class="memname">void NeuralNet::ModelCheckpoint::onBatchBegin </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
@@ -194,8 +153,8 @@ static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memIte
 
 </div>
 </div>
-<a id="ac492c8fe68ef6ddcdbfb1de8d7528c2a" name="ac492c8fe68ef6ddcdbfb1de8d7528c2a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac492c8fe68ef6ddcdbfb1de8d7528c2a">&#9670;&#160;</a></span>onBatchEnd()</h2>
+<a id="a158318fe3b1489569ede64919dea4190" name="a158318fe3b1489569ede64919dea4190"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a158318fe3b1489569ede64919dea4190">&#9670;&#160;</a></span>onBatchEnd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -204,7 +163,7 @@ static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memIte
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void NeuralNet::CSVLogger::onBatchEnd </td>
+          <td class="memname">void NeuralNet::ModelCheckpoint::onBatchEnd </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
@@ -221,8 +180,8 @@ static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memIte
 
 </div>
 </div>
-<a id="ac9e66b44df80130c796840e89ba35af3" name="ac9e66b44df80130c796840e89ba35af3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac9e66b44df80130c796840e89ba35af3">&#9670;&#160;</a></span>onEpochBegin()</h2>
+<a id="a7bff8c002d4723f9fe9309f31d7337bf" name="a7bff8c002d4723f9fe9309f31d7337bf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7bff8c002d4723f9fe9309f31d7337bf">&#9670;&#160;</a></span>onEpochBegin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -231,7 +190,7 @@ static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memIte
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void NeuralNet::CSVLogger::onEpochBegin </td>
+          <td class="memname">void NeuralNet::ModelCheckpoint::onEpochBegin </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
@@ -248,8 +207,8 @@ static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memIte
 
 </div>
 </div>
-<a id="a02f77299556b3efe93f98219dfe4b018" name="a02f77299556b3efe93f98219dfe4b018"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a02f77299556b3efe93f98219dfe4b018">&#9670;&#160;</a></span>onEpochEnd()</h2>
+<a id="ae66ae9488834e84793156416d1586427" name="ae66ae9488834e84793156416d1586427"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae66ae9488834e84793156416d1586427">&#9670;&#160;</a></span>onEpochEnd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -258,7 +217,7 @@ static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memIte
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void NeuralNet::CSVLogger::onEpochEnd </td>
+          <td class="memname">void NeuralNet::ModelCheckpoint::onEpochEnd </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
@@ -272,20 +231,22 @@ static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memIte
 </div><div class="memdoc">
 
 <p>This method will be called at the end of each epoch. </p>
-<p>In the case of <a class="el" href="classNeuralNet_1_1CSVLogger.html">CSVLogger</a>, it will append the logs of the current epoch to data which <code>onTrainEnd</code> will be written to the file.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
+    <tr><td class="paramname">epoch</td><td>The current epoch </td></tr>
     <tr><td class="paramname">logs</td><td>The logs of the current epoch </td></tr>
   </table>
   </dd>
 </dl>
+<dl class="section return"><dt>Returns</dt><dd>Returns true if the training should continue otherwise returns false</dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>The order of the logs should be the same as the order of the metrics. </dd></dl>
 
 <p>Implements <a class="el" href="classNeuralNet_1_1Callback.html">NeuralNet::Callback</a>.</p>
 
 </div>
 </div>
-<a id="af80912ca59867a36b184612a4d3f83a9" name="af80912ca59867a36b184612a4d3f83a9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af80912ca59867a36b184612a4d3f83a9">&#9670;&#160;</a></span>onTrainBegin()</h2>
+<a id="af163434db4e20d964bb4161adde2eb9c" name="af163434db4e20d964bb4161adde2eb9c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af163434db4e20d964bb4161adde2eb9c">&#9670;&#160;</a></span>onTrainBegin()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -294,7 +255,7 @@ static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memIte
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void NeuralNet::CSVLogger::onTrainBegin </td>
+          <td class="memname">void NeuralNet::ModelCheckpoint::onTrainBegin </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
@@ -307,21 +268,12 @@ static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memIte
 </table>
 </div><div class="memdoc">
 
-<p>This method will be called at the beginning of the training. </p>
-<p>It will initialize the headers with the logs keys.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">logs</td><td>The logs of the current epoch </td></tr>
-  </table>
-  </dd>
-</dl>
-
 <p>Implements <a class="el" href="classNeuralNet_1_1Callback.html">NeuralNet::Callback</a>.</p>
 
 </div>
 </div>
-<a id="a47f21d819a4100d73c6875efb249becf" name="a47f21d819a4100d73c6875efb249becf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a47f21d819a4100d73c6875efb249becf">&#9670;&#160;</a></span>onTrainEnd()</h2>
+<a id="a5ce189f16339f2be8311d3001d35442e" name="a5ce189f16339f2be8311d3001d35442e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5ce189f16339f2be8311d3001d35442e">&#9670;&#160;</a></span>onTrainEnd()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -330,7 +282,7 @@ static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memIte
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void NeuralNet::CSVLogger::onTrainEnd </td>
+          <td class="memname">void NeuralNet::ModelCheckpoint::onTrainEnd </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classNeuralNet_1_1Model.html">Model</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>model</em></span></td><td>)</td>
           <td></td>
@@ -342,22 +294,13 @@ static std::unordered_map&lt; std::string, Logs &gt;&#160;</td><td class="memIte
   </tr>
 </table>
 </div><div class="memdoc">
-
-<p>This method will be called at the end of the training. </p>
-<p>It will write the data in the given csv file.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">logs</td><td>The logs of the current epoch </td></tr>
-  </table>
-  </dd>
-</dl>
 
 <p>Implements <a class="el" href="classNeuralNet_1_1Callback.html">NeuralNet::Callback</a>.</p>
 
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>/github/workspace/src/NeuralNet/callbacks/<a class="el" href="CSVLogger_8hpp_source.html">CSVLogger.hpp</a></li>
+<li>/github/workspace/src/NeuralNet/callbacks/<a class="el" href="ModelCheckpoint_8hpp_source.html">ModelCheckpoint.hpp</a></li>
 </ul>
 </div><!-- contents -->
 <!-- start footer part -->

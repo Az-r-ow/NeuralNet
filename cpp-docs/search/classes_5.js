@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['gauge_0',['Gauge',['../classNeuralNet_1_1Gauge.html',1,'NeuralNet']]]
+  ['flatten_0',['Flatten',['../classNeuralNet_1_1Flatten.html',1,'NeuralNet']]]
 ];

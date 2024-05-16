@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['optimizer_0',['Optimizer',['../classNeuralNet_1_1Optimizer.html',1,'NeuralNet']]]
+  ['network_0',['Network',['../classNeuralNet_1_1Network.html',1,'NeuralNet']]]
 ];

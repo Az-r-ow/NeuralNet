@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['flatten_0',['Flatten',['../classNeuralNet_1_1Flatten.html',1,'NeuralNet']]]
+  ['earlystopping_0',['EarlyStopping',['../classNeuralNet_1_1EarlyStopping.html',1,'NeuralNet']]]
 ];

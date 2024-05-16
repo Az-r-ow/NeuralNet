@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['mce_0',['MCE',['../classNeuralNet_1_1MCE.html',1,'NeuralNet']]],
-  ['model_1',['Model',['../classNeuralNet_1_1Model.html',1,'NeuralNet']]]
+  ['layer_0',['Layer',['../classNeuralNet_1_1Layer.html',1,'NeuralNet']]],
+  ['loss_1',['Loss',['../classNeuralNet_1_1Loss.html',1,'NeuralNet']]]
 ];
