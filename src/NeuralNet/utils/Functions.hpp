@@ -323,6 +323,19 @@ static Eigen::MatrixXd hardmax(const Eigen::MatrixXd &mat) {
   return hardmaxMatrix;
 }
 
+/**
+ * @brief round the number < to the given threshold to 0
+ *
+ * @param logits Matrix of doubles
+ * @param threshold a double (default: 0.01)
+ *
+ * @return the same matrix with the values < threshold = 0
+ */
+static Eigen::MatrixXd trim(const Eigen::MatrixXd &logits,
+                            double threshold = 0.01) {
+  return (logits.array() < threshold).select(0, logits);
+}
+
 /* SIGNAL HANDLING */
 static void signalHandler(int signum) {
   std::cout << "Interrupt signal (" << signum << ") received.\n";
