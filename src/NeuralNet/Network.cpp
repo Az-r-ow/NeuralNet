@@ -131,9 +131,11 @@ double Network::miniBatchTraining(
   trainingCheckpoint("onTrainBegin", callbacks);
 
   for (cEpoch = 0; cEpoch < epochs; cEpoch++) {
+    double sumBatchLoss = 0;
+    int numBatches = trainingData.inputs.size();
     trainingCheckpoint("onEpochBegin", callbacks);
-    TrainingGauge g(trainingData.inputs.size(), 0, epochs, (cEpoch + 1));
-    for (int b = 0; b < trainingData.inputs.size(); b++) {
+    TrainingGauge g(numBatches, 0, epochs, (cEpoch + 1));
+    for (int b = 0; b < numBatches; b++) {
       trainingCheckpoint("onBatchBegin", callbacks);
       const int numOutputs = this->getOutputLayer()->getNumNeurons();
       const int inputsSize = trainingData.inputs.batches[b].size();
@@ -144,6 +146,7 @@ double Network::miniBatchTraining(
       Eigen::MatrixXd o =
           this->forwardProp(trainingData.inputs.batches[b], true);
       loss = this->cmpLoss(o, y) / inputsSize;
+      sumBatchLoss += loss;
       accuracy = computeAccuracy(o, y);
       sumLoss += loss;
       this->backProp(o, y);
@@ -151,6 +154,8 @@ double Network::miniBatchTraining(
       if (!this->progBar) continue;  // Skip when disabled
       g.printWithLAndA(loss, accuracy);
     }
+    // calculating current epoch avg loss
+    loss = sumBatchLoss / static_cast<double>(numBatches);
     trainingCheckpoint("onEpochEnd", callbacks);
   }
 

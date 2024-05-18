@@ -12,6 +12,7 @@
 venv
 __pycache__
 dataset/
+checkpoints/*.bin
 
 ### binaries ###
 *.bin
