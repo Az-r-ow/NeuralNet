@@ -144,7 +144,7 @@ $(function() { codefold.init(0); });
 <div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> <span class="keyword">private</span>:</div>
 <div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  std::string folderPath, filename;</div>
 <div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  <span class="keywordtype">bool</span> saveBestOnly, verbose;</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keywordtype">double</span> bestLoss = 10, bestAccuracy = 0;</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  <span class="keywordtype">double</span> bestLoss = std::numeric_limits&lt;double&gt;::max(), bestAccuracy = 0;</div>
 <div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span>  <span class="keywordtype">int</span> numEpochs, bestEpoch;</div>
 <div class="line"><a id="l00072" name="l00072"></a><span class="lineno">   72</span>  std::unordered_map&lt;std::string, Logs&gt; logs;</div>
 <div class="line"><a id="l00073" name="l00073"></a><span class="lineno">   73</span> </div>
