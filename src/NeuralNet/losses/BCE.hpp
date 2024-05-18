@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Loss.hpp"
+#include "utils/Functions.hpp"
 
 namespace NeuralNet {
 /**
@@ -9,7 +10,7 @@ namespace NeuralNet {
 class BCE : public Loss {
  public:
   static double cmpLoss(const Eigen::MatrixXd &o, const Eigen::MatrixXd &y) {
-    double threshold = 1.0e-5;
+    constexpr double threshold = 1.0e-5;
     Eigen::MatrixXd oTrim = trim(o, threshold);
     Eigen::MatrixXd yTrim = trim(y, threshold);
 
@@ -26,8 +27,9 @@ class BCE : public Loss {
 
   static Eigen::MatrixXd cmpLossGrad(const Eigen::MatrixXd &yHat,
                                      const Eigen::MatrixXd &y) {
+    constexpr double epsilon = 1.0e-9;
     return (yHat.array() - y.array()) /
-           ((yHat.array() * (1.0 - yHat.array())) + 1e-9);
+           ((yHat.array() * (1.0 - yHat.array())) + epsilon);
   }
 };
 

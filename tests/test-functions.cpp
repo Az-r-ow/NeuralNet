@@ -29,8 +29,8 @@ TEST_CASE("vectorToMatrixXd outputs the correct format", "[helper_function]") {
 TEST_CASE("randomWeightInit initializes value properly",
           "[weight_initialization]") {
   Eigen::MatrixXd weights = Eigen::MatrixXd::Zero(5, 5);
-  double min = -2.0;
-  double max = 2.0;
+  constexpr double min = -2.0;
+  constexpr double max = 2.0;
 
   randomWeightInit(&weights, min, max);
   CHECK_MATRIX_VALUES_IN_RANGE(weights, min, max);
@@ -39,8 +39,8 @@ TEST_CASE("randomWeightInit initializes value properly",
 TEST_CASE("randomDistMatrixInit initializes values properly",
           "[weight_initialization]") {
   Eigen::MatrixXd weights = Eigen::MatrixXd::Zero(5, 5);
-  double mean = -1.0;
-  double stddev = 0;
+  constexpr double mean = -1.0;
+  constexpr double stddev = 0;
 
   randomDistMatrixInit(&weights, mean, stddev);
 

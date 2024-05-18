@@ -135,7 +135,7 @@ inline std::string constructFilePath(const std::string &folderPath,
  *
  * @return The square of x
  */
-inline double sqr(const double x) { return x * x; };
+inline constexpr double sqr(const double x) { return x * x; };
 
 /* VECTOR OPERATIONS */
 

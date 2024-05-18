@@ -67,7 +67,7 @@ class ModelCheckpoint : public Callback {
  private:
   std::string folderPath, filename;
   bool saveBestOnly, verbose;
-  double bestLoss = 10, bestAccuracy = 0;
+  double bestLoss = std::numeric_limits<double>::max(), bestAccuracy = 0;
   int numEpochs, bestEpoch;
   std::unordered_map<std::string, Logs> logs;
 
