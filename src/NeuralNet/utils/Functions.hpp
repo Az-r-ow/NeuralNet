@@ -336,6 +336,19 @@ static Eigen::MatrixXd trim(const Eigen::MatrixXd &logits,
   return (logits.array() < threshold).select(0, logits);
 }
 
+/**
+ * @brief round the number < to the given threshold to the given threshold
+ *
+ * @param logits Matrix of doubles
+ * @param threshold a double (default: 0.01)
+ *
+ * @return the same matrix with the values < threshold = threshold
+ */
+static Eigen::MatrixXd thresh(const Eigen::MatrixXd &logits,
+                              double threshold = 0.01) {
+  return (logits.array() < threshold).select(threshold, logits);
+}
+
 /* SIGNAL HANDLING */
 static void signalHandler(int signum) {
   std::cout << "Interrupt signal (" << signum << ") received.\n";
