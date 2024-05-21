@@ -324,6 +324,7 @@ static Eigen::MatrixXd hardmax(const Eigen::MatrixXd &mat) {
 }
 
 /**
+ * @deprecated This function will be removed/replaced soon
  * @brief round the number < to the given threshold to 0
  *
  * @param logits Matrix of doubles
