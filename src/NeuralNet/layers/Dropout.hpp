@@ -18,6 +18,7 @@ class Dropout : public Layer {
  public:
   float rate, scaleRate;
   unsigned int seed;
+  Eigen::MatrixXd mask;
 
   /**
    * @brief The Dropout layer randomly sets input units to 0 with a frequency of
@@ -87,6 +88,7 @@ class Dropout : public Layer {
     int rows = inputs.rows();
     int cols = inputs.cols();
     int numCoord = rows * cols;  // Number of coordinates
+    mask = Eigen::MatrixXd::Constant(rows, cols, 1);
 
     seed = getSeed();
     std::mt19937 gen(seed);
@@ -112,10 +114,12 @@ class Dropout : public Layer {
                 std::back_inserter(randCoordinates), num_zeros, gen);
 
     for (std::tuple<int, int>& coord : randCoordinates) {
-      inputs(std::get<0>(coord), std::get<1>(coord)) = 0;
+      mask(std::get<0>(coord), std::get<1>(coord)) = 0;
     }
 
-    return inputs * scaleRate;
+    outputs = (inputs.array() * mask.array()) * scaleRate;
+
+    return outputs;
   };
 };
 }  // namespace NeuralNet

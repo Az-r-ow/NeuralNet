@@ -301,6 +301,7 @@ void Network::backProp(Eigen::MatrixXd &outputs, Eigen::MatrixXd &y) {
 
       assert(doLayer);
       // rescale outputs
+      nLayerOutputs = nLayerOutputs.array() * doLayer->mask.array();
       nLayerOutputs /= doLayer->scaleRate;
     }
 
@@ -330,8 +331,22 @@ void Network::updateOptimizerSetup(size_t numLayers) {
    *
    * I'm not very proud of this method but so far it seems like the most
    * convenient way
+   *
+   * Adam only requires the number of Dense layers
    */
-  this->optimizer->insiderInit(numLayers);
+
+  size_t nLayers = numLayers;
+
+  if (std::dynamic_pointer_cast<Adam>(this->optimizer)) {
+    // Get the number of dense layers
+    nLayers =
+        std::count_if(this->layers.begin(), this->layers.end(),
+                      [](const std::shared_ptr<Layer> &ptr) {
+                        return std::dynamic_pointer_cast<Dense>(ptr) != nullptr;
+                      });
+  }
+
+  this->optimizer->insiderInit(nLayers);
 }
 
 void Network::trainingCheckpoint(

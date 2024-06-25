@@ -63,7 +63,10 @@ class Dense : public Layer {
       return inputs;
     }
 
-    inputs = inputs.cols() == weights.rows() ? inputs : inputs.transpose();
+    if (inputs.cols() != weights.rows()) {
+      Eigen::MatrixXd transposedMat = inputs.transpose();
+      inputs = transposedMat;
+    }
 
     assert(inputs.cols() == weights.rows());
     return this->computeOutputs(inputs);
