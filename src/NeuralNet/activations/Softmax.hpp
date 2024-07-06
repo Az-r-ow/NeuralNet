@@ -19,6 +19,8 @@ class Softmax : public Activation {
     return Eigen::MatrixXd::Constant(a.rows(), a.cols(), 1);
   };
 
+  static inline std::string slug = "smax";
+
  private:
   static Eigen::MatrixXd scale(const Eigen::MatrixXd &z, double scaleFactor) {
     return z * scaleFactor;

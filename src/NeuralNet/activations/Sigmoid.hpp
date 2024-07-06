@@ -13,5 +13,7 @@ class Sigmoid : public Activation {
   static Eigen::MatrixXd diff(const Eigen::MatrixXd &a) {
     return a.array() * (1.0 - a.array());
   };
+
+  static inline std::string slug = "sig";
 };
 }  // namespace NeuralNet

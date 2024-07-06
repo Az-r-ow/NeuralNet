@@ -53,7 +53,7 @@ class Dense : public Layer {
    * @brief Dense layer slug
    */
   std::string getSlug() const override {
-    return slug + std::to_string(nNeurons);
+    return slug + std::to_string(nNeurons) + activationSlug;
   }
 
   /**
@@ -88,6 +88,7 @@ class Dense : public Layer {
 
   double bias;
   std::string slug = "dns";
+  std::string activationSlug = "";
   Eigen::MatrixXd biases;
   WEIGHT_INIT weightInit;
   Eigen::MatrixXd weights;
@@ -190,14 +191,17 @@ class Dense : public Layer {
       case ACTIVATION::SIGMOID:
         this->activate = Sigmoid::activate;
         this->diff = Sigmoid::diff;
+        this->activationSlug = Sigmoid::slug;
         break;
       case ACTIVATION::RELU:
         this->activate = Relu::activate;
         this->diff = Relu::diff;
+        this->activationSlug = Relu::slug;
         break;
       case ACTIVATION::SOFTMAX:
         this->activate = Softmax::activate;
         this->diff = Softmax::diff;
+        this->activationSlug = Softmax::slug;
         break;
       /**
        * Add cases as I add activations

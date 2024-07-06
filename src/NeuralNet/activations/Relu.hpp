@@ -13,6 +13,8 @@ class Relu : public Activation {
     return a.unaryExpr(&Relu::diffValue);
   }
 
+  static inline std::string slug = "rel";
+
  private:
   static double diffValue(double a) { return a > 0 ? 1 : 0; }
 

@@ -22,5 +22,7 @@ class Activation {
    * @return The activated outputs derivatives
    */
   static Eigen::MatrixXd diff(const Eigen::MatrixXd &a) { return a; };
+
+  static inline std::string slug = "actv";
 };
 }  // namespace NeuralNet
