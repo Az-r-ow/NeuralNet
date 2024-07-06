@@ -107,13 +107,15 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>    <span class="keywordflow">return</span> a.unaryExpr(&amp;Relu::diffValue);</div>
 <div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span>  }</div>
 <div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span> </div>
-<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span> <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span>  <span class="keyword">static</span> <span class="keywordtype">double</span> diffValue(<span class="keywordtype">double</span> a) { <span class="keywordflow">return</span> a &gt; 0 ? 1 : 0; }</div>
-<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> </div>
-<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keyword">static</span> <span class="keywordtype">double</span> activateValue(<span class="keywordtype">double</span> z) { <span class="keywordflow">return</span> z &lt; 0 ? 0 : z; }</div>
-<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>};</div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno">   16</span>  <span class="keyword">static</span> <span class="keyword">inline</span> std::string slug = <span class="stringliteral">&quot;rel&quot;</span>;</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno">   18</span> <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span>  <span class="keyword">static</span> <span class="keywordtype">double</span> diffValue(<span class="keywordtype">double</span> a) { <span class="keywordflow">return</span> a &gt; 0 ? 1 : 0; }</div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span> </div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>  <span class="keyword">static</span> <span class="keywordtype">double</span> activateValue(<span class="keywordtype">double</span> z) { <span class="keywordflow">return</span> z &lt; 0 ? 0 : z; }</div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span>};</div>
 </div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span>}  <span class="comment">// namespace NeuralNet</span></div>
+<div class="line"><a id="l00023" name="l00023"></a><span class="lineno">   23</span>}  <span class="comment">// namespace NeuralNet</span></div>
 <div class="ttc" id="aclassNeuralNet_1_1Activation_html"><div class="ttname"><a href="classNeuralNet_1_1Activation.html">NeuralNet::Activation</a></div><div class="ttdef"><b>Definition</b> Activation.hpp:6</div></div>
 <div class="ttc" id="aclassNeuralNet_1_1Relu_html"><div class="ttname"><a href="classNeuralNet_1_1Relu.html">NeuralNet::Relu</a></div><div class="ttdef"><b>Definition</b> Relu.hpp:6</div></div>
 </div><!-- fragment --></div><!-- contents -->
