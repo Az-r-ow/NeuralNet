@@ -411,6 +411,7 @@ PYBIND11_MODULE(NeuralNetPy, m) {
           network.setup(optimizer=NNP.SGD(0.01), loss=NNP.LOSS.MCQ)
       )pbdoc")
       .def(py::init<>())
+      .def("getSlug", &Network::getSlug)
       .def("setup", &Network::setup, py::arg("optimizer"),
            py::arg("loss") = LOSS::QUADRATIC)
       .def("addLayer", &Network::addLayer, R"pbdoc(
