@@ -125,6 +125,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0b699dafa398dc219a05d7bf62a8424d" id="r_a0b699dafa398dc219a05d7bf62a8424d"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0b699dafa398dc219a05d7bf62a8424d">getNumLayers</a> () const</td></tr>
 <tr class="memdesc:a0b699dafa398dc219a05d7bf62a8424d"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will get you the number of layers currently in the <a class="el" href="classNeuralNet_1_1Network.html">Network</a>.  <br /></td></tr>
 <tr class="separator:a0b699dafa398dc219a05d7bf62a8424d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ec28923e1d823fb1b8269c859d0647c" id="r_a3ec28923e1d823fb1b8269c859d0647c"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3ec28923e1d823fb1b8269c859d0647c">getSlug</a> () const</td></tr>
+<tr class="memdesc:a3ec28923e1d823fb1b8269c859d0647c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the slug of the network based on it's architecture.  <br /></td></tr>
+<tr class="separator:a3ec28923e1d823fb1b8269c859d0647c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa295782e0f3531be8f22ae2b80ec8f54" id="r_aa295782e0f3531be8f22ae2b80ec8f54"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa295782e0f3531be8f22ae2b80ec8f54">train</a> (std::vector&lt; std::vector&lt; double &gt; &gt; X, std::vector&lt; double &gt; y, int epochs=1, const std::vector&lt; std::shared_ptr&lt; <a class="el" href="classNeuralNet_1_1Callback.html">Callback</a> &gt; &gt; callbacks={}, bool progBar=true)</td></tr>
 <tr class="memdesc:aa295782e0f3531be8f22ae2b80ec8f54"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will Train the model with the given inputs and labels.  <br /></td></tr>
 <tr class="separator:aa295782e0f3531be8f22ae2b80ec8f54"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -306,6 +309,26 @@ double&#160;</td><td class="memItemRight" valign="bottom"><b>accuracy</b> = 0</t
 
 <p>This method will return the output layer (the last layer of the network) </p>
 <dl class="section return"><dt>Returns</dt><dd>The output <a class="el" href="classNeuralNet_1_1Layer.html">Layer</a> </dd></dl>
+
+</div>
+</div>
+<a id="a3ec28923e1d823fb1b8269c859d0647c" name="a3ec28923e1d823fb1b8269c859d0647c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3ec28923e1d823fb1b8269c859d0647c">&#9670;&#160;</a></span>getSlug()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string Network::getSlug </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Get the slug of the network based on it's architecture. </p>
+<dl class="section return"><dt>Returns</dt><dd>A string representing the combined slug of the different components in the <a class="el" href="classNeuralNet_1_1Network.html">Network</a> </dd></dl>
 
 </div>
 </div>

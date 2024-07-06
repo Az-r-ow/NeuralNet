@@ -311,7 +311,19 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00359" name="l00359"></a><span class="lineno">  359</span>  exit(signum);</div>
 <div class="line"><a id="l00360" name="l00360"></a><span class="lineno">  360</span>};</div>
 <div class="line"><a id="l00361" name="l00361"></a><span class="lineno">  361</span> </div>
-<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span>}  <span class="comment">// namespace NeuralNet</span></div>
+<div class="line"><a id="l00362" name="l00362"></a><span class="lineno">  362</span><span class="comment">/* STRING OPERATIONS  */</span></div>
+<div class="line"><a id="l00363" name="l00363"></a><span class="lineno">  363</span> </div>
+<div class="line"><a id="l00364" name="l00364"></a><span class="lineno">  364</span><span class="keyword">static</span> std::string removeTrailingZeros(std::string str) {</div>
+<div class="line"><a id="l00365" name="l00365"></a><span class="lineno">  365</span>  str.erase(str.find_last_not_of(<span class="charliteral">&#39;0&#39;</span>) + 1, std::string::npos);</div>
+<div class="line"><a id="l00366" name="l00366"></a><span class="lineno">  366</span> </div>
+<div class="line"><a id="l00367" name="l00367"></a><span class="lineno">  367</span>  <span class="keywordflow">if</span> (str.back() == <span class="charliteral">&#39;.&#39;</span>) {</div>
+<div class="line"><a id="l00368" name="l00368"></a><span class="lineno">  368</span>    str.pop_back();</div>
+<div class="line"><a id="l00369" name="l00369"></a><span class="lineno">  369</span>  }</div>
+<div class="line"><a id="l00370" name="l00370"></a><span class="lineno">  370</span> </div>
+<div class="line"><a id="l00371" name="l00371"></a><span class="lineno">  371</span>  <span class="keywordflow">return</span> str;</div>
+<div class="line"><a id="l00372" name="l00372"></a><span class="lineno">  372</span>}</div>
+<div class="line"><a id="l00373" name="l00373"></a><span class="lineno">  373</span> </div>
+<div class="line"><a id="l00374" name="l00374"></a><span class="lineno">  374</span>}  <span class="comment">// namespace NeuralNet</span></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

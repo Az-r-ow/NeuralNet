@@ -117,6 +117,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:afa59ddacc5796712e5061ed055833fde" id="r_afa59ddacc5796712e5061ed055833fde"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afa59ddacc5796712e5061ed055833fde">getNumNeurons</a> () const</td></tr>
 <tr class="memdesc:afa59ddacc5796712e5061ed055833fde"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method get the number of neurons actually in the layer.  <br /></td></tr>
 <tr class="separator:afa59ddacc5796712e5061ed055833fde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a204b844152e118a8772b0b46696555f8" id="r_a204b844152e118a8772b0b46696555f8"><td class="memItemLeft" align="right" valign="top">virtual std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a204b844152e118a8772b0b46696555f8">getSlug</a> () const =0</td></tr>
+<tr class="memdesc:a204b844152e118a8772b0b46696555f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">The slug of the layers (name + main parameter value)  <br /></td></tr>
+<tr class="separator:a204b844152e118a8772b0b46696555f8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab2b004ab5c1bb057f4ca568b55a47ef4" id="r_ab2b004ab5c1bb057f4ca568b55a47ef4"><td class="memItemLeft" align="right" valign="top"><a id="ab2b004ab5c1bb057f4ca568b55a47ef4" name="ab2b004ab5c1bb057f4ca568b55a47ef4"></a>
 void&#160;</td><td class="memItemRight" valign="bottom"><b>printOutputs</b> ()</td></tr>
 <tr class="memdesc:ab2b004ab5c1bb057f4ca568b55a47ef4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Method to print layer's outputs. <br /></td></tr>
@@ -369,6 +372,36 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>cereal::access</b></
 
 <p>This method get the layer's outputs. </p>
 <dl class="section return"><dt>Returns</dt><dd>an Eigen::Eigen::MatrixXd representing the layer's outputs </dd></dl>
+
+</div>
+</div>
+<a id="a204b844152e118a8772b0b46696555f8" name="a204b844152e118a8772b0b46696555f8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a204b844152e118a8772b0b46696555f8">&#9670;&#160;</a></span>getSlug()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">virtual std::string NeuralNet::Layer::getSlug </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">pure virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>The slug of the layers (name + main parameter value) </p>
+<dl class="section return"><dt>Returns</dt><dd>the slug </dd></dl>
+
+<p>Implemented in <a class="el" href="classNeuralNet_1_1Dense.html#a6b08c9574a995b8859e0c47381adde39">NeuralNet::Dense</a>, <a class="el" href="classNeuralNet_1_1Dropout.html#a7de97c764db64de66e69f7f7878e1427">NeuralNet::Dropout</a>, and <a class="el" href="classNeuralNet_1_1Flatten.html#afb284d8ca538531184840dc67e44c0d2">NeuralNet::Flatten</a>.</p>
 
 </div>
 </div>

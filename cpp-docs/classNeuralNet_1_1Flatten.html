@@ -110,6 +110,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a58993cf3bbad91fb4f3dc4570278e82c" id="r_a58993cf3bbad91fb4f3dc4570278e82c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a58993cf3bbad91fb4f3dc4570278e82c">Flatten</a> (std::tuple&lt; int, int &gt; inputShape)</td></tr>
 <tr class="memdesc:a58993cf3bbad91fb4f3dc4570278e82c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new <a class="el" href="classNeuralNet_1_1Flatten.html">Flatten</a> object.  <br /></td></tr>
 <tr class="separator:a58993cf3bbad91fb4f3dc4570278e82c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb284d8ca538531184840dc67e44c0d2" id="r_afb284d8ca538531184840dc67e44c0d2"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb284d8ca538531184840dc67e44c0d2">getSlug</a> () const override</td></tr>
+<tr class="memdesc:afb284d8ca538531184840dc67e44c0d2"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="classNeuralNet_1_1Flatten.html">Flatten</a> layer's slug.  <br /></td></tr>
+<tr class="separator:afb284d8ca538531184840dc67e44c0d2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a715f3cb27e42842f4ac5fd10c67f3028" id="r_a715f3cb27e42842f4ac5fd10c67f3028"><td class="memItemLeft" align="right" valign="top">Eigen::MatrixXd&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a715f3cb27e42842f4ac5fd10c67f3028">flatten</a> (std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; inputs)</td></tr>
 <tr class="memdesc:a715f3cb27e42842f4ac5fd10c67f3028"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method flattens a 3D vector into a 2D Eigen::MatrixXd.  <br /></td></tr>
 <tr class="separator:a715f3cb27e42842f4ac5fd10c67f3028"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -308,6 +311,35 @@ bool&#160;</td><td class="memItemRight" valign="bottom"><b>trainingOnly</b> = fa
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>Eigen::MatrixXd The flattened 2D Eigen::MatrixXd </dd></dl>
+
+</div>
+</div>
+<a id="afb284d8ca538531184840dc67e44c0d2" name="afb284d8ca538531184840dc67e44c0d2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb284d8ca538531184840dc67e44c0d2">&#9670;&#160;</a></span>getSlug()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::string NeuralNet::Flatten::getSlug </td>
+          <td>(</td>
+          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p><a class="el" href="classNeuralNet_1_1Flatten.html">Flatten</a> layer's slug. </p>
+
+<p>Implements <a class="el" href="classNeuralNet_1_1Layer.html#a204b844152e118a8772b0b46696555f8">NeuralNet::Layer</a>.</p>
 
 </div>
 </div>
