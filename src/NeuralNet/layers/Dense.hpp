@@ -50,6 +50,13 @@ class Dense : public Layer {
   };
 
   /**
+   * @brief Dense layer slug
+   */
+  std::string getSlug() const override {
+    return slug + std::to_string(nNeurons);
+  }
+
+  /**
    * @brief This method is used to feed the inputs to the layer
    *
    * @param inputs An Eigen::MatrixXd representing the inputs (features)
@@ -80,6 +87,7 @@ class Dense : public Layer {
   friend class Network;
 
   double bias;
+  std::string slug = "dns";
   Eigen::MatrixXd biases;
   WEIGHT_INIT weightInit;
   Eigen::MatrixXd weights;

@@ -44,6 +44,13 @@ class Layer {
   int getNumNeurons() const { return nNeurons; };
 
   /**
+   * @brief The slug of the layers (name + main parameter value)
+   *
+   * @return the slug
+   */
+  virtual std::string getSlug() const = 0;
+
+  /**
    * @brief Method to print layer's outputs
    */
   void printOutputs() {

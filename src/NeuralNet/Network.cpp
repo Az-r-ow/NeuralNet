@@ -55,6 +55,18 @@ std::shared_ptr<Layer> Network::getOutputLayer() const {
   return this->layers[this->layers.size() - 1];
 }
 
+std::string Network::getSlug() const {
+  std::string slug;
+
+  for (int l = 0; l < this->layers.size(); l++) {
+    Layer &cLayer = *this->layers[l];
+    slug += cLayer.getSlug() + "-";
+  }
+
+  slug.pop_back();  // remove last "-"
+  return slug;
+}
+
 double Network::train(std::vector<std::vector<double>> X, std::vector<double> y,
                       int epochs,
                       std::vector<std::shared_ptr<Callback>> callbacks,

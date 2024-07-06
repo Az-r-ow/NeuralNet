@@ -81,6 +81,14 @@ class Network : public Model {
   size_t getNumLayers() const;
 
   /**
+   * @brief Get the slug of the network based on it's architecture
+   *
+   * @return A string representing the combined slug of the different components
+   * in the Network
+   */
+  std::string getSlug() const;
+
+  /**
    * @brief This method will Train the model with the given inputs and labels
    *
    * @param X The inputs that will be passed to the model

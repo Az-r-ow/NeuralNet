@@ -359,4 +359,16 @@ static void signalHandler(int signum) {
   exit(signum);
 };
 
+/* STRING OPERATIONS  */
+
+static std::string removeTrailingZeros(std::string str) {
+  str.erase(str.find_last_not_of('0') + 1, std::string::npos);
+
+  if (str.back() == '.') {
+    str.pop_back();
+  }
+
+  return str;
+}
+
 }  // namespace NeuralNet

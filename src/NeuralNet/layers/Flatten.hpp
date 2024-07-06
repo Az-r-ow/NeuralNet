@@ -29,6 +29,11 @@ class Flatten : public Layer {
   };
 
   /**
+   * @brief Flatten layer's slug
+   */
+  std::string getSlug() const override { return slug; }
+
+  /**
    * @brief This method flattens a 3D vector into a 2D Eigen::MatrixXd
    *
    * @param inputs The 3D vector to be flattened
@@ -72,6 +77,7 @@ class Flatten : public Layer {
   friend class cereal::access;
 
   std::tuple<int, int> inputShape;
+  std::string slug = "fltn";
 
   template <class Archive>
   void serialize(Archive &ar) {

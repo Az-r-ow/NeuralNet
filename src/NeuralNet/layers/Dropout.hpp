@@ -37,6 +37,13 @@ class Dropout : public Layer {
   };
 
   /**
+   * @brief Dropout layer slug
+   */
+  std::string getSlug() const override {
+    return slug + removeTrailingZeros(std::to_string(rate));
+  }
+
+  /**
    * @brief This method is used to feed the inputs to the layer
    *
    * @param inputs An Eigen::MatrixXd representing the inputs (features)
@@ -49,6 +56,7 @@ class Dropout : public Layer {
 
  private:
   std::vector<std::tuple<int, int>> coordinates;
+  std::string slug = "do";
 
   // non-public serialization
   friend class cereal::access;
