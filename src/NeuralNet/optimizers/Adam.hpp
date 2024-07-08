@@ -58,6 +58,9 @@ class Adam : public Optimizer {
       v = Eigen::MatrixBase<Derived1>::Zero(param.rows(), param.cols());
     }
 
+    assert(gradients.rows() == m.rows() && gradients.cols() == m.cols());
+    assert(gradients.rows() == v.rows() && gradients.cols() == v.cols());
+
     // update biased first moment estimate
     m = (beta1 * m).array() + ((1 - beta2) * gradients.array()).array();
 

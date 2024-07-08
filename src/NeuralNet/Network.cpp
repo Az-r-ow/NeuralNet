@@ -351,11 +351,12 @@ void Network::updateOptimizerSetup(size_t numLayers) {
 
   if (std::dynamic_pointer_cast<Adam>(this->optimizer)) {
     // Get the number of dense layers
-    nLayers =
-        std::count_if(this->layers.begin(), this->layers.end(),
-                      [](const std::shared_ptr<Layer> &ptr) {
-                        return std::dynamic_pointer_cast<Dense>(ptr) != nullptr;
-                      });
+    nLayers = std::count_if(
+        this->layers.begin(), this->layers.end(),
+        [](const std::shared_ptr<Layer> &ptr) {
+          return std::dynamic_pointer_cast<Dense>(ptr) != nullptr ||
+                 std::dynamic_pointer_cast<Flatten>(ptr) != nullptr;
+        });
   }
 
   this->optimizer->insiderInit(nLayers);
