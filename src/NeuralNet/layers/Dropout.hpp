@@ -50,8 +50,9 @@ class Dropout : public Layer {
    *
    * @return an Eigen::MatrixXd representing the outputs of the layer
    */
-  Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) override {
-    return this->computeOutputs(inputs);
+  Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs,
+                             bool training = false) override {
+    return this->computeOutputs(inputs, training);
   };
 
  private:
@@ -92,7 +93,8 @@ class Dropout : public Layer {
    *
    * @return Inputs with some dropped values (zero-ed values) randomly
    */
-  Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs) override {
+  Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs,
+                                 bool training) override {
     int rows = inputs.rows();
     int cols = inputs.cols();
     int numCoord = rows * cols;  // Number of coordinates
@@ -125,9 +127,12 @@ class Dropout : public Layer {
       mask(std::get<0>(coord), std::get<1>(coord)) = 0;
     }
 
-    outputs = (inputs.array() * mask.array()) * scaleRate;
+    Eigen::MatrixXd dO = (inputs.array() * mask.array()) * scaleRate;
 
-    return outputs;
+    // Caching outputs for training
+    if (training) outputs = dO;
+
+    return dO;
   };
 };
 }  // namespace NeuralNet

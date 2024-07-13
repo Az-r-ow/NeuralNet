@@ -10,7 +10,6 @@
 
 #include "Model.hpp"
 #include "callbacks/Callback.hpp"
-#include "data/Tensor.hpp"
 #include "data/TrainingData.hpp"
 #include "layers/Dense.hpp"
 #include "layers/Dropout.hpp"

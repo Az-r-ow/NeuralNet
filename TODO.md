@@ -1,5 +1,6 @@
 ## TODOS :
 
+- [ ] Test TrainData
 - [ ] Implement batch norm
 - [ ] Parallelize operations
 - [ ] Read : https://arxiv.org/pdf/1412.6980.pdf
@@ -7,7 +8,6 @@
 
 ## IN PROGRESS :
 
-- [ ] Implement dropout
 - [ ] Add gradient clipping
 - [ ] Add default arguments to python bindings
 - [ ] Interactive Python example
@@ -16,6 +16,7 @@
 
 ## DONE :
 
+- [x] Implement dropout
 - [x] Add verbose argument for progess bar
 - [x] CI versioning
 - [x] Docker image for quick start

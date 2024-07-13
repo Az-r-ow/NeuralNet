@@ -140,39 +140,57 @@ double Network::miniBatchTraining(
     TrainingData<D1, D2> trainingData, int epochs,
     std::vector<std::shared_ptr<Callback>> callbacks) {
   double sumLoss = 0;
+  const int nOutputs = getOutputLayer()->getNumNeurons();
+  D1 xTest = trainingData.xTest;
+  D2 yTest = trainingData.yTest;
+
+  // Formatting and caching test labels
+  Eigen::MatrixXd yTestM = !yTest.empty()
+                               ? formatLabels(yTest, {yTest.size(), nOutputs})
+                               : Eigen::MatrixXd::Zero(1, 1);
   trainingCheckpoint("onTrainBegin", callbacks);
 
+  // Epoch loop
   for (cEpoch = 0; cEpoch < epochs; cEpoch++) {
     double sumBatchLoss = 0;
-    int numBatches = trainingData.inputs.size();
+    int nBatches = trainingData.miniBatches.size();
     trainingCheckpoint("onEpochBegin", callbacks);
-    TrainingGauge g(numBatches, 0, epochs, (cEpoch + 1));
-    for (int b = 0; b < numBatches; b++) {
+    TrainingGauge g(nBatches, 0, epochs, (cEpoch + 1));
+
+    // Batch loop
+    for (int b = 0; b < nBatches; b++) {
       trainingCheckpoint("onBatchBegin", callbacks);
-      const int numOutputs = this->getOutputLayer()->getNumNeurons();
-      const int inputsSize = trainingData.inputs.batches[b].size();
-      Eigen::MatrixXd y = formatLabels(trainingData.labels.batches[b],
-                                       {inputsSize, numOutputs});
+      auto &xTrain = trainingData.miniBatches[b].first;
+      auto &yTrain = trainingData.miniBatches[b].second;
+      const int nInputs = xTrain.size();
+      Eigen::MatrixXd y = formatLabels(yTrain, {nInputs, nOutputs});
 
       // computing outputs from forward propagation
-      Eigen::MatrixXd o =
-          this->forwardProp(trainingData.inputs.batches[b], true);
-      loss = this->cmpLoss(o, y) / inputsSize;
-      sumBatchLoss += loss;
+      Eigen::MatrixXd o = this->forwardProp(xTrain, true);
+
+      loss = this->cmpLoss(o, y) / nInputs;
       accuracy = computeAccuracy(o, y);
+      sumBatchLoss += loss;
       sumLoss += loss;
       this->backProp(o, y);
       trainingCheckpoint("onBatchEnd", callbacks);
       if (!this->progBar) continue;  // Skip when disabled
       g.printWithLAndA(loss, accuracy);
     }
+    // predict and calculate test metrics if present
+    if (!yTest.empty() && !yTestM.isZero(0)) {
+      Eigen::MatrixXd oTest = this->forwardProp(xTest);
+      testLoss =
+          this->cmpLoss(oTest, yTestM) / static_cast<double>(xTest.size());
+      testAccuracy = computeAccuracy(oTest, yTestM);
+    }
     // calculating current epoch avg loss
-    loss = sumBatchLoss / static_cast<double>(numBatches);
+    loss = sumBatchLoss / static_cast<double>(nBatches);
     trainingCheckpoint("onEpochEnd", callbacks);
   }
 
   trainingCheckpoint("onTrainEnd", callbacks);
-  return sumLoss / trainingData.inputs.size();
+  return loss;
 }
 
 template <typename D1, typename D2>
@@ -180,18 +198,31 @@ double Network::batchTraining(
     TrainingData<D1, D2> trainingData, int epochs,
     std::vector<std::shared_ptr<Callback>> callbacks) {
   double sumLoss = 0;
-  const int numOutputs = this->getOutputLayer()->getNumNeurons();
-  const int numInputs = trainingData.inputs.data.size();
-  Eigen::MatrixXd y =
-      formatLabels(trainingData.labels.data, {numInputs, numOutputs});
+  const int nOutputs = this->getOutputLayer()->getNumNeurons();
+  const int nInputs = trainingData.xTrain.size();
+  D1 xTest = trainingData.xTest;
+  D2 yTest = trainingData.yTest;
+
+  // Formatting and caching test labels
+  Eigen::MatrixXd yTestM = !yTest.empty()
+                               ? formatLabels(yTest, {yTest.size(), nOutputs})
+                               : Eigen::MatrixXd::Zero(1, 1);
+  Eigen::MatrixXd y = formatLabels(trainingData.yTrain, {nInputs, nOutputs});
   trainingCheckpoint("onTrainBegin", callbacks);
 
   for (cEpoch = 0; cEpoch < epochs; cEpoch++) {
     trainingCheckpoint("onEpochBegin", callbacks);
     TrainingGauge g(1, 0, epochs, (cEpoch + 1));
-    Eigen::MatrixXd o = this->forwardProp(trainingData.inputs.data, true);
+    Eigen::MatrixXd o = this->forwardProp(trainingData.xTrain, true);
 
-    loss = this->cmpLoss(o, y);
+    // predict and calculate test metrics if present
+    if (!yTest.empty() && !yTestM.isZero(0)) {
+      Eigen::MatrixXd oTest = this->forwardProp(xTest, true);
+      testLoss = this->cmpLoss(oTest, yTestM);
+      testAccuracy = computeAccuracy(oTest, yTestM);
+    }
+
+    loss = this->cmpLoss(o, y) / nInputs;
     accuracy = computeAccuracy(o, y);
     sumLoss += loss;
 
@@ -202,7 +233,7 @@ double Network::batchTraining(
   }
 
   trainingCheckpoint("onTrainEnd", callbacks);
-  return sumLoss / numInputs;
+  return sumLoss / nInputs;
 }
 
 template <typename D1, typename D2>
@@ -261,7 +292,7 @@ Eigen::MatrixXd Network::feedForward(Eigen::MatrixXd inputs, int startIdx,
   for (int l = startIdx; l < this->layers.size(); l++) {
     Layer &cLayer = *this->layers[l];
     if (cLayer.trainingOnly && !training) continue;
-    prevLayerOutputs = cLayer.feedInputs(prevLayerOutputs);
+    prevLayerOutputs = cLayer.feedInputs(prevLayerOutputs, training);
   }
 
   return prevLayerOutputs;

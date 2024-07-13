@@ -88,6 +88,8 @@ class Callback {
     logs["EPOCH"] = model.cEpoch;
     logs["ACCURACY"] = model.accuracy;
     logs["LOSS"] = model.loss;
+    logs["TEST_ACCURACY"] = model.testAccuracy;
+    logs["TEST_LOSS"] = model.testLoss;
 
     return logs;
   };

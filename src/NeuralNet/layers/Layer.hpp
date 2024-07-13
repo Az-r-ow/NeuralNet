@@ -65,7 +65,8 @@ class Layer {
    *
    * @return an Eigen::MatrixXd representing the outputs of the layer
    */
-  virtual Eigen::MatrixXd feedInputs(std::vector<double> inputs) {
+  virtual Eigen::MatrixXd feedInputs(std::vector<double> inputs,
+                                     bool training = false) {
     return this->feedInputs(Eigen::MatrixXd::Map(&inputs[0], inputs.size(), 1));
   };
 
@@ -76,7 +77,8 @@ class Layer {
    *
    * @return an Eigen::MatrixXd representing the outputs of the layer
    */
-  virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) = 0;
+  virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs,
+                                     bool training = false) = 0;
 
   /**
    * @brief This method is used to feed the inputs to the layer
@@ -86,8 +88,8 @@ class Layer {
    *
    * @return void
    */
-  virtual void feedInputs(
-      std::vector<std::vector<std::vector<double>>> inputs) {
+  virtual void feedInputs(std::vector<std::vector<std::vector<double>>> inputs,
+                          bool training = false) {
     assert(false &&
            "Cannot feed 3d vectors, a Flatten layer could do it though");
     return;
@@ -168,7 +170,8 @@ class Layer {
    * @return an Eigen::MatrixXd representing the computed outputs based on the
    * layer's parameters
    */
-  virtual Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs) = 0;
+  virtual Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs,
+                                         bool training = false) = 0;
 
   /**
    * This function will be used to properly initialize the Layer

@@ -63,7 +63,8 @@ class Dense : public Layer {
    *
    * @return an Eigen::MatrixXd representing the outputs of the layer
    */
-  virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) override {
+  virtual Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs,
+                                     bool training = false) override {
     // Dense layer positioned as input layer
     if (weights.rows() == 0 && weights.cols() == 0) {
       setOutputs(inputs);
@@ -76,7 +77,7 @@ class Dense : public Layer {
     }
 
     assert(inputs.cols() == weights.rows());
-    return this->computeOutputs(inputs);
+    return this->computeOutputs(inputs, training);
   };
 
   ~Dense(){};
@@ -158,7 +159,8 @@ class Dense : public Layer {
    * @return an Eigen::MatrixXd representing the computed outputs based on the
    * layer's parameters
    */
-  Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs) override {
+  Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs,
+                                 bool training) override {
     // Initialize the biases based on the input's size
     if (biases.rows() == 0 && biases.cols() == 0) {
       biases = Eigen::MatrixXd::Constant(1, nNeurons, bias);
@@ -169,8 +171,12 @@ class Dense : public Layer {
 
     wSum.rowwise() += biases.row(0);
 
-    outputs = activate(wSum);
-    return outputs;
+    Eigen::MatrixXd a = activate(wSum);
+
+    // Caching outputs for training
+    if (training) outputs = a;
+
+    return a;
   };
 
   /**

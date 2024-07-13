@@ -80,7 +80,7 @@ class Model {
  protected:
   friend class Callback;
   int cEpoch = 0;  // Current epoch
-  double loss = 0, accuracy = 0;
+  double loss = 0, accuracy = 0, testLoss = 0, testAccuracy = 0;
 
   void registerSignals() const {
     // Registering signals
