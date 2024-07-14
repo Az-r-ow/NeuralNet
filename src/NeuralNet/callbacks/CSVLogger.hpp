@@ -118,6 +118,9 @@ class CSVLogger : public Callback {
       csvRow += std::to_string(el) + separator;
     }
 
+    // Remove last ","
+    csvRow.pop_back();
+
     return csvRow + "\n";
   };
 
@@ -127,6 +130,9 @@ class CSVLogger : public Callback {
     for (const std::string &el : v) {
       csvRow += el + separator;
     }
+
+    // Remove last ","
+    csvRow.pop_back();
 
     return csvRow + "\n";
   };

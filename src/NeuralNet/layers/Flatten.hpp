@@ -59,13 +59,13 @@ class Flatten : public Layer {
         flatInputs.data(), numRows, numCols);
   };
 
-  void feedInputs(
-      std::vector<std::vector<std::vector<double>>> inputs) override {
+  void feedInputs(std::vector<std::vector<std::vector<double>>> inputs,
+                  bool training) override {
     Eigen::MatrixXd flattenedInputs = flatten(inputs);
     this->setOutputs(flattenedInputs);
   };
 
-  Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) override {
+  Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs, bool training) override {
     this->setOutputs(inputs);
     return outputs;
   };
@@ -84,7 +84,8 @@ class Flatten : public Layer {
     ar(cereal::base_class<Layer>(this), inputShape);
   }
 
-  Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs) override {
+  Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs,
+                                 bool training) override {
     return outputs;
   }
 
