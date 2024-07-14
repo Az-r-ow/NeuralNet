@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=11"/>
 <meta name="generator" content="Doxygen 1.11.0"/>
 <meta name="viewport" content="width=device-width, initial-scale=1"/>
-<title>NeuralNet: NeuralNet::TrainingData&lt; I, L &gt; Class Template Reference</title>
+<title>NeuralNet: NeuralNet::TrainingData&lt; X, Y &gt; Class Template Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="jquery.js"></script>
 <script type="text/javascript" src="dynsections.js"></script>
@@ -92,18 +92,21 @@ $(function(){ initResizable(false); });
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#friends">Friends</a> &#124;
 <a href="classNeuralNet_1_1TrainingData-members.html">List of all members</a>  </div>
-  <div class="headertitle"><div class="title">NeuralNet::TrainingData&lt; I, L &gt; Class Template Reference</div></div>
+  <div class="headertitle"><div class="title">NeuralNet::TrainingData&lt; X, Y &gt; Class Template Reference</div></div>
 </div><!--header-->
 <div class="contents">
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac2e6d5aa40e7271bb363704e656de0e0" id="r_ac2e6d5aa40e7271bb363704e656de0e0"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac2e6d5aa40e7271bb363704e656de0e0">TrainingData</a> (I inputs_data, L labels_data)</td></tr>
-<tr class="memdesc:ac2e6d5aa40e7271bb363704e656de0e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Training Data object. This object is used to store the inputs and labels data, it comes with a set of methods to manipulate the data to your liking for better training optimization.  <br /></td></tr>
-<tr class="separator:ac2e6d5aa40e7271bb363704e656de0e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a532f4726a8f0033b5ca76c6bcf861e" id="r_a8a532f4726a8f0033b5ca76c6bcf861e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8a532f4726a8f0033b5ca76c6bcf861e">batch</a> (int batchSize)</td></tr>
-<tr class="memdesc:a8a532f4726a8f0033b5ca76c6bcf861e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will separate the inputs and labels data into batches of the specified size.  <br /></td></tr>
-<tr class="separator:a8a532f4726a8f0033b5ca76c6bcf861e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a289f1a08040a1687a64c301dbc88f3ed" id="r_a289f1a08040a1687a64c301dbc88f3ed"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a289f1a08040a1687a64c301dbc88f3ed">TrainingData</a> (X xTrain, Y yTrain, X xTest=X(), Y yTest=Y())</td></tr>
+<tr class="memdesc:a289f1a08040a1687a64c301dbc88f3ed"><td class="mdescLeft">&#160;</td><td class="mdescRight">Construct a new Training Data object. This object is used to store the inputs and labels data, it comes with a set of methods to manipulate the data to your liking for better training optimization.  <br /></td></tr>
+<tr class="separator:a289f1a08040a1687a64c301dbc88f3ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a109552a309f007ce49f16451ac7ba697" id="r_a109552a309f007ce49f16451ac7ba697"><td class="memItemLeft" align="right" valign="top"><a id="a109552a309f007ce49f16451ac7ba697" name="a109552a309f007ce49f16451ac7ba697"></a>
+std::vector&lt; std::pair&lt; X, Y &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><b>getMiniBatches</b> ()</td></tr>
+<tr class="separator:a109552a309f007ce49f16451ac7ba697"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4eef79eb7fef12ff9a31229738f517a0" id="r_a4eef79eb7fef12ff9a31229738f517a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4eef79eb7fef12ff9a31229738f517a0">batch</a> (int batchSize, bool stratified=false, bool shuffle=false, bool dropLast=false, bool verbose=false)</td></tr>
+<tr class="memdesc:a4eef79eb7fef12ff9a31229738f517a0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method will separate the inputs and labels data into batches of the specified size.  <br /></td></tr>
+<tr class="separator:a4eef79eb7fef12ff9a31229738f517a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
@@ -112,26 +115,36 @@ class&#160;</td><td class="memItemRight" valign="bottom"><b>Network</b></td></tr
 <tr class="separator:a88b59289ffd793fecd040d32e397b1e9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac2e6d5aa40e7271bb363704e656de0e0" name="ac2e6d5aa40e7271bb363704e656de0e0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac2e6d5aa40e7271bb363704e656de0e0">&#9670;&#160;</a></span>TrainingData()</h2>
+<a id="a289f1a08040a1687a64c301dbc88f3ed" name="a289f1a08040a1687a64c301dbc88f3ed"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a289f1a08040a1687a64c301dbc88f3ed">&#9670;&#160;</a></span>TrainingData()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename I , typename L &gt; </div>
+template&lt;typename X , typename Y &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData</a>&lt; I, L &gt;::TrainingData </td>
+          <td class="memname"><a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData</a>&lt; X, Y &gt;::TrainingData </td>
           <td>(</td>
-          <td class="paramtype">I</td>          <td class="paramname"><span class="paramname"><em>inputs_data</em></span>, </td>
+          <td class="paramtype">X</td>          <td class="paramname"><span class="paramname"><em>xTrain</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">L</td>          <td class="paramname"><span class="paramname"><em>labels_data</em></span>&#160;)</td>
+          <td class="paramtype">Y</td>          <td class="paramname"><span class="paramname"><em>yTrain</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">X</td>          <td class="paramname"><span class="paramname"><em>xTest</em></span><span class="paramdefsep"> = </span><span class="paramdefval">X()</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">Y</td>          <td class="paramname"><span class="paramname"><em>yTest</em></span><span class="paramdefsep"> = </span><span class="paramdefval">Y()</span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -154,22 +167,41 @@ template&lt;typename I , typename L &gt; </div>
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a8a532f4726a8f0033b5ca76c6bcf861e" name="a8a532f4726a8f0033b5ca76c6bcf861e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a532f4726a8f0033b5ca76c6bcf861e">&#9670;&#160;</a></span>batch()</h2>
+<a id="a4eef79eb7fef12ff9a31229738f517a0" name="a4eef79eb7fef12ff9a31229738f517a0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4eef79eb7fef12ff9a31229738f517a0">&#9670;&#160;</a></span>batch()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <div class="memtemplate">
-template&lt;typename I , typename L &gt; </div>
+template&lt;typename X , typename Y &gt; </div>
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">void <a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData</a>&lt; I, L &gt;::batch </td>
+          <td class="memname">void <a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData</a>&lt; X, Y &gt;::batch </td>
           <td>(</td>
-          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>batchSize</em></span></td><td>)</td>
+          <td class="paramtype">int</td>          <td class="paramname"><span class="paramname"><em>batchSize</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>stratified</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>shuffle</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>dropLast</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">bool</td>          <td class="paramname"><span class="paramname"><em>verbose</em></span><span class="paramdefsep"> = </span><span class="paramdefval">false</span>&#160;)</td>
         </tr>
       </table>
   </td>

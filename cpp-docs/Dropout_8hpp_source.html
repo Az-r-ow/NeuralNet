@@ -130,94 +130,99 @@ $(function(){ initResizable(false); });
 </div>
 <div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span> </div>
 <div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
-<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Dropout.html#a9dc59366393153f082a0ea9f8a46be7e">   53</a></span>  Eigen::MatrixXd <a class="code hl_function" href="classNeuralNet_1_1Dropout.html#a9dc59366393153f082a0ea9f8a46be7e">feedInputs</a>(Eigen::MatrixXd inputs)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>    <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classNeuralNet_1_1Dropout.html#a1157d66873ebfeb95033505ac1de61fb">computeOutputs</a>(inputs);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>  };</div>
+<div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Dropout.html#a0fb63e660b04a761437ab9627e1eff10">   53</a></span>  Eigen::MatrixXd <a class="code hl_function" href="classNeuralNet_1_1Dropout.html#a0fb63e660b04a761437ab9627e1eff10">feedInputs</a>(Eigen::MatrixXd inputs,</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>                             <span class="keywordtype">bool</span> training = <span class="keyword">false</span>)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>    <span class="keywordflow">return</span> this-&gt;<a class="code hl_function" href="classNeuralNet_1_1Dropout.html#a572fa0fb5b3ff1cf3d6e865e1a9cc712">computeOutputs</a>(inputs, training);</div>
+<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>  };</div>
 </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span> </div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> <span class="keyword">private</span>:</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  std::vector&lt;std::tuple&lt;int, int&gt;&gt; coordinates;</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  std::string slug = <span class="stringliteral">&quot;do&quot;</span>;</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span> </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  <span class="comment">// non-public serialization</span></div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="keyword">friend</span> <span class="keyword">class </span>cereal::access;</div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span>  <a class="code hl_class" href="classNeuralNet_1_1Dropout.html">Dropout</a>(){};  <span class="comment">// Necessary for serialization</span></div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span> </div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>  <span class="keyword">template</span> &lt;<span class="keyword">class</span> Archive&gt;</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keywordtype">void</span> serialize(Archive&amp; ar) {</div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>    ar(cereal::base_class&lt;Layer&gt;(<span class="keyword">this</span>), seed, rate);</div>
-<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>  }</div>
-<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
-<div class="line"><a id="l00076" name="l00076"></a><span class="lineno">   76</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getSeed() {</div>
-<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>    <span class="keywordflow">if</span> (seed != 0) <span class="keywordflow">return</span> seed;</div>
-<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    std::random_device rd;</div>
-<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    <span class="keywordflow">return</span> rd();</div>
-<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>  };</div>
-<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span> </div>
-<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> <span class="keyword">protected</span>:</div>
-<div class="line"><a id="l00086" name="l00086"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Dropout.html#a1fd92d6e6e9fbe6e38812929bedfdff1">   86</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1Dropout.html#a1fd92d6e6e9fbe6e38812929bedfdff1">init</a>(<span class="keywordtype">int</span> numNeurons)<span class="keyword"> override </span>{ this-&gt;nNeurons = numNeurons; };</div>
-<div class="line"><a id="l00087" name="l00087"></a><span class="lineno">   87</span> </div>
-<div class="foldopen" id="foldopen00095" data-start="{" data-end="}">
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Dropout.html#a1157d66873ebfeb95033505ac1de61fb">   95</a></span>  Eigen::MatrixXd <a class="code hl_function" href="classNeuralNet_1_1Dropout.html#a1157d66873ebfeb95033505ac1de61fb">computeOutputs</a>(Eigen::MatrixXd inputs)<span class="keyword"> override </span>{</div>
-<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>    <span class="keywordtype">int</span> rows = inputs.rows();</div>
-<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>    <span class="keywordtype">int</span> cols = inputs.cols();</div>
-<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordtype">int</span> numCoord = rows * cols;  <span class="comment">// Number of coordinates</span></div>
-<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    mask = Eigen::MatrixXd::Constant(rows, cols, 1);</div>
-<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span> </div>
-<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    seed = getSeed();</div>
-<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span>    std::mt19937 gen(seed);</div>
-<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> num_zeros = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(numCoord * (1.0 - rate));</div>
-<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span> </div>
-<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    std::vector&lt;std::tuple&lt;int, int&gt;&gt; randCoordinates;</div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span> </div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> <span class="keyword">private</span>:</div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>  std::vector&lt;std::tuple&lt;int, int&gt;&gt; coordinates;</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  std::string slug = <span class="stringliteral">&quot;do&quot;</span>;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>  <span class="comment">// non-public serialization</span></div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>  <span class="keyword">friend</span> <span class="keyword">class </span>cereal::access;</div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>  <a class="code hl_class" href="classNeuralNet_1_1Dropout.html">Dropout</a>(){};  <span class="comment">// Necessary for serialization</span></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span>  <span class="keyword">template</span> &lt;<span class="keyword">class</span> Archive&gt;</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span>  <span class="keywordtype">void</span> serialize(Archive&amp; ar) {</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>    ar(cereal::base_class&lt;Layer&gt;(<span class="keyword">this</span>), seed, rate);</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span>  }</div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span> </div>
+<div class="line"><a id="l00077" name="l00077"></a><span class="lineno">   77</span>  <span class="keywordtype">unsigned</span> <span class="keywordtype">int</span> getSeed() {</div>
+<div class="line"><a id="l00078" name="l00078"></a><span class="lineno">   78</span>    <span class="keywordflow">if</span> (seed != 0) <span class="keywordflow">return</span> seed;</div>
+<div class="line"><a id="l00079" name="l00079"></a><span class="lineno">   79</span>    std::random_device rd;</div>
+<div class="line"><a id="l00080" name="l00080"></a><span class="lineno">   80</span>    <span class="keywordflow">return</span> rd();</div>
+<div class="line"><a id="l00081" name="l00081"></a><span class="lineno">   81</span>  };</div>
+<div class="line"><a id="l00082" name="l00082"></a><span class="lineno">   82</span> </div>
+<div class="line"><a id="l00083" name="l00083"></a><span class="lineno">   83</span> <span class="keyword">protected</span>:</div>
+<div class="line"><a id="l00087" name="l00087"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Dropout.html#a1fd92d6e6e9fbe6e38812929bedfdff1">   87</a></span>  <span class="keywordtype">void</span> <a class="code hl_function" href="classNeuralNet_1_1Dropout.html#a1fd92d6e6e9fbe6e38812929bedfdff1">init</a>(<span class="keywordtype">int</span> numNeurons)<span class="keyword"> override </span>{ this-&gt;nNeurons = numNeurons; };</div>
+<div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span> </div>
+<div class="foldopen" id="foldopen00096" data-start="{" data-end="}">
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno"><a class="line" href="classNeuralNet_1_1Dropout.html#a572fa0fb5b3ff1cf3d6e865e1a9cc712">   96</a></span>  Eigen::MatrixXd <a class="code hl_function" href="classNeuralNet_1_1Dropout.html#a572fa0fb5b3ff1cf3d6e865e1a9cc712">computeOutputs</a>(Eigen::MatrixXd inputs,</div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>                                 <span class="keywordtype">bool</span> training)<span class="keyword"> override </span>{</div>
+<div class="line"><a id="l00098" name="l00098"></a><span class="lineno">   98</span>    <span class="keywordtype">int</span> rows = inputs.rows();</div>
+<div class="line"><a id="l00099" name="l00099"></a><span class="lineno">   99</span>    <span class="keywordtype">int</span> cols = inputs.cols();</div>
+<div class="line"><a id="l00100" name="l00100"></a><span class="lineno">  100</span>    <span class="keywordtype">int</span> numCoord = rows * cols;  <span class="comment">// Number of coordinates</span></div>
+<div class="line"><a id="l00101" name="l00101"></a><span class="lineno">  101</span>    mask = Eigen::MatrixXd::Constant(rows, cols, 1);</div>
+<div class="line"><a id="l00102" name="l00102"></a><span class="lineno">  102</span> </div>
+<div class="line"><a id="l00103" name="l00103"></a><span class="lineno">  103</span>    seed = getSeed();</div>
+<div class="line"><a id="l00104" name="l00104"></a><span class="lineno">  104</span>    std::mt19937 gen(seed);</div>
+<div class="line"><a id="l00105" name="l00105"></a><span class="lineno">  105</span>    <span class="keyword">const</span> <span class="keywordtype">int</span> num_zeros = <span class="keyword">static_cast&lt;</span><span class="keywordtype">int</span><span class="keyword">&gt;</span>(numCoord * (1.0 - rate));</div>
 <div class="line"><a id="l00106" name="l00106"></a><span class="lineno">  106</span> </div>
-<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    randCoordinates.reserve(num_zeros);</div>
+<div class="line"><a id="l00107" name="l00107"></a><span class="lineno">  107</span>    std::vector&lt;std::tuple&lt;int, int&gt;&gt; randCoordinates;</div>
 <div class="line"><a id="l00108" name="l00108"></a><span class="lineno">  108</span> </div>
-<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    <span class="keywordflow">if</span> (!coordinates.size() || coordinates.size() != (numCoord)) {</div>
-<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span>      coordinates.clear();</div>
-<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>      coordinates.reserve(numCoord);</div>
-<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span> </div>
-<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; rows; i++) {</div>
-<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; cols; j++) {</div>
-<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>          coordinates.emplace_back(std::make_tuple(i, j));</div>
-<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        }</div>
-<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>      }</div>
-<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>    }</div>
-<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span> </div>
-<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    <span class="comment">// Randomly select tuples from coordinates</span></div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    std::sample(coordinates.begin(), coordinates.end(),</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>                std::back_inserter(randCoordinates), num_zeros, gen);</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">for</span> (std::tuple&lt;int, int&gt;&amp; coord : randCoordinates) {</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>      mask(std::get&lt;0&gt;(coord), std::get&lt;1&gt;(coord)) = 0;</div>
-<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    }</div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span> </div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    outputs = (inputs.array() * mask.array()) * scaleRate;</div>
+<div class="line"><a id="l00109" name="l00109"></a><span class="lineno">  109</span>    randCoordinates.reserve(num_zeros);</div>
+<div class="line"><a id="l00110" name="l00110"></a><span class="lineno">  110</span> </div>
+<div class="line"><a id="l00111" name="l00111"></a><span class="lineno">  111</span>    <span class="keywordflow">if</span> (!coordinates.size() || coordinates.size() != (numCoord)) {</div>
+<div class="line"><a id="l00112" name="l00112"></a><span class="lineno">  112</span>      coordinates.clear();</div>
+<div class="line"><a id="l00113" name="l00113"></a><span class="lineno">  113</span>      coordinates.reserve(numCoord);</div>
+<div class="line"><a id="l00114" name="l00114"></a><span class="lineno">  114</span> </div>
+<div class="line"><a id="l00115" name="l00115"></a><span class="lineno">  115</span>      <span class="keywordflow">for</span> (<span class="keywordtype">int</span> i = 0; i &lt; rows; i++) {</div>
+<div class="line"><a id="l00116" name="l00116"></a><span class="lineno">  116</span>        <span class="keywordflow">for</span> (<span class="keywordtype">int</span> j = 0; j &lt; cols; j++) {</div>
+<div class="line"><a id="l00117" name="l00117"></a><span class="lineno">  117</span>          coordinates.emplace_back(std::make_tuple(i, j));</div>
+<div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>        }</div>
+<div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>      }</div>
+<div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>    }</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span> </div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    <span class="comment">// Randomly select tuples from coordinates</span></div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>    std::sample(coordinates.begin(), coordinates.end(),</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>                std::back_inserter(randCoordinates), num_zeros, gen);</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span> </div>
+<div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>    <span class="keywordflow">for</span> (std::tuple&lt;int, int&gt;&amp; coord : randCoordinates) {</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>      mask(std::get&lt;0&gt;(coord), std::get&lt;1&gt;(coord)) = 0;</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    }</div>
 <div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordflow">return</span> outputs;</div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>  };</div>
-</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>};</div>
-</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>}  <span class="comment">// namespace NeuralNet</span></div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    Eigen::MatrixXd dO = (inputs.array() * mask.array()) * scaleRate;</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span> </div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    <span class="comment">// Caching outputs for training</span></div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>    <span class="keywordflow">if</span> (training) outputs = dO;</div>
 <div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span> </div>
-<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span><span class="keyword">namespace </span>cereal {</div>
-<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> Archive&gt;</div>
-<div class="foldopen" id="foldopen00137" data-start="{" data-end="};">
-<div class="line"><a id="l00137" name="l00137"></a><span class="lineno"><a class="line" href="structcereal_1_1specialize_3_01Archive_00_01NeuralNet_1_1Dropout_00_01cereal_1_1specialization_1_1member__serialize_01_4.html">  137</a></span><span class="keyword">struct </span>specialize&lt;Archive, NeuralNet::Dropout,</div>
-<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>                  cereal::specialization::member_serialize&gt; {};</div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    <span class="keywordflow">return</span> dO;</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span>  };</div>
 </div>
-<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>}  <span class="comment">// namespace cereal</span></div>
-<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span> </div>
-<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span>CEREAL_REGISTER_TYPE(<a class="code hl_class" href="classNeuralNet_1_1Dropout.html">NeuralNet::Dropout</a>);</div>
-<div class="line"><a id="l00142" name="l00142"></a><span class="lineno">  142</span> </div>
-<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>CEREAL_REGISTER_POLYMORPHIC_RELATION(<a class="code hl_class" href="classNeuralNet_1_1Layer.html">NeuralNet::Layer</a>, <a class="code hl_class" href="classNeuralNet_1_1Dropout.html">NeuralNet::Dropout</a>);</div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>};</div>
+</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>}  <span class="comment">// namespace NeuralNet</span></div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span> </div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span><span class="keyword">namespace </span>cereal {</div>
+<div class="line"><a id="l00141" name="l00141"></a><span class="lineno">  141</span><span class="keyword">template</span> &lt;<span class="keyword">class</span> Archive&gt;</div>
+<div class="foldopen" id="foldopen00142" data-start="{" data-end="};">
+<div class="line"><a id="l00142" name="l00142"></a><span class="lineno"><a class="line" href="structcereal_1_1specialize_3_01Archive_00_01NeuralNet_1_1Dropout_00_01cereal_1_1specialization_1_1member__serialize_01_4.html">  142</a></span><span class="keyword">struct </span>specialize&lt;Archive, NeuralNet::Dropout,</div>
+<div class="line"><a id="l00143" name="l00143"></a><span class="lineno">  143</span>                  cereal::specialization::member_serialize&gt; {};</div>
+</div>
+<div class="line"><a id="l00144" name="l00144"></a><span class="lineno">  144</span>}  <span class="comment">// namespace cereal</span></div>
+<div class="line"><a id="l00145" name="l00145"></a><span class="lineno">  145</span> </div>
+<div class="line"><a id="l00146" name="l00146"></a><span class="lineno">  146</span>CEREAL_REGISTER_TYPE(<a class="code hl_class" href="classNeuralNet_1_1Dropout.html">NeuralNet::Dropout</a>);</div>
+<div class="line"><a id="l00147" name="l00147"></a><span class="lineno">  147</span> </div>
+<div class="line"><a id="l00148" name="l00148"></a><span class="lineno">  148</span>CEREAL_REGISTER_POLYMORPHIC_RELATION(<a class="code hl_class" href="classNeuralNet_1_1Layer.html">NeuralNet::Layer</a>, <a class="code hl_class" href="classNeuralNet_1_1Dropout.html">NeuralNet::Dropout</a>);</div>
 <div class="ttc" id="aclassNeuralNet_1_1Dropout_html"><div class="ttname"><a href="classNeuralNet_1_1Dropout.html">NeuralNet::Dropout</a></div><div class="ttdef"><b>Definition</b> Dropout.hpp:17</div></div>
-<div class="ttc" id="aclassNeuralNet_1_1Dropout_html_a1157d66873ebfeb95033505ac1de61fb"><div class="ttname"><a href="classNeuralNet_1_1Dropout.html#a1157d66873ebfeb95033505ac1de61fb">NeuralNet::Dropout::computeOutputs</a></div><div class="ttdeci">Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs) override</div><div class="ttdoc">Drop some of the inputs randomly at the given rate.</div><div class="ttdef"><b>Definition</b> Dropout.hpp:95</div></div>
-<div class="ttc" id="aclassNeuralNet_1_1Dropout_html_a1fd92d6e6e9fbe6e38812929bedfdff1"><div class="ttname"><a href="classNeuralNet_1_1Dropout.html#a1fd92d6e6e9fbe6e38812929bedfdff1">NeuralNet::Dropout::init</a></div><div class="ttdeci">void init(int numNeurons) override</div><div class="ttdef"><b>Definition</b> Dropout.hpp:86</div></div>
+<div class="ttc" id="aclassNeuralNet_1_1Dropout_html_a0fb63e660b04a761437ab9627e1eff10"><div class="ttname"><a href="classNeuralNet_1_1Dropout.html#a0fb63e660b04a761437ab9627e1eff10">NeuralNet::Dropout::feedInputs</a></div><div class="ttdeci">Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs, bool training=false) override</div><div class="ttdoc">This method is used to feed the inputs to the layer.</div><div class="ttdef"><b>Definition</b> Dropout.hpp:53</div></div>
+<div class="ttc" id="aclassNeuralNet_1_1Dropout_html_a1fd92d6e6e9fbe6e38812929bedfdff1"><div class="ttname"><a href="classNeuralNet_1_1Dropout.html#a1fd92d6e6e9fbe6e38812929bedfdff1">NeuralNet::Dropout::init</a></div><div class="ttdeci">void init(int numNeurons) override</div><div class="ttdef"><b>Definition</b> Dropout.hpp:87</div></div>
+<div class="ttc" id="aclassNeuralNet_1_1Dropout_html_a572fa0fb5b3ff1cf3d6e865e1a9cc712"><div class="ttname"><a href="classNeuralNet_1_1Dropout.html#a572fa0fb5b3ff1cf3d6e865e1a9cc712">NeuralNet::Dropout::computeOutputs</a></div><div class="ttdeci">Eigen::MatrixXd computeOutputs(Eigen::MatrixXd inputs, bool training) override</div><div class="ttdoc">Drop some of the inputs randomly at the given rate.</div><div class="ttdef"><b>Definition</b> Dropout.hpp:96</div></div>
 <div class="ttc" id="aclassNeuralNet_1_1Dropout_html_a7de97c764db64de66e69f7f7878e1427"><div class="ttname"><a href="classNeuralNet_1_1Dropout.html#a7de97c764db64de66e69f7f7878e1427">NeuralNet::Dropout::getSlug</a></div><div class="ttdeci">std::string getSlug() const override</div><div class="ttdoc">Dropout layer slug.</div><div class="ttdef"><b>Definition</b> Dropout.hpp:42</div></div>
 <div class="ttc" id="aclassNeuralNet_1_1Dropout_html_a8a5d9de4a104f66d3378d57d39e2d0e9"><div class="ttname"><a href="classNeuralNet_1_1Dropout.html#a8a5d9de4a104f66d3378d57d39e2d0e9">NeuralNet::Dropout::Dropout</a></div><div class="ttdeci">Dropout(float rate, unsigned int seed=0)</div><div class="ttdoc">The Dropout layer randomly sets input units to 0 with a frequency of rate at each step during trainin...</div><div class="ttdef"><b>Definition</b> Dropout.hpp:32</div></div>
-<div class="ttc" id="aclassNeuralNet_1_1Dropout_html_a9dc59366393153f082a0ea9f8a46be7e"><div class="ttname"><a href="classNeuralNet_1_1Dropout.html#a9dc59366393153f082a0ea9f8a46be7e">NeuralNet::Dropout::feedInputs</a></div><div class="ttdeci">Eigen::MatrixXd feedInputs(Eigen::MatrixXd inputs) override</div><div class="ttdoc">This method is used to feed the inputs to the layer.</div><div class="ttdef"><b>Definition</b> Dropout.hpp:53</div></div>
 <div class="ttc" id="aclassNeuralNet_1_1Layer_html"><div class="ttname"><a href="classNeuralNet_1_1Layer.html">NeuralNet::Layer</a></div><div class="ttdef"><b>Definition</b> Layer.hpp:26</div></div>
 </div><!-- fragment --></div><!-- contents -->
 <!-- start footer part -->

@@ -88,15 +88,16 @@ $(function(){ initResizable(false); });
 </div><!-- top -->
 <div id="doc-content">
 <div class="header">
-  <div class="headertitle"><div class="title">NeuralNet::TrainingData&lt; I, L &gt; Member List</div></div>
+  <div class="headertitle"><div class="title">NeuralNet::TrainingData&lt; X, Y &gt; Member List</div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>This is the complete list of members for <a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData&lt; I, L &gt;</a>, including all inherited members.</p>
+<p>This is the complete list of members for <a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData&lt; X, Y &gt;</a>, including all inherited members.</p>
 <table class="directory">
-  <tr class="even"><td class="entry"><a class="el" href="classNeuralNet_1_1TrainingData.html#a8a532f4726a8f0033b5ca76c6bcf861e">batch</a>(int batchSize)</td><td class="entry"><a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData&lt; I, L &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
-  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>Network</b> (defined in <a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData&lt; I, L &gt;</a>)</td><td class="entry"><a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData&lt; I, L &gt;</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classNeuralNet_1_1TrainingData.html#ac2e6d5aa40e7271bb363704e656de0e0">TrainingData</a>(I inputs_data, L labels_data)</td><td class="entry"><a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData&lt; I, L &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr class="even"><td class="entry"><a class="el" href="classNeuralNet_1_1TrainingData.html#a4eef79eb7fef12ff9a31229738f517a0">batch</a>(int batchSize, bool stratified=false, bool shuffle=false, bool dropLast=false, bool verbose=false)</td><td class="entry"><a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData&lt; X, Y &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="odd"><td class="entry"><b>getMiniBatches</b>() (defined in <a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData&lt; X, Y &gt;</a>)</td><td class="entry"><a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData&lt; X, Y &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>Network</b> (defined in <a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData&lt; X, Y &gt;</a>)</td><td class="entry"><a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData&lt; X, Y &gt;</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr class="odd"><td class="entry"><a class="el" href="classNeuralNet_1_1TrainingData.html#a289f1a08040a1687a64c301dbc88f3ed">TrainingData</a>(X xTrain, Y yTrain, X xTest=X(), Y yTest=Y())</td><td class="entry"><a class="el" href="classNeuralNet_1_1TrainingData.html">NeuralNet::TrainingData&lt; X, Y &gt;</a></td><td class="entry"><span class="mlabel">inline</span></td></tr>
 </table></div><!-- contents -->
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>

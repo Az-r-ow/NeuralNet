@@ -184,21 +184,27 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00118" name="l00118"></a><span class="lineno">  118</span>      csvRow += std::to_string(el) + separator;</div>
 <div class="line"><a id="l00119" name="l00119"></a><span class="lineno">  119</span>    }</div>
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span> </div>
-<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="keywordflow">return</span> csvRow + <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>  };</div>
+<div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>    <span class="comment">// Remove last &quot;,&quot;</span></div>
+<div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>    csvRow.pop_back();</div>
 <div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span> </div>
-<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>  std::string formatRow(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;v) {</div>
-<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    std::string csvRow;</div>
+<div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    <span class="keywordflow">return</span> csvRow + <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>  };</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span> </div>
-<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string &amp;el : v) {</div>
-<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>      csvRow += el + separator;</div>
-<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span>    }</div>
-<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span> </div>
-<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>    <span class="keywordflow">return</span> csvRow + <span class="stringliteral">&quot;\n&quot;</span>;</div>
-<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>  };</div>
-<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span>};</div>
+<div class="line"><a id="l00127" name="l00127"></a><span class="lineno">  127</span>  std::string formatRow(<span class="keyword">const</span> std::vector&lt;std::string&gt; &amp;v) {</div>
+<div class="line"><a id="l00128" name="l00128"></a><span class="lineno">  128</span>    std::string csvRow;</div>
+<div class="line"><a id="l00129" name="l00129"></a><span class="lineno">  129</span> </div>
+<div class="line"><a id="l00130" name="l00130"></a><span class="lineno">  130</span>    <span class="keywordflow">for</span> (<span class="keyword">const</span> std::string &amp;el : v) {</div>
+<div class="line"><a id="l00131" name="l00131"></a><span class="lineno">  131</span>      csvRow += el + separator;</div>
+<div class="line"><a id="l00132" name="l00132"></a><span class="lineno">  132</span>    }</div>
+<div class="line"><a id="l00133" name="l00133"></a><span class="lineno">  133</span> </div>
+<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>    <span class="comment">// Remove last &quot;,&quot;</span></div>
+<div class="line"><a id="l00135" name="l00135"></a><span class="lineno">  135</span>    csvRow.pop_back();</div>
+<div class="line"><a id="l00136" name="l00136"></a><span class="lineno">  136</span> </div>
+<div class="line"><a id="l00137" name="l00137"></a><span class="lineno">  137</span>    <span class="keywordflow">return</span> csvRow + <span class="stringliteral">&quot;\n&quot;</span>;</div>
+<div class="line"><a id="l00138" name="l00138"></a><span class="lineno">  138</span>  };</div>
+<div class="line"><a id="l00139" name="l00139"></a><span class="lineno">  139</span>};</div>
 </div>
-<div class="line"><a id="l00134" name="l00134"></a><span class="lineno">  134</span>}  <span class="comment">// namespace NeuralNet</span></div>
+<div class="line"><a id="l00140" name="l00140"></a><span class="lineno">  140</span>}  <span class="comment">// namespace NeuralNet</span></div>
 <div class="ttc" id="aclassNeuralNet_1_1CSVLogger_html"><div class="ttname"><a href="classNeuralNet_1_1CSVLogger.html">NeuralNet::CSVLogger</a></div><div class="ttdef"><b>Definition</b> CSVLogger.hpp:12</div></div>
 <div class="ttc" id="aclassNeuralNet_1_1CSVLogger_html_a02f77299556b3efe93f98219dfe4b018"><div class="ttname"><a href="classNeuralNet_1_1CSVLogger.html#a02f77299556b3efe93f98219dfe4b018">NeuralNet::CSVLogger::onEpochEnd</a></div><div class="ttdeci">void onEpochEnd(Model &amp;model) override</div><div class="ttdoc">This method will be called at the end of each epoch.</div><div class="ttdef"><b>Definition</b> CSVLogger.hpp:37</div></div>
 <div class="ttc" id="aclassNeuralNet_1_1CSVLogger_html_a47f21d819a4100d73c6875efb249becf"><div class="ttname"><a href="classNeuralNet_1_1CSVLogger.html#a47f21d819a4100d73c6875efb249becf">NeuralNet::CSVLogger::onTrainEnd</a></div><div class="ttdeci">void onTrainEnd(Model &amp;model) override</div><div class="ttdoc">This method will be called at the end of the training.</div><div class="ttdef"><b>Definition</b> CSVLogger.hpp:81</div></div>

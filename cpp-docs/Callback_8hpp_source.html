@@ -172,12 +172,14 @@ $(function(){ initResizable(false); });
 <div class="line"><a id="l00088" name="l00088"></a><span class="lineno">   88</span>    logs[<span class="stringliteral">&quot;EPOCH&quot;</span>] = model.cEpoch;</div>
 <div class="line"><a id="l00089" name="l00089"></a><span class="lineno">   89</span>    logs[<span class="stringliteral">&quot;ACCURACY&quot;</span>] = model.accuracy;</div>
 <div class="line"><a id="l00090" name="l00090"></a><span class="lineno">   90</span>    logs[<span class="stringliteral">&quot;LOSS&quot;</span>] = model.loss;</div>
-<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span> </div>
-<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    <span class="keywordflow">return</span> logs;</div>
-<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span>  };</div>
-<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>};</div>
+<div class="line"><a id="l00091" name="l00091"></a><span class="lineno">   91</span>    logs[<span class="stringliteral">&quot;TEST_ACCURACY&quot;</span>] = model.testAccuracy;</div>
+<div class="line"><a id="l00092" name="l00092"></a><span class="lineno">   92</span>    logs[<span class="stringliteral">&quot;TEST_LOSS&quot;</span>] = model.testLoss;</div>
+<div class="line"><a id="l00093" name="l00093"></a><span class="lineno">   93</span> </div>
+<div class="line"><a id="l00094" name="l00094"></a><span class="lineno">   94</span>    <span class="keywordflow">return</span> logs;</div>
+<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>  };</div>
+<div class="line"><a id="l00096" name="l00096"></a><span class="lineno">   96</span>};</div>
 </div>
-<div class="line"><a id="l00095" name="l00095"></a><span class="lineno">   95</span>}  <span class="comment">// namespace NeuralNet</span></div>
+<div class="line"><a id="l00097" name="l00097"></a><span class="lineno">   97</span>}  <span class="comment">// namespace NeuralNet</span></div>
 <div class="ttc" id="aclassNeuralNet_1_1Callback_html"><div class="ttname"><a href="classNeuralNet_1_1Callback.html">NeuralNet::Callback</a></div><div class="ttdef"><b>Definition</b> Callback.hpp:19</div></div>
 <div class="ttc" id="aclassNeuralNet_1_1Callback_html_a83beac16774d98e5abb669aea1abe69b"><div class="ttname"><a href="classNeuralNet_1_1Callback.html#a83beac16774d98e5abb669aea1abe69b">NeuralNet::Callback::callMethod</a></div><div class="ttdeci">static void callMethod(std::shared_ptr&lt; T &gt; callback, const std::string &amp;methodName, Model &amp;model)</div><div class="ttdoc">Calls the method of the callback with the given logs.</div><div class="ttdef"><b>Definition</b> Callback.hpp:43</div></div>
 <div class="ttc" id="aclassNeuralNet_1_1Model_html"><div class="ttname"><a href="classNeuralNet_1_1Model.html">NeuralNet::Model</a></div><div class="ttdef"><b>Definition</b> Model.hpp:17</div></div>
