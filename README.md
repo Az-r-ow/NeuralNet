@@ -1,3 +1,9 @@
+<div style="height: 100px; background-color: white; display: flex; justify-content: center; align-items: center;">
+ <img src="./assets/neural-net.png" alt="NeuralNet Logo" />
+</div>
+
+---
+
 # NeuralNet in CPP :
 
 This is my take on implementing a neural network in cpp. Keeping in mind that I learned cpp a couple of weeks prior to starting the project. You can see my programming style adapting and improving (hopefully) throughout the commits.
