@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['tests_0',['Tests',['../index.html#autotoc_md4',1,'']]],
-  ['the_20code_1',['Build the code',['../index.html#autotoc_md3',1,'']]],
-  ['the_20importance_20of_20weight_20initialization_20functions_2',['The importance of weight initialization functions',['../index.html#autotoc_md8',1,'']]],
+  ['tests_0',['Tests',['../index.html#autotoc_md5',1,'']]],
+  ['the_20code_1',['Build the code',['../index.html#autotoc_md4',1,'']]],
+  ['the_20importance_20of_20weight_20initialization_20functions_2',['The importance of weight initialization functions',['../index.html#autotoc_md9',1,'']]],
   ['to_5ffile_3',['to_file',['../classNeuralNet_1_1Network.html#af9ebd70431888121269b92d06621135e',1,'NeuralNet::Network']]],
   ['train_4',['train',['../classNeuralNet_1_1Network.html#aa295782e0f3531be8f22ae2b80ec8f54',1,'NeuralNet::Network::train(std::vector&lt; std::vector&lt; double &gt; &gt; X, std::vector&lt; double &gt; y, int epochs=1, const std::vector&lt; std::shared_ptr&lt; Callback &gt; &gt; callbacks={}, bool progBar=true)'],['../classNeuralNet_1_1Network.html#a5f6a582425ebd8e84898dd9b424be28e',1,'NeuralNet::Network::train(std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt; X, std::vector&lt; double &gt; y, int epochs=1, const std::vector&lt; std::shared_ptr&lt; Callback &gt; &gt; callbacks={}, bool progBar=true)'],['../classNeuralNet_1_1Network.html#a8b5e3e979fdb272667edc98f862164a9',1,'NeuralNet::Network::train(TrainingData&lt; std::vector&lt; std::vector&lt; double &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1, const std::vector&lt; std::shared_ptr&lt; Callback &gt; &gt; callbacks={}, bool progBar=true)'],['../classNeuralNet_1_1Network.html#ae57c85a32756adb9654fe8e74f13e512',1,'NeuralNet::Network::train(TrainingData&lt; std::vector&lt; std::vector&lt; std::vector&lt; double &gt; &gt; &gt;, std::vector&lt; double &gt; &gt; trainingData, int epochs=1, const std::vector&lt; std::shared_ptr&lt; Callback &gt; &gt; callbacks={}, bool progBar=true)']]],
   ['trainingdata_5',['TrainingData',['../classNeuralNet_1_1TrainingData.html',1,'NeuralNet::TrainingData&lt; X, Y &gt;'],['../classNeuralNet_1_1TrainingData.html#a289f1a08040a1687a64c301dbc88f3ed',1,'NeuralNet::TrainingData::TrainingData()']]],

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['_3a_0',['NeuralNet in CPP :',['../index.html',1,'']]]
+  ['neuralnet_0',['NeuralNet',['../index.html',1,'']]]
 ];

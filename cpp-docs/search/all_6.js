@@ -4,5 +4,5 @@ var searchData=
   ['flatten_1',['Flatten',['../classNeuralNet_1_1Flatten.html',1,'NeuralNet::Flatten'],['../classNeuralNet_1_1Flatten.html#a58993cf3bbad91fb4f3dc4570278e82c',1,'NeuralNet::Flatten::Flatten(std::tuple&lt; int, int &gt; inputShape)']]],
   ['flatten_2',['flatten',['../classNeuralNet_1_1Flatten.html#a715f3cb27e42842f4ac5fd10c67f3028',1,'NeuralNet::Flatten']]],
   ['from_5ffile_3',['from_file',['../classNeuralNet_1_1Network.html#abf50f5dfef528dd4bc7542f562e1963d',1,'NeuralNet::Network']]],
-  ['functions_4',['The importance of weight initialization functions',['../index.html#autotoc_md8',1,'']]]
+  ['functions_4',['The importance of weight initialization functions',['../index.html#autotoc_md9',1,'']]]
 ];

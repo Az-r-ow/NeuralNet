@@ -3,7 +3,7 @@ var indexSectionsWithContent =
   0: ":abcdefgilmnopqrstuw⚖📖🔗",
   1: "abcdefglmnoqrst",
   2: "abcdefgilopstu",
-  3: ":cin"
+  3: "n"
 };
 
 var indexSectionNames =

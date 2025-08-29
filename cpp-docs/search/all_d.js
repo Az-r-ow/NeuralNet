@@ -4,5 +4,5 @@ var searchData=
   ['printoutputs_1',['printOutputs',['../classNeuralNet_1_1Layer.html#ab2b004ab5c1bb057f4ca568b55a47ef4',1,'NeuralNet::Layer']]],
   ['printweights_2',['printWeights',['../classNeuralNet_1_1Dense.html#ae5974e48385e236cec78b338ec62579d',1,'NeuralNet::Dense']]],
   ['printwithlanda_3',['printWithLAndA',['../classNeuralNet_1_1TrainingGauge.html#a7ddb368eeecc30d88efbe51c0edd1885',1,'NeuralNet::TrainingGauge']]],
-  ['python_20bindings_4',['🔗 Python Bindings',['../index.html#autotoc_md7',1,'']]]
+  ['python_20bindings_4',['🔗 Python Bindings',['../index.html#autotoc_md8',1,'']]]
 ];
